@@ -38,7 +38,7 @@ class Espinoso
         return $handlers;
     }
 
-    private static handleError(\Exception $e, $updates)
+    private static function handleError(\Exception $e, $updates)
     {
         $message = "```" . $e->getMessage() . "```";
         $text = "No quiero amargarles la charla, pero falló algo gente: \n$message\n";
