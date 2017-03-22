@@ -19,12 +19,4 @@ class Espinoso
         }
         return $handlers;
     }
-
-    private static function cfg($name) 
-    { 
-        return ; 
-    }
-
-
-
 }
