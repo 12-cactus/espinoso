@@ -8,32 +8,29 @@ class TelegramController extends Controller
 {
     public function handleUpdates()
     {
-        function ()
-        {
-            $updates = Telegram::getWebhookUpdates();
-            $updates = json_decode($updates);
+        $updates = Telegram::getWebhookUpdates();
+        $updates = json_decode($updates);
 
-            $text = $updates->message->text;
-            $needle = "macri";
+        $text = $updates->message->text;
+        $needle = "macri";
 
-            if (strpos($text, $needle) !== false) {
-                $response = Telegram::sendMessage([
-                    'chat_id' => $updates->message->chat->id,
-                    'text' => 'Gato'
-                ]);
-            }
-
-            $text = $updates->message->text;
-            $needle = "facu";
-
-            if (strpos($text, $needle) !== false) {
-                $response = Telegram::sendMessage([
-                    'chat_id' => $updates->message->chat->id,
-                    'text' => 'Facu... ese tipo es medio puto'
-                ]);
-            }
-
+        if (strpos($text, $needle) !== false) {
+            $response = Telegram::sendMessage([
+                'chat_id' => $updates->message->chat->id,
+                'text' => 'Gato'
+            ]);
         }
+
+        $text = $updates->message->text;
+        $needle = "facu";
+
+        if (strpos($text, $needle) !== false) {
+            $response = Telegram::sendMessage([
+                'chat_id' => $updates->message->chat->id,
+                'text' => 'Facu... ese tipo es medio puto'
+            ]);
+        }
+
     }
 
     public function setWebhook()
