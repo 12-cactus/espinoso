@@ -1,5 +1,6 @@
 <?php
 namespace App\Telegram;
+use Telegram\Bot\Laravel\Facades\Telegram;
 
 class Espinoso
 {
