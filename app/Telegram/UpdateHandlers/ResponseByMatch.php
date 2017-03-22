@@ -12,7 +12,7 @@ class ResponseByMatch implements UpdateHandler
 
     public function shouldHandle($updates, $context=null) 
     {
-        foreach ($this->mappings as $needle, $response)
+        foreach ($this->mappings as $needle => $response)
             if ( preg_match($needle, $updates->message->text) )
                 return true ; 
         return false ; 
@@ -20,7 +20,7 @@ class ResponseByMatch implements UpdateHandler
 
     public function handle($updates, $context=null)
     {
-        foreach ($this->mappings as $needle, $response)
+        foreach ($this->mappings as $needle => $response)
         {
             if ( preg_match($needle, $updates->message->text) ) 
             {
