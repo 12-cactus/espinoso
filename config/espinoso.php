@@ -1,7 +1,7 @@
 <?php
 return [
 
-	'registered_handlers' => [ 
+	'handlers' => [ 
 		App\Telegram\UpdateHandlers\ResponseByMatch::class
 	]
 ];
