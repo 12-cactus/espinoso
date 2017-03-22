@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Telegram;
 class FuckHeroku
 {
 	public static function log($loggable)
