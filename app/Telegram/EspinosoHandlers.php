@@ -37,12 +37,12 @@ class EspinosoHandlers
         return $this->_config[$name]; 
     }
 
-	private static function instance()
-	{
+    private static function instance()
+    {
         if ( ! self::$_instance )
             self::$_instance = new EspinosoHandlers;
         return self::$_instance; 
-	}
+    }
 
 
 }
