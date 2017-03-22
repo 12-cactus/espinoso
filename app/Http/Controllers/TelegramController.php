@@ -8,16 +8,10 @@ class TelegramController extends Controller
 {
     public function handleUpdates()
     {
-        try {
-            $updates = Telegram::getWebhookUpdates();
-            $updates = json_decode($updates);
+        $updates = Telegram::getWebhookUpdates();
+        $updates = json_decode($updates);
 
-            Espinoso::handleTelegramUpdates($updates);
-        } catch (\Exception $e) 
-        {
-            trigger_error(var_export($e->getTraceAsString(), true), E_USER_ERROR);
-
-        }
+        Espinoso::handleTelegramUpdates($updates);
     }
 
     public function setWebhook()

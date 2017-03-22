@@ -16,7 +16,7 @@ class Espinoso
                     $handler->handle($updates);
             }  catch (\Exception $e) 
             {
-                $this->handleError($e, $updates);
+                self::handleError($e, $updates);
             }
         }
     }
