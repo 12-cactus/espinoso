@@ -16,15 +16,7 @@ class Espinoso
                     $handler->handle($updates);
             }  catch (\Exception $e) 
             {
-                $message = "```" . $e->getMessage() . "```";
-                $text = "No quiero amargarles la charla, pero falló algo gente: \n$message\n";
-
-                $response = Telegram::sendMessage([
-                    'chat_id' => $updates->message->chat->id,
-                    'text' => $text
-                ]);
-
-                Log::error($e);
+                $this->handleError($e, $updates);
             }
         }
     }
@@ -44,5 +36,19 @@ class Espinoso
             $handlers[] = new $handlerClass; 
         }
         return $handlers;
+    }
+
+    private static handleError(\Exception $e, $updates)
+    {
+        $message = "```" . $e->getMessage() . "```";
+        trigger_error(var_export($e->getTraceAsString(), true), E_USER_ERROR);
+        $text = "No quiero amargarles la charla, pero falló algo gente: \n$message\n";
+
+        $response = Telegram::sendMessage([
+            'chat_id' => $updates->message->chat->id,
+            'text' => $text
+        ]);
+
+        Log::error($e);
     }
 }
