@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Telegram\Bot\Laravel\Facades\Telegram;
@@ -12,11 +11,7 @@ class TelegramController extends Controller
         $updates = Telegram::getWebhookUpdates();
         $updates = json_decode($updates);
 
-        $handlers = Espinoso::getRegisteredHandlers();
-
-        foreach ($handlers as $key => $handler)
-            if ($handler->shouldHandle($updates))
-                $handler->handle($updates);
+        Espinoso::handleTelegramUpdates($updates);
     }
 
     public function setWebhook()
