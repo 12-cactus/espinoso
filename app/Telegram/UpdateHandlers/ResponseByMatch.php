@@ -8,7 +8,7 @@ class ResponseByMatch implements UpdateHandler
     private $mappings = [
         '/macri/i' => 'Gato',
         '/marcos/i' => '¿Quisiste decir Markos?',
-        '/facu/i'  => 'Facu... ese tipo es medio puto'
+        '/facu/i'  => 'Facu... ese tipo es medio puto',
         '/dan/i'  => 'ese tiene tatuado pattern matching en el culo!'
     ];
 
