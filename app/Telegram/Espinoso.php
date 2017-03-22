@@ -41,7 +41,6 @@ class Espinoso
     private static handleError(\Exception $e, $updates)
     {
         $message = "```" . $e->getMessage() . "```";
-        trigger_error(var_export($e->getTraceAsString(), true), E_USER_ERROR);
         $text = "No quiero amargarles la charla, pero falló algo gente: \n$message\n";
 
         $response = Telegram::sendMessage([
