@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Telegram\Bot\Laravel\Facades\Telegram;
-use App\Telegram\EspinosoHandlers ;
+use App\Telegram\Espinoso ;
 
 class TelegramController extends Controller
 {
@@ -13,7 +13,7 @@ class TelegramController extends Controller
         $updates = json_decode($updates);
         dump($updates);
 
-        $handlers = EspinosoHandlers::getRegisteredHandlers();
+        $handlers = Espinoso::getRegisteredHandlers();
 
         foreach ($handlers as $key => $handler)
             if ($handler->shouldHandle($updates))

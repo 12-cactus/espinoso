@@ -1,10 +1,8 @@
 <?php
 namespace App\Telegram;
 
-class EspinosoHandlers
+class Espinoso
 {
-    const configFile = 'espinoso_handlers.php';
-
     private static $_instance ; 
     private $_config ; 
 
@@ -25,16 +23,9 @@ class EspinosoHandlers
         return $handlers;
     }
 
-
-    private function __construct()
-    {
-        $path = config_path( self::configFile );
-        $this->_config = include($path);
-    }
-
     private function cfg($name) 
     { 
-        return $this->_config[$name]; 
+        return config('espinoso.registered_handlers'); 
     }
 
     private static function instance()
