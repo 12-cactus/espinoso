@@ -26,6 +26,6 @@ class TelegramController extends Controller
 
     public function freakingErrors()
     {
-        return \App\Telegram\FuckHeroku::get_log($loggable);
+        return \App\Telegram\FuckHeroku::get_log();
     }
 }
