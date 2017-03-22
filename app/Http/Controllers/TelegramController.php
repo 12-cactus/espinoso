@@ -15,7 +15,7 @@ class TelegramController extends Controller
         Espinoso::handleTelegramUpdates($updates);
         } catch (\Exception $e)
         {
-            App\Telegram\FuckHeroku::log($e);
+            \App\Telegram\FuckHeroku::log($e);
         }
     }
 
@@ -26,6 +26,6 @@ class TelegramController extends Controller
 
     public function freakingErrors()
     {
-        return App\Telegram\FuckHeroku::get_log($loggable);
+        return \App\Telegram\FuckHeroku::get_log($loggable);
     }
 }
