@@ -11,6 +11,7 @@ class TelegramController extends Controller
     {
         $updates = Telegram::getWebhookUpdates();
         $updates = json_decode($updates);
+        dump($updates);
 
         $handlers = EspinosoHandlers::getRegisteredHandlers();
 
