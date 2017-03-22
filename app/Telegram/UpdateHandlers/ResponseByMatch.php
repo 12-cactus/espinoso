@@ -9,6 +9,7 @@ class ResponseByMatch implements UpdateHandler
         '/macri/i' => 'Gato',
         '/marcos/i' => '¿Quisiste decir Markos?',
         '/facu/i'  => 'Facu... ese tipo es medio puto'
+        '/dan/i'  => 'ese tiene tatuado pattern matching en el culo!'
     ];
 
     public function shouldHandle($updates, $context=null) 
