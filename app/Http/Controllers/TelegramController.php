@@ -15,12 +15,17 @@ class TelegramController extends Controller
         Espinoso::handleTelegramUpdates($updates);
         } catch (\Exception $e)
         {
-            trigger_error(var_export($e->getTraceAsString(), true), E_USER_ERROR);
+            \Telegram\FuckHeroku::log($e);
         }
     }
 
     public function setWebhook()
     {
         return Telegram::setWebhook(['url' => 'https://espinoso.herokuapp.com/handle-update']);
+    }
+
+    public function freakingErrors()
+    {
+        return \Telegram\FuckHeroku::get_log($loggable);
     }
 }

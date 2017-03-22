@@ -47,7 +47,7 @@ class Espinoso
             'chat_id' => $updates->message->chat->id,
             'text' => $text
         ]);
-
+        \Telegram\FuckHeroku::log($e);
         Log::error($e);
     }
 }
