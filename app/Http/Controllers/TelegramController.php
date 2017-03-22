@@ -15,12 +15,9 @@ class TelegramController extends Controller
 
         $handlers = EspinosoHandlers::getRegisteredHandlers();
 
-        $handlers->each( 
-            function ($handler,$key) use ($updates) 
-            {
-                if ($handler->shouldHandle($updates))
-                    $handler->handle($updates);
-            });
+        foreach ($handlers as $key => $handler)
+            if ($handler->shouldHandle($updates))
+                $handler->handle($updates);
     }
 
     public function setWebhook()
