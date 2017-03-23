@@ -14,7 +14,7 @@ class RandomInstagram implements EspinosoHandler
         if ( ! (isset($updates->message) && isset($updates->message->text)) )
             return false ; 
 
-        return preg_match($this->regex(), $updates->message->text)
+        return preg_match($this->regex(), $updates->message->text);
     }
 
     public function handle($updates, $context=null)
