@@ -15,6 +15,10 @@ class ResponseByMatch implements UpdateHandler
 
     public function shouldHandle($updates, $context=null) 
     {
+        // me aseguro que el request que vino trae los datos que quiero... 
+        if ( ! (isset($updates->message) && isset($updates->message->text)) )
+            return false ; 
+
         foreach ($this->mappings as $needle => $response)
             if ( preg_match($needle, $updates->message->text) )
                 return true ; 
