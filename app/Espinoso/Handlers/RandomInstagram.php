@@ -4,17 +4,13 @@ namespace App\Espinoso\Handlers ;
 use Telegram\Bot\Laravel\Facades\Telegram;
 use Vinkla\Instagram\Instagram;
 
-class RandomInstagram implements EspinosoHandler
+class RandomInstagram extends EspinosoHandler
 {
     const KEYWORD = 'ig'; 
 
     public function shouldHandle($updates, $context=null) 
     {
-        // me aseguro que el request que vino trae los datos que quiero... 
-        if ( ! (isset($updates->message) && isset($updates->message->text)) )
-            return false ; 
-
-        return preg_match($this->regex(), $updates->message->text);
+        return  $this->isTextMessage($updates) && preg_match($this->regex(), $updates->message->text);
     }
 
     public function handle($updates, $context=null)
@@ -44,6 +40,6 @@ class RandomInstagram implements EspinosoHandler
 
     private function regex()
     {
-        return "/^" . KEYWORD . "[ ]*([^ ]*)$/i";
+        return "/^" . self::KEYWORD . "[ ]*([^ ]*)$/i";
     }
 }
