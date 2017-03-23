@@ -8,12 +8,12 @@ class Msg
 
 	public static function md($msg)
 	{
-		return new Msg($msg, 'Markdown')
+		return new Msg($msg, 'Markdown');
 	}
 
 	public static function html($msg)
 	{
-		return new Msg($msg, 'HTML')
+		return new Msg($msg, 'HTML');
 	}
 
 	public static function plain($msg)

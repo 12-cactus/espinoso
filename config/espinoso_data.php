@@ -28,8 +28,6 @@ $rbmMappings =  [
     '/espinoso.*como.*andas\??$/i'         =>  Msg::md([ 'He tenido dias mejores..', 'de lujo' , 'que carajo te importa?' ]) ,
     '/espinoso.*pensas.*smalltalk\??$/i'   => Msg::md([ 'Amo su pureza..', '`MNU`' ]) ,
     '/([0-9][0-9]*)[ ]*\+[ ]*([0-9][0-9]*)/' => Msg::md($suma),
-
-
 ];
 
 $rbmMappings['/espinoso.*claves.*/i'] = "Reconozco todas estas: \n" . implode("\n", array_keys($rbmMappings));
