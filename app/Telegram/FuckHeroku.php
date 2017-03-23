@@ -5,7 +5,7 @@ class FuckHeroku
 	public static function log($loggable)
 	{
 		$file = storage_path('logs/fuckheroku.log'); 
-		$data = \nSTART LOG------------\n . self::format_loggable($loggable) . "\nEND LOG------------\n; 
+		$data = "\nSTART LOG------------\n . self::format_loggable($loggable) . "\nEND LOG------------\n; 
 		file_put_contents($file, $data, FILE_APPEND);
 	}
 	public static function get_log()
