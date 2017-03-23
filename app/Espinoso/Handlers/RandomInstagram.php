@@ -19,7 +19,7 @@ class RandomInstagram implements EspinosoHandler
 
     public function handle($updates, $context=null)
     {
-        $user = $this->extract_user($updates->message->text)
+        $user = $this->extract_user($updates->message->text);
         $image = $this->get_random_image($user);
 
         return Telegram::sendPhoto([
