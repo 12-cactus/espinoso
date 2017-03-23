@@ -11,7 +11,7 @@ class BardoDelEspinoso implements EspinosoHandler
         if ( ! (isset($updates->message) && isset($updates->message->text)) )
             return false ; 
 
-        return ( preg_match('/^send me nudes$/i', $updates->message->text) )
+        return ( preg_match('/^send me nudes$/i', $updates->message->text) );
     }
 
     public function handle($updates, $context=null)
