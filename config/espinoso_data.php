@@ -7,7 +7,7 @@ $rbmMappings =  [
             '/dan/i'  => 'ese tiene tatuado pattern matching en el culo!',
         ];
 
-$rbmMappings['/^claves?$/'] = implose(', ', array_keys($rbmMappings));
+$rbmMappings['/^claves?$/'] = implode(', ', array_keys($rbmMappings));
 
 return [
     'ResponseByMatch' => [ 'mappings' => $rbmMappings ], 
