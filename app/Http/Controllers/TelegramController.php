@@ -27,4 +27,11 @@ class TelegramController extends Controller
         return Telegram::setWebhook(['url' => 'https://espinoso.herokuapp.com/handle-update']);
     }
 
+    public function githubWebhook()
+    {
+        Telegram::sendMessage([
+            'chat_id' => -205010293,
+            'text' => 'Alguien esta comiteando boludeces.. me autodestruccioón en 3, 2, 1...'
+        ]);
+    }
 }
