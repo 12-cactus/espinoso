@@ -31,7 +31,7 @@ class TelegramController extends Controller
     public function githubWebhook()
     {
         Telegram::sendMessage([
-            'chat_id' => -205010293,
+            'chat_id' => env('TELEGRAM_DEVS_CHANNEL'),
             'text' => 'Alguien esta comiteando boludeces.. autodestrucción en 3, 2, 1...'
         ]);
     }
