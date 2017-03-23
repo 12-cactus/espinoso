@@ -1,4 +1,13 @@
 <?php 
+use \App\Espinoso\Helpers\Msg;
+
+$suma = function ($pattern, $updates) {
+    preg_match($pattern, $updates->message->text, $matches);
+    $num1 = $matches[1]; 
+    $num2 = $matches[2];
+    return $num1 + $num2 ; 
+};
+
 $rbmMappings =  [
     '/macri.?$/i'    => 'Gato',
     '/espinoso.?$/i' => 'Mande jefe!',
@@ -10,23 +19,21 @@ $rbmMappings =  [
     '/fu[u]*ck/i'    => 'tranquilo vieja, todo va a salir bien.',
     '/mamu/i'        => 'papu',
     '/papu/i'        => 'mamu',
-    '/ponerla/i'        => 'bash: ponerla: command not found',
+    '/ponerla/i'     => 'bash: ponerla: command not found',
     '/asado.?$/i'    => "El asado es el sábado 25/3 (noche) en el quincho de maru.\nLean y dami hacen el asado.\nAlvin hace la picada.\nLos demás traigan bebidas, putos!!",
     '/contrato/i'    => 'el diccionario lo define como un acuerdo legal que no se puede romper, que no se puede romper...',
     '/maldicio[o]*n/i' => 'tranquilo vieja, todo va a salir bien.',
     '/concha.*lora/i'  => 'no eh, cuidame la boquita.',
     '/(dan.*tip)|(tip.*dan)/i'          => 'dan, no quiero asustarte pero sin TIP no hay titulo.. hace el TIP MIERDA!',
-    '/espinoso.*como.*andas\??$/i'         =>  [ 'He tenido dias mejores..', 'de lujo' , 'que carajo te importa?' ] ,
+    '/espinoso.*como.*andas\??$/i'         =>  Msg::md([ 'He tenido dias mejores..', 'de lujo' , 'que carajo te importa?' ]) ,
     '/espinoso.*pensas.*smalltalk\??$/i'   => 'Amo su pureza..',
-    '/([0-9][0-9]*)[ ]*\+[ ]*([0-9][0-9]*)/' => function ($pattern, $updates) {
-        preg_match($pattern, $updates->message->text, $matches);
-        $num1 = $matches[1]; 
-        $num2 = $matches[2];
-        return $num1 + $num2 ; 
-    }
+    '/([0-9][0-9]*)[ ]*\+[ ]*([0-9][0-9]*)/' => Msg::md($suma),
+
+
 ];
 
 $rbmMappings['/espinoso,.*claves.*?/i'] = "Reconozco todas estas: \n" . implode("\n", array_keys($rbmMappings));
+
 
 return [
     'ResponseByMatch' => [ 'mappings' => $rbmMappings ], 
