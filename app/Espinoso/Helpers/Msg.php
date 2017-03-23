@@ -27,7 +27,7 @@ class Msg
         return [
 	        'chat_id' => $updates->message->chat->id,
 			'text' => $text,
-			'parse_mode' => $this->parse_mode
+			'parse_mode' => $this->parse_mode,
     	];
     }
 
@@ -42,8 +42,8 @@ class Msg
 		$msg = $this->msg;
         if (is_array($msg))
         {
-        	$text $this->choose($msg);
-        } else if (is_callable($msg))
+        	$text = $this->choose($msg);
+        } else if ( is_callable($msg) )
         {
             $text = $msg($pattern, $updates);
         } else 
