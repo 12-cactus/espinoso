@@ -10,7 +10,7 @@ class RandomInstagram extends EspinosoHandler
 
     public function shouldHandle($updates, $context=null) 
     {
-        return  $this->isTextMessage() && preg_match($this->regex(), $updates->message->text);
+        return  $this->isTextMessage($updates) && preg_match($this->regex(), $updates->message->text);
     }
 
     public function handle($updates, $context=null)

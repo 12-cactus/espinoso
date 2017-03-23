@@ -7,7 +7,7 @@ class ResponseByMatch extends EspinosoHandler
 {
     public function shouldHandle($updates, $context=null) 
     {
-        if ( ! $this->isTextMessage() ) return false ; 
+        if ( ! $this->isTextMessage($updates) ) return false ; 
 
         foreach ($this->mappings() as $needle => $response)
             if ( preg_match($needle, $updates->message->text) )

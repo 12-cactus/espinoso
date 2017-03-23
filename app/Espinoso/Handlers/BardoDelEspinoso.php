@@ -7,7 +7,7 @@ class BardoDelEspinoso extends EspinosoHandler
 {
     public function shouldHandle($updates, $context=null) 
     {
-        return $this->isTextMessage() && preg_match('/^send me nudes$/i', $updates->message->text) ;
+        return $this->isTextMessage($updates) && preg_match('/^send me nudes$/i', $updates->message->text) ;
     }
 
     public function handle($updates, $context=null)
