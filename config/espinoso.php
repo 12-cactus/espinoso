@@ -1,7 +1,8 @@
 <?php
 return [
 
-	'handlers' => [ 
-		App\Telegram\UpdateHandlers\ResponseByMatch::class
-	]
+    'handlers' => [ 
+        App\Espinoso\Handlers\ResponseByMatch::class
+    ], 
+
 ];

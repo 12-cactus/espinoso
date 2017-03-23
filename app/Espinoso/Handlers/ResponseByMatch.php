@@ -1,25 +1,17 @@
 <?php
-namespace App\Telegram\UpdateHandlers ; 
+namespace App\Espinoso\Handlers ; 
 
 use Telegram\Bot\Laravel\Facades\Telegram;
 
-class ResponseByMatch implements UpdateHandler
+class ResponseByMatch implements EspinosoHandler
 {
-    private $mappings = [
-        '/macri/i' => 'Gato',
-        '/marcos/i' => '¿Quisiste decir Markos?',
-        '/maximo/i' => 'Para programarme no usaron ni un solo if ;)',
-        '/facu/i'  => 'Facu... ese tipo es medio puto',
-        '/dan/i'  => 'ese tiene tatuado pattern matching en el culo!'
-    ];
-
     public function shouldHandle($updates, $context=null) 
     {
         // me aseguro que el request que vino trae los datos que quiero... 
         if ( ! (isset($updates->message) && isset($updates->message->text)) )
             return false ; 
 
-        foreach ($this->mappings as $needle => $response)
+        foreach ($this->mappings() as $needle => $response)
             if ( preg_match($needle, $updates->message->text) )
                 return true ; 
         return false ; 
@@ -27,7 +19,7 @@ class ResponseByMatch implements UpdateHandler
 
     public function handle($updates, $context=null)
     {
-        foreach ($this->mappings as $needle => $response)
+        foreach ($this->mappings() as $needle => $response)
         {
             if ( preg_match($needle, $updates->message->text) ) 
             {
@@ -37,5 +29,10 @@ class ResponseByMatch implements UpdateHandler
                 ]);
             }
         }
+    }
+
+    private function mappings()
+    {
+        return config('espinoso_data.ResponseByMatch.mappings');
     }
 }
