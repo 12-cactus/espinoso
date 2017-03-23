@@ -4,13 +4,13 @@ class FuckHeroku
 {
 	public static function log($loggable)
 	{
-		$file = storage_path('fuckheroku.log'); 
+		$file = storage_path('logs/fuckheroku.log'); 
 		$data = self::format_loggable($loggable); 
 		file_put_contents($file, $data, FILE_APPEND);
 	}
 	public static function get_log()
 	{
-		$file = storage_path('fuckheroku.log');
+		$file = storage_path('logs/fuckheroku.log');
  		return file_get_contents($file); 
 	}
 
