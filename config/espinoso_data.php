@@ -14,7 +14,7 @@ $rbmMappings =  [
             '/maldicio[o]*n/i' => 'tranquilo vieja, todo va a salir bien.',
             '/concha.*lora/i'  => 'no eh, cuidame la boquita.',
             '/(dan.*tip)|(tip.*dan)/i'          => 'dan, no quiero asustarte pero sin TIP no hay titulo.. hace el TIP MIERDA!',
-            '/espinoso.*como.*andas\??$/i'         => 'He tenido dias mejores..',
+            '/espinoso.*como.*andas\??$/i'         =>  [ 'He tenido dias mejores..', 'de lujo' , 'que carajo te importa?' ] 
             '/espinoso.*pensas.*smalltalk\??$/i'   => 'Amo su pureza..',
 
         ];

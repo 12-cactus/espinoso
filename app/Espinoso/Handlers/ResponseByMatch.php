@@ -19,14 +19,23 @@ class ResponseByMatch extends EspinosoHandler
     {
         foreach ($this->mappings() as $needle => $response)
         {
+            if (is_array($response)) 
+                $response = $this->choose($response);
+
             if ( preg_match($needle, $updates->message->text) ) 
             {
-                $response = Telegram::sendMessage([
+                Telegram::sendMessage([
                     'chat_id' => $updates->message->chat->id,
                     'text' => $response
                 ]);
             }
         }
+    }
+
+    private function choose($responses) 
+    {
+        $key = array_rand($responses);
+        return $responses[$key];
     }
 
     private function mappings()
