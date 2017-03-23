@@ -31,7 +31,7 @@ class TelegramController extends Controller
     {
         Telegram::sendMessage([
             'chat_id' => -205010293,
-            'text' => 'Alguien esta comiteando boludeces.. me autodestruccioón en 3, 2, 1...'
+            'text' => 'Alguien esta comiteando boludeces.. autodestrucción en 3, 2, 1...'
         ]);
     }
 }
