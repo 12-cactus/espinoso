@@ -15,7 +15,8 @@ class TelegramController extends Controller
         Espinoso::handleTelegramUpdates($updates);
         } catch (\Exception $e)
         {
-            \App\Telegram\FuckHeroku::log($e);
+            Log::error($updates);
+            Log::error($e);
         }
     }
 

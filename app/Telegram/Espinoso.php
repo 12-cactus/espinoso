@@ -40,15 +40,6 @@ class Espinoso
 
     private static function handleError(\Exception $e, $updates)
     {
-        // $message = "```" . $e->getMessage() . "```";
-        // $text = "No quiero amargarles la charla, pero falló algo gente: \n$message\n";
-
-        // $response = Telegram::sendMessage([
-        //     'chat_id' => $updates->message->chat->id,
-        //     'text' => $text
-        // ]);
-        \App\Telegram\FuckHeroku::log($e);
-        \App\Telegram\FuckHeroku::log($updates);
-        // Log::error($e);
+        throw $e;
     }
 }
