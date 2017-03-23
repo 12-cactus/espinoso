@@ -28,8 +28,7 @@ class TelegramController extends Controller
 
             return Telegram::sendPhoto([
                 'chat_id' => $updates->message->chat->id,
-                'photo' => $image,
-                'caption' => 'dat ass'
+                'photo' => $image
             ]);
         }
 
