@@ -10,6 +10,7 @@ $rbmMappings =  [
             '/fu[u]*ck/i'    => 'tranquilo vieja, todo va a salir bien.',
             '/mamu/i'        => 'papu',
             '/papu/i'        => 'mamu',
+            '/asado.?$/i'    => "El asado es el sábado 25/3 (noche) en el quincho de maru.\nLean y dami hacen el asado.\nAlvin hace la picada.\nLos demás traigan bebidas, putos!!",
             '/contrato/i'    => 'el diccionario lo define como un acuerdo legal que no se puede romper, que no se puede romper...',
             '/maldicio[o]*n/i' => 'tranquilo vieja, todo va a salir bien.',
             '/concha.*lora/i'  => 'no eh, cuidame la boquita.',
