@@ -18,7 +18,7 @@ $rbmMappings =  [
     '/espinoso.*pensas.*smalltalk\??$/i'   => 'Amo su pureza..',
     '/espinoso.*como.*andas\??$/i'         =>  [ 'He tenido dias mejores..', 'de lujo' , 'que carajo te importa?' ] ,
 
-    '/([0-9][0-9]*)[ ]*+[ ]*([0-9][0-9]*)/' => function ($pattern, $updates) {
+    '/([0-9][0-9]*)[ ]*\+[ ]*([0-9][0-9]*)/' => function ($pattern, $updates) {
         preg_match($pattern, $updates->message->text, $matches);
         $num1 = $matches[1]; 
         $num2 = $matches[2];
