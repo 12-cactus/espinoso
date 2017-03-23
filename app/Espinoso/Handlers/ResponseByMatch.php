@@ -17,19 +17,28 @@ class ResponseByMatch extends EspinosoHandler
 
     public function handle($updates, $context=null)
     {
-        foreach ($this->mappings() as $needle => $response)
+        foreach ($this->mappings() as $pattern => $response)
         {
-            if (is_array($response)) 
-                $response = $this->choose($response);
+            $text = $this->processResponse($response, $pattern, $updates));
 
-            if ( preg_match($needle, $updates->message->text) ) 
+            if ( preg_match($pattern, $updates->message->text) ) 
             {
                 Telegram::sendMessage([
                     'chat_id' => $updates->message->chat->id,
-                    'text' => $response
+                    'text' => $text
                 ]);
             }
         }
+    }
+
+    public function processResponse($response, $pattern, $updates)
+    {
+        if (is_array($response)) 
+            return $this->choose($response);
+        else if (is_callable($response))
+            return $response($pattern, $updates);
+        else 
+            return $response; 
     }
 
     private function choose($responses) 
