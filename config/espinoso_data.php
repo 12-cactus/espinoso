@@ -23,5 +23,4 @@ $rbmMappings['/espinoso,.*claves.*?/i'] = "Reconozco todas estas: \n" . implode(
 
 return [
     'ResponseByMatch' => [ 'mappings' => $rbmMappings ], 
-
 ]; 
