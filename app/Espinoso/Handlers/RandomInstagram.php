@@ -40,6 +40,6 @@ class RandomInstagram extends EspinosoHandler
 
     private function regex()
     {
-        return "/^" . KEYWORD . "[ ]*([^ ]*)$/i";
+        return "/^" . self::KEYWORD . "[ ]*([^ ]*)$/i";
     }
 }
