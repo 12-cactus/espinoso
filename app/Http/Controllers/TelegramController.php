@@ -21,7 +21,7 @@ class TelegramController extends Controller
             ]);
         }
 
-        if($updates->message->text == 'tocara culo?'){
+        if($updates->message->text == '9gag'){
             $instagram = new Instagram();
             $response = $instagram->get(env('INSTAGRAM_USER'));
             $image = $response[array_rand($response)]['images']['low_resolution']['url'];
