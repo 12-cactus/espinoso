@@ -26,7 +26,7 @@ $rbmMappings =  [
     '/concha.*lora/i'  => 'no eh, cuidame la boquita.',
     '/(dan.*tip)|(tip.*dan)/i'          => 'dan, no quiero asustarte pero sin TIP no hay titulo.. hace el TIP MIERDA!',
     '/espinoso.*como.*andas\??$/i'         =>  Msg::md([ 'He tenido dias mejores..', 'de lujo' , 'que carajo te importa?' ]) ,
-    '/espinoso.*pensas.*smalltalk\??$/i'   => 'Amo su pureza..',
+    '/espinoso.*pensas.*smalltalk\??$/i'   => Msg::md([ 'Amo su pureza..', '`MNU`' ]) ,
     '/([0-9][0-9]*)[ ]*\+[ ]*([0-9][0-9]*)/' => Msg::md($suma),
 
 
