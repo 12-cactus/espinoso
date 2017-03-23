@@ -1,8 +1,15 @@
 <?php 
 namespace App\Espinoso\Handlers;
 
-interface EspinosoHandler 
+abstract class EspinosoHandler 
 {
-    public function shouldHandle($updates, $context=null) ; 
-    public function handle($updates, $context=null) ; 
+    abstract public function shouldHandle($updates, $context=null) ; 
+    abstract public function handle($updates, $context=null) ; 
+    
+    protected function isTextMessage($updates)
+    {
+    	return isset($updates->message) && isset($updates->message->text); 
+    }
+
+
 }

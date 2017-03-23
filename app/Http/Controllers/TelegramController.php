@@ -17,7 +17,7 @@ class TelegramController extends Controller
 
         } catch (\Exception $e)
         {
-            Log::error($updates);
+            Log::error(json_encode($updates));
             Log::error($e);
         }
     }
