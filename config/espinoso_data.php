@@ -14,7 +14,7 @@ $rbmMappings =  [
 
         ];
 
-$rbmMappings['/espinoso,.*claves.*?/i'] = implode(', ', array_keys($rbmMappings));
+$rbmMappings['/espinoso,.*claves.*?/i'] = "Reconozco todas estas: \n" . implode("\n", array_keys($rbmMappings));
 
 return [
     'ResponseByMatch' => [ 'mappings' => $rbmMappings ], 
