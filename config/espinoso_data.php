@@ -8,7 +8,7 @@ $rbmMappings =  [
             '/maldici[oó]n/i'  => 'tranquilo vieja, todo va a salir bien.',
         ];
 
-$rbmMappings['/espinoso,[]*claves\?/i'] = implode(', ', array_keys($rbmMappings));
+$rbmMappings['/espinoso,[ ]*claves\?/i'] = implode(', ', array_keys($rbmMappings));
 
 return [
     'ResponseByMatch' => [ 'mappings' => $rbmMappings ], 
