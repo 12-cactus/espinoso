@@ -36,7 +36,7 @@ class TelegramController extends Controller
 
         Telegram::sendMessage([
             'chat_id' => env('TELEGRAM_DEVS_CHANNEL'),
-            'text' => "De nuevo el pelotudo de $name comiteando giladas, mirá lo que hizo esta vez: $commit"
+            'text' => "De nuevo el pelotudo de $name[0] comiteando giladas, mirá lo que hizo esta vez: $commit"
         ]);
     }
 }
