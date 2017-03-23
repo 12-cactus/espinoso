@@ -2,8 +2,8 @@
 $rbmMappings =  [
             '/macri.?$/i'   => 'Gato',
             '/espinoso.?$/i'   => 'Mande jefe!',
-            '/espinoso.*como.*andas?$/i'   => 'He tenido dias mejores..',
-            '/espinoso.*pensas.*smalltalk?$/i'   => 'Amo su pureza..',
+            '/espinoso.*como.*andas.?$/i'   => 'He tenido dias mejores..',
+            '/espinoso.*pensas.*smalltalk.?$/i'   => 'Amo su pureza..',
             '/marcos.?$/i'  => '¿Quisiste decir Markos?',
             '/maximo.?$/i'  => 'Para programarme no usaron ni un solo if ;)',
             '/facu.?$/i'    => 'Facu... ese tipo es terrible puto',
