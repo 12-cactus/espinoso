@@ -6,7 +6,8 @@ $rbmMappings =  [
             '/facu/i'  => 'Facu... ese tipo es medio puto',
             '/dan/i'  => 'ese tiene tatuado pattern matching en el culo!',
         ];
-$rbmMappings['/^claves?$/'] = implose(', ', array_keys($rbmMappings)),
+
+$rbmMappings['/^claves?$/'] = implose(', ', array_keys($rbmMappings));
 
 return [
     'ResponseByMatch' => [ 'mappings' => $rbmMappings ], 
