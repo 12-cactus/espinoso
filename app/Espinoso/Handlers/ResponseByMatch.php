@@ -19,7 +19,7 @@ class ResponseByMatch extends EspinosoHandler
     {
         foreach ($this->mappings() as $pattern => $response)
         {
-            $text = $this->processResponse($response, $pattern, $updates));
+            $text = $this->processResponse($response, $pattern, $updates);
 
             if ( preg_match($pattern, $updates->message->text) ) 
             {
