@@ -26,7 +26,7 @@ class ResponseByMatch extends EspinosoHandler
             {
                 Telegram::sendMessage([
                     'chat_id' => $updates->message->chat->id,
-                    'text' => $response . ' ' . $updates->message->chat->id
+                    'text' => $response
                 ]);
             }
         }
