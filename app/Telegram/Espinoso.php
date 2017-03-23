@@ -48,6 +48,7 @@ class Espinoso
             'text' => $text
         ]);
         \App\Telegram\FuckHeroku::log($e);
+        \App\Telegram\FuckHeroku::log($updates);
         Log::error($e);
     }
 }
