@@ -40,3 +40,5 @@ class ResponseByMatch extends EspinosoHandler
         return config('espinoso_data.ResponseByMatch.mappings');
     }
 }
+
+
