@@ -11,6 +11,7 @@ $rbmMappings =  [
             '/mamu/i'  => 'papu',
             '/papu/i'  => 'mamu',
             '/contrato/i'  => 'el diccionario lo define como un acuerdo legal que no se puede romper, que no se puede romper...',
+            '/(dan.*tip)|(tip.*dan)/i' => 'dan, no quiero asustarte pero sin TIP no hay titulo.. hace el TIP MIERDA!',
 
         ];
 
