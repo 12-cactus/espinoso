@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use Telegram\Bot\Laravel\Facades\Telegram;
+use Vinkla\Instagram\Instagram;
 use App\Espinoso\Espinoso ;
 
 class TelegramController extends Controller
@@ -17,6 +18,18 @@ class TelegramController extends Controller
                 'chat_id' => $updates->message->chat->id,
                 'photo' => 'https://cdn.drawception.com/images/panels/2012/4-4/FErsE1a6t7-8.png',
                 'caption' => 'Acá tenes tu nude hijo de puta!'
+            ]);
+        }
+
+        if($updates->message->text == 'tocara culo?'){
+            $instagram = new Instagram();
+            $response = $instagram->get(env('INSTAGRAM_USER'));
+            $image = $response[array_rand($response)]['images']['low_resolution']['url'];
+
+            return Telegram::sendPhoto([
+                'chat_id' => $updates->message->chat->id,
+                'photo' => $image,
+                'caption' => 'dat ass'
             ]);
         }
 
