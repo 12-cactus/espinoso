@@ -14,7 +14,7 @@ class FuckHeroku
  		return file_get_contents($file); 
 	}
 
-	private function format_loggable($loggable)
+	private static function format_loggable($loggable)
 	{
 		if ($loggable instanceof \Exception)
 		{
