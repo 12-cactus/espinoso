@@ -37,7 +37,7 @@ class GoogleStaticMaps extends EspinosoHandler
 
     private function extractParameters($message)
     {
-        $regex = '/[ ]*\-([a-z]):([^ \-])*/i';
+        $regex = '/[ ]*-([a-z]):([^ ][^ ]*)/i';
         $matches = [] ; 
         $params = [] ; 
         preg_match_all($regex, $message, $matches, PREG_SET_ORDER);
