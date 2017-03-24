@@ -59,7 +59,7 @@ class GoogleStaticMaps extends EspinosoHandler
 
     private function defaults()
     {
-        return ['maptype' => 'roadmap', 'zoom'=> 13, 'size'=>"600x500", 'markerColor'=>'blue'];
+        return ['maptype' => 'roadmap', 'zoom'=> 13, 'size'=>"600x500", 'color'=>'blue'];
     }
 
     private function paramsMapping()
