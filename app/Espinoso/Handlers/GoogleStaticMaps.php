@@ -15,7 +15,8 @@ class GoogleStaticMaps extends EspinosoHandler
     public function handle($updates, $context=null)
     {
         $location = $this->extractLocation($updates->message->text);
-        $image = $this->getMapUrl($location);
+        $parameters = $this->extractParameters($updates->message->text);
+        $image = $this->getMapUrl($location, $parameters);
 
         return Telegram::sendPhoto([
             'chat_id' => $updates->message->chat->id,
@@ -26,17 +27,58 @@ class GoogleStaticMaps extends EspinosoHandler
     private function extractLocation($message) 
     {
         preg_match($this->regex(), $message, $matches);
-        return $matches[1]; 
+        return $matches[2]; 
     }
 
-    private function getMapUrl($location, $maptype='roadmap', $zoom=13, $size="600x500", $markerColor='blue')
+    private function extractParameters($message)
     {
+        $regex = '/[ ]*\-([a-z]):([^ ])*/i';
+        $matches = [] ; 
+        $params = [] ; 
+        preg_match_all($regex, $message, $matches, PREG_SET_ORDER);
+        foreach($matches as [$disposable, $key, $value])
+        {
+            if ($this->isValidParamKey($key))
+                $params[$this->getParamName($key)] = $value; 
+        }
+        return $params ; 
+    }
+
+    private function getMapUrl($location, $params)
+    {
+        extract(array_merge($this->defaults(), $params));
+
         $location = urlencode($location);
-        return  "https://maps.googleapis.com/maps/api/staticmap?center=$location&zoom=$zoom&size=$size&maptype=$maptype&&markers=color:$markerColor%7Clabel:S%7C$location";
+        return  "https://maps.googleapis.com/maps/api/staticmap?center=$location&zoom=$zoom&size=$size&maptype=$maptype&markers=color:$color%7Clabel:S%7C$location";
     }
 
     private function regex()
     {
-        return "/^" . self::KEYWORD . "[ ]*(.*)$/i";
+        return "/^" . self::KEYWORD . "([ ]*\-[a-z]:[^ ])*[ ]*(.*)$/i";
+    }
+
+    private function defaults()
+    {
+        return ['maptype' => 'roadmap', 'zoom'=> 13, 'size'="600x500", 'markerColor'=>'blue'];
+    }
+
+    private function paramsMapping()
+    {
+        return [
+            'z' => 'zoom', 
+            't' => 'maptype', 
+            's' => 'size', 
+            'c' => 'color',
+        ];
+    }
+
+    private function isValidParamKey($key)
+    {
+        return array_key_exists($key, $this->paramsMapping());   
+    }
+
+    private function getParamName($key)
+    {
+        return $this->paramsMapping()[$key];
     }
 }
