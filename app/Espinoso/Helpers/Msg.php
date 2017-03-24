@@ -23,7 +23,7 @@ class Msg
 
 	public function build($pattern, $updates) 
 	{
-		$text = $this->parseMsg();
+		$text = $this->parseMsg($pattern, $updates);
         return [
 	        'chat_id' => $updates->message->chat->id,
 			'text' => $text,
@@ -37,7 +37,7 @@ class Msg
 		$this->msg = $msg ; 
 	}
 
-    private function parseMsg()
+    private function parseMsg($pattern, $updates)
     {
 		$msg = $this->msg;
         if (is_array($msg))

@@ -1,7 +1,7 @@
 <?php
 namespace App\Espinoso\Handlers ; 
 
-use App\Espinoso\Helpers\Msg; 
+use \App\Espinoso\Helpers\Msg;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
 class ResponseByMatch extends EspinosoHandler
