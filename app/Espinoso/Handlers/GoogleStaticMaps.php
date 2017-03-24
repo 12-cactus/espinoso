@@ -1,6 +1,6 @@
 <?php
 namespace App\Espinoso\Handlers ; 
-
+use App\Espinoso\Helpers\Msg;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
 class GoogleStaticMaps extends EspinosoHandler
