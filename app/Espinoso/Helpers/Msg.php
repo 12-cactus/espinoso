@@ -33,7 +33,7 @@ class Msg
 
 	private function __construct($msg, $parse_mode=null)
 	{
-		$this->parse_mode = 'Markdown';
+		$this->parse_mode = $parse_mode;
 		$this->msg = $msg ; 
 	}
 
