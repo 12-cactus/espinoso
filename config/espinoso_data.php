@@ -27,7 +27,6 @@ $rbmMappings =  [
     '/mamu/i'        => 'papu',
     '/papu/i'        => 'mamu',
     '/ponerla/i'     => 'bash: ponerla: command not found',
-    '/asado.?$/i'    => "El asado es esta noche en el quincho de maru.\nLean y dami hacen el asado.\nAlvin hace la picada.\nLos demás traigan bebidas, putos!!",
     '/contrato/i'    => 'el diccionario lo define como un acuerdo legal que no se puede romper, que no se puede romper...',
     '/maldicio[o]*n/i' => 'tranquilo vieja, todo va a salir bien.',
     '/concha.*lora/i'  => 'no eh, cuidame la boquita.',
@@ -45,6 +44,6 @@ $rbmMappings['/espinoso.*claves.*/i'] = "Reconozco todas estas: \n" . implode("\
 
 return [
     'ResponseByMatch' => [ 'mappings' => $rbmMappings, 
-                           'ignore_names' => ['facu', 'marcos', 'agus', 'ine', 'Dan',],
+                           'ignore_names' => ['facu', 'marcos', 'agus', 'ine', 'alan', ],
                          ], 
 ]; 
