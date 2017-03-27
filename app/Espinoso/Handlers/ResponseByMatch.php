@@ -10,10 +10,6 @@ class ResponseByMatch extends EspinosoHandler
     {
         if ( ! $this->isTextMessage($updates) ) return false ; 
         
-        foreach ($this->ignoredNames() as $name)
-            if ( preg_match("/$name/i", $updates->message->from->first_name) )
-                return false ; 
-
         foreach ($this->mappings() as $needle => $response)
             if ( preg_match($needle, $updates->message->text) )
                 return true ; 
@@ -22,6 +18,14 @@ class ResponseByMatch extends EspinosoHandler
 
     public function handle($updates, $context=null)
     {
+        if ($this->ignoringSender($updates->message->from))
+        {
+            $fromName = $updates->message->from->first_name;
+            $msg = Msg::md("Con vos no hablo porque no viniste al asado $fromName")->build('', $updates);
+            Telegram::sendMessage($msg); 
+            return ; 
+        }
+
         foreach ($this->mappings() as $pattern => $response)
         {
             if ( preg_match($pattern, $updates->message->text) ) 
@@ -50,6 +54,14 @@ class ResponseByMatch extends EspinosoHandler
         return config('espinoso_data.ResponseByMatch.ignore_names');
     }
 
+    private function ignoringSender($sender)
+    {
+        foreach ($this->ignoredNames() as $name)
+            if ( preg_match("/$name/i", $sender->first_name) )
+                return true ; 
+        return false ; 
+    }
+    
 }
 
 
