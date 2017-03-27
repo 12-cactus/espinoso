@@ -11,8 +11,7 @@ class ResponseByMatch extends EspinosoHandler
         if ( ! $this->isTextMessage($updates) ) return false ; 
         
         foreach ($this->ignoredNames() as $name)
-            if ( preg_match("/$name/i", $updates->message->from->first_name)
-               || preg_match("/$name/i", $updates->message->from->username) )
+            if ( preg_match("/$name/i", $updates->message->from->first_name) )
                 return false ; 
 
         foreach ($this->mappings() as $needle => $response)
