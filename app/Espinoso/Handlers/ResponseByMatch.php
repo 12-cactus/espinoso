@@ -9,6 +9,11 @@ class ResponseByMatch extends EspinosoHandler
     public function shouldHandle($updates, $context=null) 
     {
         if ( ! $this->isTextMessage($updates) ) return false ; 
+        
+        foreach ($this->ignoredNames() as $name)
+            if ( preg_match("/$name/i", $updates->message->from->first_name)
+               || preg_match("/$name/i", $updates->message->from->username) )
+                return false ; 
 
         foreach ($this->mappings() as $needle => $response)
             if ( preg_match($needle, $updates->message->text) )
@@ -40,6 +45,12 @@ class ResponseByMatch extends EspinosoHandler
     {
         return config('espinoso_data.ResponseByMatch.mappings');
     }
+    
+    private function ignoredNames()
+    {
+        return config('espinoso_data.ResponseByMatch.ignore_names');
+    }
+
 }
 
 
