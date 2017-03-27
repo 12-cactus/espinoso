@@ -11,7 +11,7 @@ $suma = function ($pattern, $updates) {
 $funAsentirRand = function ($pattern, $update) {
     $respuestas = ['claro que si', 'exactamente', 'mas vale'];
     $elegida = $respuestas[ array_rand($respuestas) ]; 
-    return $elegida . ", " . $update->message->first_name ; 
+    return $elegida . ", " . $update->message->from->first_name ; 
 };
 
 $rbmMappings =  [
