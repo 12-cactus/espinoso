@@ -8,9 +8,16 @@ $suma = function ($pattern, $updates) {
     return $num1 + $num2 ; 
 };
 
+$funAsentirRand = function ($pattern, $update) {
+    $respuestas = ['claro que si', 'exactamente', 'mas vale'];
+    $elegida = $respuestas[ array_rand($respuestas) ]; 
+    return $elegida . ", " . $update->message->first_name ; 
+};
+
 $rbmMappings =  [
     '/macri.?$/i'    => 'Gato',
-    '/espinoso.?$/i' => 'Mande jefe!',
+    '/^espinoso[^\?]?$/i' => 'Mande jefe!',
+    '/^no[, ]* espinoso?/i' => Msg::plain($funAsentirRand),
     '/marcos.?$/i'   => '¿Quisiste decir Markos?',
     '/maximo.?$/i'   => 'Para programarme no usaron ni un solo if ;)',
     '/facu.?$/i'     => 'Facu... ese tipo es terrible puto',
