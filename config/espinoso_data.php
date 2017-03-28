@@ -26,6 +26,7 @@ $rbmMappings =  [
     '/(j+a+){5,}/i'  => 'ajajajajajaja, que plato!',
     '/fu[u]*ck/i'    => 'tranquilo vieja, todo va a salir bien.',
     '/mamu/i'        => 'papu',
+    '/hola.*espinoso/i'        => 'Hola, todo bien?',
     '/papu/i'        => 'mamu',
     '/ponerla/i'     => 'bash: ponerla: command not found',
     '/contrato/i'    => 'el diccionario lo define como un acuerdo legal que no se puede romper, que no se puede romper...',
