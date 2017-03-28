@@ -21,6 +21,7 @@ $rbmMappings =  [
     '/marcos.?$/i'   => '¿Quisiste decir Markos?',
     '/maximo.?$/i'   => 'Para programarme no usaron ni un solo if ;)',
     '/facu.?$/i'     => 'Facu... ese tipo es terrible puto',
+    '/ines.?$/i'     => 'Ine es una niñita sensible e inocente!',
     '/dan.?$/i'      => 'dan, ese tiene tatuado pattern matching en el culo!',
     '/(j+a+){5,}/i'  => 'ajajajajajaja, que plato!',
     '/fu[u]*ck/i'    => 'tranquilo vieja, todo va a salir bien.',
