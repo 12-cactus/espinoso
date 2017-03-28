@@ -14,6 +14,12 @@ $funAsentirRand = function ($pattern, $update) {
     return $elegida . ", " . $update->message->from->first_name ; 
 };
 
+$funDespedirseRand = function ($pattern, $update) {
+    $respuestas = ['Chau!', 'Nos vemos', 'Aloha', 'Nos re vimos!','Saludame a tu jermu'];
+    $elegida = $respuestas[ array_rand($respuestas) ]; 
+    return $elegida . ", " . $update->message->from->first_name ; 
+};
+
 $rbmMappings =  [
     '/macri.?$/i'    => 'Gato',
     '/^espinoso[^\?]?$/i' => 'Mande jefe!',
@@ -26,7 +32,9 @@ $rbmMappings =  [
     '/(j+a+){5,}/i'  => 'ajajajajajaja, que plato!',
     '/fu[u]*ck/i'    => 'tranquilo vieja, todo va a salir bien.',
     '/mamu/i'        => 'papu',
+    '/jarvis/i'        => 'jarvis? me gusta como suena eso!',
     '/hola.*espinoso/i'        => 'Hola, todo bien?',
+    '/chau.*espinoso/i'        => Msg::plain($funDespedirseRand),
     '/papu/i'        => 'mamu',
     '/ponerla/i'     => 'bash: ponerla: command not found',
     '/contrato/i'    => 'el diccionario lo define como un acuerdo legal que no se puede romper, que no se puede romper...',
