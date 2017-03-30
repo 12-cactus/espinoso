@@ -21,7 +21,7 @@ class Msg
 		return new Msg($msg);
 	}
 
-	public function build($pattern, $updates) 
+	public function build($updates, $pattern='')
 	{
 		$text = $this->parseMsg($pattern, $updates);
         return [

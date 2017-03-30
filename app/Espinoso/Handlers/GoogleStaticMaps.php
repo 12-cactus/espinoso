@@ -19,7 +19,7 @@ class GoogleStaticMaps extends EspinosoHandler
         $image = $this->getMapUrl($location, $parameters);
 
         if (preg_match('/malvinas/i', $updates->message->text))
-            Telegram::sendMessage(Msg::plain("Argentinas!")->build('/malvinas/i', $updates));
+            Telegram::sendMessage(Msg::plain("Argentinas!")->build($updates));
 
         Telegram::sendPhoto([
             'chat_id' => $updates->message->chat->id,

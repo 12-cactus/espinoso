@@ -39,9 +39,9 @@ class ResponseByMatch extends EspinosoHandler
     private function buildMessage($response, $pattern, $updates)
     {
         if ($response instanceof Msg)
-            return $response->build($pattern, $updates);
+            return $response->build($updates, $pattern);
         else 
-            return Msg::plain($response)->build($pattern, $updates);
+            return Msg::plain($response)->build($updates, $pattern);
     }
  
     private function mappings()
