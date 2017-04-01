@@ -15,14 +15,14 @@ $funAsentirRand = function ($pattern, $update) {
 };
 
 $funDespedirseRand = function ($pattern, $update) {
-    $respuestas = ['Chau!', 'Nos vemos', 'Aloha', 'Nos re vimos!','Saludame a tu jermu'];
+    $respuestas = ['Chau!', 'Nos vemos', 'Aloha', 'Nos re vimos!','Saludame a tu jermu', 'Chupala puto'];
     $elegida = $respuestas[ array_rand($respuestas) ]; 
     return $elegida . ", " . $update->message->from->first_name ; 
 };
 
 $rbmMappings =  [
     '/macri.?$/i'    => 'Gato',
-    '/^espinoso[^\?]?$/i' => 'Mande jefe!',
+    '/^espinoso[^\?]?$/i' => 'Otra vez rompiendo los huevos... Que pija queres?',
     '/no[, ]* espinoso?/i' => Msg::plain($funAsentirRand),
     '/marcos.?$/i'   => '¿Quisiste decir Markos?',
     '/maximo.?$/i'   => 'Para programarme no usaron ni un solo if ;)',
@@ -32,8 +32,8 @@ $rbmMappings =  [
     '/(j+a+){5,}/i'  => 'ajajajajajaja, que plato!',
     '/fu[u]*ck/i'    => 'tranquilo vieja, todo va a salir bien.',
     '/mamu/i'        => 'papu',
-    '/jarvis/i'        => 'jarvis? me gusta como suena eso!',
-    '/hola.*espinoso/i'        => 'Hola, todo bien?',
+    '/jarvis/i'        => 'Es un re puto! Aguante yo! La concha de tu madre all boys',
+    '/hola.*espinoso/i'        => 'Que pija queres?',
     '/chau.*espinoso/i'        => Msg::plain($funDespedirseRand),
     '/papu/i'        => 'mamu',
     '/ponerla/i'     => 'bash: ponerla: command not found',
@@ -44,6 +44,7 @@ $rbmMappings =  [
     '/(espinoso.*como.*(andas|estas))|(como.*(andas|estas).*espinoso)\??$/i'         =>  Msg::md([ 'He tenido dias mejores..', 'de lujo' , 'que carajo te importa?', 'comela puto' ]) ,
     '/espinoso.*pensas.*smalltalk\??$/i'   => Msg::md([ 'Amo su pureza..', '`MNU`' ]) ,
     '/([0-9][0-9]*)[ ]*\+[ ]*([0-9][0-9]*)/' => Msg::md($suma),
+    '/empanada/i' => 'mmmm de carne y bien jugosa',
 
     '/^ayuda gsm$/i' => "gsm  [-z:ZOOM -s:SIZE -c:COLOR -t:MAPTYPE ] dirección.\nZOOM es un entero del 1-20\nSIZE es una resolución (600x300)\nMAPTYPE es un tipo de mapa de google, por defecto roadmap\n",
 
