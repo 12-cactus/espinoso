@@ -24,6 +24,7 @@ $rbmMappings =  [
     '/macri.?$/i'    => 'Gato',
     '/^espinoso[^\?]?$/i' => 'Otra vez rompiendo los huevos... Completen el whenisgood mierrrdasss http://whenisgood.net/y524j83',
     '/no[, ]* espinoso?/i' => Msg::plain($funAsentirRand),
+    '/alan.?$/i'     => 'Alan lo hace por dinero', 
     '/marcos.?$/i'   => '¿Quisiste decir Markos?',
     '/maximo.?$/i'   => 'Para programarme no usaron ni un solo if ;)',
     '/facu.?$/i'     => 'Facu... ese tipo es terrible puto',
