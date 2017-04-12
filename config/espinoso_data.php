@@ -22,7 +22,7 @@ $funDespedirseRand = function ($pattern, $update) {
 
 $rbmMappings =  [
     '/macri.?$/i'    => 'Gato',
-    '/^espinoso[^\?]?$/i' => 'Otra vez rompiendo los huevos... Completen el whenisgood mierrrdasss http://whenisgood.net/y524j83',
+    '/^espinoso[^\?]?$/i' => 'Otra vez rompiendo los huevos... Que pija quieren?',
     '/no[, ]* espinoso?/i' => Msg::plain($funAsentirRand),
     '/alan.?$/i'     => [ 'Alan lo hace por dinero', 'acaso dijiste $$$ oriented programming?', ] ,
     '/marcos.?$/i'   => '¿Quisiste decir Markos?',
