@@ -65,7 +65,6 @@ class Weather extends EspinosoHandler
 
     private function getWeatherForDate(\DateTime $date)
     {
-        $api_key = env('OPENWEATHER_API_KEY');
         $owm = new LaravelOWM();
         try {
             $forecast = $owm->getWeatherForecast('Buenos Aires', "metric", "es", '', 7);
