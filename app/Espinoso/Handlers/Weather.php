@@ -3,7 +3,7 @@ namespace App\Espinoso\Handlers ;
 
 use \App\Espinoso\Helpers\Msg;
 use Telegram\Bot\Laravel\Facades\Telegram;
-use \Cmfcmf\OpenWeatherMap;
+use Gmopx\LaravelOWM\LaravelOWM;
 
 class Weather extends EspinosoHandler
 {
@@ -66,10 +66,9 @@ class Weather extends EspinosoHandler
     private function getWeatherForDate(\DateTime $date)
     {
         $api_key = env('OPENWEATHER_API_KEY');
-        $owm = new OpenWeatherMap($api_key);
-
+        $owm = new LaravelOWM();
         try {
-            $forecast = $owm->getWeather('Buenos Aires', "metric", "es", '', 7);
+            $forecast = $owm->getWeatherForecast('Buenos Aires', "metric", "es", '', 7);
             $weather_in_day = [];
             foreach ($forecast as $weather)
             {

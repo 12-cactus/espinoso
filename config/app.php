@@ -178,7 +178,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 
 
-        Telegram\Bot\Laravel\TelegramServiceProvider::class
+        Telegram\Bot\Laravel\TelegramServiceProvider::class,
+        Gmopx\LaravelOWM\LaravelOWMServiceProvider::class,
     ],
 
     /*
