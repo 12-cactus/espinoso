@@ -3,7 +3,7 @@ namespace App\Espinoso\Handlers ;
 
 use \App\Espinoso\Helpers\Msg;
 use Telegram\Bot\Laravel\Facades\Telegram;
-use Cmfcmf\OpenWeatherMap;
+use \Cmfcmf\OpenWeatherMap;
 
 class Weather extends EspinosoHandler
 {
