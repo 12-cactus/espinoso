@@ -60,10 +60,10 @@ class Weather extends EspinosoHandler
     private function getNearestDateFromDay($day)
     {
         $time = strtotime("next $day");
-        return DateTime::createFromFormat('U', $time);
+        return \DateTime::createFromFormat('U', $time);
     }
 
-    private function getWeatherForDate(DateTime $date)
+    private function getWeatherForDate(\DateTime $date)
     {
         $api_key = env('OPENWEATHER_API_KEY');
         $owm = new OpenWeatherMap($api_key);
