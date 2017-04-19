@@ -1,12 +1,11 @@
 <?php
 namespace App\Espinoso\Handlers ; 
 
-use \App\Espinoso\Helpers\Msg;
+use App\Espinoso\Helpers\Msg;
 use Cmfcmf\OpenWeatherMap\Forecast;
-use Faker\Provider\DateTime;
+use Gmopx\LaravelOWM\LaravelOWM;
 use Mockery\CountValidator\Exception;
 use Telegram\Bot\Laravel\Facades\Telegram;
-use Gmopx\LaravelOWM\LaravelOWM;
 
 class Weather extends EspinosoHandler
 {
@@ -49,6 +48,8 @@ class Weather extends EspinosoHandler
     {
         try {
             $weather = $this->getWeatherForDate($date);
+            if (empty($weather))
+                throw new \Exception() ; 
             $response = "está pronosticado " . $weather;
         } catch (Exception $e) {
             $response = "que se yo, forro";
@@ -87,7 +88,7 @@ class Weather extends EspinosoHandler
     {
         $owm = new LaravelOWM();
 
-        $forecasts = $owm->getWeatherForecast('Buenos Aires', "es", "metric", 7, '');
+        $forecasts = $owm->getWeatherForecast('Buenos Aires', "es", "metric", 8, '');
 
         $weather_in_day = [];
         foreach ($forecasts as $forecast)
