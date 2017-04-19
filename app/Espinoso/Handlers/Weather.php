@@ -3,6 +3,7 @@ namespace App\Espinoso\Handlers ;
 
 use \App\Espinoso\Helpers\Msg;
 use Cmfcmf\OpenWeatherMap\Forecast;
+use Faker\Provider\DateTime;
 use Mockery\CountValidator\Exception;
 use Telegram\Bot\Laravel\Facades\Telegram;
 use Gmopx\LaravelOWM\LaravelOWM;
@@ -18,7 +19,11 @@ class Weather extends EspinosoHandler
 
     public function handle($updates, $context=null)
     {
-        $response = $this->createResponse($updates->message->text);
+        $day = $this->extractDay($updates->message->text);
+        $dayEn = $this->translateDay($day);
+        $date = $this->getNearestDateFromDay($dayEn);
+
+        $response = $this->buildResponse($date);
 
         Telegram::sendMessage(Msg::html($response)->build($updates));
     }
@@ -34,6 +39,22 @@ class Weather extends EspinosoHandler
     private function regex()
     {
         return "/clima[^a-z0-9]+(?:este|el)[^a-z0-9].*(?'dia'lunes|martes|miercoles|jueves|viernes|sabado|domingo).*\??/i";
+    }
+
+    /**
+     * @param $updates
+     * @return string
+     */
+    public function buildResponse(\DateTime $date)
+    {
+        try {
+            $weather = $this->getWeatherForDate($date);
+            $response = "está pronosticado " . $weather;
+        } catch (Exception $e) {
+            $response = "que se yo, forro";
+        }
+
+        return $response;
     }
 
     private function extractDay($text)
@@ -66,14 +87,14 @@ class Weather extends EspinosoHandler
     {
         $owm = new LaravelOWM();
 
-        $forecasts = $owm->getWeatherForecast('Buenos Aires', "es", "metric", '', 7);
+        $forecasts = $owm->getWeatherForecast('Buenos Aires', "es", "metric", 7, '');
 
         $weather_in_day = [];
-
         foreach ($forecasts as $forecast)
-            if ( $this->isSameDate($date, $forecast->time->day) )
+        {
+            if ($this->isSameDate($date, $forecast->time->day))
                 $weather_in_day[] = $this->weatherInDayString($forecast);
-
+        }
         $weather = implode(", ",$weather_in_day);
 
         return $weather ;
@@ -82,26 +103,6 @@ class Weather extends EspinosoHandler
     private function isSameDate(\DateTime $date, \DateTime $weather)
     {
         return $weather->format('Y-m-d') == $date->format('Y-m-d');
-    }
-
-    /**
-     * @param $updates
-     * @return string
-     */
-    public function createResponse($text)
-    {
-        $day = $this->extractDay($text);
-        $dayEn = $this->translateDay($day);
-        $date = $this->getNearestDateFromDay($dayEn);
-
-        try {
-            $weather = $this->getWeatherForDate($date);
-            $response = "el $day está pronosticado " . $weather;
-        } catch (Exception $e) {
-            $response = "que se yo, forro";
-        }
-
-        return $response;
     }
 
     /**
