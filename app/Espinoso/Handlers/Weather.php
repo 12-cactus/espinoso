@@ -2,6 +2,8 @@
 namespace App\Espinoso\Handlers ; 
 
 use \App\Espinoso\Helpers\Msg;
+use Cmfcmf\OpenWeatherMap\Forecast;
+use Mockery\CountValidator\Exception;
 use Telegram\Bot\Laravel\Facades\Telegram;
 use Gmopx\LaravelOWM\LaravelOWM;
 
@@ -16,12 +18,9 @@ class Weather extends EspinosoHandler
 
     public function handle($updates, $context=null)
     {
-        $day = $this->extractDay($updates->message->text);
-        $date = $this->getNearestDateFromDay($day);
-        $weather = $this->getWeatherForDate($date);
-        $response = "el $day está pronosticado " . $weather;
+        $response = $this->createResponse($updates->message->text);
 
-        Telegram::sendMessage(Msg::plain($response)->build($updates));
+        Telegram::sendMessage(Msg::html($response)->build($updates));
     }
 
     private function buildMessage($response, $pattern, $updates)
@@ -40,7 +39,7 @@ class Weather extends EspinosoHandler
     private function extractDay($text)
     {
         preg_match($this->regex(), $text, $matches);
-        return $this->translateDay($matches['dia']);
+        return $matches['dia'];
     }
 
     private function translateDay($day)
@@ -66,25 +65,75 @@ class Weather extends EspinosoHandler
     private function getWeatherForDate(\DateTime $date)
     {
         $owm = new LaravelOWM();
-        try {
-            $forecast = $owm->getWeatherForecast('Buenos Aires', "metric", "es", '', 7);
-            $weather_in_day = [];
-            foreach ($forecast as $weather)
-            {
-                if ( $this->isSameDate($date, $weather->time->day->format('Y-m-d')) )
-                {
-                    $weather_in_day[] = "de " . $weather->time->from->format('H:i') . " a " . $weather->time->to->format('H:i') . " " . $weather->temperature;
-                }
-            }
-        } catch(\Exception $e)
-        {
-        }
-        return implode(", ",$weather_in_day);
+
+        $forecasts = $owm->getWeatherForecast('Buenos Aires', "es", "metric", '', 7);
+
+        $weather_in_day = [];
+
+        foreach ($forecasts as $forecast)
+            if ( $this->isSameDate($date, $forecast->time->day) )
+                $weather_in_day[] = $this->weatherInDayString($forecast);
+
+        $weather = implode(", ",$weather_in_day);
+
+        return $weather ;
     }
 
     private function isSameDate(\DateTime $date, \DateTime $weather)
     {
         return $weather->format('Y-m-d') == $date->format('Y-m-d');
+    }
+
+    /**
+     * @param $updates
+     * @return string
+     */
+    public function createResponse($text)
+    {
+        $day = $this->extractDay($text);
+        $dayEn = $this->translateDay($day);
+        $date = $this->getNearestDateFromDay($dayEn);
+
+        try {
+            $weather = $this->getWeatherForDate($date);
+            $response = "el $day está pronosticado " . $weather;
+        } catch (Exception $e) {
+            $response = "que se yo, forro";
+        }
+
+        return $response;
+    }
+
+    /**
+     * @param $forecast
+     * @return string
+     */
+    private function weatherInDayString(Forecast $forecast)
+    {
+        $from = $forecast->time->from->format('H:i');
+        $to = $forecast->time->to->format('H:i');
+        $minTemperature = $this->minTemperature($forecast);
+        $maxTemperature = $this->maxTemperature($forecast);
+        $description =  $forecast->weather->description;
+        return "de " . $from . " a " . $to . " " . $description . " con temperaturas entre " . $minTemperature . " y " . $maxTemperature . " grados ";
+    }
+
+    /**
+     * @param Forecast $forecast
+     * @return string
+     */
+    private function minTemperature(Forecast $forecast)
+    {
+        return $forecast->temperature->min->getValue();
+    }
+
+    /**
+     * @param Forecast $forecast
+     * @return string
+     */
+    private function maxTemperature(Forecast $forecast)
+    {
+        return $forecast->temperature->max->getValue();
     }
 }
 
