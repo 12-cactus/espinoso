@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Espinoso\Espinoso;
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
@@ -28,15 +29,19 @@ class TelegramController extends Controller
 
     public function githubWebhook()
     {
-        $client = new \GuzzleHttp\Client();
+        $client = new Client;
         $response = $client->get('https://api.github.com/repos/12-cactus/espinoso/events')->getBody()->getContents();
         $response = json_decode($response);
-        $name = explode(' ', $response[0]->payload->commits[0]->author->name);
-        $commit = $response[0]->payload->commits[0]->message;
+        $commit = $response[0]->payload->commits[0];
+        $author = explode(' ', $commit->author->name)[0];
 
         Telegram::sendMessage([
             'chat_id' => env('TELEGRAM_DEVS_CHANNEL'),
-            'text' => "De nuevo el pelotudo de $name[0] comiteando giladas, mirá lo que hizo esta vez: $commit"
+            'text' => "De nuevo el pelotudo de `$author` commiteando giladas, mirá lo que hizo esta vez:
+
+            _{$commit->message}_
+
+            {$commit->url}",
         ]);
     }
 }
