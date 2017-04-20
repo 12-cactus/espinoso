@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Espinoso\Espinoso;
+use App\Espinoso\Helpers\Msg;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Laravel\Facades\Telegram;
@@ -37,11 +38,11 @@ class TelegramController extends Controller
 
         Telegram::sendMessage([
             'chat_id' => env('TELEGRAM_DEVS_CHANNEL'),
-            'text' => "De nuevo el pelotudo de `$author` commiteando giladas, mirá lo que hizo esta vez:
+            'text' => Msg::md("De nuevo el pelotudo de `$author` commiteando giladas, mirá lo que hizo esta vez:
 
             _{$commit->message}_
 
-            {$commit->url}",
+            {$commit->url}"),
         ]);
     }
 }
