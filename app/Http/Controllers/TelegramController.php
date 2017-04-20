@@ -37,7 +37,7 @@ class TelegramController extends Controller
         $cactus = explode(' ', $commit->author->name)[0];
 
         $message = "De nuevo el pelotudo de `$cactus` commiteando giladas, mirá lo que hizo esta vez:\n_{$commit->message}_ 
-[Link al commit]({$commit->url})";
+[Link al commit]({$commit->url}) :cactus: ";
 
         Telegram::sendMessage([
             'chat_id' => env('TELEGRAM_DEVS_CHANNEL'),
