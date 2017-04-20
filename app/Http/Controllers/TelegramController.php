@@ -34,9 +34,9 @@ class TelegramController extends Controller
         $response = $client->get('https://api.github.com/repos/12-cactus/espinoso/events')->getBody()->getContents();
         $response = json_decode($response);
         $commit = $response[0]->payload->commits[0];
-        $author = explode(' ', $commit->author->name)[0];
+        $cactus = explode(' ', $commit->author->name)[0];
 
-        $message = "De nuevo el pelotudo de `$author` commiteando giladas, mirá lo que hizo esta vez:\n_{$commit->message}_\n
+        $message = "De nuevo el pelotudo de `$cactus` commiteando giladas, mirá lo que hizo esta vez:\n_{$commit->message}_\n
 {$commit->url}";
 
         Telegram::sendMessage([
