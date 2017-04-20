@@ -41,7 +41,8 @@ class TelegramController extends Controller
 
         Telegram::sendMessage([
             'chat_id' => env('TELEGRAM_DEVS_CHANNEL'),
-            'text' => Msg::md($message),
+            'text' => $message,
+            'parse_mode' => 'Markdown',
         ]);
     }
 }
