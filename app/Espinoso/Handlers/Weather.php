@@ -3,6 +3,7 @@ namespace App\Espinoso\Handlers ;
 
 use App\Espinoso\Helpers\Msg;
 use Cmfcmf\OpenWeatherMap\Forecast;
+use \DateTime;
 use Gmopx\LaravelOWM\LaravelOWM;
 use Mockery\CountValidator\Exception;
 use Telegram\Bot\Laravel\Facades\Telegram;
@@ -44,7 +45,7 @@ class Weather extends EspinosoHandler
      * @param $updates
      * @return string
      */
-    public function buildResponse(\DateTime $date)
+    public function buildResponse(DateTime $date)
     {
         try {
             $weather = $this->getWeatherDescriptionForDate($date);
@@ -78,62 +79,41 @@ class Weather extends EspinosoHandler
         return $days[$day];
     }
 
-    private function getNearestDateFromDay($day)
+    private function getNearestDateFromDay($day) : DateTime
     {
         $time = strtotime("next $day");
-        return \DateTime::createFromFormat('U', $time);
+        return DateTime::createFromFormat('U', $time);
     }
 
-    private function getWeatherDescriptionForDate(\DateTime $date)
+    private function getWeatherDescriptionForDate(DateTime $date) : string
     {
         $owm = new LaravelOWM();
 
-        $forecasts = $owm->getWeatherForecast('Buenos Aires', "es", "metric", 8, '');
+        $forecasts = $owm->getWeatherForecast('Buenos Aires', "es", "metric", 10, '');
 
         return collect($forecasts)
             ->filter(   function (Forecast $forecast) use ($date) { return $this->isForecastForDate($date, $forecast); } )
             ->map(      function (Forecast $forecast) { return $this->forecastToDescription($forecast); } )
-            ->reduce(   function ($carray, $str) { return empty($carray) ? $str : $carray . "," . $str;  } , "")
+            ->reduce(   function ($carry, $str) { return empty($carry) ? $str : $carry . "," . $str;  } , "")
         ;
     }
 
-    private function isForecastForDate(\DateTime $date, Forecast $forecast)
+    private function isForecastForDate(DateTime $date, Forecast $forecast) : bool
     {
         return $forecast->time->day->format('Y-m-d') == $date->format('Y-m-d');
     }
 
-    /**
-     * @param $forecast
-     * @return string
-     */
-    private function forecastToDescription(Forecast $forecast)
+    private function forecastToDescription(Forecast $forecast) : string
     {
         $from = $forecast->time->from->format('H:i');
         $to = $forecast->time->to->format('H:i');
-        $minTemperature = $this->minTemperature($forecast);
-        $maxTemperature = $this->maxTemperature($forecast);
+        $minTemperature = $forecast->temperature->min->getValue();
+        $maxTemperature = $forecast->temperature->max->getValue();
         $description =  $forecast->weather->description;
 
         return "de " . $from . " a " . $to . " " . $description . " con temperaturas entre " . $minTemperature . " y " . $maxTemperature . " grados ";
     }
 
-    /**
-     * @param Forecast $forecast
-     * @return string
-     */
-    private function minTemperature(Forecast $forecast)
-    {
-        return $forecast->temperature->min->getValue();
-    }
-
-    /**
-     * @param Forecast $forecast
-     * @return string
-     */
-    private function maxTemperature(Forecast $forecast)
-    {
-        return $forecast->temperature->max->getValue();
-    }
 }
 
 
