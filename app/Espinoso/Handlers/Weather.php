@@ -28,24 +28,12 @@ class Weather extends EspinosoHandler
         Telegram::sendMessage(Msg::html($response)->build($updates));
     }
 
-    private function buildMessage($response, $pattern, $updates)
-    {
-        if ($response instanceof Msg)
-            return $response->build($updates, $pattern);
-        else 
-            return Msg::plain($response)->build($updates, $pattern);
-    }
- 
     private function regex()
     {
         return "/clima[^a-z0-9]+(?:este|el)[^a-z0-9].*(?'dia'lunes|martes|miercoles|jueves|viernes|sabado|domingo).*\??/i";
     }
 
-    /**
-     * @param $updates
-     * @return string
-     */
-    public function buildResponse(DateTime $date)
+    public function buildResponse(DateTime $date) : string
     {
         try {
             $weather = $this->getWeatherDescriptionForDate($date);
