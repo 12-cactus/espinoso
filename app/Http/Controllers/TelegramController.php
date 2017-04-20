@@ -34,10 +34,11 @@ class TelegramController extends Controller
         $response = $client->get('https://api.github.com/repos/12-cactus/espinoso/events')->getBody()->getContents();
         $response = json_decode($response);
         $commit = $response[0]->payload->commits[0];
+        $link = "https://github.com/12-cactus/espinoso/commit/{$commit->sha}";
         $cactus = explode(' ', $commit->author->name)[0];
 
         $message = "De nuevo el pelotudo de `$cactus` commiteando giladas, mirá lo que hizo esta vez:\n_{$commit->message}_ 
-[Commit]({$commit->url})";
+[Commit]({$link})";
 
         Telegram::sendMessage([
             'chat_id' => env('TELEGRAM_DEVS_CHANNEL'),
