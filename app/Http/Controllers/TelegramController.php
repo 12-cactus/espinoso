@@ -36,13 +36,15 @@ class TelegramController extends Controller
         $commit = $response[0]->payload->commits[0];
         $author = explode(' ', $commit->author->name)[0];
 
+        $message = <<<MD
+De nuevo el pelotudo de `$author` commiteando giladas, mirá lo que hizo esta vez:
+_{$commit->message}_
+{$commit->url}
+MD;
+
         Telegram::sendMessage([
             'chat_id' => env('TELEGRAM_DEVS_CHANNEL'),
-            'text' => Msg::md("De nuevo el pelotudo de `$author` commiteando giladas, mirá lo que hizo esta vez:
-
-            _{$commit->message}_
-
-            {$commit->url}"),
+            'text' => Msg::md($message),
         ]);
     }
 }
