@@ -47,9 +47,9 @@ class Weather extends EspinosoHandler
     public function buildResponse(\DateTime $date)
     {
         try {
-            $weather = $this->getWeatherForDate($date);
+            $weather = $this->getWeatherDescriptionForDate($date);
             if (empty($weather))
-                throw new \Exception() ; 
+                throw new \Exception() ;
             $response = "está pronosticado " . $weather;
         } catch (Exception $e) {
             $response = "que se yo, forro";
@@ -84,39 +84,36 @@ class Weather extends EspinosoHandler
         return \DateTime::createFromFormat('U', $time);
     }
 
-    private function getWeatherForDate(\DateTime $date)
+    private function getWeatherDescriptionForDate(\DateTime $date)
     {
         $owm = new LaravelOWM();
 
         $forecasts = $owm->getWeatherForecast('Buenos Aires', "es", "metric", 8, '');
 
-        $weather_in_day = [];
-        foreach ($forecasts as $forecast)
-        {
-            if ($this->isSameDate($date, $forecast->time->day))
-                $weather_in_day[] = $this->weatherInDayString($forecast);
-        }
-        $weather = implode(", ",$weather_in_day);
-
-        return $weather ;
+        return collect($forecasts)
+            ->filter(   function (Forecast $forecast) use ($date) { return $this->isForecastForDate($date, $forecast); } )
+            ->map(      function (Forecast $forecast) { return $this->forecastToDescription($forecast); } )
+            ->reduce(   function ($carray, $str) { return empty($carray) ? $str : $carray . "," . $str;  } , "")
+        ;
     }
 
-    private function isSameDate(\DateTime $date, \DateTime $weather)
+    private function isForecastForDate(\DateTime $date, Forecast $forecast)
     {
-        return $weather->format('Y-m-d') == $date->format('Y-m-d');
+        return $forecast->time->day->format('Y-m-d') == $date->format('Y-m-d');
     }
 
     /**
      * @param $forecast
      * @return string
      */
-    private function weatherInDayString(Forecast $forecast)
+    private function forecastToDescription(Forecast $forecast)
     {
         $from = $forecast->time->from->format('H:i');
         $to = $forecast->time->to->format('H:i');
         $minTemperature = $this->minTemperature($forecast);
         $maxTemperature = $this->maxTemperature($forecast);
         $description =  $forecast->weather->description;
+
         return "de " . $from . " a " . $to . " " . $description . " con temperaturas entre " . $minTemperature . " y " . $maxTemperature . " grados ";
     }
 
