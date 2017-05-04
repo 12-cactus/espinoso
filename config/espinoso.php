@@ -1,6 +1,7 @@
 <?php
 return [
     'handlers' => [ 
+        App\Espinoso\Handlers\CinemaHandler::class,
         App\Espinoso\Handlers\ResponseByMatch::class,
         App\Espinoso\Handlers\BardoDelEspinoso::class,
         App\Espinoso\Handlers\RandomInstagram::class,
