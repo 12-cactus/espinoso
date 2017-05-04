@@ -2,6 +2,7 @@
 
 namespace App\Espinoso\Handlers;
 
+use App\Espinoso\Helpers\Msg;
 use Goutte\Client;
 use Illuminate\Support\Str;
 use Telegram\Bot\Laravel\Facades\Telegram;
@@ -26,7 +27,6 @@ class CinemaHandler extends EspinosoHandler
         });
 
         $message = "La pensas poner? Mete Netflix pelotud@! es mas barato! Pero igual podes ver todas estas: \n" . implode("\n", $movies);
-
-        Telegram::sendMessage($message);
+        Telegram::sendMessage(Msg::plain($message)->build($updates));
     }
 }
