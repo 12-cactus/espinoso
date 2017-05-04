@@ -20,17 +20,22 @@ $funDespedirseRand = function ($pattern, $update) {
     return $elegida . ", " . $update->message->from->first_name ; 
 };
 
+function completeWordRegex($word) 
+{
+    return "^(?:.*[^a-z])?" . $word . "[^a-z]?";
+}
+
 $rbmMappings =  [
     '/macri.?$/i'    => 'Gato',
     '/^espinoso[^\?]?$/i' => 'Otra vez rompiendo los huevos... Que pija quieren?',
-    '/asado.?$/i'    => "Que se yo! Estos pibes son re caretas... Yo me voy a escabiar a Bernal, ahí se ven soquetes!",
+    '/' . completeWordRegex('asado') . '$/i'    => "Que se yo! Estos pibes son re caretas... Yo me voy a escabiar a Bernal, ahí se ven soquetes!",
     '/no[, ]* espinoso?/i' => Msg::plain($funAsentirRand),
-    '/alan.?$/i'     => [ 'Alan lo hace por dinero', 'acaso dijiste $$$ oriented programming?', ] ,
-    '/marcos.?$/i'   => '¿Quisiste decir Markos?',
+    '/' . completeWordRegex('alan') . '$/i'     => [ 'Alan lo hace por dinero', 'acaso dijiste $$$ oriented programming?', ] ,
+    '/' . completeWordRegex('marcos') . '$/i'   => '¿Quisiste decir Markos?',
     '/maximo.?$/i'   => 'Para programarme no usaron ni un solo if ;)',
-    '/facu.?$/i'     => 'Facu, arreglá la cagada que te mandaste',
-    '/dan.?$/i'      => 'dan, ese tiene tatuado pattern matching en el culo!',
-    '/^(?:.*[^a-z])?ines?[^a-z]?$/i'  => [ 'esa Ines esa una babosa, siempre mirando abs' , 'Ine es una niñita sensible e inocente!', ],
+    '/' . completeWordRegex('facu(?:ndo)?') . '$/i'     => 'Facu, arreglá la cagada que te mandaste',
+    '/' . completeWordRegex('dan') . '$/i'      => 'dan, ese tiene tatuado pattern matching en el culo!',
+    '/' . completeWordRegex('ines?') . '$/i'  => [ 'esa Ines esa una babosa, siempre mirando abs' , 'Ine es una niñita sensible e inocente!', ],
     '/(j+a+){5,}/i'  => 'ajajajajajaja, que plato!',
     '/fu[u]*ck/i'    => 'tranquilo vieja, todo va a salir bien.',
     '/mamu/i'        => 'papu',
