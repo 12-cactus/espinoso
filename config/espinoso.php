@@ -7,5 +7,6 @@ return [
         App\Espinoso\Handlers\RandomInstagram::class,
         App\Espinoso\Handlers\GoogleStaticMaps::class,
         App\Espinoso\Handlers\Weather::class,
+        App\Espinoso\Handlers\NextHolidayHandler::class,
     ],
 ];
