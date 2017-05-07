@@ -23,14 +23,40 @@ class NextHolidayHandler extends EspinosoHandler
 
     public function handle($updates, $context = null)
     {
+        $holidays = $this->getHolidays();
+
+        $message = "Manga de vagos, quedan " . count($holidays) . " feriados en todo el año.\n";
+
+        foreach ($holidays as $holiday) {
+            $message .= $holiday->phrase . ', ' . $holiday->description . ' (' . $holiday->count . " días)\n";
+        }
+
+        Telegram::sendMessage(Msg::plain($message)->build($updates));
+    }
+
+    /**
+     * Método dedicado a Dan. Chorea data de elproximoferiado.com y de algún modo saca
+     * un json que tienen guardado en un <script> y lo transforma en objects.
+     *
+     * @return array
+     */
+    private function getHolidays()
+    {
+        $holidays = [];
         $client = new Client();
         $crawler = $client->request('GET', 'http://www.elproximoferiado.com/');
 
-        $date = $crawler->filter('#fecha')->first()->text();
-        $reason = $crawler->filter('#motivo')->first()->text();
+        // here starts crap
+        $data = str_replace("\n", "", $crawler->filter('script')->first()->text());
+        $data = str_replace("\t", "", $data);
+        $data = str_replace("var json = '[", '', $data);
+        $data = str_replace("]';var position = 0;", '', $data);
+        foreach (preg_split('/(}),({)/', $data) as $i) {
+            $holidays[] = json_decode("{" . str_replace('}', '', str_replace('{', '', $i)) . "}");
+        }
 
-        $message = 'Manga de vagos, el próximo feriado es el ' . $date . ' con motivo ' . $reason;
+        // here finishes crap
 
-        Telegram::sendMessage(Msg::plain($message)->build($updates));
+        return $holidays;
     }
 }
