@@ -42,21 +42,16 @@ class NextHolidayHandler extends EspinosoHandler
      */
     private function getHolidays()
     {
-        $holidays = [];
         $client = new Client();
         $crawler = $client->request('GET', 'http://www.elproximoferiado.com/');
 
         // here starts crap
         $data = str_replace("\n", "", $crawler->filter('script')->first()->text());
         $data = str_replace("\t", "", $data);
-        $data = str_replace("var json = '[", '', $data);
-        $data = str_replace("]';var position = 0;", '', $data);
-        foreach (preg_split('/(}),({)/', $data) as $i) {
-            $holidays[] = json_decode("{" . str_replace('}', '', str_replace('{', '', $i)) . "}");
-        }
-
+        $data = str_replace("var json = '", '', $data);
+        $data = str_replace("';var position = 0;", '', $data);
         // here finishes crap
 
-        return $holidays;
+        return json_decode($data);
     }
 }
