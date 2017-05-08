@@ -25,13 +25,13 @@ class NextHolidayHandler extends EspinosoHandler
     {
         $holidays = $this->getHolidays();
 
-        $message = "Manga de vagos, quedan " . count($holidays) . " feriados en todo el año.\n";
+        $message = "Manga de vagos, **quedan " . count($holidays) . " feriados** en todo el año.\n";
 
         foreach ($holidays as $holiday) {
-            $message .= '* ' . $holiday->phrase . ', ' . $holiday->description . ' (' . $holiday->count . " días)\n";
+            $message .= ' - **' . $holiday->phrase . '**, ' . $holiday->description . ' (' . $holiday->count . " días)\n";
         }
 
-        Telegram::sendMessage(Msg::plain($message)->build($updates));
+        Telegram::sendMessage(Msg::md($message)->build($updates));
     }
 
     /**
