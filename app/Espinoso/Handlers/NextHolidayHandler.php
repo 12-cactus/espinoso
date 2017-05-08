@@ -31,7 +31,7 @@ class NextHolidayHandler extends EspinosoHandler
             $message .= '* ' . $holiday->phrase . ', ' . $holiday->description . ' (' . $holiday->count . " días)\n";
         }
 
-        Telegram::sendMessage(Msg::md($message)->build($updates));
+        Telegram::sendMessage(Msg::plain($message)->build($updates));
     }
 
     /**
