@@ -77,7 +77,7 @@ class Weather extends EspinosoHandler
     {
         $owm = new LaravelOWM();
 
-        $forecasts = $owm->getWeatherForecast('Buenos Aires', "es", "metric", 10, '');
+        $forecasts = $owm->getWeatherForecast('Quilmes, AR', "es", "metric", 10, '');
 
         return collect($forecasts)
             ->filter(   function (Forecast $forecast) use ($date) { return $this->isForecastForDate($date, $forecast); } )
