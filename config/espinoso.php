@@ -8,5 +8,6 @@ return [
         App\Espinoso\Handlers\GoogleStaticMaps::class,
         App\Espinoso\Handlers\Weather::class,
         App\Espinoso\Handlers\NextHolidayHandler::class,
+        App\Espinoso\Handlers\ImdbHandler::class,
     ],
 ];
