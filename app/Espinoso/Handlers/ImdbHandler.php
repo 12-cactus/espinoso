@@ -10,6 +10,7 @@ namespace App\Espinoso\Handlers;
 
 use \App\Espinoso\Handlers\ImdbScraper\Imdb;
 use App\Espinoso\Helpers\Msg;
+use Telegram\Bot\Laravel\Facades\Telegram;
 
 class ImdbHandler extends EspinosoHandler
 {
