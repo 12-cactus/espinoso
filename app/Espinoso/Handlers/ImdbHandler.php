@@ -23,7 +23,7 @@ class ImdbHandler extends EspinosoHandler
     public function handle($updates, $context=null)
     {
         $response = $this->buildResponse($updates->message->text);
-        $response = Msg::md($msg);
+        $response = Msg::md($response);
         return Telegram::sendMessage( $response->build($updates) );
     }
 
