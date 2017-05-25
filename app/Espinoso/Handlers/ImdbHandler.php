@@ -36,7 +36,7 @@ class ImdbHandler extends EspinosoHandler
 
     private function regex()
     {
-        return "/^" . self::KEYWORD . "[ ]*(?'name'[^ ]*)$/i";
+        return "/^" . self::KEYWORD . "[ ]*(?'name'.*)$/i";
     }
 
     /**
