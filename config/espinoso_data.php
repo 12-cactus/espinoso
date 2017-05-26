@@ -28,7 +28,7 @@ function completeWordRegex($word)
 $rbmMappings =  [
     '/macri.?$/i'    => 'Gato',
     '/^espinoso[^\?]?$/i' => 'Otra vez rompiendo los huevos... Que pija quieren?',
-    '/' . completeWordRegex('asado') . '$/i'    => "Que se yo! Estos pibes son re caretas... Yo me voy a escabiar a Bernal, ahí se ven soquetes!",
+    '/' . completeWordRegex('asado') . '$/i'    => "Ma' qu'e asado! Mexicaneada el sábado a la noche en lo de Maru. El que no lleva bebidas no escabia. Dan va a jugar a la play",
     '/no[, ]* espinoso?/i' => Msg::plain($funAsentirRand),
     '/' . completeWordRegex('alan') . '$/i'     => [ 'Alan lo hace por dinero', 'acaso dijiste $$$ oriented programming?', ] ,
     '/' . completeWordRegex('marcos') . '$/i'   => '¿Quisiste decir Markos?',
