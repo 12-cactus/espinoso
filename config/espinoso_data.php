@@ -34,7 +34,6 @@ $rbmMappings =  [
     '/' . completeWordRegex('marcos') . '$/i'   => '¿Quisiste decir Markos?',
     '/maximo.?$/i'   => 'Para programarme no usaron ni un solo if ;)',
     '/' . completeWordRegex('facu(?:ndo)?') . '$/i'     => 'Facu, ese es terrible puto',
-    '/' . completeWordRegex('dan') . '$/i'      => 'ey dan, feliz cumple culo roto! sale nuevo tatto en el upite para festejar?',
     '/' . completeWordRegex('ines?') . '$/i'  => [ 'esa Ines esa una babosa, siempre mirando abs' , 'Ine es una niñita sensible e inocente!', 'Ine te deja sin pilas' ],
     '/(j+a+){5,}/i'  => 'ajajajajajaja, que plato!',
     '/fu[u]*ck/i'    => 'tranquilo vieja, todo va a salir bien.',
