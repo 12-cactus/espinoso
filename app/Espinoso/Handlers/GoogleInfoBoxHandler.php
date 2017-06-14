@@ -40,7 +40,7 @@ class GoogleInfoBoxHandler extends EspinosoHandler
         $crawler = $client->request('GET', 'https://www.google.com.ar/search?q=' . $criteria);
         $xpdopen = $crawler->filter('#rhs_block');
         $result['message'] = implode("\n", $this->getText($xpdopen));
-        $result['imgs'] = $this->getImages($xpdopen);
+        $result['images'] = $this->getImages($xpdopen);
         return $result;
     }
 
