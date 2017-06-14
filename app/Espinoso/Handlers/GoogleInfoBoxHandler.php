@@ -19,8 +19,17 @@ class GoogleInfoBoxHandler extends EspinosoHandler
 
     public function handle($updates, $context = null)
     {
-        $message = $this->buildResponse($updates->message->text);
-        $message = '```' . $message . '```';
+        $response = $this->buildResponse($updates->message->text);
+
+        $imgs = $response['images'] ;
+        if (!empty($imgs))
+        Telegram::sendPhoto([
+            'chat_id' => $updates->message->chat->id,
+            'photo' => $imgs[0],
+            // 'caption' => ''
+        ]);
+
+        $message = '```' . $response['message'] . '```';
         Telegram::sendMessage(Msg::md($message)->build($updates));
     }
 
@@ -30,8 +39,9 @@ class GoogleInfoBoxHandler extends EspinosoHandler
         $client = new Client();
         $crawler = $client->request('GET', 'https://www.google.com.ar/search?q=' . $criteria);
         $xpdopen = $crawler->filter('#rhs_block');
-        $result = $this->getText($xpdopen);
-        return implode("\n", $result);
+        $result['message'] = implode("\n", $this->getText($xpdopen));
+        $result['imgs'] = $this->getImages($xpdopen);
+        return $result;
     }
 
     public function regex()
@@ -61,6 +71,13 @@ class GoogleInfoBoxHandler extends EspinosoHandler
             }
             $result = "$left: $right"; 
             return $result; 
+        });
+    }
+
+    private function getImages(Crawler $node)
+    {
+        return $node->filter('img')->each(function($tag) {
+            return $tag->attr('src');
         });
     }
 
