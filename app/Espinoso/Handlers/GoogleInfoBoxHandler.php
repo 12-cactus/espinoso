@@ -39,7 +39,11 @@ class GoogleInfoBoxHandler extends EspinosoHandler
         $client = new Client();
         $crawler = $client->request('GET', 'https://www.google.com.ar/search?q=' . $criteria);
         $xpdopen = $crawler->filter('#rhs_block');
-        $result['message'] = implode("\n", $this->getText($xpdopen));
+        
+        $message = $this->getText($xpdopen);
+        $message = array_filter($message, function ($text) { return !is_null($text); });
+
+        $result['message'] = implode("\n", $message);
         $result['images'] = $this->getImages($xpdopen);
         return $result;
     }
@@ -69,15 +73,34 @@ class GoogleInfoBoxHandler extends EspinosoHandler
                 if ( ! is_null($value) && $div->filter($value)->count() > 0) 
                     $right = $div->filter($value)->first()->text() ; 
             }
-            $result = "$left: $right"; 
-            return $result; 
+            if (empty($left) && empty($right))
+                return null ; 
+
+            if (empty($left))
+                return $right ; 
+
+            if (empty($right))
+                return $left ; 
+            
+            return "$left: $right"; 
         });
+    }
+
+    private function isUrl($url)
+    {
+        return substr($url, 0, 4) == 'http'; 
     }
 
     private function getImages(Crawler $node)
     {
-        return $node->filter('img')->each(function($tag) {
-            return $tag->attr('src');
+        return $node->filter('img')->each(function($tag) 
+        {
+            $url = $tag->attr('title');
+            
+            if ( $this->isUrl($url) )
+                return $url;
+            else 
+                return $tag->attr('src');
         });
     }
 
