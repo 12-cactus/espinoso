@@ -9,5 +9,6 @@ return [
         App\Espinoso\Handlers\Weather::class,
         App\Espinoso\Handlers\NextHolidayHandler::class,
         App\Espinoso\Handlers\ImdbHandler::class,
+        App\Espinoso\Handlers\GoogleInfoBoxHandler::class,
     ],
 ];
