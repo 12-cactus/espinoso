@@ -95,11 +95,11 @@ class GoogleInfoBoxHandler extends EspinosoHandler
     {
         return $node->filter('img')->each(function($tag) 
         {
-            $url = $tag->attr('title');
+            // $url = $tag->attr('title');
             
-            if ( $this->isUrl($url) )
-                return str_replace("http://t1.gstatic.com",  "https://encrypted-tbn0.gstatic.com", $url);
-            else 
+            // if ( $this->isUrl($url) )
+            //     return str_replace("http://t1.gstatic.com",  "https://encrypted-tbn0.gstatic.com", $url);
+            // else 
                 return $tag->attr('src');
         });
     }
