@@ -24,6 +24,7 @@ class TelegramController extends Controller
 
     public function setWebhook()
     {
+        // FIXME make url configurable
         return Telegram::setWebhook(['url' => 'https://espinoso.herokuapp.com/handle-update']);
     }
 
