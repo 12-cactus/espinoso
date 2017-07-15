@@ -16,7 +16,6 @@ class WeatherMap extends TestCase
         {
             $date = \DateTime::createFromFormat("U", strtotime("next $day"));
             $response = $w->buildResponse($date);
-            dump($response);
             $this->assertStringEndsNotWith("está pronosticado ", $response);
         }
     }

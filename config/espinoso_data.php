@@ -20,11 +20,6 @@ $funDespedirseRand = function ($pattern, $update) {
     return $elegida . ", " . $update->message->from->first_name ; 
 };
 
-function completeWordRegex($word) 
-{
-    return "^(?:.*[^a-z])?" . $word . "[^a-z]?";
-}
-
 $rbmMappings =  [
     '/macri.?$/i'    => 'Gato',
     '/^espinoso[^\?]?$/i' => 'Otra vez rompiendo los huevos... Que pija quieren?',

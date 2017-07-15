@@ -10,6 +10,8 @@ class GoogleInfoBoxHandlerTest extends TestCase
     public function testQueAlMenosTraeAlgo()
     {
         $gib = new GoogleInfoBoxHandler();
-        dump($gib->buildResponse("gib wonder woman movie 2017"));
+        $result = $gib->buildResponse("gib wonder woman movie 2017");
+
+        $this->assertContains("Mujer Maravilla: Película de 2017", $result['message']);
     }
 }
