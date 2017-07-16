@@ -24,12 +24,12 @@ class TelegramController extends Controller
 
     public function setWebhook()
     {
-        // FIXME make url configurable
-        return Telegram::setWebhook(['url' => 'https://espinoso.herokuapp.com/handle-update']);
+        return Telegram::setWebhook(['url' => route('update')]);
     }
 
     public function githubWebhook()
     {
+        // FIXME get & send branch of commit
         $client = new Client;
         $response = $client->get('https://api.github.com/repos/12-cactus/espinoso/events')->getBody()->getContents();
         $response = json_decode($response);
