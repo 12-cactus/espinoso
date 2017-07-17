@@ -4,7 +4,6 @@ namespace App\Espinoso\Handlers;
 
 use GuzzleHttp\Client;
 use App\Espinoso\Helpers\Msg;
-use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
 class GitHubHandler extends EspinosoHandler
@@ -14,18 +13,19 @@ class GitHubHandler extends EspinosoHandler
     public function shouldHandle($updates, $context = null)
     {
         return $this->isTextMessage($updates)
-            && preg_match('/^(espi(noso)*)(\s)(issue)(\s)(.+)$/i', $updates->message->text, $this->matches);
+            && preg_match('/(espi(noso)*)(\s)(issue)(\s)(.+)$/i', $updates->message->text, $this->matches);
     }
 
     public function handle($updates, $context = null)
     {
         $title = $this->matches[6];
         $token = config('espinoso.github.token');
-        \Log::info($token);
 
         $client = new Client;
         $response = $client->post('https://api.github.com/repos/12-cactus/espinoso/issues', [
-            'Authorization' => "token {$token}",
+            'headers' => [
+                'Authorization' => "token {$token}",
+            ],
             'json' => ['title' => $title]
         ]);
 
