@@ -23,8 +23,7 @@ class GitHubHandler extends EspinosoHandler
         $body = '{"title": "'.$title.'"}';
 
         $client = new GuzzleHttpClient;
-        $response = $client->request('POST',
-            'https://api.github.com/repos/12-cactus/espinoso/issues', [
+        $response = $client->post('https://api.github.com/repos/12-cactus/espinoso/issues', [
             'Authorization' => "token {$token}",
             'body' => $body
         ]);
