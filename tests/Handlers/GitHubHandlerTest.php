@@ -19,4 +19,17 @@ class GitHubHandlerTest extends TestCase
 
         $this->assertTrue($github->shouldHandle($updates));
     }
+
+    /**
+     * @test
+     */
+    public function can_not_create_issue()
+    {
+        $github = new GitHubHandler;
+        $updates = (object)[
+            'message' => (object)['text' => 'not espi issue blablatest']
+        ];
+
+        $this->assertFalse($github->shouldHandle($updates));
+    }
 }

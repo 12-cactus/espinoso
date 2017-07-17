@@ -13,7 +13,7 @@ class GitHubHandler extends EspinosoHandler
     public function shouldHandle($updates, $context = null)
     {
         return $this->isTextMessage($updates)
-            && preg_match('/(espi(noso)*)(\s)(issue)(\s)(.+)$/i', $updates->message->text, $this->matches);
+            && preg_match('/^(espi(noso)*)(\s)(issue)(\s)(.+)$/i', $updates->message->text, $this->matches);
     }
 
     public function handle($updates, $context = null)
