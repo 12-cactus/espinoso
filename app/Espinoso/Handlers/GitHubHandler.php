@@ -4,6 +4,7 @@ namespace App\Espinoso\Handlers;
 
 use GuzzleHttp\Client;
 use App\Espinoso\Helpers\Msg;
+use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
 class GitHubHandler extends EspinosoHandler
@@ -20,12 +21,12 @@ class GitHubHandler extends EspinosoHandler
     {
         $title = $this->matches[6];
         $token = config('espinoso.github.token');
-        $body = '{"title": "'.$title.'"}';
+        \Log::info($token);
 
         $client = new Client;
         $response = $client->post('https://api.github.com/repos/12-cactus/espinoso/issues', [
             'Authorization' => "token {$token}",
-            'body' => $body
+            'json' => ['title' => $title]
         ]);
 
         if ($response->getStatusCode() == 201) {
