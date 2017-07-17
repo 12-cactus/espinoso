@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5d78854dd8a2cf75c7a97c8a1168ef3b",
+    "content-hash": "b8be7557d64c41a2cbd8201883595b0c",
     "packages": [
         {
             "name": "cmfcmf/openweathermap-php-api",

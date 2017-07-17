@@ -2,9 +2,9 @@
 
 namespace App\Espinoso\Handlers;
 
+use GuzzleHttp\Client;
 use App\Espinoso\Helpers\Msg;
 use Telegram\Bot\Laravel\Facades\Telegram;
-use Telegram\Bot\HttpClients\GuzzleHttpClient;
 
 class GitHubHandler extends EspinosoHandler
 {
@@ -22,7 +22,7 @@ class GitHubHandler extends EspinosoHandler
         $token = config('espinoso.github.token');
         $body = '{"title": "'.$title.'"}';
 
-        $client = new GuzzleHttpClient;
+        $client = new Client;
         $response = $client->post('https://api.github.com/repos/12-cactus/espinoso/issues', [
             'Authorization' => "token {$token}",
             'body' => $body
