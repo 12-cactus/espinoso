@@ -1,6 +1,7 @@
 <?php
 return [
     'handlers' => [ 
+        App\Espinoso\Handlers\GitHubHandler::class,
         App\Espinoso\Handlers\CinemaHandler::class,
         App\Espinoso\Handlers\ResponseByMatch::class,
         App\Espinoso\Handlers\BardoDelEspinoso::class,
@@ -11,4 +12,8 @@ return [
         App\Espinoso\Handlers\ImdbHandler::class,
         App\Espinoso\Handlers\GoogleInfoBoxHandler::class,
     ],
+
+    'github' => [
+        'token' => env('GITHUB_TOKEN', '123')
+    ]
 ];
