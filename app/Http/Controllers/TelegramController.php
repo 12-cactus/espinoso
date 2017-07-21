@@ -1,8 +1,8 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Espinoso\Espinoso;
 use GuzzleHttp\Client;
+use App\Espinoso\Espinoso;
 use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
@@ -24,7 +24,7 @@ class TelegramController extends Controller
 
     public function setWebhook()
     {
-        return Telegram::setWebhook(['url' => route('update')]);
+        return Telegram::setWebhook(['url' => secure_url('handle-update')]);
     }
 
     public function githubWebhook()

@@ -1,7 +1,12 @@
 <?php
 
-Route::post('/handle-update', ['as' => 'update', 'uses' => 'TelegramController@handleUpdates']);
+Route::get('/', function () {
+    $response = Telegram::getMe();
+    return "I'm @{$response->getUsername()}";
+});
 
-Route::post('/set-webhook', ['as' => 'set-webhook', 'uses' => 'TelegramController@setWebhook']);
+Route::post('/handle-update', ['uses' => 'TelegramController@handleUpdates']);
+
+Route::post('/set-webhook', ['uses' => 'TelegramController@setWebhook']);
 
 Route::post('/github-webhook', ['uses' => 'TelegramController@githubWebhook']);
