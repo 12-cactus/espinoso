@@ -14,6 +14,7 @@ class VerifyCsrfToken extends BaseVerifier
     protected $except = [
         '/handle-update',
         '/set-webhook',
+        '/get-updates',
         '/github-webhook'
     ];
 }
