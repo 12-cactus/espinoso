@@ -12,11 +12,6 @@ class BardoDelEspinosoHandler extends EspinosoHandler
 
     public function handle($updates, $context = null)
     {
-        Telegram::sendMessage([
-            'chat_id' => 123,
-            'text' => 'Hola Facu'
-        ]);
-
         return Telegram::sendPhoto([
             'chat_id' => $updates->message->chat->id,
             'photo'   => 'https://cdn.drawception.com/images/panels/2012/4-4/FErsE1a6t7-8.png',
