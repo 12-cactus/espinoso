@@ -27,7 +27,7 @@ abstract class EspinosoHandler
         $error = "Fuck! Something blow up
  - `{$e->getMessage()}`
  - *From:* {$updates->message->from->first_name} (@{$updates->message->from->username})
- - *Chat:* {$chat})
+ - *Chat:* {$chat}
  - *Text:* _{$updates->message->text}_
 
 View Log for details";
