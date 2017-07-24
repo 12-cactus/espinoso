@@ -2,34 +2,34 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
+use Tests\Handlers\HandlersTestCase;
 use App\Espinoso\Handlers\GitHubHandler;
 
-class GitHubHandlerTest extends TestCase
+class GitHubHandlerTest extends HandlersTestCase
 {
-    /**
-     * @test
-     */
-    public function create_issue()
+    protected function setUp()
     {
-        $github = new GitHubHandler;
-        $updates = (object)[
-            'message' => (object)['text' => 'espi issue blablatest']
-        ];
-
-        $this->assertTrue($github->shouldHandle($updates));
+        parent::setUp();
+        $this->handler = new GitHubHandler;
     }
 
     /**
      * @test
      */
-    public function can_not_create_issue()
+    public function it_should_handle_when_receives_issue_command()
     {
-        $github = new GitHubHandler;
-        $updates = (object)[
-            'message' => (object)['text' => 'not espi issue blablatest']
-        ];
+        $update = $this->update(['text' => 'espi issue blablatest']);
 
-        $this->assertFalse($github->shouldHandle($updates));
+        $this->assertTrue($this->handler->shouldHandle($update));
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_not_handle_when_receives_another_text()
+    {
+        $update = $this->update(['text' => 'not espi issue blablatest']);
+
+        $this->assertFalse($this->handler->shouldHandle($update));
     }
 }

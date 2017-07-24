@@ -1,7 +1,8 @@
 <?php namespace App\Espinoso\Handlers;
 
-use Exception;
 use Illuminate\Support\Facades\Log;
+use Telegram\Bot\Exceptions\TelegramResponseException;
+use Telegram\Bot\Laravel\Facades\Telegram;
 
 abstract class EspinosoHandler
 {
@@ -13,10 +14,24 @@ abstract class EspinosoHandler
     	return isset($updates->message) && isset($updates->message->text); 
     }
 
-    public function handleError(Exception $e, $updates)
+    public function handleError(TelegramResponseException $e, $updates)
     {
-        Log::error(json_encode($updates));
+        Log::info(json_encode($updates));
         Log::error($e);
+
+        $error = "Fuck! Something blow up
+ - `{$e->getMessage()}`
+ - *From:* {$updates->message->from->first_name} (@{$updates->message->from->username})
+ - *Chat:* {$updates->message->chat->first_name} (@{$updates->message->chat->username})
+ - *Text:* _{$updates->message->text}_
+
+View Log for details";
+
+        Telegram::sendMessage([
+            'chat_id' => env('TELEGRAM_DEVS_CHANNEL'),
+            'text'    => $error,
+            'parse_mode' => 'Markdown',
+        ]);
     }
 
     public function __toString()

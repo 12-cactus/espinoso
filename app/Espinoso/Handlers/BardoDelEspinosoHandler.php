@@ -1,8 +1,8 @@
-<?php namespace App\Espinoso\Handlers ;
+<?php namespace App\Espinoso\Handlers;
 
 use Telegram\Bot\Laravel\Facades\Telegram;
 
-class BardoDelEspinoso extends EspinosoHandler
+class BardoDelEspinosoHandler extends EspinosoHandler
 {
     public function shouldHandle($updates, $context = null)
     {
@@ -12,7 +12,12 @@ class BardoDelEspinoso extends EspinosoHandler
 
     public function handle($updates, $context = null)
     {
-        Telegram::sendPhoto([
+        Telegram::sendMessage([
+            'chat_id' => 123,
+            'text' => 'Hola Facu'
+        ]);
+
+        return Telegram::sendPhoto([
             'chat_id' => $updates->message->chat->id,
             'photo'   => 'https://cdn.drawception.com/images/panels/2012/4-4/FErsE1a6t7-8.png',
             'caption' => 'Acá tenés tu nude, puto del orto!'
