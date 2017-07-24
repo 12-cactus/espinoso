@@ -19,10 +19,15 @@ abstract class EspinosoHandler
         Log::info(json_encode($updates));
         Log::error($e);
 
+        $chat = $updates->message->chat->type == 'group'
+            ? "{$updates->message->chat->title}"
+            : ($updates->message->chat->type == 'private'
+                ? "{$updates->message->chat->first_name} (@{$updates->message->chat->username})"
+                : "");
         $error = "Fuck! Something blow up
  - `{$e->getMessage()}`
  - *From:* {$updates->message->from->first_name} (@{$updates->message->from->username})
- - *Chat:* {$updates->message->chat->first_name} (@{$updates->message->chat->username})
+ - *Chat:* {$chat})
  - *Text:* _{$updates->message->text}_
 
 View Log for details";
