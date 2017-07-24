@@ -23,6 +23,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $handlers = collect(config('espinoso.handlers'));
+        $handlers->each(function ($handler) {
+            $this->app->bind($handler, function () use ($handler) {
+                return new $handler;
+            });
+        });
     }
 }

@@ -1,25 +1,28 @@
-<?php
-namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers;
 
 use GuzzleHttp\Client;
-use App\Espinoso\Espinoso;
-use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Laravel\Facades\Telegram;
+use Telegram\Bot\Exceptions\TelegramResponseException;
+use App\Espinoso\Handlers\EspinosoHandler;
 
 class TelegramController extends Controller
 {
     public function handleUpdates()
     {
-        try {
-            $updates = Telegram::getWebhookUpdates();
-            $updates = json_decode($updates);
+        $updates = json_decode(Telegram::getWebhookUpdates());
 
-            Espinoso::handleTelegramUpdates($updates);
-
-        } catch (\Exception $e) {
-            Log::error(json_encode($updates));
-            Log::error($e);
-        }
+        collect(config('espinoso.handlers'))->map(function ($handler) {
+            return resolve($handler);
+        })->filter(function (EspinosoHandler $handler) use ($updates) {
+            return $handler->shouldHandle($updates);
+        })->each(function (EspinosoHandler $handler) use ($updates) {
+            // FIXME make try-catch an aspect
+            try {
+                $handler->handle($updates);
+            } catch (TelegramResponseException $e) {
+                $handler->handleError($e, $updates);
+            }
+        });
     }
 
     public function setWebhook()
@@ -42,7 +45,7 @@ class TelegramController extends Controller
 
         Telegram::sendMessage([
             'chat_id' => env('TELEGRAM_DEVS_CHANNEL'),
-            'text' => $message,
+            'text'    => $message,
             'parse_mode' => 'Markdown',
         ]);
     }
