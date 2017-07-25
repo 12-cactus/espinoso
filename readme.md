@@ -119,6 +119,14 @@ When you back to work and re-start ngrok, you need to go back to postman and
 request to `POST /set-webhook` again. Is not the best, but is free. If you know
 a better way, please let we now.
 
+If you like, you can use this artisan command:
+
+```bash
+$ php artisan espinoso:webhook-ngrok
+```
+
+which obtain ngrok url and make a POST request to set the webhook
+
 ### Testing
 
 ```bash
