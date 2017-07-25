@@ -15,5 +15,9 @@ return [
 
     'github' => [
         'token' => env('GITHUB_TOKEN', '123')
+    ],
+
+    'url' => [
+        'cinema' => 'http://www.hoyts.com.ar/ajaxCartelera.aspx?filter=Home&cine=&premium=False&_=1493929858090'
     ]
 ];
