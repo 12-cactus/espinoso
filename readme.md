@@ -77,7 +77,7 @@ $ vagrant ssh
 Inside Homestead
 
 ```bash
-homestead:$ share espinoso.dev
+homestead:$ ngrok http espinoso.dev:80
 ```
 
 It will open a black _ngrok_ window. It tell you the url to use and you can view every http request.
@@ -121,7 +121,7 @@ Terminal 1:
 
 ```
 $ cd ~/Homestead && vagrant up && vagrant ssh
-homestead:$ share espinoso.dev
+homestead:$ ngrok http espinoso.dev:80
 ```
 
 Terminal 2:

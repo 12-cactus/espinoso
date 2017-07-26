@@ -43,8 +43,7 @@ class SetWebhook extends Command
             $this->error('ngrok is not running...');
         } else {
             $data = shell_exec("wget --method=POST -q -O - {$url}");
-            $this->line($data);
-            $this->info('Done!');
+            $data == '[true]' ? $this->info('Done!') : $this->error('something was wrong');
         }
     }
 }
