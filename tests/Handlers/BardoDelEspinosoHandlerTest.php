@@ -46,10 +46,6 @@ class BardoDelEspinosoHandlerTest extends HandlersTestCase
             'caption' => 'Acá tenés tu nude, puto del orto!'
         ];
         Telegram::shouldReceive('sendPhoto')->once()->with($photo);
-        Telegram::shouldReceive('sendMessage')->once()->with([
-            'chat_id' => 123,
-            'text' => 'Hola Facu'
-        ]);
 
         $update = $this->update([
             'chat' => ['id' => 123],
