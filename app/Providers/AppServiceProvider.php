@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Goutte\Client as GoutteClient;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +24,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind('GoutteClient', function () {
+            return new GoutteClient;
+        });
+
         $handlers = collect(config('espinoso.handlers'));
         $handlers->each(function ($handler) {
             $this->app->bind($handler, function () use ($handler) {

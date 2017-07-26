@@ -5,18 +5,46 @@
 ### 1. Clone project
 
 ```bash
-$ cd your-dev-path
+$ cd ~/your-dev-path
 $ git clone https://github.com/12-cactus/espinoso.git
 ```
 
-### 2. Install environment && Configure
+### 2. Create your own Espinoso Dev Bot
 
-Install Homestead (or another http-server environment you want)
+> If you like to learn more about bots, go to [https://core.telegram.org/bots](https://core.telegram.org/bots)
 
-[https://laravel.com/docs/5.4/homestead#installation-and-setup](https://laravel.com/docs/5.4/homestead#installation-and-setup)
+Open your telegram app and search **BotFather** (Telegram bot using for manager bots).
 
-After install, go to Homestead directory and open `Homestead.yaml`.
-You need to set map-folder, site and database like this:
+Type `/newbot` and follow instructions. You can use the name you prefer, but
+it would be nice to use **EspinosoDevYOURINITIALSBot**.
+For example, if your name is _John Doe_, your bot could be called **EspinosoDevJDBot**.
+When finish, **BotFather** will give you a token for your bot, save it for later.
+**BotFather** should also given you a link like this _t.me/EspinosoDevYOURINITIALSBot_, click on it
+to open a chat with your bot.
+
+### 3. Install environment
+
+First install [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+and [Vagrant](https://www.vagrantup.com/downloads.html).
+Then install Homestead (below is a quickly installation, if you want
+a better understanding, go to [Laravel documentation](https://laravel.com/docs/5.4/homestead#installation-and-setup))
+
+```bash
+$ vagrant box add laravel/homestead
+```
+
+When finish (it will take some time)
+
+```bash
+$ cd ~
+$ git clone https://github.com/laravel/homestead.git Homestead
+$ cd Homestead
+$ git checkout v5.4.0
+$ bash init.sh
+```
+
+After install, you need to configure Homestead. Open `Homestead.yaml`
+and edit `folders`, `sites` & `databases` with something like this:
 
 ```yaml
 folders:
@@ -29,81 +57,53 @@ databases:
     - espinoso
 ```
 
-Save & Exit
+Save & Exit. Then you need to add site to your hosts file.
+Open `/etc/hosts` and add this line to the end of file
 
-### 3. Start Homestead
-
-```bash
-$ cd Homestead
-$ vagrant up
+```
+192.168.10.10 espinoso.dev
 ```
 
-While provison & start, let's go to create our bot.
+### 4. Start Homestead & Init your Bot
 
-### 4. Create Espinoso Dev Bot
-
-> If you like to learn more about bots, go to [https://core.telegram.org/bots](https://core.telegram.org/bots)
-
-Open your telegram app and search **BotFather** (Telegram bot using for manager bots).
-
-Type `/newbot` and follow instructions. You can use the name you prefer, but
-it would be nice to use **EspinosoDevYOURINITIALSBot**.
-When finish, **BotFather** will give you a token for your bot. Keep safe.
-Then click con _t.me/YourBotName_
-
-Your bot is still a dummy one. We need to configure the project & publish to internet.
-
-#### 4.1 Install ngrok to publish
-
-Enter Homestead via ssh
+Enter Homestead
 
 ```bash
-$ cd Homestead
+$ cd ~/Homestead
 $ vagrant up
 $ vagrant ssh
 ```
 
-From Homestead, download ngrok.
+Inside Homestead
 
 ```bash
-wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
-unzip ngrok-stable-linux-amd64.zip
-ngrok http 80
+homestead:$ ngrok http espinoso.dev:80
 ```
 
-> If you prefer, you can go to [https://ngrok.com/download](https://ngrok.com/download)
-> and follow instructions.
+It will open a black _ngrok_ window. It tell you the url to use and you can view every http request.
 
-Now you are publishing to internet.
+To associate your bot with your _ngrok_ site, you need to open a new terminal
 
-#### 4.2 Configure the bot
-
-From Homestead go to espinoso folder, then
- 
 ```bash
-homestead $ cd espinoso
-homestead $ cp .env.example .env
+$ cd ~/Homestead
+$ vagrant ssh
+homestead:$ cd espinoso
+homestead:$ cp .env.example .env
+homestead:$ composer install
 ```
 
-Open `.env` and search `TELEGRAM_BOT_TOKEN` key. Paste you bot token like:
+Open `.env` and search `TELEGRAM_BOT_TOKEN` key.
 
+Copy your **saved token** and paste into var, like this: `TELEGRAM_BOT_TOKEN=123456:ABCDEF`
+
+Finally, you need to associate _ngrok_ service as webhook. So, just run
+
+```bash
+# This command set ngrok publish services as webhook
+homestead:$ artisan espinoso:webhook-ngrok
 ```
-TELEGRAM_BOT_TOKEN=123456:token
-```
 
-If don't have ngrok running, run it usign `ngrok http 80`. The, watch url forwarding.
-We need to use always the https forwarding.
-
-Copy the url and paste in `APP_URL` as `APP_URL=https://12217a95.ngrok.io`.
-
-Then, we need to _set webhook_. We need to make a POST request, so we can't use a simply browser.
-We can use [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop).
-
-When postman is installed, open a tab, select POST method and paste ngrok https url with `/set-webhook`.
-
-For example: `POST https://12217a95.ngrok.io/set-webhook`.
-
-If you receive `[true]` is everything ok. If not, check ngrok console for errors.
+Now your bot is ready.
 
 ### That's all
 
@@ -113,18 +113,29 @@ It should response _Gato_.
 
 **IMPORTANT!**
 
-ngrok change use hash to make urls & it change every time you close server.
+_ngrok_ change url every time you restart server.
 
-When you back to work and re-start ngrok, you need to go back to postman and 
-request to `POST /set-webhook` again. Is not the best, but is free. If you know
-a better way, please let we now.
+For daily usage or when you restart Homestead or _ngrok_, you need to re-associate them.
+
+Terminal 1:
+
+```
+$ cd ~/Homestead && vagrant up && vagrant ssh
+homestead:$ ngrok http espinoso.dev:80
+```
+
+Terminal 2:
+
+```bash
+$ cd ~/Homestead && vagrant ssh
+homestead:$ cd espinoso
+homestead:$ artisan espinoso:webhook-ngrok
+```
 
 ### Testing
 
 ```bash
-$ cd your-path/Homestead
-$ vagrant up
-Homestead $ cd espinoso
-Homestead $ composer install
-Homestead $ phpunit test
+homestead:$ cd espinoso
+homestead:$ composer install
+homestead:$ phpunit test
 ```
