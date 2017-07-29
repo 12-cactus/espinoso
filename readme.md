@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/12-cactus/espinoso.svg?branch=master)](https://travis-ci.org/12-cactus/espinoso)
+
 # Espinoso :: Telegram Bot
 
 ## Installation
