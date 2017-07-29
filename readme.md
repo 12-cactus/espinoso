@@ -1,4 +1,7 @@
 [![Build Status](https://travis-ci.org/12-cactus/espinoso.svg?branch=master)](https://travis-ci.org/12-cactus/espinoso)
+[![Code Climate](https://codeclimate.com/github/12-cactus/espinoso/badges/gpa.svg)](https://codeclimate.com/github/12-cactus/espinoso)
+[![Test Coverage](https://codeclimate.com/github/12-cactus/espinoso/badges/coverage.svg)](https://codeclimate.com/github/12-cactus/espinoso/coverage)
+[![Issue Count](https://codeclimate.com/github/12-cactus/espinoso/badges/issue_count.svg)](https://codeclimate.com/github/12-cactus/espinoso)
 
 # Espinoso :: Telegram Bot
 

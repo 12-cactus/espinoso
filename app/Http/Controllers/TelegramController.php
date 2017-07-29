@@ -40,8 +40,8 @@ class TelegramController extends Controller
         $link = "https://github.com/12-cactus/espinoso/commit/{$commit->sha}";
         $nombre = explode(' ', $commit->author->name)[0];
 
-        $message = "De nuevo el pelotudo de `$nombre` commiteando giladas, mirá lo que hizo esta vez:\n_{$commit->message}_ 
-[Commit]({$link})";
+        $message = "De nuevo el pelotudo de `$nombre` commiteando giladas, mirá lo que hizo esta vez:_{$commit->message}_
+[View Commit]({$link})";
 
         Telegram::sendMessage([
             'chat_id' => env('TELEGRAM_DEVS_CHANNEL'),
