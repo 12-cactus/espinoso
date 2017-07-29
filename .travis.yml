@@ -1,0 +1,20 @@
+language: php
+
+php:
+  - 7.1
+
+before_script:
+  - mv .env.travis .env
+  - composer self-update
+  - composer install --no-interaction
+  - php artisan key:generate
+
+script:
+  - vendor/bin/phpunit
+
+notifications:
+  email:
+    recipients:
+      - leandro.jdl@gmail.com
+    on_success: change
+    on_failure: change
