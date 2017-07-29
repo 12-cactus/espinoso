@@ -10,7 +10,7 @@ before_script:
   - php artisan key:generate
 
 script:
-  - vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+  - vendor/bin/phpunit
 
 after_script:
   - vendor/bin/test-reporter

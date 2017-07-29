@@ -1,15 +1,7 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: prospero
- * Date: 5/24/17
- * Time: 11:30 PM
- */
+<?php namespace App\Espinoso\Handlers;
 
-namespace App\Espinoso\Handlers;
-
-use \App\Espinoso\Handlers\ImdbScraper\Imdb;
 use App\Espinoso\Helpers\Msg;
+use App\Espinoso\Handlers\ImdbScraper\Imdb;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
 class ImdbHandler extends EspinosoHandler
@@ -65,7 +57,7 @@ Release: {$data['RELEASE_DATES'][0]}```";
      */
     private function movieInfo($name)
     {
-        $imdb = new Imdb();
+        $imdb = new Imdb;
         $output = $imdb->getMovieInfo($name);
 
         return array_change_key_case($output, CASE_UPPER);

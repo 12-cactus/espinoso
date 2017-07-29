@@ -10,20 +10,22 @@
 // Last Updated: July 3, 2011
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-include("Imdb.php");
+use App\Espinoso\Handlers\ImdbScraper\Imdb;
 
-$movieName = $_REQUEST["m"];
-$output = strtolower($_REQUEST["o"]);
+include_once("Imdb.php");
+
+$movieName = $_REQUEST["m"] ?? '';
+$output = strtolower($_REQUEST["o"] ?? '');
 if($output != "xml" && $output != "json" && $output != "jsonp"){
 	$output = "xml"; //Set default to XML
 }
 
-$i = new Imdb();
+$i = new Imdb;
 $mArr = array_change_key_case($i->getMovieInfo($movieName), CASE_UPPER);
 
 ///////////////[ XML Output ]/////////////////
 if($output == "xml") {
-	header("Content-Type: text/xml");
+//	header("Content-Type: text/xml");
 	$doc = new DomDocument('1.0');
 	$doc->formatOutput = true;
 	$movie = $doc->createElement('MOVIE');
@@ -54,13 +56,13 @@ if($output == "xml") {
 
 ///////////////[ JSON Output ]/////////////////
 if($output == "json") {
-	header('Content-type: application/json');
+//	header('Content-type: application/json');
 	echo json_encode($mArr);
 } //End JSON Outout
 
 ///////////////[ JSONP Output ]/////////////////
 if($output == "jsonp") {
-	header('Content-type: application/json');
+//	header('Content-type: application/json');
 	echo isset($_GET['callback']) ? $_GET['callback']."(". json_encode($mArr) .")" : json_encode($mArr);
 } //End JSONP Outout
-?>
+
