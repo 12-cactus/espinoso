@@ -7,7 +7,11 @@ use Telegram\Bot\Laravel\Facades\Telegram;
 abstract class EspinosoHandler
 {
     abstract public function handle($updates, $context = null);
-    abstract public function shouldHandle($updates, $context = null);
+
+    public function shouldHandle($updates, $context = null)
+    {
+        return $this->isTextMessage($updates);
+    }
 
     protected function isTextMessage($updates)
     {
@@ -33,7 +37,7 @@ abstract class EspinosoHandler
 View Log for details";
 
         Telegram::sendMessage([
-            'chat_id' => env('TELEGRAM_DEVS_CHANNEL'),
+            'chat_id' => config('espinoso.chat.dev'),
             'text'    => $error,
             'parse_mode' => 'Markdown',
         ]);

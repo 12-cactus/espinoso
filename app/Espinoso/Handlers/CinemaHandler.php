@@ -1,19 +1,15 @@
-<?php
-
-namespace App\Espinoso\Handlers;
+<?php namespace App\Espinoso\Handlers;
 
 use Illuminate\Support\Str;
 use App\Facades\GoutteClient;
-use App\Espinoso\Helpers\Msg;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
-class CinemaHandler extends EspinosoHandler
+class CinemaHandler extends EspinosoCommandHandler
 {
-
     public function shouldHandle($updates, $context = null)
     {
-        return $this->isTextMessage($updates)
-            && preg_match('/\bcine\b\s*\?*$/i', $updates->message->text) ;
+        return parent::shouldHandle($updates, $context)
+            && $this->matchCommand('.*\bcine\b.*', $updates);
     }
 
     public function handle($updates, $context = null)
@@ -34,6 +30,9 @@ class CinemaHandler extends EspinosoHandler
 Pero igual podes ver todas estas:\n
 {$movies}";
 
-        Telegram::sendMessage(Msg::plain($message)->build($updates));
+        Telegram::sendMessage([
+            'chat_id' => $updates->message->chat->id,
+            'text'    => $message,
+        ]);
     }
 }

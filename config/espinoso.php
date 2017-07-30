@@ -17,6 +17,10 @@ return [
         'token' => env('GITHUB_TOKEN', '123')
     ],
 
+    'chat' => [
+        'dev' => env('TELEGRAM_DEVS_CHANNEL', 123)
+    ],
+
     'url' => [
         'cinema' => 'http://www.hoyts.com.ar/ajaxCartelera.aspx?filter=Home&cine=&premium=False&_=1493929858090'
     ]

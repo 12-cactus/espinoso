@@ -44,7 +44,7 @@ class TelegramController extends Controller
 [View Commit]({$link})";
 
         Telegram::sendMessage([
-            'chat_id' => env('TELEGRAM_DEVS_CHANNEL'),
+            'chat_id' => config('espinoso.chat.dev'),
             'text'    => $message,
             'parse_mode' => 'Markdown',
         ]);

@@ -1,6 +1,5 @@
 <?php namespace Tests\Feature;
 
-use Telegram\Bot\Exceptions\TelegramResponseException;
 use Tests\Handlers\HandlersTestCase;
 use Telegram\Bot\Laravel\Facades\Telegram;
 use App\Espinoso\Handlers\BardoDelEspinosoHandler;
