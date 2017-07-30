@@ -22,6 +22,7 @@ return [
     ],
 
     'url' => [
+        'issues' => 'https://api.github.com/repos/12-cactus/espinoso/issues',
         'cinema' => 'http://www.hoyts.com.ar/ajaxCartelera.aspx?filter=Home&cine=&premium=False&_=1493929858090'
     ]
 ];

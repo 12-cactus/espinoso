@@ -3,10 +3,10 @@
 use Illuminate\Support\Facades\Facade;
 
 /**
- * Class GoutteClient
- * @see \Goutte\Client
+ * Class GuzzleClient
+ * @see \GuzzleHttp\Client
  */
-class GoutteClient extends Facade
+class GuzzleClient extends Facade
 {
     /**
      * Get the registered name of the component.
@@ -15,6 +15,6 @@ class GoutteClient extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'GoutteClient';
+        return 'GuzzleClient';
     }
 }

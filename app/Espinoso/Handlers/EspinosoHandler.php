@@ -28,7 +28,7 @@ abstract class EspinosoHandler
             : ($updates->message->chat->type == 'private'
                 ? "{$updates->message->chat->first_name} (@{$updates->message->chat->username})"
                 : "");
-        $error = "Fuck! Something blow up
+        $error = "Fuck! Something blow up on {$this}
  - `{$e->getMessage()}`
  - *From:* {$updates->message->from->first_name} (@{$updates->message->from->username})
  - *Chat:* {$chat}
