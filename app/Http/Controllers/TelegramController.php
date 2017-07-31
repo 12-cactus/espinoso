@@ -4,6 +4,7 @@ use Exception;
 use GuzzleHttp\Client;
 use Telegram\Bot\Laravel\Facades\Telegram;
 use App\Espinoso\Handlers\EspinosoHandler;
+use Telegram\Bot\Exceptions\TelegramResponseException;
 
 class TelegramController extends Controller
 {
@@ -19,8 +20,14 @@ class TelegramController extends Controller
             // FIXME make try-catch an aspect
             try {
                 $handler->handle($updates);
-            } catch (Exception $e) {
+            } catch (TelegramResponseException $e) {
                 $handler->handleError($e, $updates);
+            } catch (Exception $e) {
+                Telegram::sendMessage([
+                    'chat_id' => config('espinoso.chat.dev'),
+                    'text'    => $e->getMessage(),
+                    'parse_mode' => 'Markdown',
+                ]);
             }
         });
     }
