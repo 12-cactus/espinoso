@@ -20,7 +20,9 @@ abstract class EspinosoHandler
 
     public function handleError(Exception $e, $updates)
     {
-        Log::info(json_encode($updates));
+        $clazz = get_called_class();
+        Log::error($clazz);
+        Log::error(json_encode($updates));
         Log::error($e);
 
         $chat = $updates->message->chat->type == 'group'
@@ -31,7 +33,7 @@ abstract class EspinosoHandler
         $username = isset($updates->message->from->username)
             ? " (@{$updates->message->from->username})"
             : '';
-        $error = "Fuck! Something blow up on {$this}
+        $error = "Fuck! Something blow up on {$clazz}
  - `{$e->getMessage()}`
  - *From:* {$updates->message->from->first_name}{$username}
  - *Chat:* {$chat}

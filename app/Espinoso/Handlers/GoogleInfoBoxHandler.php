@@ -44,9 +44,14 @@ class GoogleInfoBoxHandler extends EspinosoCommandHandler
             ]);
         }
 
+        $text = trim($content->implode("\n"));
+        $text = empty($text)
+            ? "Uhhh... no hay un carajo!!\nO buscaste como el orto o estoy haciendo cualquiera!" // FIXME lang!
+            : $text;
+
         Telegram::sendMessage([
             'chat_id' => $updates->message->chat->id,
-            'text'    => $content->implode("\n"),
+            'text'    => $text,
             'parse_mode' => 'Markdown',
         ]);
     }

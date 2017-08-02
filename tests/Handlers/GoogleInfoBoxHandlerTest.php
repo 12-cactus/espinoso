@@ -66,7 +66,7 @@ class GoogleInfoBoxHandlerTest extends HandlersTestCase
 
         $message = [
             'chat_id' => 123,
-            'text'   => "",
+            'text'   => "Uhhh... no hay un carajo!!\nO buscaste como el orto o estoy haciendo cualquiera!",
             'parse_mode' => 'Markdown',
         ];
         Telegram::shouldReceive('sendMessage')->once()->with($message);
