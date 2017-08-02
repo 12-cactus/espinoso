@@ -71,7 +71,7 @@ class GoogleInfoBoxHandler extends EspinosoCommandHandler
         $message = $this->getText($block);
         $message = array_filter($message, function ($text) { return !is_null($text); });
 
-        $result['message'] = implode("\n", $message);
+        $result['message'] = implode("\n", $this->tunning($message));
         $result['images'] = $this->getImages($block);
         return $result;
     }
@@ -100,6 +100,14 @@ class GoogleInfoBoxHandler extends EspinosoCommandHandler
             
             return "$left: $right"; 
         });
+    }
+
+    protected function tunning(array $lines = [])
+    {
+        // Change "Plataforma: :" to "**Plataforma:**"
+        return collect($lines)->map(function ($line) {
+            return preg_replace('/(.+)(:\s:)/', '*${1}:*', $line);
+        })->toArray();
     }
 
     private function getImages(Crawler $node)
