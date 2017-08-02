@@ -20,10 +20,11 @@ abstract class EspinosoCommandHandler extends EspinosoHandler
     protected function matchCommand($pattern, $updates, array &$matches = null)
     {
         $quantifier = $this->allow_ignore_prefix ? '?' : '{1,3}';
+        $text = $updates->message->text ?? '';
 
         return preg_match(
             "/{$this->prefix_regex}{$quantifier}{$pattern}/{$this->flags}",
-            $updates->message->text,
+            $text,
             $matches
         );
     }
