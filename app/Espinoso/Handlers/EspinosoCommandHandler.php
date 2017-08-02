@@ -2,13 +2,30 @@
 
 abstract class EspinosoCommandHandler extends EspinosoHandler
 {
-    protected $prefix = '^(espi(noso)?)(\s)+';
+    protected $flags = 'i';
+    protected $prefix_regex = "^(?'e'espi(noso)?\s+)"; // 'espi|espinoso '
+    /**
+     * @var bool
+     * If false, should match 'espi'
+     * If true, could not match 'espi'
+     */
+    protected $allow_ignore_prefix = false;
 
+    /**
+     * @param $pattern
+     * @param $updates
+     * @param array|null $matches
+     * @return int
+     */
     protected function matchCommand($pattern, $updates, array &$matches = null)
     {
-        $pattern = "/{$this->prefix}{$pattern}/i";
+        $quantifier = $this->allow_ignore_prefix ? '?' : '{1,3}';
 
-        return preg_match($pattern, $updates->message->text, $matches);
+        return preg_match(
+            "/{$this->prefix_regex}{$quantifier}{$pattern}/{$this->flags}",
+            $updates->message->text,
+            $matches
+        );
     }
 
 }

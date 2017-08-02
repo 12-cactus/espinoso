@@ -2,82 +2,98 @@
 
 namespace App\Espinoso\Handlers;
 
+use App\Facades\GoutteClient;
 use App\Espinoso\Helpers\Msg;
-use Goutte\Client;
-use Illuminate\Support\Str;
 use Symfony\Component\DomCrawler\Crawler;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
-class GoogleInfoBoxHandler extends EspinosoHandler
+class GoogleInfoBoxHandler extends EspinosoCommandHandler
 {
-    const KEYWORD = 'gib';
+    /**
+     * @var string
+     */
+    protected $allow_ignore_prefix = true;
+    /**
+     * @var string
+     */
+    protected $pattern = "(?'i'\binfo\b)(?'query'.+)$";
+    protected $query;
 
     public function shouldHandle($updates, $context = null)
     {
-        return $this->isTextMessage($updates) && preg_match($this->regex(), $updates->message->text) ;
+        $match = $this->matchCommand($this->pattern, $updates, $matches);
+        $this->query = isset($matches['query'])
+            ? rawurlencode(trim($matches['query']))
+            : '';
+
+        return parent::shouldHandle($updates) && $match;
     }
 
     public function handle($updates, $context = null)
     {
-        $response = $this->buildResponse($updates->message->text);
+        $response = $this->buildResponse();
+        $content = collect(explode("\n", $response['message']));
+        $images = collect($response['images']);
 
-        $imgs = $response['images'] ;
-        if (!empty($imgs))
-        Telegram::sendPhoto([
+        if ($images->isNotEmpty()) {
+            $title = $content->shift();
+            Telegram::sendPhoto([
+                'chat_id' => $updates->message->chat->id,
+                'photo'   => $images->first(),
+                'caption' => $title
+            ]);
+        }
+
+        $text = trim($content->implode("\n"));
+        $text = empty($text)
+            ? "Uhhh... no hay un carajo!!\nO buscaste como el orto o estoy haciendo cualquiera!" // FIXME lang!
+            : $text;
+
+        Telegram::sendMessage([
             'chat_id' => $updates->message->chat->id,
-            'photo' => $imgs[0],
-            // 'caption' => ''
+            'text'    => $text,
+            'parse_mode' => 'Markdown',
         ]);
-
-        $message = '```' . $response['message'] . '```';
-        Telegram::sendMessage(Msg::md($message)->build($updates));
     }
 
-    public function buildResponse($text)
+    /**
+     * FIXME
+     * Content extracted should be more rich than plain.
+     * For example, it should keep links as Markdown.
+     *
+     * @return mixed
+     */
+    public function buildResponse()
     {
-        $criteria = rawurlencode($this->getCriteria($text));
-        $client = new Client();
-        $crawler = $client->request('GET', 'https://www.google.com.ar/search?q=' . $criteria);
-        $xpdopen = $crawler->filter('#rhs_block');
+        $crawler = GoutteClient::request('GET', config('espinoso.url.info') . $this->query);
+        $block = $crawler->filter('#rhs_block');
         
-        $message = $this->getText($xpdopen);
+        $message = $this->getText($block);
         $message = array_filter($message, function ($text) { return !is_null($text); });
 
         $result['message'] = implode("\n", $message);
-        $result['images'] = $this->getImages($xpdopen);
+        $result['images'] = $this->getImages($block);
         return $result;
-    }
-
-    public function regex()
-    {
-        return "/gib (?'criteria'.*)$/i";
-    }
-
-    private function getCriteria($text)
-    {
-        preg_match($this->regex(), $text, $matches);
-        return $matches['criteria'];
     }
 
     private function getText(Crawler $node)
     {
-        return $node->filter('._o0d')->each(function($div) 
+        return $node->filter('._o0d')->each(function($div)
         {
-            $result = '';
-            $left = $right = ""; 
+            $left = $right = "";
             foreach ($this->keyValueSelectors() as $key => $value)
             {
                 if (! is_null($key) && $div->filter($key)->count() > 0) 
-                    $left = $div->filter($key)->first()->text() ; 
+                    $left = $div->filter($key)->first()->text();
 
                 if ( ! is_null($value) && $div->filter($value)->count() > 0) 
-                    $right = $div->filter($value)->first()->text() ; 
+                    $right = $div->filter($value)->first()->text();
             }
             if (empty($left) && empty($right))
-                return null ; 
+                return null;
 
             if (empty($left))
-                return $right ; 
+                return $right;
 
             if (empty($right))
                 return $left ; 
@@ -86,21 +102,10 @@ class GoogleInfoBoxHandler extends EspinosoHandler
         });
     }
 
-    private function isUrl($url)
-    {
-        return substr($url, 0, 4) == 'http'; 
-    }
-
     private function getImages(Crawler $node)
     {
-        return $node->filter('img')->each(function($tag) 
-        {
-            // $url = $tag->attr('title');
-            
-            // if ( $this->isUrl($url) )
-            //     return str_replace("http://t1.gstatic.com",  "https://encrypted-tbn0.gstatic.com", $url);
-            // else 
-                return $tag->attr('src');
+        return $node->filter('img')->each(function($tag) {
+            return $tag->attr('src');
         });
     }
 

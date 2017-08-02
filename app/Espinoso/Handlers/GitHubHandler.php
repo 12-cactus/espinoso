@@ -5,23 +5,27 @@ use Telegram\Bot\Laravel\Facades\Telegram;
 
 class GitHubHandler extends EspinosoCommandHandler
 {
-    protected $matches = [];
+    /**
+     * @var string
+     */
+    protected $pattern = "(issue)(\s+)(?'title'.+)$";
+    protected $title;
 
     public function shouldHandle($updates, $context = null)
     {
-        return parent::shouldHandle($updates, $context)
-            && $this->matchCommand('(issue)(\s)+(.+)$', $updates, $this->matches);
+        $match = $this->matchCommand($this->pattern, $updates, $matches);
+        $this->title = $matches['title'] ?? '';
+
+        return parent::shouldHandle($updates) && $match;
     }
 
     public function handle($updates, $context = null)
     {
-        $title = $this->matches[6];
-
         $response = GuzzleClient::post(config('espinoso.url.issues'), [
             'headers' => [
                 'Authorization' => "token ".config('espinoso.github.token'),
             ],
-            'json' => ['title' => $title]
+            'json' => ['title' => $this->title]
         ]);
 
         if ($response->getStatusCode() == 201) {
