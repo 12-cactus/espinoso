@@ -3,6 +3,7 @@ namespace App\Espinoso\Handlers ;
 
 use Telegram\Bot\Laravel\Facades\Telegram;
 use Vinkla\Instagram\Instagram;
+use Vinkla\Instagram\InstagramException;
 
 class RandomInstagram extends EspinosoHandler
 {
@@ -15,13 +16,16 @@ class RandomInstagram extends EspinosoHandler
 
     public function handle($updates, $context=null)
     {
-        $user = $this->extract_user($updates->message->text);
-        $image = $this->get_random_image($user);
-
-        return Telegram::sendPhoto([
-            'chat_id' => $updates->message->chat->id,
-            'photo' => $image
-        ]);
+        try {
+            $user = $this->extract_user($updates->message->text);
+            $image = $this->get_random_image($user);
+            return Telegram::sendPhoto([
+                'chat_id' => $updates->message->chat->id,
+                'photo' => $image
+            ]);
+        } catch (InstagramException $e) {
+            return Telegram::sendMessage( Msg::plain("no papu, le erraste de instagram")->build($updates) );
+        }
     }
 
     private function extract_user($message) 
@@ -35,7 +39,10 @@ class RandomInstagram extends EspinosoHandler
     {
         $instagram = new Instagram();
         $response = $instagram->get($user);
-        return $response[array_rand($response)]['images']['low_resolution']['url'];
+        $i = array_rand($response);
+        if (is_null($i))
+            throw new InstagramException("no media found");
+        return $response[$i]['images']['low_resolution']['url'];
     }
 
     private function regex()
