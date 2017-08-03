@@ -4,6 +4,7 @@ namespace App\Espinoso\Handlers ;
 use Telegram\Bot\Laravel\Facades\Telegram;
 use Vinkla\Instagram\Instagram;
 use Vinkla\Instagram\InstagramException;
+use App\Espinoso\Helpers\Msg;
 
 class RandomInstagram extends EspinosoHandler
 {
