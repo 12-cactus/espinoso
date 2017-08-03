@@ -31,7 +31,6 @@ class RandomInstagram extends EspinosoHandler
 
     private function extract_user($message) 
     {
-        // $user = env('INSTAGRAM_USER');
         preg_match($this->regex(), $message, $matches);
         return $matches[1]; 
     }
@@ -40,9 +39,9 @@ class RandomInstagram extends EspinosoHandler
     {
         $instagram = new Instagram();
         $response = $instagram->get($user);
-        $i = array_rand($response);
-        if (is_null($i))
+        if (empty($response))
             throw new InstagramException("no media found");
+        $i = array_rand($response);
         return $response[$i]['images']['low_resolution']['url'];
     }
 
