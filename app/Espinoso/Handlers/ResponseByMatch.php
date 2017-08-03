@@ -21,7 +21,7 @@ class ResponseByMatch extends EspinosoHandler
         if ($this->ignoringSender($updates->message->from))
         {
             $fromName = $updates->message->from->first_name;
-            $msg = Msg::md("Con vos no hablo porque no viniste al asado $fromName")->build('', $updates);
+            $msg = Msg::md("Con vos no hablo porque no viniste al asado $fromName")->build($updates);
             Telegram::sendMessage($msg); 
             return ; 
         }
