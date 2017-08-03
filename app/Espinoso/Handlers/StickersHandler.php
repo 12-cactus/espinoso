@@ -22,7 +22,11 @@ class StickersHandler extends EspinosoCommandHandler
     public function shouldHandle($updates, $context = null)
     {
         $this->match = collect($this->patterns)->filter(function ($pattern) use ($updates) {
-            return $updates->message->from->first_name === $pattern['user']
+            // FIXME that shit
+            return isset($updates->message)
+                && isset($updates->message->from)
+                && isset($updates->message->from->first_name)
+                && $updates->message->from->first_name === $pattern['user']
                 && $this->matchCommand($pattern['pattern'], $updates);
         });
 
