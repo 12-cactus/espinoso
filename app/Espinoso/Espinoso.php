@@ -1,5 +1,7 @@
 <?php namespace App\Espinoso;
 
+use Exception;
+use Illuminate\Support\Collection;
 use Telegram\Bot\Objects\Message;
 use Telegram\Bot\Api as ApiTelegram;
 use App\Espinoso\Handlers\EspinosoHandler;
@@ -10,21 +12,33 @@ use App\Espinoso\Handlers\EspinosoHandler;
  */
 class Espinoso
 {
-    public function handleTelegramUpdate(ApiTelegram $telegram)
+    /**
+     * @var array
+     */
+    protected $handlers;
+
+    public function __construct(Collection $handlers)
     {
-        $message = $telegram->getWebhookUpdates()->getMessage();
+        $this->handlers = $handlers;
+    }
 
-        if ($this->isNotTextMessage($message)) {
-            return;
-        }
-
-        $command = $this->parseTelegramCommand($telegram, $message);
-
-        if ($this->isTextCommand($command)) {
-            $message['text'] = $this->parseCommandAsKeyword($command, $message);
-        }
-
-        $this->executeHandlers($telegram, $message);
+    /**
+     * @param ApiTelegram $telegram
+     * @param Message $message
+     */
+    public function executeHandlers(ApiTelegram $telegram, Message $message)
+    {
+        $this->handlers->map(function ($handler) use ($telegram) {
+            return new $handler($telegram);
+        })->filter(function (EspinosoHandler $handler) use ($message) {
+            return $handler->shouldHandle($message);
+        })->each(function (EspinosoHandler $handler) use ($message) {
+            try {
+                $handler->handle($message);
+            } catch (Exception $e) {
+                $handler->handleError($e, $message);
+            }
+        });
     }
 
 //    public function register(stdClass $update)
@@ -42,65 +56,5 @@ class Espinoso
 //        $user->username   = $from->username ?? '';
 //        $user->save();
 //    }
-
-    /*
-     * Internals
-     */
-
-    /**
-     * @param ApiTelegram $telegram
-     * @param Message $message
-     */
-    protected function executeHandlers(ApiTelegram $telegram, Message $message)
-    {
-        collect(config('espinoso.handlers'))->map(function ($handler) use ($telegram, $message) {
-            return new $handler($telegram, $message);
-        })->filter(function (EspinosoHandler $handler) use ($message) {
-            return $handler->shouldHandle($message);
-        })->each(function (EspinosoHandler $handler) use ($message) {
-            try {
-                $handler->handle($message);
-            } catch (Exception $e) {
-                $handler->handleError($e, $message);
-            }
-        });
-    }
-
-    /**
-     * @param mixed $message
-     * @return bool
-     */
-    protected function isTextMessage($message): bool
-    {
-        return $message !== null && $message->has('text');
-    }
-
-    /**
-     * @param mixed $message
-     * @return bool
-     */
-    protected function isNotTextMessage($message): bool
-    {
-        return !$this->isTextMessage($message);
-    }
-
-    /**
-     * @param string $command
-     * @return bool
-     */
-    protected function isTextCommand(string $command): bool
-    {
-        return !empty($command);
-    }
-
-    /**
-     * @param string $command
-     * @param Message $message
-     * @return string
-     */
-    protected function parseCommandAsKeyword(string $command, Message $message): string
-    {
-        return str_replace("/{$command}", "espi {$command}", $message['text']);
-    }
 
 }
