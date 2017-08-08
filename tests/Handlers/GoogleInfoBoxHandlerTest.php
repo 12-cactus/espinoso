@@ -4,7 +4,6 @@ use Mockery;
 use App\Facades\GoutteClient;
 use Tests\Handlers\HandlersTestCase;
 use Symfony\Component\DomCrawler\Crawler;
-use Telegram\Bot\Laravel\Facades\Telegram;
 use App\Espinoso\Handlers\GoogleInfoBoxHandler;
 
 class GoogleInfoBoxHandlerTest extends HandlersTestCase
@@ -14,14 +13,15 @@ class GoogleInfoBoxHandlerTest extends HandlersTestCase
      */
     public function it_should_handle_when_match_regex()
     {
+        // Arrange
         $handler = new GoogleInfoBoxHandler($this->telegram);
-
         $updates = [
             $this->makeMessage(['text' => 'espi info bla']),
             $this->makeMessage(['text' => 'espinoso info bla bla']),
             $this->makeMessage(['text' => 'info bla bla bla']),
         ];
 
+        // Act && Assert
         collect($updates)->each(function ($update) use ($handler) {
             $this->assertTrue($handler->shouldHandle($update));
         });
@@ -32,8 +32,8 @@ class GoogleInfoBoxHandlerTest extends HandlersTestCase
      */
     public function it_should_not_handle_when_receives_another_text()
     {
+        // Arrange
         $handler = new GoogleInfoBoxHandler($this->telegram);
-
         $updates = [
             $this->makeMessage(['text' => 'espiinfo nup']),
             $this->makeMessage(['text' => 'espi infonup']),
@@ -42,6 +42,7 @@ class GoogleInfoBoxHandlerTest extends HandlersTestCase
             $this->makeMessage(['text' => 'gib nop']),
         ];
 
+        // Act && Assert
         collect($updates)->each(function ($update) use ($handler) {
             $this->assertFalse($handler->shouldHandle($update));
         });
@@ -52,7 +53,7 @@ class GoogleInfoBoxHandlerTest extends HandlersTestCase
      */
     public function it_handle_and_return_movies()
     {
-        // Mocking Action
+        // Mocking
         $query = 'got';
         $crawler = Mockery::mock(Crawler::class);
         $crawler->shouldReceive('filter')->andReturnSelf();
@@ -61,6 +62,7 @@ class GoogleInfoBoxHandlerTest extends HandlersTestCase
             ->withArgs(['GET', config('espinoso.url.info') . rawurlencode($query)])
             ->andReturn($crawler);
 
+        // Arrange
         $message = [
             'chat_id' => 123,
             'text'   => "Uhhh... no hay un carajo!!\nO buscaste como el orto o estoy haciendo cualquiera!",
@@ -68,13 +70,12 @@ class GoogleInfoBoxHandlerTest extends HandlersTestCase
         ];
         $this->telegram->shouldReceive('sendMessage')->once()->with($message);
         $handler = new GoogleInfoBoxHandler($this->telegram);
-
-        // Real Action
         $update = $this->makeMessage([
             'chat' => ['id' => 123],
             'text' => 'espi info got'
         ]);
 
+        // Act
         $handler->shouldHandle($update);
         $handler->handle($update);
     }
