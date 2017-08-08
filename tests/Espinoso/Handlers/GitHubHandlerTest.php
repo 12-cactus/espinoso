@@ -1,11 +1,8 @@
-<?php
-
-namespace Tests\Feature;
+<?php namespace Tests\Espinoso\Handlers;
 
 use Mockery;
 use App\Facades\GuzzleClient;
 use App\Espinoso\Handlers\GitHubHandler;
-use Tests\Handlers\HandlersTestCase;
 use Psr\Http\Message\ResponseInterface;
 
 class GitHubHandlerTest extends HandlersTestCase

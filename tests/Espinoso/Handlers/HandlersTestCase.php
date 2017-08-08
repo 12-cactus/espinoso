@@ -1,4 +1,4 @@
-<?php namespace Tests\Handlers;
+<?php namespace Tests\Espinoso\Handlers;
 
 use Mockery;
 use Tests\TestCase;

@@ -1,8 +1,7 @@
-<?php namespace Tests\Feature;
+<?php namespace Tests\Espinoso\Handlers;
 
 use Mockery;
 use App\Facades\GoutteClient;
-use Tests\Handlers\HandlersTestCase;
 use Symfony\Component\DomCrawler\Crawler;
 use App\Espinoso\Handlers\GoogleInfoBoxHandler;
 

@@ -1,6 +1,5 @@
-<?php namespace Tests\Feature;
+<?php namespace Tests\Espinoso\Handlers;
 
-use Tests\Handlers\HandlersTestCase;
 use App\Espinoso\Handlers\BardoDelEspinosoHandler;
 
 class BardoDelEspinosoHandlerTest extends HandlersTestCase

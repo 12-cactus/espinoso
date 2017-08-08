@@ -1,9 +1,8 @@
-<?php namespace Tests\Feature;
+<?php namespace Tests\Espinoso\Handlers;
 
 use Mockery;
 use App\Facades\GoutteClient;
 use App\Espinoso\Handlers\CinemaHandler;
-use Tests\Handlers\HandlersTestCase;
 use Symfony\Component\DomCrawler\Crawler;
 
 class CinemaHandlerTest extends HandlersTestCase
