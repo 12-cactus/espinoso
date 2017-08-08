@@ -25,6 +25,7 @@ return [
     'url' => [
         'issues' => 'https://api.github.com/repos/12-cactus/espinoso/issues',
         'info'   => 'https://www.google.com.ar/search?q=',
-        'cinema' => 'http://www.hoyts.com.ar/ajaxCartelera.aspx?filter=Home&cine=&premium=False&_=1493929858090'
+        'cinema' => 'http://www.hoyts.com.ar/ajaxCartelera.aspx?filter=Home&cine=&premium=False&_=1493929858090',
+        'map'    => 'https://maps.googleapis.com/maps/api/staticmap'
     ]
 ];

@@ -1,84 +1,116 @@
 <?php namespace App\Espinoso\Handlers;
 
-use App\Espinoso\Helpers\Msg;
 use Telegram\Bot\Objects\Message;
 
-class GoogleStaticMaps extends EspinosoHandler
+class GoogleStaticMaps extends EspinosoCommandHandler
 {
-    const KEYWORD = 'gsm'; 
+    protected $allow_ignore_prefix = true;
 
-    public function shouldHandle(Message $message): bool
-    {
-        return preg_match($this->regex(), $message->getText());
-    }
+    /**
+     * gsm [param] address
+     * -z : numeric zoom
+     * example: gsm -z:10 malvinas argentinas
+     *          gsm malvinas argentinas
+     * @var string
+     */
+    protected $pattern = "(?'gsm'\bgsm\b)\s+(?'params'(\S+:\S+\s+)*)(?'address'.+)$";
 
+    /**
+     * Default options
+     *
+     * @var array
+     */
+    protected $options = [
+        'maptype' => 'roadmap',
+        'zoom'    => 12,
+        'size'    => '600x500',
+        'color'   => 'blue'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $shortcuts = [
+        't' => 'maptype',
+        'z' => 'zoom',
+        's' => 'size',
+        'c' => 'color',
+    ];
+
+    /**
+     * @param Message $message
+     */
     public function handle(Message $message)
     {
-        $location = $this->extractLocation($message->getText());
-        $parameters = $this->extractParameters($message->getText());
-        $image = $this->getMapUrl($location, $parameters);
-
-        if (preg_match('/malvinas/i', $message->getText()))
-            $this->telegram->sendMessage(Msg::plain("Argentinas!")->build($message));
+        $address  = $this->getAddress();
+        $image    = $this->getMap($address, $this->getOptions($address));
+        $address .= str_contains(strtolower($address), 'malvinas') ? ', Argentinas!' : '';
 
         $this->telegram->sendPhoto([
             'chat_id' => $message->getChat()->getId(),
-            'photo' => $image
+            'photo'   => $image,
+            'caption' => $address
         ]);
-
-
     }
 
-    private function extractLocation($message) 
+    /**
+     * @return string
+     */
+    protected function getAddress()
     {
-        preg_match($this->regex(), $message, $matches);
-        return $matches[2]; 
+        return $this->matches['address'] ?? '';
     }
 
-    private function extractParameters($message)
+    /**
+     * It's not a really cool method...
+     *
+     * @param string $address
+     * @return string
+     */
+    protected function getOptions(string $address)
     {
-        $regex = '/[ ]*-([a-z]):([^ ][^ ]*)/i';
-        $matches = [] ; 
-        $params = [] ; 
-        preg_match_all($regex, $message, $matches, PREG_SET_ORDER);
-        foreach($matches as [$disposable, $key, $value])
-        {
-            if ($this->isValidParamKey($key))
-                $params[$this->getParamName($key)] = $value; 
-        }
-        return $params ; 
+        $defaults = collect($this->options);
+        $params = isset($this->matches['params']) ? clean_string($this->matches['params']) : '';
+        $params = explode(' ', $params);
+        $params = collect($params)->mapWithKeys(function ($param) {
+            $param = explode(':', $param);
+            return [$this->parseParamKey($param[0]) => $param[1]];
+        });
+
+        $options = $defaults->merge($params);
+        $color = $options->get('color');
+        $options->forget('color');
+        $options->put('markers', "color:{$color}|label:X|{$address}");
+
+        return $options->map(function ($value, $key) {
+            return "{$key}={$value}";
+        })->implode('&');
     }
 
-    private function getMapUrl($location, $params)
+    /**
+     * If key is shortcut, return return origin param name
+     *
+     * @param string $key
+     * @return mixed|string
+     */
+    protected function parseParamKey(string $key)
     {
-        extract(array_merge($this->defaults(), $params));
+        $shortcuts = collect($this->shortcuts);
 
-        $location = urlencode($location);
-        return  "https://maps.googleapis.com/maps/api/staticmap?center=$location&zoom=$zoom&size=$size&maptype=$maptype&markers=color:$color%7Clabel:S%7C$location";
+        return $shortcuts->has($key) ? $shortcuts->get($key) : $key;
     }
 
-    private function regex()
+    /**
+     * Just url...
+     *
+     * @param $address
+     * @param $options
+     * @return string
+     */
+    protected function getMap($address, $options)
     {
-        return "/^" . self::KEYWORD . "([ ]*\-[a-z]:[^ ])*[ ]*(.*)$/i";
-    }
+        $address = urlencode($address);
 
-    private function defaults()
-    {
-        return ['maptype' => 'roadmap', 'zoom'=> 13, 'size'=>"600x500", 'color'=>'blue'];
-    }
-
-    private function paramsMapping()
-    {
-        return [ 'z' => 'zoom', 't' => 'maptype', 's' => 'size', 'c' => 'color', ];
-    }
-
-    private function isValidParamKey($key)
-    {
-        return array_key_exists($key, $this->paramsMapping());   
-    }
-
-    private function getParamName($key)
-    {
-        return $this->paramsMapping()[$key];
+        return config('espinoso.url.map') . "?center={$address}&{$options}";
     }
 }

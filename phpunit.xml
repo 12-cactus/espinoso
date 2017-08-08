@@ -13,7 +13,7 @@
             <directory suffix="Test.php">./tests/Feature</directory>
         </testsuite>
         <testsuite name="Handlers Tests">
-            <directory suffix="Test.php">./tests/Handlers</directory>
+            <directory suffix="Test.php">./tests/Espinoso/Handlers</directory>
         </testsuite>
     </testsuites>
     <filter>
