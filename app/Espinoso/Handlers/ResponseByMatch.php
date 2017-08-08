@@ -1,47 +1,41 @@
-<?php
-namespace App\Espinoso\Handlers ; 
+<?php namespace App\Espinoso\Handlers;
 
-use \App\Espinoso\Helpers\Msg;
-use Telegram\Bot\Laravel\Facades\Telegram;
+use App\Espinoso\Helpers\Msg;
+use Telegram\Bot\Objects\Message;
 
 class ResponseByMatch extends EspinosoHandler
 {
-    public function shouldHandle($updates, $context=null) 
+    public function shouldHandle(Message $message): bool
     {
-        if ( ! $this->isTextMessage($updates) ) return false ; 
-        
         foreach ($this->mappings() as $needle => $response)
-            if ( preg_match($needle, $updates->message->text) )
-                return true ; 
-        return false ; 
+            if ( preg_match($needle, $message->getText()) )
+                return true;
+        return false;
     }
 
-    public function handle($updates, $context=null)
+    public function handle(Message $message)
     {
-        if ($this->ignoringSender($updates->message->from))
-        {
-            $fromName = $updates->message->from->first_name;
-            $msg = Msg::md("Con vos no hablo porque no viniste al asado $fromName")->build($updates);
-            Telegram::sendMessage($msg); 
-            return ; 
+        if ($this->ignoringSender($message->getFrom())) {
+            $fromName = $message->getFrom()->getFirstName();
+            $msg = Msg::md("Con vos no hablo porque no viniste al asado $fromName")->build($message);
+            $this->telegram->sendMessage($msg);
+            return;
         }
 
-        foreach ($this->mappings() as $pattern => $response)
-        {
-            if ( preg_match($pattern, $updates->message->text) ) 
-            {
-                $msg = $this->buildMessage($response, $pattern, $updates);
-                Telegram::sendMessage($msg);
+        foreach ($this->mappings() as $pattern => $response) {
+            if ( preg_match($pattern, $message->getText()) ) {
+                $msg = $this->buildMessage($response, $pattern, $message);
+                $this->telegram->sendMessage($msg);
             }
         }
     }
 
-    private function buildMessage($response, $pattern, $updates)
+    private function buildMessage($response, $pattern, Message $message)
     {
         if ($response instanceof Msg)
-            return $response->build($updates, $pattern);
+            return $response->build($message, $pattern);
         else 
-            return Msg::plain($response)->build($updates, $pattern);
+            return Msg::plain($response)->build($message, $pattern);
     }
  
     private function mappings()
@@ -63,5 +57,3 @@ class ResponseByMatch extends EspinosoHandler
     }
     
 }
-
-

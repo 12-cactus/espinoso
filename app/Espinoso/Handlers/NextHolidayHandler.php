@@ -1,37 +1,27 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: alan
- * Date: 5/5/17
- * Time: 6:56 PM
- */
+<?php namespace App\Espinoso\Handlers;
 
-namespace App\Espinoso\Handlers;
-
-
-use App\Espinoso\Helpers\Msg;
 use Goutte\Client;
-use Telegram\Bot\Laravel\Facades\Telegram;
+use App\Espinoso\Helpers\Msg;
+use Telegram\Bot\Objects\Message;
 
 class NextHolidayHandler extends EspinosoHandler
 {
-
-    public function shouldHandle($updates, $context = null)
+    public function shouldHandle(Message $message): bool
     {
-        return $this->isTextMessage($updates) && preg_match('/feriado.?$/i', $updates->message->text);
+        return preg_match('/feriado.?$/i', $message->getText());
     }
 
-    public function handle($updates, $context = null)
+    public function handle(Message $message)
     {
         $holidays = $this->getHolidays();
 
-        $message = "Manga de vagos, **quedan " . count($holidays) . " feriados** en todo el año.\n";
+        $text = "Manga de vagos, **quedan " . count($holidays) . " feriados** en todo el año.\n";
 
         foreach ($holidays as $holiday) {
-            $message .= ' - **' . $holiday->phrase . '**, ' . $holiday->description . ' (' . $holiday->count . " días)\n";
+            $text .= ' - **' . $holiday->phrase . '**, ' . $holiday->description . ' (' . $holiday->count . " días)\n";
         }
 
-        Telegram::sendMessage(Msg::md($message)->build($updates));
+        $this->telegram->sendMessage(Msg::md($text)->build($message));
     }
 
     /**

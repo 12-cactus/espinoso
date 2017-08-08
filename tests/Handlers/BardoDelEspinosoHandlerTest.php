@@ -1,25 +1,20 @@
 <?php namespace Tests\Feature;
 
 use Tests\Handlers\HandlersTestCase;
-use Telegram\Bot\Laravel\Facades\Telegram;
 use App\Espinoso\Handlers\BardoDelEspinosoHandler;
 
 class BardoDelEspinosoHandlerTest extends HandlersTestCase
 {
-    protected function setUp()
-    {
-        parent::setUp();
-        $this->handler = new BardoDelEspinosoHandler;
-    }
-
     /**
      * @test
      */
     public function it_should_handle_when_receives_send_me_nudes()
     {
-        $update = $this->update(['text' => 'send me nudes']);
+        $handler = new BardoDelEspinosoHandler($this->telegram);
 
-        $this->assertTrue($this->handler->shouldHandle($update));
+        $message = $this->makeMessage(['text' => 'send me nudes']);
+
+        $this->assertTrue($handler->shouldHandle($message));
     }
 
     /**
@@ -27,11 +22,13 @@ class BardoDelEspinosoHandlerTest extends HandlersTestCase
      */
     public function it_should_not_handle_when_receives_another_text()
     {
-        $update1 = $this->update(['text' => 'saraza send me nudes']);
-        $update2 = $this->update(['text' => 'send me nudes saraza']);
+        $handler = new BardoDelEspinosoHandler($this->telegram);
 
-        $this->assertFalse($this->handler->shouldHandle($update1));
-        $this->assertFalse($this->handler->shouldHandle($update2));
+        $update1 = $this->makeMessage(['text' => 'saraza send me nudes']);
+        $update2 = $this->makeMessage(['text' => 'send me nudes saraza']);
+
+        $this->assertFalse($handler->shouldHandle($update1));
+        $this->assertFalse($handler->shouldHandle($update2));
     }
 
     /**
@@ -42,15 +39,16 @@ class BardoDelEspinosoHandlerTest extends HandlersTestCase
         $photo = [
             'chat_id' => 123,
             'photo'   => 'https://cdn.drawception.com/images/panels/2012/4-4/FErsE1a6t7-8.png',
-            'caption' => 'Acá tenés tu nude, puto del orto!'
+            'caption' => 'Acá tenés tu nude, hijo de puta!'
         ];
-        Telegram::shouldReceive('sendPhoto')->once()->with($photo);
+        $this->telegram->shouldReceive('sendPhoto')->once()->with($photo);
+        $handler = new BardoDelEspinosoHandler($this->telegram);
 
-        $update = $this->update([
+        $update = $this->makeMessage([
             'chat' => ['id' => 123],
             'text' => 'send me nudes'
         ]);
 
-        $this->handler->handle($update);
+        $handler->handle($update);
     }
 }

@@ -11,21 +11,16 @@ use Telegram\Bot\Laravel\Facades\Telegram;
 
 class GitHubHandlerTest extends HandlersTestCase
 {
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->handler = new GitHubHandler;
-    }
-
     /**
      * @test
      */
     public function it_should_handle_when_receives_issue_command()
     {
-        $update = $this->update(['text' => 'espi issue blablatest']);
+        $handler = new GitHubHandler($this->telegram);
 
-        $this->assertTrue($this->handler->shouldHandle($update));
+        $update = $this->makeMessage(['text' => 'espi issue blablatest']);
+
+        $this->assertTrue($handler->shouldHandle($update));
     }
 
     /**
@@ -33,9 +28,11 @@ class GitHubHandlerTest extends HandlersTestCase
      */
     public function it_should_not_handle_when_receives_another_text()
     {
-        $update = $this->update(['text' => 'not espi issue blablatest']);
+        $handler = new GitHubHandler($this->telegram);
 
-        $this->assertFalse($this->handler->shouldHandle($update));
+        $update = $this->makeMessage(['text' => 'not espi issue blablatest']);
+
+        $this->assertFalse($handler->shouldHandle($update));
     }
 
     /**
@@ -43,6 +40,7 @@ class GitHubHandlerTest extends HandlersTestCase
      */
     public function it_handle_and_create_issue()
     {
+        // Mocking
         $response = Mockery::mock(ResponseInterface::class);
         $response->shouldReceive('getStatusCode')->andReturn(201);
         $response->shouldReceive('getBody')->andReturn('{"html_url": "http://url.facades.org/issues/12"}');
@@ -62,15 +60,16 @@ class GitHubHandlerTest extends HandlersTestCase
             'text' => '[Issue creado!](http://url.facades.org/issues/12)',
             'parse_mode' => 'Markdown',
         ];
-        Telegram::shouldReceive('sendMessage')->once()->with($message);
+        $this->telegram->shouldReceive('sendMessage')->once()->with($message);
+        $handler = new GitHubHandler($this->telegram);
 
         // Act
-        $update = $this->update([
+        $update = $this->makeMessage([
             'chat' => ['id' => 12345678],
             'text'   => 'espi issue test facade',
         ]);
 
-        $this->handler->shouldHandle($update);
-        $this->handler->handle($update);
+        $handler->shouldHandle($update);
+        $handler->handle($update);
     }
 }

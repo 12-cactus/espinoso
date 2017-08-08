@@ -1,31 +1,28 @@
-<?php
-namespace App\Espinoso\Handlers ; 
+<?php namespace App\Espinoso\Handlers;
 
+use DateTime;
 use App\Espinoso\Helpers\Msg;
-use Cmfcmf\OpenWeatherMap\Forecast;
-use \DateTime;
 use Gmopx\LaravelOWM\LaravelOWM;
+use Telegram\Bot\Objects\Message;
+use Cmfcmf\OpenWeatherMap\Forecast;
 use Mockery\CountValidator\Exception;
-use Telegram\Bot\Laravel\Facades\Telegram;
 
 class Weather extends EspinosoHandler
 {
-    public function shouldHandle($updates, $context=null) 
+    public function shouldHandle(Message $message): bool
     {
-        if ( ! $this->isTextMessage($updates) ) return false ; 
-
-        return preg_match($this->regex(), $updates->message->text);
+        return preg_match($this->regex(), $message->getText());
     }
 
-    public function handle($updates, $context=null)
+    public function handle(Message $message)
     {
-        $day = $this->extractDay($updates->message->text);
+        $day = $this->extractDay($message->getText());
         $dayEn = $this->translateDay($day);
         $date = $this->getNearestDateFromDay($dayEn);
 
         $response = $this->buildResponse($date);
 
-        Telegram::sendMessage(Msg::html($response)->build($updates));
+        $this->telegram->sendMessage(Msg::html($response)->build($message));
     }
 
     private function regex()
@@ -103,5 +100,3 @@ class Weather extends EspinosoHandler
     }
 
 }
-
-

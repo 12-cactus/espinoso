@@ -1,23 +1,25 @@
-<?php 
-use \App\Espinoso\Helpers\Msg;
+<?php
 
-$suma = function ($pattern, $updates) {
-    preg_match($pattern, $updates->message->text, $matches);
+use App\Espinoso\Helpers\Msg;
+use Telegram\Bot\Objects\Message;
+
+$suma = function($pattern, Message $message) {
+    preg_match($pattern, $message->getText(), $matches);
     $num1 = $matches[1]; 
     $num2 = $matches[2];
     return $num1 + $num2 ; 
 };
 
-$funAsentirRand = function ($pattern, $update) {
+$funAsentirRand = function($pattern, Message $message) {
     $respuestas = ['claro que si', 'exactamente', 'mas vale'];
     $elegida = $respuestas[ array_rand($respuestas) ]; 
-    return $elegida . ", " . $update->message->from->first_name ; 
+    return $elegida . ", " . $message->getFrom()->getFirstName();
 };
 
-$funDespedirseRand = function ($pattern, $update) {
+$funDespedirseRand = function($pattern, Message $message) {
     $respuestas = ['Chau!', 'Nos vemos', 'Aloha', 'Nos re vimos!','Saludame a tu jermu', 'Chupala puto'];
     $elegida = $respuestas[ array_rand($respuestas) ]; 
-    return $elegida . ", " . $update->message->from->first_name ; 
+    return $elegida . ", " . $message->getFrom()->getFirstName();
 };
 
 $rbmMappings =  [

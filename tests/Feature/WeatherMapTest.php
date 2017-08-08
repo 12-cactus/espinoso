@@ -3,13 +3,15 @@
 namespace Tests\Feature;
 
 use App\Espinoso\Handlers\Weather;
+use Telegram\Bot\Api;
+use Telegram\Bot\Objects\Update;
 use Tests\TestCase;
 
 class WeatherMap extends TestCase
 {
     public function testExample()
     {
-        $w = new Weather();
+        $w = new Weather(resolve(Api::class), $this->makeMessage([]));
 
         $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
         foreach ($days as $day)

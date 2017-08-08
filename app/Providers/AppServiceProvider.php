@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Espinoso\Espinoso;
 use Goutte\Client as GoutteClient;
 use GuzzleHttp\Client as GuzzleClient;
 use Illuminate\Support\ServiceProvider;
@@ -30,11 +31,14 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind('GuzzleClient', function () { return new GuzzleClient; });
 
         // Handlers
-        $handlers = collect(config('espinoso.handlers'));
-        $handlers->each(function ($handler) {
-            $this->app->bind($handler, function () use ($handler) {
-                return new $handler;
-            });
-        });
+//        $handlers = collect(config('espinoso.handlers'));
+//        $handlers->each(function ($handler) {
+//            $this->app->bind($handler, function () use ($handler) {
+//                return new $handler;
+//            });
+//        });
+
+        // Espinoso
+        $this->app->bind('Espinoso', function () { return new Espinoso; });
     }
 }

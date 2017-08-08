@@ -1,7 +1,7 @@
 <?php namespace App\Espinoso\Handlers;
 
 use App\Facades\GuzzleClient;
-use Telegram\Bot\Laravel\Facades\Telegram;
+use Telegram\Bot\Objects\Message;
 
 class GitHubHandler extends EspinosoCommandHandler
 {
@@ -11,15 +11,15 @@ class GitHubHandler extends EspinosoCommandHandler
     protected $pattern = "(issue)(\s+)(?'title'.+)$";
     protected $title;
 
-    public function shouldHandle($updates, $context = null)
+    public function shouldHandle(Message $message): bool
     {
-        $match = $this->matchCommand($this->pattern, $updates, $matches);
+        $matching = $this->matchCommand($this->pattern, $message, $matches);
         $this->title = $matches['title'] ?? '';
 
-        return parent::shouldHandle($updates) && $match;
+        return $matching;
     }
 
-    public function handle($updates, $context = null)
+    public function handle(Message $message)
     {
         $response = GuzzleClient::post(config('espinoso.url.issues'), [
             'headers' => [
@@ -30,15 +30,15 @@ class GitHubHandler extends EspinosoCommandHandler
 
         if ($response->getStatusCode() == 201) {
             $data = json_decode($response->getBody());
-            $message = "[Issue creado!]({$data->html_url})";
+            $text = "[Issue creado!]({$data->html_url})";
         } else {
-            $message = "No pude crear el issue, status ".$response->getStatusCode()."\n";
-            $message .= $response->getBody();
+            $text = "No pude crear el issue, status ".$response->getStatusCode()."\n";
+            $text .= $response->getBody();
         }
 
-        Telegram::sendMessage([
-            'chat_id' => $updates->message->chat->id,
-            'text'    => $message,
+        $this->telegram->sendMessage([
+            'chat_id' => $message->getChat()->getId(),
+            'text'    => $text,
             'parse_mode' => 'Markdown',
         ]);
     }

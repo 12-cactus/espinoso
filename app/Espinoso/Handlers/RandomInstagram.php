@@ -1,31 +1,31 @@
 <?php
-namespace App\Espinoso\Handlers ; 
+namespace App\Espinoso\Handlers ;
 
-use Telegram\Bot\Laravel\Facades\Telegram;
+use App\Espinoso\Helpers\Msg;
+use Telegram\Bot\Objects\Message;
 use Vinkla\Instagram\Instagram;
 use Vinkla\Instagram\InstagramException;
-use App\Espinoso\Helpers\Msg;
 
 class RandomInstagram extends EspinosoHandler
 {
     const KEYWORD = 'ig'; 
 
-    public function shouldHandle($updates, $context=null) 
+    public function shouldHandle(Message $message): bool
     {
-        return  $this->isTextMessage($updates) && preg_match($this->regex(), $updates->message->text);
+        return preg_match($this->regex(), $message->getText());
     }
 
-    public function handle($updates, $context=null)
+    public function handle(Message $message)
     {
         try {
-            $user = $this->extract_user($updates->message->text);
+            $user = $this->extract_user($message->getText());
             $image = $this->get_random_image($user);
-            return Telegram::sendPhoto([
-                'chat_id' => $updates->message->chat->id,
+            return $this->telegram->sendPhoto([
+                'chat_id' => $message->getChat()->getId(),
                 'photo' => $image
             ]);
         } catch (InstagramException $e) {
-            return Telegram::sendMessage( Msg::plain("no papu, le erraste de instagram")->build($updates) );
+            return $this->telegram->sendMessage( Msg::plain("no papu, le erraste de instagram")->build($message) );
         }
     }
 

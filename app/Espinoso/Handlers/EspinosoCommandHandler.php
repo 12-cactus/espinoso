@@ -1,5 +1,7 @@
 <?php namespace App\Espinoso\Handlers;
 
+use Telegram\Bot\Objects\Message;
+
 abstract class EspinosoCommandHandler extends EspinosoHandler
 {
     protected $flags = 'i';
@@ -13,20 +15,17 @@ abstract class EspinosoCommandHandler extends EspinosoHandler
 
     /**
      * @param $pattern
-     * @param $updates
+     * @param Message $message
      * @param array|null $matches
-     * @return int
+     * @return bool
      */
-    protected function matchCommand($pattern, $updates, array &$matches = null)
+    protected function matchCommand($pattern, Message $message, array &$matches = null): bool
     {
         $quantifier = $this->allow_ignore_prefix ? '?' : '{1,3}';
-        $text = $this->isTextMessage($updates) ? $updates->message->text : '';
+        $text = $message->getText();
+        $pattern = "/{$this->prefix_regex}{$quantifier}{$pattern}/{$this->flags}";
 
-        return preg_match(
-            "/{$this->prefix_regex}{$quantifier}{$pattern}/{$this->flags}",
-            $text,
-            $matches
-        );
+        return preg_match($pattern, $text, $matches) === 1;
     }
 
 }

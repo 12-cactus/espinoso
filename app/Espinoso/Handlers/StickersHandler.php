@@ -1,6 +1,6 @@
 <?php namespace App\Espinoso\Handlers;
 
-use Telegram\Bot\Laravel\Facades\Telegram;
+use Telegram\Bot\Objects\Message;
 
 class StickersHandler extends EspinosoCommandHandler
 {
@@ -19,24 +19,20 @@ class StickersHandler extends EspinosoCommandHandler
 
     protected $allow_ignore_prefix = true;
 
-    public function shouldHandle($updates, $context = null)
+    public function shouldHandle(Message $message): bool
     {
-        $this->match = collect($this->patterns)->filter(function ($pattern) use ($updates) {
-            // FIXME that shit
-            return isset($updates->message)
-                && isset($updates->message->from)
-                && isset($updates->message->from->first_name)
-                && $updates->message->from->first_name === $pattern['user']
-                && $this->matchCommand($pattern['pattern'], $updates);
+        $this->match = collect($this->patterns)->filter(function ($pattern) use ($message) {
+            return $message->getFrom()->getFirstName() === $pattern['user']
+                && $this->matchCommand($pattern['pattern'], $message);
         });
 
         return $this->match->isNotEmpty();
     }
 
-    public function handle($updates, $context = null)
+    public function handle(Message $message)
     {
-        Telegram::sendSticker([
-            'chat_id' => $updates->message->chat->id,
+        $this->telegram->sendSticker([
+            'chat_id' => $message->getChat()->getId(),
             'sticker' => $this->match->first()['sticker'],
         ]);
     }

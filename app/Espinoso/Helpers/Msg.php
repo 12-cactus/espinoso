@@ -1,6 +1,8 @@
 <?php
 namespace App\Espinoso\Helpers;
 
+use Telegram\Bot\Objects\Message;
+
 class Msg
 {
 	protected $msg; 
@@ -21,11 +23,11 @@ class Msg
 		return new Msg($msg);
 	}
 
-	public function build($updates, $pattern='')
+	public function build(Message $message, $pattern = '')
 	{
-		$text = $this->parseMsg($pattern, $updates);
+		$text = $this->parseMsg($pattern, $message);
         return [
-	        'chat_id' => $updates->message->chat->id,
+	        'chat_id' => $message->getChat()->getId(),
 			'text' => $text,
 			'parse_mode' => $this->parse_mode,
     	];
@@ -34,23 +36,21 @@ class Msg
 	private function __construct($msg, $parse_mode=null)
 	{
 		$this->parse_mode = $parse_mode;
-		$this->msg = $msg ; 
+		$this->msg = $msg;
 	}
 
-    private function parseMsg($pattern, $updates)
+    private function parseMsg(string $pattern, Message $message)
     {
 		$msg = $this->msg;
-        if (is_array($msg))
-        {
+        if (is_array($msg)) {
         	$text = $this->choose($msg);
-        } else if ( is_callable($msg) )
-        {
+        } else if ( is_callable($msg) ) {
             $text = $msg($pattern, $updates);
         } else 
         {
             $text = $msg; 
         }
-        return $text ; 
+        return $text;
     }
 
     private function choose($responses) 

@@ -2,22 +2,22 @@
 
 use App\Espinoso\Helpers\Msg;
 use App\Espinoso\Handlers\ImdbScraper\Imdb;
-use Telegram\Bot\Laravel\Facades\Telegram;
+use Telegram\Bot\Objects\Message;
 
 class ImdbHandler extends EspinosoHandler
 {
     const KEYWORD = 'imdb';
 
-    public function shouldHandle($updates, $context=null)
+    public function shouldHandle(Message $message): bool
     {
-        return  $this->isTextMessage($updates) && preg_match($this->regex(), $updates->message->text);
+        return preg_match($this->regex(), $message->getText());
     }
 
-    public function handle($updates, $context=null)
+    public function handle(Message $message)
     {
-        $response = $this->buildResponse($updates->message->text);
+        $response = $this->buildResponse($message->getText());
         $response = Msg::md($response);
-        return Telegram::sendMessage( $response->build($updates) );
+        return $this->telegram->sendMessage( $response->build($message) );
     }
 
     private function extractName($message)
@@ -33,9 +33,10 @@ class ImdbHandler extends EspinosoHandler
     }
 
     /**
-     * @param $updates
+     * @param $text
+     * @return string
      */
-    public function buildResponse($text)
+    public function buildResponse(string $text): string
     {
         $name = $this->extractName($text);
         $data = $this->movieInfo($name);
@@ -51,7 +52,6 @@ Release: {$data['RELEASE_DATES'][0]}```";
     }
 
     /**
-     * @param $imdb
      * @param $name
      * @return mixed
      */
@@ -62,6 +62,4 @@ Release: {$data['RELEASE_DATES'][0]}```";
 
         return array_change_key_case($output, CASE_UPPER);
     }
-
-
 }

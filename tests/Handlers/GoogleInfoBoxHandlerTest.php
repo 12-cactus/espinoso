@@ -9,26 +9,21 @@ use App\Espinoso\Handlers\GoogleInfoBoxHandler;
 
 class GoogleInfoBoxHandlerTest extends HandlersTestCase
 {
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->handler = new GoogleInfoBoxHandler;
-    }
-
     /**
      * @test
      */
     public function it_should_handle_when_match_regex()
     {
+        $handler = new GoogleInfoBoxHandler($this->telegram);
+
         $updates = [
-            $this->update(['text' => 'espi info bla']),
-            $this->update(['text' => 'espinoso info bla bla']),
-            $this->update(['text' => 'info bla bla bla']),
+            $this->makeMessage(['text' => 'espi info bla']),
+            $this->makeMessage(['text' => 'espinoso info bla bla']),
+            $this->makeMessage(['text' => 'info bla bla bla']),
         ];
 
-        collect($updates)->each(function ($update) {
-            $this->assertTrue($this->handler->shouldHandle($update));
+        collect($updates)->each(function ($update) use ($handler) {
+            $this->assertTrue($handler->shouldHandle($update));
         });
     }
 
@@ -37,16 +32,18 @@ class GoogleInfoBoxHandlerTest extends HandlersTestCase
      */
     public function it_should_not_handle_when_receives_another_text()
     {
+        $handler = new GoogleInfoBoxHandler($this->telegram);
+
         $updates = [
-            $this->update(['text' => 'espiinfo nup']),
-            $this->update(['text' => 'espi infonup']),
-            $this->update(['text' => 'espinosoinfo tampoco']),
-            $this->update(['text' => 'espinoso infotampoco']),
-            $this->update(['text' => 'gib nop']),
+            $this->makeMessage(['text' => 'espiinfo nup']),
+            $this->makeMessage(['text' => 'espi infonup']),
+            $this->makeMessage(['text' => 'espinosoinfo tampoco']),
+            $this->makeMessage(['text' => 'espinoso infotampoco']),
+            $this->makeMessage(['text' => 'gib nop']),
         ];
 
-        collect($updates)->each(function ($update) {
-            $this->assertFalse($this->handler->shouldHandle($update));
+        collect($updates)->each(function ($update) use ($handler) {
+            $this->assertFalse($handler->shouldHandle($update));
         });
     }
 
@@ -69,15 +66,16 @@ class GoogleInfoBoxHandlerTest extends HandlersTestCase
             'text'   => "Uhhh... no hay un carajo!!\nO buscaste como el orto o estoy haciendo cualquiera!",
             'parse_mode' => 'Markdown',
         ];
-        Telegram::shouldReceive('sendMessage')->once()->with($message);
+        $this->telegram->shouldReceive('sendMessage')->once()->with($message);
+        $handler = new GoogleInfoBoxHandler($this->telegram);
 
         // Real Action
-        $update = $this->update([
+        $update = $this->makeMessage([
             'chat' => ['id' => 123],
             'text' => 'espi info got'
         ]);
 
-        $this->handler->shouldHandle($update);
-        $this->handler->handle($update);
+        $handler->shouldHandle($update);
+        $handler->handle($update);
     }
 }

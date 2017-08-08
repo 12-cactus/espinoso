@@ -3,9 +3,8 @@
 namespace App\Espinoso\Handlers;
 
 use App\Facades\GoutteClient;
-use App\Espinoso\Helpers\Msg;
+use Telegram\Bot\Objects\Message;
 use Symfony\Component\DomCrawler\Crawler;
-use Telegram\Bot\Laravel\Facades\Telegram;
 
 class GoogleInfoBoxHandler extends EspinosoCommandHandler
 {
@@ -19,17 +18,17 @@ class GoogleInfoBoxHandler extends EspinosoCommandHandler
     protected $pattern = "(?'i'\binfo\b)(?'query'.+)$";
     protected $query;
 
-    public function shouldHandle($updates, $context = null)
+    public function shouldHandle(Message $message): bool
     {
-        $match = $this->matchCommand($this->pattern, $updates, $matches);
+        $matching = $this->matchCommand($this->pattern, $message, $matches);
         $this->query = isset($matches['query'])
             ? rawurlencode(trim($matches['query']))
             : '';
 
-        return parent::shouldHandle($updates) && $match;
+        return $matching;
     }
 
-    public function handle($updates, $context = null)
+    public function handle(Message $message)
     {
         $response = $this->buildResponse();
         $content = collect(explode("\n", $response['message']));
@@ -37,8 +36,8 @@ class GoogleInfoBoxHandler extends EspinosoCommandHandler
 
         if ($images->isNotEmpty()) {
             $title = $content->shift();
-            Telegram::sendPhoto([
-                'chat_id' => $updates->message->chat->id,
+            $this->telegram->sendPhoto([
+                'chat_id' => $message->getChat()->getId(),
                 'photo'   => $images->first(),
                 'caption' => $title
             ]);
@@ -49,8 +48,8 @@ class GoogleInfoBoxHandler extends EspinosoCommandHandler
             ? "Uhhh... no hay un carajo!!\nO buscaste como el orto o estoy haciendo cualquiera!" // FIXME lang!
             : $text;
 
-        Telegram::sendMessage([
-            'chat_id' => $updates->message->chat->id,
+        $this->telegram->sendMessage([
+            'chat_id' => $message->getChat()->getId(),
             'text'    => $text,
             'parse_mode' => 'Markdown',
         ]);

@@ -1,28 +1,28 @@
-<?php
-namespace App\Espinoso\Handlers ; 
+<?php namespace App\Espinoso\Handlers;
+
 use App\Espinoso\Helpers\Msg;
-use Telegram\Bot\Laravel\Facades\Telegram;
+use Telegram\Bot\Objects\Message;
 
 class GoogleStaticMaps extends EspinosoHandler
 {
     const KEYWORD = 'gsm'; 
 
-    public function shouldHandle($updates, $context=null) 
+    public function shouldHandle(Message $message): bool
     {
-        return  $this->isTextMessage($updates) && preg_match($this->regex(), $updates->message->text);
+        return preg_match($this->regex(), $message->getText());
     }
 
-    public function handle($updates, $context=null)
+    public function handle(Message $message)
     {
-        $location = $this->extractLocation($updates->message->text);
-        $parameters = $this->extractParameters($updates->message->text);
+        $location = $this->extractLocation($message->getText());
+        $parameters = $this->extractParameters($message->getText());
         $image = $this->getMapUrl($location, $parameters);
 
-        if (preg_match('/malvinas/i', $updates->message->text))
-            Telegram::sendMessage(Msg::plain("Argentinas!")->build($updates));
+        if (preg_match('/malvinas/i', $message->getText()))
+            $this->telegram->sendMessage(Msg::plain("Argentinas!")->build($message));
 
-        Telegram::sendPhoto([
-            'chat_id' => $updates->message->chat->id,
+        $this->telegram->sendPhoto([
+            'chat_id' => $message->getChat()->getId(),
             'photo' => $image
         ]);
 

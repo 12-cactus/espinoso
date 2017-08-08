@@ -1,6 +1,5 @@
 <?php namespace Tests\Feature;
 
-
 use Mockery;
 use App\Facades\GoutteClient;
 use App\Espinoso\Handlers\CinemaHandler;
@@ -10,31 +9,26 @@ use Telegram\Bot\Laravel\Facades\Telegram;
 
 class CinemaHandlerTest extends HandlersTestCase
 {
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->handler = new CinemaHandler;
-    }
-
     /**
      * @test
      */
     public function it_should_handle_when_match_regex()
     {
+        $handler = new CinemaHandler($this->telegram);
+
         $updates = [
-            $this->update(['text' => 'espi cine']),
-            $this->update(['text' => 'espinoso cine?']),
-            $this->update(['text' => 'espi cine??']),
-            $this->update(['text' => 'espi cine!']),
-            $this->update(['text' => 'espi cine!!!']),
-            $this->update(['text' => 'espi ¿cine?']),
-            $this->update(['text' => 'espi que hay en el cine']),
-            $this->update(['text' => 'espi que hay en el cine?']),
+            $this->makeMessage(['text' => 'espi cine']),
+            $this->makeMessage(['text' => 'espinoso cine?']),
+            $this->makeMessage(['text' => 'espi cine??']),
+            $this->makeMessage(['text' => 'espi cine!']),
+            $this->makeMessage(['text' => 'espi cine!!!']),
+            $this->makeMessage(['text' => 'espi ¿cine?']),
+            $this->makeMessage(['text' => 'espi que hay en el cine']),
+            $this->makeMessage(['text' => 'espi que hay en el cine?']),
         ];
 
-        collect($updates)->each(function ($update) {
-            $this->assertTrue($this->handler->shouldHandle($update));
+        collect($updates)->each(function ($update) use ($handler) {
+            $this->assertTrue($handler->shouldHandle($update));
         });
     }
 
@@ -43,17 +37,19 @@ class CinemaHandlerTest extends HandlersTestCase
      */
     public function it_should_not_handle_when_receives_another_text()
     {
+        $handler = new CinemaHandler($this->telegram);
+
         $updates = [
-            $this->update(['text' => 'cinema']),
-            $this->update(['text' => 'ig lacosacine']),
-            $this->update(['text' => 'vamos al cine?']),
-            $this->update(['text' => 'vamos al cine espi']),
-            $this->update(['text' => 'vamos al cine, espi']),
-            $this->update(['text' => 'vamos al cine, espi?']),
+            $this->makeMessage(['text' => 'cinema']),
+            $this->makeMessage(['text' => 'ig lacosacine']),
+            $this->makeMessage(['text' => 'vamos al cine?']),
+            $this->makeMessage(['text' => 'vamos al cine espi']),
+            $this->makeMessage(['text' => 'vamos al cine, espi']),
+            $this->makeMessage(['text' => 'vamos al cine, espi?']),
         ];
 
-        collect($updates)->each(function ($update) {
-            $this->assertFalse($this->handler->shouldHandle($update));
+        collect($updates)->each(function ($update) use ($handler) {
+            $this->assertFalse($handler->shouldHandle($update));
         });
     }
 
@@ -62,6 +58,12 @@ class CinemaHandlerTest extends HandlersTestCase
      */
     public function it_handle_and_return_movies()
     {
+        // Mocking
+
+        $text = "¿La pensás poner?\n¡Mete Netflix pelotud@, es mas barato!\nPero igual podes ver todas estas:\n\n";
+        $message = ['chat_id' => 123, 'text' => $text];
+        $this->telegram->shouldReceive('sendMessage')->once()->with($message);
+
         $crawler = Mockery::mock(Crawler::class);
         $crawler->shouldReceive('filter')->andReturnSelf();
         $crawler->shouldReceive('each')->andReturn([]);
@@ -69,21 +71,12 @@ class CinemaHandlerTest extends HandlersTestCase
             ->withArgs(['GET', config('espinoso.url.cinema')])
             ->andReturn($crawler);
 
-        $text = "¿La pensás poner?
-¡Mete Netflix pelotud@, es mas barato!
-Pero igual podes ver todas estas:\n
-";
-        $message = [
-            'chat_id' => 123,
-            'text'   => $text,
-        ];
-        Telegram::shouldReceive('sendMessage')->once()->with($message);
-
-        $update = $this->update([
+        // Act
+        $handler = new CinemaHandler($this->telegram);
+        $update = $this->makeMessage([
             'chat' => ['id' => 123],
             'text' => 'espi cine'
         ]);
-
-        $this->handler->handle($update);
+        $handler->handle($update);
     }
 }

@@ -1,36 +1,22 @@
 <?php namespace App\Http\Controllers;
 
-use Exception;
 use GuzzleHttp\Client;
-use Telegram\Bot\Laravel\Facades\Telegram;
-use App\Espinoso\Handlers\EspinosoHandler;
+use App\Espinoso\Espinoso;
+use Telegram\Bot\Api as ApiTelegram;
 
 class TelegramController extends Controller
 {
-    public function handleUpdates()
+    public function handleUpdates(ApiTelegram $telegram, Espinoso $espi)
     {
-        $updates = json_decode(Telegram::getWebhookUpdates());
-
-        collect(config('espinoso.handlers'))->map(function ($handler) {
-            return resolve($handler);
-        })->filter(function (EspinosoHandler $handler) use ($updates) {
-            return $handler->shouldHandle($updates);
-        })->each(function (EspinosoHandler $handler) use ($updates) {
-            // FIXME make try-catch an aspect
-            try {
-                $handler->handle($updates);
-            } catch (Exception $e) {
-                $handler->handleError($e, $updates);
-            }
-        });
+        $espi->handleTelegramUpdate($telegram);
     }
 
-    public function setWebhook()
+    public function setWebhook(ApiTelegram $telegram)
     {
-        return Telegram::setWebhook(['url' => secure_url('handle-update')]);
+        return $telegram->setWebhook(['url' => secure_url('handle-update')]);
     }
 
-    public function githubWebhook()
+    public function githubWebhook(ApiTelegram $telegram)
     {
         // FIXME get & send branch of commit
         $client = new Client;
@@ -43,7 +29,7 @@ class TelegramController extends Controller
         $message = "De nuevo el pelotudo de `$nombre` commiteando giladas, mirá lo que hizo esta vez:_{$commit->message}_
 [View Commit]({$link})";
 
-        Telegram::sendMessage([
+        $telegram->sendMessage([
             'chat_id' => config('espinoso.chat.dev'),
             'text'    => $message,
             'parse_mode' => 'Markdown',
