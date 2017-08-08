@@ -9,23 +9,12 @@ class GitHubHandler extends EspinosoCommandHandler
      * @var string
      */
     protected $pattern = "(issue)(\s+)(?'title'.+)$";
-    protected $title;
-
-    public function shouldHandle(Message $message): bool
-    {
-        $matching = $this->matchCommand($this->pattern, $message, $matches);
-        $this->title = $matches['title'] ?? '';
-
-        return $matching;
-    }
 
     public function handle(Message $message)
     {
         $response = GuzzleClient::post(config('espinoso.url.issues'), [
-            'headers' => [
-                'Authorization' => "token ".config('espinoso.github.token'),
-            ],
-            'json' => ['title' => $this->title]
+            'headers' => ['Authorization' => "token ".config('espinoso.github.token')],
+            'json'    => ['title' => $this->matches['title']]
         ]);
 
         if ($response->getStatusCode() == 201) {

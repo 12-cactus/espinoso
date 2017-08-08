@@ -7,7 +7,6 @@ use App\Facades\GuzzleClient;
 use App\Espinoso\Handlers\GitHubHandler;
 use Tests\Handlers\HandlersTestCase;
 use Psr\Http\Message\ResponseInterface;
-use Telegram\Bot\Laravel\Facades\Telegram;
 
 class GitHubHandlerTest extends HandlersTestCase
 {
@@ -16,10 +15,11 @@ class GitHubHandlerTest extends HandlersTestCase
      */
     public function it_should_handle_when_receives_issue_command()
     {
+        // Arrange
         $handler = new GitHubHandler($this->telegram);
-
         $update = $this->makeMessage(['text' => 'espi issue blablatest']);
 
+        // Act & Assert
         $this->assertTrue($handler->shouldHandle($update));
     }
 
@@ -28,10 +28,11 @@ class GitHubHandlerTest extends HandlersTestCase
      */
     public function it_should_not_handle_when_receives_another_text()
     {
+        // Arrange
         $handler = new GitHubHandler($this->telegram);
-
         $update = $this->makeMessage(['text' => 'not espi issue blablatest']);
 
+        // Act & Assert
         $this->assertFalse($handler->shouldHandle($update));
     }
 
@@ -55,6 +56,8 @@ class GitHubHandlerTest extends HandlersTestCase
                 ]
             ])
             ->andReturn($response);
+
+        // Arrange
         $message = [
             'chat_id' => 12345678,
             'text' => '[Issue creado!](http://url.facades.org/issues/12)',
@@ -62,13 +65,12 @@ class GitHubHandlerTest extends HandlersTestCase
         ];
         $this->telegram->shouldReceive('sendMessage')->once()->with($message);
         $handler = new GitHubHandler($this->telegram);
-
-        // Act
         $update = $this->makeMessage([
             'chat' => ['id' => 12345678],
             'text'   => 'espi issue test facade',
         ]);
 
+        // Act
         $handler->shouldHandle($update);
         $handler->handle($update);
     }
