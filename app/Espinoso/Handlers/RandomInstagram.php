@@ -42,7 +42,7 @@ class RandomInstagram extends EspinosoHandler
         if (empty($response))
             throw new InstagramException("no media found");
         $i = array_rand($response);
-        return $response[$i]['images']['low_resolution']['url'];
+        return $response[$i]['images']['standard_resolution']['url'];
     }
 
     private function regex()
