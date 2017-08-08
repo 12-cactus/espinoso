@@ -1,8 +1,6 @@
-<?php namespace Tests;
+<?php namespace Tests\Espinoso;
 
-use App\Facades\Espinoso;
-use App\Model\TelegramUser;
-
+use Tests\DBTestCase;
 
 /**
  * Class EspinosoTest

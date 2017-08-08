@@ -6,12 +6,25 @@ abstract class EspinosoCommandHandler extends EspinosoHandler
 {
     protected $flags = 'i';
     protected $prefix_regex = "^(?'e'espi(noso)?\s+)"; // 'espi|espinoso '
+    protected $pattern = '$';
+    protected $matches = [];
     /**
      * @var bool
      * If false, should match 'espi'
      * If true, could not match 'espi'
      */
     protected $allow_ignore_prefix = false;
+
+    /**
+     * Default behavior to determine is Command handler should response the message.
+     *
+     * @param Message $message
+     * @return bool
+     */
+    public function shouldHandle(Message $message): bool
+    {
+        return $this->matchCommand($this->pattern, $message, $this->matches);
+    }
 
     /**
      * @param $pattern

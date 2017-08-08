@@ -6,10 +6,10 @@ use Telegram\Bot\Objects\Message;
 
 class CinemaHandler extends EspinosoCommandHandler
 {
-    public function shouldHandle(Message $message): bool
-    {
-        return $this->matchCommand('.*\bcine\b.*', $message);
-    }
+    /**
+     * @var string
+     */
+    protected $pattern = ".{0,100}\bcine\b.{0,100}$";
 
     public function handle(Message $message)
     {

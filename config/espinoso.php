@@ -11,7 +11,7 @@ return [
         //App\Espinoso\Handlers\NextHolidayHandler::class,
         App\Espinoso\Handlers\ImdbHandler::class,
         App\Espinoso\Handlers\GoogleInfoBoxHandler::class,
-        \App\Espinoso\Handlers\StickersHandler::class
+        App\Espinoso\Handlers\StickersHandler::class
     ],
 
     'github' => [

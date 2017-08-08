@@ -13,11 +13,6 @@ class BardoDelEspinosoHandler extends EspinosoCommandHandler
      */
     protected $pattern = "send me nudes$";
 
-    public function shouldHandle(Message $message): bool
-    {
-        return $this->matchCommand($this->pattern, $message);
-    }
-
     public function handle(Message $message)
     {
         return $this->telegram->sendPhoto([
