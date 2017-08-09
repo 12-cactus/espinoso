@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind('GuzzleClient', function () { return new GuzzleClient; });
 
         // Espinoso
-        $this->app->bind('Espinoso', function () {
+        $this->app->bind(Espinoso::class, function () {
             return new Espinoso(collect(config('espinoso.handlers')));
         });
     }
