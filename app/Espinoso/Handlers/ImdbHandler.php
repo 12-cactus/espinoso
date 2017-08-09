@@ -1,23 +1,62 @@
 <?php namespace App\Espinoso\Handlers;
 
-use App\Espinoso\Helpers\Msg;
 use App\Espinoso\Handlers\ImdbScraper\Imdb;
+use App\Facades\GuzzleClient;
+use Imdb\Title;
+use stdClass;
 use Telegram\Bot\Objects\Message;
 
-class ImdbHandler extends EspinosoHandler
+class ImdbHandler extends EspinosoCommandHandler
 {
-    const KEYWORD = 'imdb';
-
-    public function shouldHandle(Message $message): bool
-    {
-        return preg_match($this->regex(), $message->getText());
-    }
+    protected $pattern = "(?'type'\b(imdb|movie|peli|serie|tv)\b)(?'query'.+)";
+    protected $type = [
+        'imdb'  => [Title::MOVIE, Title::TV_SERIES],
+        'movie' => [Title::MOVIE],
+        'peli'  => [Title::MOVIE],
+        'serie' => [Title::TV_SERIES],
+        'tv'    => [Title::TV_SERIES],
+    ];
 
     public function handle(Message $message)
     {
-        $response = $this->buildResponse($message->getText());
-        $response = Msg::md($response);
-        return $this->telegram->sendMessage( $response->build($message) );
+        $type   = $this->parseType($this->matches['type']);
+        $result = $this->getData($this->matches['query'], $type);
+
+        if (empty($result)) {
+            $this->replyError($message);
+        }
+
+        if (!empty($result->$result->photo())) {
+            $this->telegram->sendPhoto([
+                'chat_id' => $message->getChat()->getId(),
+                'photo'   => $result->photo(),
+                'caption' => $result->title()
+            ]);
+        }
+
+        $this->telegram->sendMessage([
+            'chat_id' => $message->getChat()->getId(),
+            'text'    => $this->parseAsMarkdown($result),
+            'parse_mode' => 'Markdown',
+        ]);
+    }
+
+    /*
+     * Internals
+     */
+
+    protected function parseAsMarkdown(Title $result)
+    {
+        $cast = collect($result->cast())->take(3)->implode(', ');
+        $text = "**{$result->title()}** ({$result->year()})
+
+{$result->storyline()}
+
+**Year:** {$result->year()}
+**Cast:** {$cast}
+
+[View on IMDB]({$result->main_url()})
+";
     }
 
     private function extractName($message)

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "84eb26feaa8939fb3209248379fd653c",
+    "content-hash": "1a33aa2f9153c7adc80e7150906bb1ee",
     "packages": [
         {
             "name": "cmfcmf/openweathermap-php-api",
@@ -469,6 +469,42 @@
                 "url"
             ],
             "time": "2017-03-20T17:10:46+00:00"
+        },
+        {
+            "name": "imdbphp/imdbphp",
+            "version": "v5.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tboothman/imdbphp.git",
+                "reference": "b452d39f293fc14605bc37d8ffe08aa51280e84d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tboothman/imdbphp/zipball/b452d39f293fc14605bc37d8ffe08aa51280e84d",
+                "reference": "b452d39f293fc14605bc37d8ffe08aa51280e84d",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">5.3",
+                "psr/log": "~1.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9",
+                "phpunit/phpunit": "~3.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Imdb\\": "src/Imdb"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0"
+            ],
+            "description": "Library for retrieving film and tv information from IMDb",
+            "time": "2017-07-06T23:55:44+00:00"
         },
         {
             "name": "irazasyed/telegram-bot-sdk",
@@ -2542,7 +2578,7 @@
                 "codeclimate",
                 "coverage"
             ],
-            "time": "2017-06-01T13:19:55+00:00"
+            "time": "2017-06-01 13:19:55"
         },
         {
             "name": "doctrine/instantiator",
