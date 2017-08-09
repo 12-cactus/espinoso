@@ -13,7 +13,7 @@ class GoogleStaticMaps extends EspinosoCommandHandler
      *          gsm malvinas argentinas
      * @var string
      */
-    protected $pattern = "(?'gsm'\bgsm\b)\s+(?'params'(\S+:\S+\s+)*)(?'address'.+)$";
+    protected $pattern = "(?'gsm'\b(gsm)\b)\s+(?'params'(\S+:\S+\s+)*)(?'address'.+)$";
 
     /**
      * Default options

@@ -9,7 +9,7 @@ class CinemaHandler extends EspinosoCommandHandler
     /**
      * @var string
      */
-    protected $pattern = ".{0,100}\bcine\b.{0,100}$";
+    protected $pattern = ".{0,100}\b(cine)\b.{0,100}$";
 
     public function handle(Message $message)
     {

@@ -12,8 +12,8 @@ class GitHubHandler extends EspinosoCommandHandler
 
     public function handle(Message $message)
     {
-        $response = GuzzleClient::post(config('espinoso.url.issues'), [
-            'headers' => ['Authorization' => "token ".config('espinoso.github.token')],
+        $response = GuzzleClient::get(config('espinoso.url.issues'), [
+            'headers' => ['Authorization' => "token ".config('espinoso.token.github')],
             'json'    => ['title' => $this->matches['title']]
         ]);
 

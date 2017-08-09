@@ -47,7 +47,7 @@ class GitHubHandlerTest extends HandlersTestCase
                 config('espinoso.url.issues'),
                 [
                     'headers' => [
-                        'Authorization' => "token ".config('espinoso.github.token'),
+                        'Authorization' => "token ".config('espinoso.token.github'),
                     ],
                     'json' => ['title' => 'test facade']
                 ]
