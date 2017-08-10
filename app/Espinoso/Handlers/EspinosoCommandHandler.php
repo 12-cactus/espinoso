@@ -34,7 +34,7 @@ abstract class EspinosoCommandHandler extends EspinosoHandler
      */
     protected function matchCommand($pattern, Message $message, array &$matches = null): bool
     {
-        $quantifier = $this->allow_ignore_prefix ? '?' : '{1,3}';
+        $quantifier = $this->allow_ignore_prefix ? '{0,3}' : '{1,3}';
         $text = $message->getText();
         $pattern = "/{$this->prefix_regex}{$quantifier}{$pattern}/{$this->flags}";
 

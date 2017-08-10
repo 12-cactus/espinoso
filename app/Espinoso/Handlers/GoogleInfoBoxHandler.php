@@ -15,7 +15,7 @@ class GoogleInfoBoxHandler extends EspinosoCommandHandler
     /**
      * @var string
      */
-    protected $pattern = "(?'i'\binfo\b)(?'query'.+)$";
+    protected $pattern = "(?'i'\b(info)\b)(?'query'.+)$";
 
     public function handle(Message $message)
     {

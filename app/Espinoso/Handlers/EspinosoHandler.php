@@ -21,6 +21,28 @@ abstract class EspinosoHandler
 
     abstract public function handle(Message $message);
 
+    /**
+     * @param Message $message
+     */
+    protected function replyNotFound(Message $message)
+    {
+        $this->telegram->sendMessage([
+            'chat_id' => $message->getChat()->getId(),
+            'text' => 'No encontré una mierda, che',
+        ]);
+    }
+
+    /**
+     * @param Message $message
+     */
+    protected function replyError(Message $message)
+    {
+        $this->telegram->sendMessage([
+            'chat_id' => $message->getChat()->getId(),
+            'text' => 'Ups! Esta cosa anda como el culo...',
+        ]);
+    }
+
     public function handleError(Exception $e, Message $message)
     {
         $clazz = get_called_class();
