@@ -9,7 +9,7 @@ return [
         App\Espinoso\Handlers\GoogleStaticMaps::class,
         App\Espinoso\Handlers\Weather::class,
         //App\Espinoso\Handlers\NextHolidayHandler::class,
-        App\Espinoso\Handlers\ImdbHandler::class,
+        App\Espinoso\Handlers\IMDbHandler::class,
         App\Espinoso\Handlers\GoogleInfoBoxHandler::class,
         App\Espinoso\Handlers\StickersHandler::class
     ],
