@@ -86,25 +86,27 @@ class IMDbHandler extends EspinosoCommandHandler
      */
     protected function parseAsMarkdown(Title $result)
     {
-        $sinopsis  = trim($result->storyline());
+        $star = "\u{2B50}";
+        $sinopsis  = str_limit(trim($result->storyline()), 250);
         $cast      = collect($result->cast())->take(3)->pluck('name')->implode(', ');
         $genres    = collect($result->genres())->implode(', ');
-        $seasons   = $result->seasons() > 0 ? "\n**Seasons:** {$result->seasons()}" : '';
+        $seasons   = $result->seasons() > 0 ? "\n*Seasons:* {$result->seasons()}" : '';
         $directors = collect($result->director())->take(3)->pluck('name')->implode(', ');
         $creators  = empty($result->creator())
             ? ''
-            : "\n**Creators:** " . collect($result->creator())->take(3)->pluck('name')->implode(', ');
+            : "\n*Creators:* " . collect($result->creator())->take(3)->pluck('name')->implode(', ');
         $writers   = collect($result->writing())->take(3)->pluck('name')->implode(', ');
 
-        return "**{$result->title()}** ({$result->year()})
-:star:{$result->rating()}/10 | {$result->runtime()}min
-{$genres}
+        return "*{$result->title()}* ({$result->year()})
+{$star} {$result->rating()}/10 | {$result->runtime()}min
+_{$genres}_
+
 {$sinopsis}
 {$seasons}{$creators}
-**Writers:** {$writers}
-**Directors:** {$directors}
-**Cast:** {$cast}
+*Writers:* {$writers}
+*Directors:* {$directors}
+*Cast:* {$cast}
 
-[View on IMDB]({$result->main_url()})";
+[View on IMDb]({$result->main_url()})";
     }
 }

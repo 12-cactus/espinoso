@@ -79,18 +79,19 @@ class IMDbHandlerTest extends HandlersTestCase
             'photo'   => 'https://images-na.ssl-images-amazon.com/;images/M/MV5BMjE3NTQ1NDg1Ml5BMl5BanBnXkFtZTgwNzY2NDA0MjI@._V1_UX182_CR0,0,182,268_AL_.jpg',
             'caption' => 'Game of Thrones'
         ];
-        $text = "**Game of Thrones** (2011)
-:star:9.5/10 | 57min
-Drama
+        $text = "*Game of Thrones* (2011)
+⭐ 9.5/10 | 57min
+_Drama_
+
 storyline
 
-**Seasons:** 8
-**Creators:** David Benioff
-**Writers:** D.B. Weiss
-**Directors:** Alan Taylor
-**Cast:** Jon Snow
+*Seasons:* 8
+*Creators:* David Benioff
+*Writers:* D.B. Weiss
+*Directors:* Alan Taylor
+*Cast:* Jon Snow
 
-[View on IMDB](http://www.imdb.com/title/tt0944947/)";
+[View on IMDb](http://www.imdb.com/title/tt0944947/)";
         $message = [
             'chat_id' => 123,
             'text'    => $text,
