@@ -1,6 +1,6 @@
 <?php namespace Tests\Espinoso\Handlers;
 
-use App\Espinoso\Handlers\GoogleStaticMaps;
+use App\Espinoso\Handlers\GoogleStaticMapsHandler;
 
 class GoogleStaticMapHandlerTest extends HandlersTestCase
 {
@@ -10,7 +10,7 @@ class GoogleStaticMapHandlerTest extends HandlersTestCase
     public function it_should_handle_when_match_regex()
     {
         // Arrange
-        $handler = new GoogleStaticMaps($this->telegram);
+        $handler = new GoogleStaticMapsHandler($this->telegram);
         $updates = [
             $this->makeMessage(['text' => 'espi gsm islas malvinas']),
             $this->makeMessage(['text' => 'espi gsm z:10 islas malvinas']),
@@ -36,7 +36,7 @@ class GoogleStaticMapHandlerTest extends HandlersTestCase
     public function it_should_not_handle_when_receives_another_text()
     {
         // Arrange
-        $handler = $handler = new GoogleStaticMaps($this->telegram);
+        $handler = $handler = new GoogleStaticMapsHandler($this->telegram);
         $updates = [
             $this->makeMessage(['text' => 'espigsm nup']),
             $this->makeMessage(['text' => 'espi gsmnup']),
@@ -66,7 +66,7 @@ class GoogleStaticMapHandlerTest extends HandlersTestCase
             'caption' => $address . ', Argentinas!'
         ];
         $this->telegram->shouldReceive('sendPhoto')->once()->with($message);
-        $handler = new GoogleStaticMaps($this->telegram);
+        $handler = new GoogleStaticMapsHandler($this->telegram);
         $update = $this->makeMessage([
             'chat' => ['id' => 123],
             'text' => 'espi gsm z:10 color:yellow islas malvinas'

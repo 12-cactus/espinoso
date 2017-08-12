@@ -2,7 +2,7 @@
 
 use Telegram\Bot\Objects\Message;
 
-class GoogleStaticMaps extends EspinosoCommandHandler
+class GoogleStaticMapsHandler extends EspinosoCommandHandler
 {
     protected $allow_ignore_prefix = true;
 
