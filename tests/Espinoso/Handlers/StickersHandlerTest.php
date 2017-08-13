@@ -2,7 +2,7 @@
 
 use App\Espinoso\Handlers\StickersHandler;
 
-class NextHolidaysHandlerTest extends HandlersTestCase
+class StickersHandlerTest extends HandlersTestCase
 {
     /**
      * @test

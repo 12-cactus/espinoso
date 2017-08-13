@@ -7,7 +7,7 @@ return [
         App\Espinoso\Handlers\BardoDelEspinosoHandler::class,
         App\Espinoso\Handlers\InstagramHandler::class,
         App\Espinoso\Handlers\GoogleStaticMapsHandler::class,
-        App\Espinoso\Handlers\Weather::class,
+        App\Espinoso\Handlers\WeatherHandler::class,
         App\Espinoso\Handlers\NextHolidaysHandler::class,
         App\Espinoso\Handlers\IMDbHandler::class,
         App\Espinoso\Handlers\GoogleInfoBoxHandler::class,

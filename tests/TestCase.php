@@ -1,9 +1,8 @@
 <?php namespace Tests;
 
 use Faker\Factory;
-use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Telegram\Bot\Objects\Message;
-use Telegram\Bot\Objects\Update;
+use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
