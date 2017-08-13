@@ -5,6 +5,10 @@ use Telegram\Bot\Objects\Message;
 class StickersHandler extends EspinosoCommandHandler
 {
     /**
+     * @var bool
+     */
+    protected $allow_ignore_prefix = true;
+    /**
      * FIXME load from some config
      * @var string
      */
@@ -12,12 +16,13 @@ class StickersHandler extends EspinosoCommandHandler
         [
             'user' => 'Facundo',
             'pattern' => ".*\bmaybe\b.*",
-            'sticker' => 'CAADAgADiwUAAvoLtgh812FBxEdUAgI' // LazyPanda
+            'sticker' => 'CAADAgADiwUAAvoLtgh812FBxEdUAgI' // LazyPanda FIXME put on agnostic class
         ]
     ];
+    /**
+     * @var null
+     */
     protected $match = null;
-
-    protected $allow_ignore_prefix = true;
 
     public function shouldHandle(Message $message): bool
     {
