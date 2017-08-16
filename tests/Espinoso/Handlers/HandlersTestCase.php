@@ -7,6 +7,7 @@ use Telegram\Bot\Api as ApiTelegram;
 
 abstract class HandlersTestCase extends TestCase
 {
+    protected $handler;
     protected $telegram;
     protected $espinoso;
 
@@ -25,9 +26,9 @@ abstract class HandlersTestCase extends TestCase
         parent::tearDown();
     }
 
-    protected function assertShouldHandle($handler, $message)
+    protected function assertShouldHandle($message)
     {
-        $this->assertTrue($handler->shouldHandle($this->makeMessage(['text' => $message])));
+        $this->assertTrue($this->handler->shouldHandle($this->makeMessage(['text' => $message])));
     }
 
     protected function assertShouldNotHandle($handler, $message)

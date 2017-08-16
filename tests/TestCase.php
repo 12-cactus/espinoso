@@ -8,8 +8,13 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
+    protected function text(string $text)
+    {
+        return $this->makeMessage(['text' => $text]);
+    }
+
     // FIXME as Builder
-    protected function makeMessage($params)
+    protected function makeMessage(array $params = [])
     {
         $faker = Factory::create();
 
