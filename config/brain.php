@@ -29,12 +29,12 @@ return [
 
 //    '/no[, ]* espinoso?/i' => Msg::plain($funAsentirRand),
 
-//        '/\b(alan)\b$/i' => [
-//            'reply' => [
-//                'Alan lo hace por dinero',
-//                'acaso dijiste $$$ oriented programming?',
-//            ],
-//        ],
+        '/\b(alan)\b$/i' => [
+            'reply' => [
+                'Alan lo hace por dinero',
+                'acaso dijiste $$$ oriented programming?',
+            ],
+        ],
 
         '/\b(marcos)\b$/i' => [
             'reply' => '¿Quisiste decir Markos?',
@@ -48,7 +48,12 @@ return [
             'reply' => 'Facu, ese es terrible puto',
         ],
 
-//        '/\b(ines?)\b$/i' => [ 'esa Ines esa una babosa, siempre mirando abs' , 'Ine es una niñita sensible e inocente!', 'Ine te deja sin pilas' ],
+        '/\b(ines?)\b$/i' => [
+            'reply' => [
+                'esa Ines esa una babosa, siempre mirando abs',
+                'Ine es una niñita sensible e inocente!', 'Ine te deja sin pilas'
+            ],
+        ],
 
       '/(j+a+){5,}/i' => [
           'reply' => 'ajajajajajaja, que plato!',
