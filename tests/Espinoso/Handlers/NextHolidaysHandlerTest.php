@@ -13,7 +13,7 @@ class NextHolidaysHandlerTest extends HandlersTestCase
     public function it_should_handle_when_match_regex()
     {
         // Arrange
-        $handler = new NextHolidaysHandler($this->telegram);
+        $handler = $this->makeHandler();
         $updates = [
             $this->makeMessage(['text' => 'espi feriado']),
             $this->makeMessage(['text' => 'espi prox feriado']),
@@ -37,7 +37,7 @@ class NextHolidaysHandlerTest extends HandlersTestCase
     public function it_should_not_handle_when_receives_another_text()
     {
         // Arrange
-        $handler = $handler = new NextHolidaysHandler($this->telegram);
+        $handler = $handler = $this->makeHandler();
         $updates = [
             $this->makeMessage(['text' => 'feriado']),
             $this->makeMessage(['text' => 'feriados']),
@@ -82,7 +82,7 @@ class NextHolidaysHandlerTest extends HandlersTestCase
         ];
         $this->telegram->shouldReceive('sendMessage')->once()->with($message);
 
-        $handler = new NextHolidaysHandler($this->telegram);
+        $handler = $this->makeHandler();
         $update = $this->makeMessage([
             'chat' => ['id' => 123],
             'text' => 'espi feriados'
@@ -91,5 +91,13 @@ class NextHolidaysHandlerTest extends HandlersTestCase
         // Act
         $handler->shouldHandle($update);
         $handler->handle($update);
+    }
+
+    /**
+     * @return NextHolidaysHandler
+     */
+    protected function makeHandler(): NextHolidaysHandler
+    {
+        return new NextHolidaysHandler($this->espinoso, $this->telegram);
     }
 }

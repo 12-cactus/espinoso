@@ -10,7 +10,7 @@ class StickersHandlerTest extends HandlersTestCase
     public function it_should_handle_when_match_regex()
     {
         // Arrange
-        $handler = new StickersHandler($this->telegram);
+        $handler = $this->makeHandler();
         $updates = [
             $this->makeMessage([
                 'from' => ['first_name' => 'Facundo'],
@@ -34,7 +34,7 @@ class StickersHandlerTest extends HandlersTestCase
     public function it_should_not_handle_when_receives_another_text()
     {
         // Arrange
-        $handler = new StickersHandler($this->telegram);
+        $handler = $this->makeHandler();
         $updates = [
             $this->makeMessage([
                     'from' => ['first_name' => 'Dan'],
@@ -64,7 +64,7 @@ class StickersHandlerTest extends HandlersTestCase
         ];
         $this->telegram->shouldReceive('sendSticker')->once()->with($message);
 
-        $handler = new StickersHandler($this->telegram);
+        $handler = $this->makeHandler();
         $update = $this->makeMessage([
             'chat' => ['id' => 123],
             'from' => ['first_name' => 'Facundo'],
@@ -74,5 +74,13 @@ class StickersHandlerTest extends HandlersTestCase
         // Act
         $handler->shouldHandle($update);
         $handler->handle($update);
+    }
+
+    /**
+     * @return StickersHandler
+     */
+    protected function makeHandler(): StickersHandler
+    {
+        return new StickersHandler($this->espinoso, $this->telegram);
     }
 }

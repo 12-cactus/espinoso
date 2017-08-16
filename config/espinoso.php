@@ -3,7 +3,7 @@ return [
     'handlers' => [ 
         App\Espinoso\Handlers\GitHubHandler::class,
         App\Espinoso\Handlers\CinemaHandler::class,
-        App\Espinoso\Handlers\ResponseByMatch::class,
+        App\Espinoso\Handlers\BrainHandler::class,
         App\Espinoso\Handlers\BardoDelEspinosoHandler::class,
         App\Espinoso\Handlers\InstagramHandler::class,
         App\Espinoso\Handlers\GoogleStaticMapsHandler::class,

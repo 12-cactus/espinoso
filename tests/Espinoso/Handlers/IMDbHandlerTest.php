@@ -13,7 +13,7 @@ class IMDbHandlerTest extends HandlersTestCase
     public function it_should_handle_when_match_regex()
     {
         // Arrange
-        $handler = new IMDbHandler($this->telegram);
+        $handler = $this->makeHandler();
         $updates = [
             $this->makeMessage(['text' => 'espi imdb game of thrones']),
             $this->makeMessage(['text' => 'espi movie game of thrones']),
@@ -34,7 +34,7 @@ class IMDbHandlerTest extends HandlersTestCase
     public function it_should_not_handle_when_receives_another_text()
     {
         // Arrange
-        $handler = $handler = new IMDbHandler($this->telegram);
+        $handler = $handler = $this->makeHandler();
         $updates = [
             $this->makeMessage(['text' => 'espiimdb game of thrones']),
             $this->makeMessage(['text' => 'espi imdbgame of thrones']),
@@ -100,7 +100,7 @@ storyline
 
         $this->telegram->shouldReceive('sendPhoto')->once()->with($photo);
         $this->telegram->shouldReceive('sendMessage')->once()->with($message);
-        $handler = new IMDbHandler($this->telegram);
+        $handler = $this->makeHandler();
         $update = $this->makeMessage([
             'chat' => ['id' => 123],
             'text' => 'espi imdb game of thrones'
@@ -109,5 +109,13 @@ storyline
         // Act
         $handler->shouldHandle($update);
         $handler->handle($update);
+    }
+
+    /**
+     * @return IMDbHandler
+     */
+    protected function makeHandler(): IMDbHandler
+    {
+        return new IMDbHandler($this->espinoso, $this->telegram);
     }
 }

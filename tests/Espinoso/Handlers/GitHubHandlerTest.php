@@ -13,7 +13,7 @@ class GitHubHandlerTest extends HandlersTestCase
     public function it_should_handle_when_receives_issue_command()
     {
         // Arrange
-        $handler = new GitHubHandler($this->telegram);
+        $handler = $this->makeHandler();
         $update = $this->makeMessage(['text' => 'espi issue blablatest']);
 
         // Act & Assert
@@ -26,7 +26,7 @@ class GitHubHandlerTest extends HandlersTestCase
     public function it_should_not_handle_when_receives_another_text()
     {
         // Arrange
-        $handler = new GitHubHandler($this->telegram);
+        $handler = $this->makeHandler();
         $update = $this->makeMessage(['text' => 'not espi issue blablatest']);
 
         // Act & Assert
@@ -61,7 +61,7 @@ class GitHubHandlerTest extends HandlersTestCase
             'parse_mode' => 'Markdown',
         ];
         $this->telegram->shouldReceive('sendMessage')->once()->with($message);
-        $handler = new GitHubHandler($this->telegram);
+        $handler = $this->makeHandler();
         $update = $this->makeMessage([
             'chat' => ['id' => 12345678],
             'text'   => 'espi issue test facade',
@@ -70,5 +70,13 @@ class GitHubHandlerTest extends HandlersTestCase
         // Act
         $handler->shouldHandle($update);
         $handler->handle($update);
+    }
+
+    /**
+     * @return GitHubHandler
+     */
+    protected function makeHandler(): GitHubHandler
+    {
+        return new GitHubHandler($this->espinoso, $this->telegram);
     }
 }

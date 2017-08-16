@@ -1,5 +1,6 @@
 <?php namespace Tests\Espinoso\Handlers;
 
+use App\Espinoso\Espinoso;
 use Mockery;
 use Tests\TestCase;
 use Telegram\Bot\Api as ApiTelegram;
@@ -7,11 +8,13 @@ use Telegram\Bot\Api as ApiTelegram;
 abstract class HandlersTestCase extends TestCase
 {
     protected $telegram;
+    protected $espinoso;
 
     protected function setUp()
     {
         parent::setUp();
 
+        $this->espinoso = Mockery::mock(Espinoso::class);
         $this->telegram = Mockery::mock(ApiTelegram::class);
     }
 

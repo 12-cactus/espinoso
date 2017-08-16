@@ -19,7 +19,7 @@ class WeatherHandlerTest extends HandlersTestCase
     public function it_should_handle_when_match_regex()
     {
         // Arrange
-        $handler = new WeatherHandler($this->telegram);
+        $handler = $this->makeHandler();
         $updates = [
             $this->makeMessage(['text' => 'clima lunes']),
             $this->makeMessage(['text' => 'clima el lunes']),
@@ -51,7 +51,7 @@ class WeatherHandlerTest extends HandlersTestCase
     public function it_should_not_handle_when_receives_another_text()
     {
         // Arrange
-        $handler = $handler = new WeatherHandler($this->telegram);
+        $handler = $handler = $this->makeHandler();
         $updates = [
             $this->makeMessage(['text' => 'climalunes']),
             $this->makeMessage(['text' => 'clima pŕoximo lunes']),
@@ -107,7 +107,7 @@ class WeatherHandlerTest extends HandlersTestCase
         ];
         $this->telegram->shouldReceive('sendMessage')->once()->with($message);
 
-        $handler = new WeatherHandler($this->telegram);
+        $handler = $this->makeHandler();
         $update = $this->makeMessage([
             'chat' => ['id' => 123],
             'text' => 'espi clima lunes'
@@ -116,5 +116,13 @@ class WeatherHandlerTest extends HandlersTestCase
         // Act
         $handler->shouldHandle($update);
         $handler->handle($update);
+    }
+
+    /**
+     * @return WeatherHandler
+     */
+    protected function makeHandler(): WeatherHandler
+    {
+        return new WeatherHandler($this->espinoso, $this->telegram);
     }
 }

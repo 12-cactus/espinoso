@@ -10,7 +10,7 @@ class GoogleStaticMapHandlerTest extends HandlersTestCase
     public function it_should_handle_when_match_regex()
     {
         // Arrange
-        $handler = new GoogleStaticMapsHandler($this->telegram);
+        $handler = $this->makeHandler();
         $updates = [
             $this->makeMessage(['text' => 'espi gsm islas malvinas']),
             $this->makeMessage(['text' => 'espi gsm z:10 islas malvinas']),
@@ -36,7 +36,7 @@ class GoogleStaticMapHandlerTest extends HandlersTestCase
     public function it_should_not_handle_when_receives_another_text()
     {
         // Arrange
-        $handler = $handler = new GoogleStaticMapsHandler($this->telegram);
+        $handler = $handler = $this->makeHandler();
         $updates = [
             $this->makeMessage(['text' => 'espigsm nup']),
             $this->makeMessage(['text' => 'espi gsmnup']),
@@ -66,7 +66,7 @@ class GoogleStaticMapHandlerTest extends HandlersTestCase
             'caption' => $address . ', Argentinas!'
         ];
         $this->telegram->shouldReceive('sendPhoto')->once()->with($message);
-        $handler = new GoogleStaticMapsHandler($this->telegram);
+        $handler = $this->makeHandler();
         $update = $this->makeMessage([
             'chat' => ['id' => 123],
             'text' => 'espi gsm z:10 color:yellow islas malvinas'
@@ -75,5 +75,13 @@ class GoogleStaticMapHandlerTest extends HandlersTestCase
         // Act
         $handler->shouldHandle($update);
         $handler->handle($update);
+    }
+
+    /**
+     * @return GoogleStaticMapsHandler
+     */
+    protected function makeHandler(): GoogleStaticMapsHandler
+    {
+        return new GoogleStaticMapsHandler($this->espinoso, $this->telegram);
     }
 }

@@ -29,7 +29,7 @@ class Espinoso
     public function executeHandlers(ApiTelegram $telegram, Message $message)
     {
         $this->handlers->map(function ($handler) use ($telegram) {
-            return new $handler($telegram);
+            return new $handler($this, $telegram);
         })->filter(function (EspinosoHandler $handler) use ($message) {
             return $handler->shouldHandle($message);
         })->each(function (EspinosoHandler $handler) use ($message) {

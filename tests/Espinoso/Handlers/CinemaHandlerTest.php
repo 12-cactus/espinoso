@@ -13,7 +13,7 @@ class CinemaHandlerTest extends HandlersTestCase
     public function it_should_handle_when_match_regex()
     {
         // Arrange
-        $handler = new CinemaHandler($this->telegram);
+        $handler = $this->makeHandler();
         $updates = [
             $this->makeMessage(['text' => 'espi cine']),
             $this->makeMessage(['text' => 'espinoso cine?']),
@@ -37,7 +37,7 @@ class CinemaHandlerTest extends HandlersTestCase
     public function it_should_not_handle_when_receives_another_text()
     {
         // Arrange
-        $handler = new CinemaHandler($this->telegram);
+        $handler = $this->makeHandler();
         $updates = [
             $this->makeMessage(['text' => 'cinema']),
             $this->makeMessage(['text' => 'ig lacosacine']),
@@ -71,11 +71,19 @@ class CinemaHandlerTest extends HandlersTestCase
             ->andReturn($crawler);
 
         // Act
-        $handler = new CinemaHandler($this->telegram);
+        $handler = $this->makeHandler();
         $update = $this->makeMessage([
             'chat' => ['id' => 123],
             'text' => 'espi cine'
         ]);
         $handler->handle($update);
+    }
+
+    /**
+     * @return CinemaHandler
+     */
+    protected function makeHandler(): CinemaHandler
+    {
+        return new CinemaHandler($this->espinoso, $this->telegram);
     }
 }

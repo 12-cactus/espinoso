@@ -11,7 +11,7 @@ class InstagramHandlerTest extends HandlersTestCase
     public function it_should_handle_when_match_regex()
     {
         // Arrange
-        $handler = new InstagramHandler($this->telegram);
+        $handler = $this->makeHandler();
         $updates = [
             $this->makeMessage(['text' => 'espi ig alanmtk']),
             $this->makeMessage(['text' => 'ig alanmtk']),
@@ -31,7 +31,7 @@ class InstagramHandlerTest extends HandlersTestCase
     public function it_should_not_handle_when_receives_another_text()
     {
         // Arrange
-        $handler = $handler = new InstagramHandler($this->telegram);
+        $handler = $handler = $this->makeHandler();
         $updates = [
             $this->makeMessage(['text' => 'espiig alanmtk']),
             $this->makeMessage(['text' => 'ig-alanmtk']),
@@ -73,7 +73,7 @@ class InstagramHandlerTest extends HandlersTestCase
         ];
         $this->telegram->shouldReceive('sendPhoto')->once()->with($message);
 
-        $handler = new InstagramHandler($this->telegram);
+        $handler = $this->makeHandler();
         $update = $this->makeMessage([
             'chat' => ['id' => 123],
             'text' => 'ig alanmtk last'
@@ -82,5 +82,13 @@ class InstagramHandlerTest extends HandlersTestCase
         // Act
         $handler->shouldHandle($update);
         $handler->handle($update);
+    }
+
+    /**
+     * @return InstagramHandler
+     */
+    protected function makeHandler(): InstagramHandler
+    {
+        return new InstagramHandler($this->espinoso, $this->telegram);
     }
 }

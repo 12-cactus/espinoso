@@ -13,7 +13,7 @@ class GoogleInfoBoxHandlerTest extends HandlersTestCase
     public function it_should_handle_when_match_regex()
     {
         // Arrange
-        $handler = new GoogleInfoBoxHandler($this->telegram);
+        $handler = $this->makeHandler();
         $updates = [
             $this->makeMessage(['text' => 'espi info bla']),
             $this->makeMessage(['text' => 'espinoso info bla bla']),
@@ -32,7 +32,7 @@ class GoogleInfoBoxHandlerTest extends HandlersTestCase
     public function it_should_not_handle_when_receives_another_text()
     {
         // Arrange
-        $handler = new GoogleInfoBoxHandler($this->telegram);
+        $handler = $this->makeHandler();
         $updates = [
             $this->makeMessage(['text' => 'espiinfo nup']),
             $this->makeMessage(['text' => 'espi infonup']),
@@ -68,7 +68,7 @@ class GoogleInfoBoxHandlerTest extends HandlersTestCase
             'parse_mode' => 'Markdown',
         ];
         $this->telegram->shouldReceive('sendMessage')->once()->with($message);
-        $handler = new GoogleInfoBoxHandler($this->telegram);
+        $handler = $this->makeHandler();
         $update = $this->makeMessage([
             'chat' => ['id' => 123],
             'text' => 'espi info got'
@@ -77,5 +77,13 @@ class GoogleInfoBoxHandlerTest extends HandlersTestCase
         // Act
         $handler->shouldHandle($update);
         $handler->handle($update);
+    }
+
+    /**
+     * @return GoogleInfoBoxHandler
+     */
+    protected function makeHandler(): GoogleInfoBoxHandler
+    {
+        return new GoogleInfoBoxHandler($this->espinoso, $this->telegram);
     }
 }

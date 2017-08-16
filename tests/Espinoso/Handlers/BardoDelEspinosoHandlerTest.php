@@ -10,7 +10,7 @@ class BardoDelEspinosoHandlerTest extends HandlersTestCase
     public function it_should_handle_when_receives_send_me_nudes()
     {
         // Arrange
-        $handler = new BardoDelEspinosoHandler($this->telegram);
+        $handler = $this->makeHandler();
         $message = $this->makeMessage(['text' => 'send me nudes']);
 
         // Act && Assert
@@ -23,7 +23,7 @@ class BardoDelEspinosoHandlerTest extends HandlersTestCase
     public function it_should_not_handle_when_receives_another_text()
     {
         // Arrange
-        $handler = new BardoDelEspinosoHandler($this->telegram);
+        $handler = $this->makeHandler();
         $update1 = $this->makeMessage(['text' => 'saraza send me nudes']);
         $update2 = $this->makeMessage(['text' => 'send me nudes saraza']);
 
@@ -46,7 +46,7 @@ class BardoDelEspinosoHandlerTest extends HandlersTestCase
         $this->telegram->shouldReceive('sendPhoto')->once()->with($photo);
 
         // Arrange
-        $handler = new BardoDelEspinosoHandler($this->telegram);
+        $handler = $this->makeHandler();
         $update = $this->makeMessage([
             'chat' => ['id' => 123],
             'text' => 'send me nudes'
@@ -54,5 +54,13 @@ class BardoDelEspinosoHandlerTest extends HandlersTestCase
 
         // Act
         $handler->handle($update);
+    }
+
+    /**
+     * @return BardoDelEspinosoHandler
+     */
+    protected function makeHandler(): BardoDelEspinosoHandler
+    {
+        return new BardoDelEspinosoHandler($this->espinoso, $this->telegram);
     }
 }

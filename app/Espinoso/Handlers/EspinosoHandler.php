@@ -1,6 +1,7 @@
 <?php namespace App\Espinoso\Handlers;
 
 use Exception;
+use App\Espinoso\Espinoso;
 use Telegram\Bot\Objects\Message;
 use Telegram\Bot\Api as ApiTelegram;
 use Illuminate\Support\Facades\Log;
@@ -8,12 +9,17 @@ use Illuminate\Support\Facades\Log;
 abstract class EspinosoHandler
 {
     /**
+     * @var Espinoso
+     */
+    protected $espinoso;
+    /**
      * @var ApiTelegram
      */
     protected $telegram;
 
-    public function __construct(ApiTelegram $telegram)
+    public function __construct(Espinoso $espinoso, ApiTelegram $telegram)
     {
+        $this->espinoso = $espinoso;
         $this->telegram = $telegram;
     }
 
