@@ -135,7 +135,8 @@ return [
             ]
         ],
 
-//    '/([0-9][0-9]*)[ ]*\+[ ]*([0-9][0-9]*)/' => Msg::md($suma),
+        // FIXME: it would be better to create an ArithmeticHandler to handle operations
+        // '/([0-9][0-9]*)[ ]*\+[ ]*([0-9][0-9]*)/' => Msg::md($suma),
 
         '/empanada/i' => [
             'reply' => 'mmmm de carne y bien jugosa',
