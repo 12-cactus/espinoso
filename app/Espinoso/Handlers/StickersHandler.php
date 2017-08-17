@@ -41,7 +41,7 @@ class StickersHandler extends EspinosoCommandHandler
 
     public function handle(Message $message): void
     {
-        $this->telegram->sendSticker([
+        $this->delivery->sendSticker([
             'chat_id' => $message->getChat()->getId(),
             'sticker' => $this->match->first()['sticker'],
         ]);

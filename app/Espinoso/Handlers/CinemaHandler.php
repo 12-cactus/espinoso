@@ -32,9 +32,6 @@ class CinemaHandler extends EspinosoCommandHandler
 Pero igual podes ver todas estas:\n
 {$movies}";
 
-        $this->telegram->sendMessage([
-            'chat_id' => $message->getChat()->getId(),
-            'text'    => $response,
-        ]);
+        $this->espinoso->reply($response);
     }
 }

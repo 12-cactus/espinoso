@@ -18,7 +18,7 @@ class BardoDelEspinosoHandler extends EspinosoCommandHandler
 
     public function handle(Message $message): void
     {
-        $this->telegram->sendPhoto([
+        $this->delivery->sendPhoto([
             'chat_id' => $message->getChat()->getId(),
             'photo'   => 'https://cdn.drawception.com/images/panels/2012/4-4/FErsE1a6t7-8.png',
             'caption' => 'Acá tenés tu nude, hijo de puta!'

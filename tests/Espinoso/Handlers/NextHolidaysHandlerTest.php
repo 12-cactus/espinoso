@@ -75,18 +75,11 @@ class NextHolidaysHandlerTest extends HandlersTestCase
  - *Lunes 20 de Noviembre*, Día de la Soberanía Nacional (101 días)
  - *Viernes 08 de Diciembre*, Inmaculada Concepción de María (119 días)
  - *Lunes 25 de Diciembre*, Navidad (136 días)";
-        $message = [
-            'chat_id' => 123,
-            'text'    => $text,
-            'parse_mode' => 'Markdown'
-        ];
-        $this->delivery->shouldReceive('sendMessage')->once()->with($message);
+
+        $this->espinoso->shouldReceive('reply')->once()->with($text);
 
         $handler = $this->makeHandler();
-        $update = $this->makeMessage([
-            'chat' => ['id' => 123],
-            'text' => 'espi feriados'
-        ]);
+        $update = $this->makeMessage(['text' => 'espi feriados']);
 
         // Act
         $handler->shouldHandle($update);

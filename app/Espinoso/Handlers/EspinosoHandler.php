@@ -16,7 +16,7 @@ abstract class EspinosoHandler
     /**
      * @var ApiTelegram
      */
-    protected $telegram;
+    protected $delivery;
     /**
      * @var string
      */
@@ -34,7 +34,7 @@ abstract class EspinosoHandler
     public function __construct(Espinoso $espinoso, EspinosoDeliveryInterface $delivery)
     {
         $this->espinoso = $espinoso;
-        $this->telegram = $delivery;
+        $this->delivery = $delivery;
     }
 
     abstract public function handle(Message $message): void;
@@ -49,14 +49,11 @@ abstract class EspinosoHandler
     }
 
     /**
-     * @param Message $message
+     *
      */
-    protected function replyNotFound(Message $message)
+    protected function replyNotFound()
     {
-        $this->telegram->sendMessage([
-            'chat_id' => $message->getChat()->getId(),
-            'text' => 'No encontré una mierda, che',
-        ]);
+        $this->espinoso->reply('No encontré una mierda, che');
     }
 
     /**
@@ -64,7 +61,7 @@ abstract class EspinosoHandler
      */
     protected function replyError(Message $message)
     {
-        $this->telegram->sendMessage([
+        $this->delivery->sendMessage([
             'chat_id' => $message->getChat()->getId(),
             'text' => 'Ups! Esta cosa anda como el culo...',
         ]);
@@ -92,7 +89,7 @@ abstract class EspinosoHandler
 
 View Log for details";
 
-        $this->telegram->sendMessage([
+        $this->delivery->sendMessage([
             'chat_id' => config('espinoso.chat.dev'),
             'text'    => $error,
             'parse_mode' => 'Markdown',

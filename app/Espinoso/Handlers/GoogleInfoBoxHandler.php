@@ -28,7 +28,7 @@ class GoogleInfoBoxHandler extends EspinosoCommandHandler
 
         if ($images->isNotEmpty()) {
             $title = $content->shift();
-            $this->telegram->sendPhoto([
+            $this->delivery->sendPhoto([
                 'chat_id' => $message->getChat()->getId(),
                 'photo'   => $images->first(),
                 'caption' => $title
@@ -40,11 +40,7 @@ class GoogleInfoBoxHandler extends EspinosoCommandHandler
             ? "Uhhh... no hay un carajo!!\nO buscaste como el orto o estoy haciendo cualquiera!" // FIXME lang!
             : $text;
 
-        $this->telegram->sendMessage([
-            'chat_id' => $message->getChat()->getId(),
-            'text'    => $text,
-            'parse_mode' => 'Markdown',
-        ]);
+        $this->espinoso->reply($text);
     }
 
     /**

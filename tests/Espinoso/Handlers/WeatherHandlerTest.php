@@ -100,18 +100,11 @@ class WeatherHandlerTest extends HandlersTestCase
             ->withArgs(['Quilmes, AR', "es", "metric", 10, ''])
             ->andReturn([$forecast]);
 
-        $message = [
-            'chat_id' => 123,
-            'text'    => 'está pronosticado de 00:00 a 23:59 cielo claro con temperaturas entre 10.76 y 16.69 grados',
-            'parse_mode' => 'HTML'
-        ];
-        $this->delivery->shouldReceive('sendMessage')->once()->with($message);
+        $text = 'está pronosticado de 00:00 a 23:59 cielo claro con temperaturas entre 10.76 y 16.69 grados';
+        $this->espinoso->shouldReceive('reply')->once()->with($text, 'HTML');
 
         $handler = $this->makeHandler();
-        $update = $this->makeMessage([
-            'chat' => ['id' => 123],
-            'text' => 'espi clima lunes'
-        ]);
+        $update = $this->makeMessage(['text' => 'espi clima lunes']);
 
         // Act
         $handler->shouldHandle($update);

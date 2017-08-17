@@ -25,11 +25,7 @@ class NextHolidaysHandler extends EspinosoCommandHandler
 
         $text = "Manga de vagos, *quedan {$count} feriados* en todo el año.\n{$list}";
 
-        $this->telegram->sendMessage([
-            'chat_id' => $message->getChat()->getId(),
-            'text' => $text,
-            'parse_mode' => 'Markdown'
-        ]);
+        $this->espinoso->reply($text);
     }
 
     /**

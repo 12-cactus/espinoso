@@ -92,14 +92,9 @@ storyline
 *Cast:* Jon Snow
 
 [View on IMDb](http://www.imdb.com/title/tt0944947/)";
-        $message = [
-            'chat_id' => 123,
-            'text'    => $text,
-            'parse_mode' => 'Markdown'
-        ];
 
         $this->delivery->shouldReceive('sendPhoto')->once()->with($photo);
-        $this->delivery->shouldReceive('sendMessage')->once()->with($message);
+        $this->espinoso->shouldReceive('reply')->once()->with($text);
         $handler = $this->makeHandler();
         $update = $this->makeMessage([
             'chat' => ['id' => 123],

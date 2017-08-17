@@ -62,17 +62,10 @@ class GoogleInfoBoxHandlerTest extends HandlersTestCase
             ->andReturn($crawler);
 
         // Arrange
-        $message = [
-            'chat_id' => 123,
-            'text'   => "Uhhh... no hay un carajo!!\nO buscaste como el orto o estoy haciendo cualquiera!",
-            'parse_mode' => 'Markdown',
-        ];
-        $this->delivery->shouldReceive('sendMessage')->once()->with($message);
+        $text = "Uhhh... no hay un carajo!!\nO buscaste como el orto o estoy haciendo cualquiera!";
+        $this->espinoso->shouldReceive('reply')->once()->with($text);
         $handler = $this->makeHandler();
-        $update = $this->makeMessage([
-            'chat' => ['id' => 123],
-            'text' => 'espi info got'
-        ]);
+        $update = $this->makeMessage(['text' => 'espi info got']);
 
         // Act
         $handler->shouldHandle($update);
