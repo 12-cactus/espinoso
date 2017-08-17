@@ -28,7 +28,7 @@ class Espinoso
      */
     public function executeHandlers(ApiTelegram $telegram, Message $message)
     {
-        $this->handlers->map(function ($handler) use ($telegram) {
+        $this->getHandlers()->map(function ($handler) use ($telegram) {
             return new $handler($this, $telegram);
         })->filter(function (EspinosoHandler $handler) use ($message) {
             return $handler->shouldHandle($message);
@@ -39,6 +39,14 @@ class Espinoso
                 $handler->handleError($e, $message);
             }
         });
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getHandlers(): Collection
+    {
+        return $this->handlers;
     }
 
 //    public function register(stdClass $update)

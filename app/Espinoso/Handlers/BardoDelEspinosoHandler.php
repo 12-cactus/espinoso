@@ -13,6 +13,9 @@ class BardoDelEspinosoHandler extends EspinosoCommandHandler
      */
     protected $pattern = "send me nudes$";
 
+    protected $signature   = "[espi] send me nudes";
+    protected $description = "no sé, fijate";
+
     public function handle(Message $message)
     {
         return $this->telegram->sendPhoto([

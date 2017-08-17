@@ -11,6 +11,10 @@ class NextHolidaysHandler extends EspinosoCommandHandler
      */
     protected $pattern = "(\b(pr(o|ó)x(imo(s?))?)\b\s+)?(\b(feriado(s?))\b)$";
 
+    protected $signature   = "espi feriados";
+    protected $description = "feriados para rascarse la pelusa";
+
+
     public function handle(Message $message)
     {
         $holidays = collect($this->getHolidays());

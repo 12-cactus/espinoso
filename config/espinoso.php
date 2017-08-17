@@ -1,6 +1,7 @@
 <?php
 return [
     'handlers' => [ 
+        App\Espinoso\Handlers\HelpHandler::class,
         App\Espinoso\Handlers\GitHubHandler::class,
         App\Espinoso\Handlers\CinemaHandler::class,
         App\Espinoso\Handlers\BrainHandler::class,

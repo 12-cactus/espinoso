@@ -10,6 +10,9 @@ class GitHubHandler extends EspinosoCommandHandler
      */
     protected $pattern = "(issue)(\s+)(?'title'.+)$";
 
+    protected $signature   = "espi issue <title>";
+    protected $description = "genera un issue en el repo";
+
     public function handle(Message $message)
     {
         $response = GuzzleClient::post(config('espinoso.url.issues'), [

@@ -10,6 +10,9 @@ class BrainHandler extends EspinosoHandler
     protected $allNodes;
     protected $matchedNodes;
 
+    protected $signature   = "macri, facu, ine, alan, asado, ...";
+    protected $description = "Macri Gato, Facu Puto";
+
     public function __construct(Espinoso $espinoso, ApiTelegram $telegram)
     {
         parent::__construct($espinoso, $telegram);

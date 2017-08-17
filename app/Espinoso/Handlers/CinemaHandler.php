@@ -11,6 +11,9 @@ class CinemaHandler extends EspinosoCommandHandler
      */
     protected $pattern = ".{0,100}\b(cine)\b.{0,100}$";
 
+    protected $signature   = "espi cine";
+    protected $description = "te muestro que hay para ver en el cine y ponerla";
+
     public function handle(Message $message)
     {
         $crawler = GoutteClient::request('GET', config('espinoso.url.cinema'));

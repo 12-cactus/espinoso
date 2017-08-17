@@ -17,6 +17,14 @@ abstract class EspinosoHandler
      */
     protected $telegram;
 
+    protected $signature;
+    protected $description;
+
+    protected function help()
+    {
+        return empty($this->signature) ? '' : "*{$this->signature}*\n\t\t\t{$this->description}";
+    }
+
     public function __construct(Espinoso $espinoso, ApiTelegram $telegram)
     {
         $this->espinoso = $espinoso;

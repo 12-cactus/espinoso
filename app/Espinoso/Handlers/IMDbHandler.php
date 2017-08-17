@@ -14,6 +14,10 @@ class IMDbHandler extends EspinosoCommandHandler
      * @var string
      */
     protected $pattern = "(?'type'\b(imdb|movie|peli|serie|tv)\b)(?'query'.+)";
+
+    protected $signature   = "espi imdb|movie|peli|serie|tv <cosa a buscar>";
+    protected $description = "busco pelis y series, vieja!";
+
     /**
      * @var array
      */

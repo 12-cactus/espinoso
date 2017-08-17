@@ -19,6 +19,11 @@ class StickersHandler extends EspinosoCommandHandler
             'sticker' => 'CAADAgADiwUAAvoLtgh812FBxEdUAgI' // LazyPanda FIXME put on agnostic class
         ]
     ];
+
+    protected $signature   = "[espi] maybe";
+    protected $description = "solo funciona para facu... los demás a comerla";
+
+
     /**
      * @var null
      */

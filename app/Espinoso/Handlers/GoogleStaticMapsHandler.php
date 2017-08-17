@@ -15,6 +15,9 @@ class GoogleStaticMapsHandler extends EspinosoCommandHandler
      */
     protected $pattern = "(?'gsm'\b(gsm)\b)\s+(?'params'(\S+:\S+\s+)*)(?'address'.+)$";
 
+    protected $signature   = "[espi] gsm <lugar>";
+    protected $description = "te tiro un mapa... tiene algunos params pero me da paja decírtelos";
+
     /**
      * Default options
      *
