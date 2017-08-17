@@ -116,8 +116,20 @@ return [
             'reply' => 'dan, no quiero asustarte pero sin TIP no hay titulo.. hace el TIP MIERDA!',
         ],
 
-//    '/(espinoso.*como.*(andas|estas))|(como.*(andas|estas).*espinoso)\??$/i'         =>  Msg::md([ 'He tenido dias mejores..', 'de lujo' , 'que carajo te importa?', 'comela puto' ]) ,
+        '/^(.)*(espi(noso)?)\s+(c(o|ó)mo)\s+(and(a|á)s|est(a|á)s)(\?)*$/i' => [
+            'reply' => [
+                'He tenido dias mejores..',
+                'De lujo!!' ,
+                'Qué carajo te importa?',
+                'Qué carajo te importa, pelotudo!',
+                'Comela puto',
+                'Si te digo te miento...',
+                'No me jodas :name:',
+            ]
+        ],
+
 //    '/espinoso.*pensas.*smalltalk\??$/i'   => Msg::md([ 'Amo su pureza..', '`MNU`' ]) ,
+
 //    '/([0-9][0-9]*)[ ]*\+[ ]*([0-9][0-9]*)/' => Msg::md($suma),
 
         '/empanada/i' => [
