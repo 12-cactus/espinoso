@@ -1,6 +1,5 @@
-<?php
+<?php namespace App\Espinoso;
 
-namespace App\Espinoso;
 use Illuminate\Support\Collection;
 use Telegram\Bot\Objects\Message;
 use Telegram\Bot\Objects\User as TelegramUser;
@@ -33,10 +32,10 @@ class BrainNode
             && $this->match;
     }
 
-    public function pickReply()
+    public function pickReply(Message $message)
     {
         return is_array($this->reply)
-            ? $this->pickFromBag()
+            ? $this->pickFromBag($message)
             : $this->reply;
     }
 
@@ -50,12 +49,18 @@ class BrainNode
         return true;
     }
 
-    protected function pickFromBag()
+    protected function pickFromBag(Message $message)
     {
         // FIXME: make a better behavior than simple random
         $number = rand(0, count($this->reply) - 1);
 
-        return $this->reply[$number];
+        $reply = $this->reply[$number];
+
+        if (str_contains($reply, ':name:')) {
+            $reply = str_replace(':name:', $message->getFrom()->getFirstName(), $reply);
+        }
+
+        return $reply;
     }
 
 }

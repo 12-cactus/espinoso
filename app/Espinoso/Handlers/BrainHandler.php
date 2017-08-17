@@ -32,10 +32,10 @@ class BrainHandler extends EspinosoHandler
 
     public function handle(Message $message)
     {
-        $this->matchedNodes->each(function ($node) use ($message) {
+        $this->matchedNodes->each(function (BrainNode $node) use ($message) {
             $this->telegram->sendMessage([
                 'chat_id' => $message->getChat()->getId(),
-                'text'    => $node->pickReply(),
+                'text'    => $node->pickReply($message),
                 'parse_mode' => 'Markdown'
             ]);
         });
