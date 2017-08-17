@@ -128,7 +128,12 @@ return [
             ]
         ],
 
-//    '/espinoso.*pensas.*smalltalk\??$/i'   => Msg::md([ 'Amo su pureza..', '`MNU`' ]) ,
+        '/^(espi(noso)?)\s+(.)*(smalltalk)(\?)*$/i' => [
+            'reply' => [
+                'Amo su pureza..',
+                '`MNU`',
+            ]
+        ],
 
 //    '/([0-9][0-9]*)[ ]*\+[ ]*([0-9][0-9]*)/' => Msg::md($suma),
 
