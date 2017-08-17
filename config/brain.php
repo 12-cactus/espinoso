@@ -19,7 +19,7 @@ return [
             'reply' => 'Gato',
         ],
 
-        '/^(espi(noso)?\s*){0,3}[i\W]*$/i' => [
+        '/^(espi(noso)?\s*){1,3}[i!\?\.]*$/i' => [
             'reply' => 'Otra vez rompiendo los huevos... Que pija quieren?',
         ],
 
