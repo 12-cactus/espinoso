@@ -3,9 +3,8 @@
 namespace App\Espinoso\Handlers;
 
 use App\Facades\GoutteClient;
-use App\Espinoso\Helpers\Msg;
+use Telegram\Bot\Objects\Message;
 use Symfony\Component\DomCrawler\Crawler;
-use Telegram\Bot\Laravel\Facades\Telegram;
 
 class GoogleInfoBoxHandler extends EspinosoCommandHandler
 {
@@ -16,29 +15,21 @@ class GoogleInfoBoxHandler extends EspinosoCommandHandler
     /**
      * @var string
      */
-    protected $pattern = "(?'i'\binfo\b)(?'query'.+)$";
-    protected $query;
+    protected $pattern = "(?'i'\b(info)\b)(?'query'.+)$";
 
-    public function shouldHandle($updates, $context = null)
+    protected $signature   = "[espi] info <cosa a buscar>";
+    protected $description = "trato de traer data";
+
+    public function handle(Message $message)
     {
-        $match = $this->matchCommand($this->pattern, $updates, $matches);
-        $this->query = isset($matches['query'])
-            ? rawurlencode(trim($matches['query']))
-            : '';
-
-        return parent::shouldHandle($updates) && $match;
-    }
-
-    public function handle($updates, $context = null)
-    {
-        $response = $this->buildResponse();
+        $response = $this->buildResponse(rawurlencode(trim($this->matches['query'])));
         $content = collect(explode("\n", $response['message']));
         $images = collect($response['images']);
 
         if ($images->isNotEmpty()) {
             $title = $content->shift();
-            Telegram::sendPhoto([
-                'chat_id' => $updates->message->chat->id,
+            $this->telegram->sendPhoto([
+                'chat_id' => $message->getChat()->getId(),
                 'photo'   => $images->first(),
                 'caption' => $title
             ]);
@@ -49,8 +40,8 @@ class GoogleInfoBoxHandler extends EspinosoCommandHandler
             ? "Uhhh... no hay un carajo!!\nO buscaste como el orto o estoy haciendo cualquiera!" // FIXME lang!
             : $text;
 
-        Telegram::sendMessage([
-            'chat_id' => $updates->message->chat->id,
+        $this->telegram->sendMessage([
+            'chat_id' => $message->getChat()->getId(),
             'text'    => $text,
             'parse_mode' => 'Markdown',
         ]);
@@ -61,17 +52,18 @@ class GoogleInfoBoxHandler extends EspinosoCommandHandler
      * Content extracted should be more rich than plain.
      * For example, it should keep links as Markdown.
      *
+     * @param string $query
      * @return mixed
      */
-    public function buildResponse()
+    public function buildResponse(string $query)
     {
-        $crawler = GoutteClient::request('GET', config('espinoso.url.info') . $this->query);
+        $crawler = GoutteClient::request('GET', config('espinoso.url.info') . $query);
         $block = $crawler->filter('#rhs_block');
         
         $message = $this->getText($block);
         $message = array_filter($message, function ($text) { return !is_null($text); });
 
-        $result['message'] = implode("\n", $this->tunning($message));
+        $result['message'] = implode("\n", $this->tuning($message));
         $result['images'] = $this->getImages($block);
         return $result;
     }
@@ -102,7 +94,7 @@ class GoogleInfoBoxHandler extends EspinosoCommandHandler
         });
     }
 
-    protected function tunning(array $lines = [])
+    protected function tuning(array $lines = [])
     {
         // Change "Plataforma: :" to "**Plataforma:**"
         return collect($lines)->map(function ($line) {
@@ -126,5 +118,4 @@ class GoogleInfoBoxHandler extends EspinosoCommandHandler
             '._gS'  => '._tA', 
         ];
     }
-
 }

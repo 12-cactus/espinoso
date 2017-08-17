@@ -9,14 +9,8 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="Feature Tests">
-            <directory suffix="Test.php">./tests/Feature</directory>
-        </testsuite>
         <testsuite name="Handlers Tests">
-            <directory suffix="Test.php">./tests/Handlers</directory>
-        </testsuite>
-        <testsuite name="Unit Tests">
-            <directory suffix="Test.php">./tests/Unit</directory>
+            <directory suffix="Test.php">./tests/Espinoso/Handlers</directory>
         </testsuite>
     </testsuites>
     <filter>
@@ -29,6 +23,7 @@
     </logging>
     <php>
         <env name="APP_ENV" value="testing"/>
+        <env name="DB_CONNECTION" value="phpunit"/>
         <env name="CACHE_DRIVER" value="array"/>
         <env name="SESSION_DRIVER" value="array"/>
         <env name="QUEUE_DRIVER" value="sync"/>

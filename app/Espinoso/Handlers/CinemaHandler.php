@@ -2,17 +2,19 @@
 
 use Illuminate\Support\Str;
 use App\Facades\GoutteClient;
-use Telegram\Bot\Laravel\Facades\Telegram;
+use Telegram\Bot\Objects\Message;
 
 class CinemaHandler extends EspinosoCommandHandler
 {
-    public function shouldHandle($updates, $context = null)
-    {
-        return parent::shouldHandle($updates, $context)
-            && $this->matchCommand('.*\bcine\b.*', $updates);
-    }
+    /**
+     * @var string
+     */
+    protected $pattern = ".{0,100}\b(cine)\b.{0,100}$";
 
-    public function handle($updates, $context = null)
+    protected $signature   = "espi cine";
+    protected $description = "te muestro que hay para ver en el cine y ponerla";
+
+    public function handle(Message $message)
     {
         $crawler = GoutteClient::request('GET', config('espinoso.url.cinema'));
 
@@ -25,14 +27,14 @@ class CinemaHandler extends EspinosoCommandHandler
             return " - {$movie}";
         })->implode("\n");
 
-        $message = "¿La pensás poner?
+        $response = "¿La pensás poner?
 ¡Mete Netflix pelotud@, es mas barato!
 Pero igual podes ver todas estas:\n
 {$movies}";
 
-        Telegram::sendMessage([
-            'chat_id' => $updates->message->chat->id,
-            'text'    => $message,
+        $this->telegram->sendMessage([
+            'chat_id' => $message->getChat()->getId(),
+            'text'    => $response,
         ]);
     }
 }

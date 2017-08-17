@@ -1,7 +1,7 @@
 <?php namespace App\Espinoso\Handlers;
 
 use App\Facades\GuzzleClient;
-use Telegram\Bot\Laravel\Facades\Telegram;
+use Telegram\Bot\Objects\Message;
 
 class GitHubHandler extends EspinosoCommandHandler
 {
@@ -9,36 +9,28 @@ class GitHubHandler extends EspinosoCommandHandler
      * @var string
      */
     protected $pattern = "(issue)(\s+)(?'title'.+)$";
-    protected $title;
 
-    public function shouldHandle($updates, $context = null)
-    {
-        $match = $this->matchCommand($this->pattern, $updates, $matches);
-        $this->title = $matches['title'] ?? '';
+    protected $signature   = "espi issue <title>";
+    protected $description = "genera un issue en el repo";
 
-        return parent::shouldHandle($updates) && $match;
-    }
-
-    public function handle($updates, $context = null)
+    public function handle(Message $message)
     {
         $response = GuzzleClient::post(config('espinoso.url.issues'), [
-            'headers' => [
-                'Authorization' => "token ".config('espinoso.github.token'),
-            ],
-            'json' => ['title' => $this->title]
+            'headers' => ['Authorization' => "token ".config('espinoso.token.github')],
+            'json'    => ['title' => $this->matches['title']]
         ]);
 
         if ($response->getStatusCode() == 201) {
             $data = json_decode($response->getBody());
-            $message = "[Issue creado!]({$data->html_url})";
+            $text = "[Issue creado!]({$data->html_url})";
         } else {
-            $message = "No pude crear el issue, status ".$response->getStatusCode()."\n";
-            $message .= $response->getBody();
+            $text = "No pude crear el issue, status ".$response->getStatusCode()."\n";
+            $text .= $response->getBody();
         }
 
-        Telegram::sendMessage([
-            'chat_id' => $updates->message->chat->id,
-            'text'    => $message,
+        $this->telegram->sendMessage([
+            'chat_id' => $message->getChat()->getId(),
+            'text'    => $text,
             'parse_mode' => 'Markdown',
         ]);
     }

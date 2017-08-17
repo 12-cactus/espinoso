@@ -1,31 +1,23 @@
-<?php
-
-namespace Tests\Feature;
+<?php namespace Tests\Espinoso\Handlers;
 
 use Mockery;
 use App\Facades\GuzzleClient;
 use App\Espinoso\Handlers\GitHubHandler;
-use Tests\Handlers\HandlersTestCase;
 use Psr\Http\Message\ResponseInterface;
-use Telegram\Bot\Laravel\Facades\Telegram;
 
 class GitHubHandlerTest extends HandlersTestCase
 {
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->handler = new GitHubHandler;
-    }
-
     /**
      * @test
      */
     public function it_should_handle_when_receives_issue_command()
     {
-        $update = $this->update(['text' => 'espi issue blablatest']);
+        // Arrange
+        $handler = $this->makeHandler();
+        $update = $this->makeMessage(['text' => 'espi issue blablatest']);
 
-        $this->assertTrue($this->handler->shouldHandle($update));
+        // Act & Assert
+        $this->assertTrue($handler->shouldHandle($update));
     }
 
     /**
@@ -33,9 +25,12 @@ class GitHubHandlerTest extends HandlersTestCase
      */
     public function it_should_not_handle_when_receives_another_text()
     {
-        $update = $this->update(['text' => 'not espi issue blablatest']);
+        // Arrange
+        $handler = $this->makeHandler();
+        $update = $this->makeMessage(['text' => 'not espi issue blablatest']);
 
-        $this->assertFalse($this->handler->shouldHandle($update));
+        // Act & Assert
+        $this->assertFalse($handler->shouldHandle($update));
     }
 
     /**
@@ -43,6 +38,7 @@ class GitHubHandlerTest extends HandlersTestCase
      */
     public function it_handle_and_create_issue()
     {
+        // Mocking
         $response = Mockery::mock(ResponseInterface::class);
         $response->shouldReceive('getStatusCode')->andReturn(201);
         $response->shouldReceive('getBody')->andReturn('{"html_url": "http://url.facades.org/issues/12"}');
@@ -51,26 +47,36 @@ class GitHubHandlerTest extends HandlersTestCase
                 config('espinoso.url.issues'),
                 [
                     'headers' => [
-                        'Authorization' => "token ".config('espinoso.github.token'),
+                        'Authorization' => "token ".config('espinoso.token.github'),
                     ],
                     'json' => ['title' => 'test facade']
                 ]
             ])
             ->andReturn($response);
+
+        // Arrange
         $message = [
             'chat_id' => 12345678,
             'text' => '[Issue creado!](http://url.facades.org/issues/12)',
             'parse_mode' => 'Markdown',
         ];
-        Telegram::shouldReceive('sendMessage')->once()->with($message);
-
-        // Act
-        $update = $this->update([
+        $this->telegram->shouldReceive('sendMessage')->once()->with($message);
+        $handler = $this->makeHandler();
+        $update = $this->makeMessage([
             'chat' => ['id' => 12345678],
             'text'   => 'espi issue test facade',
         ]);
 
-        $this->handler->shouldHandle($update);
-        $this->handler->handle($update);
+        // Act
+        $handler->shouldHandle($update);
+        $handler->handle($update);
+    }
+
+    /**
+     * @return GitHubHandler
+     */
+    protected function makeHandler(): GitHubHandler
+    {
+        return new GitHubHandler($this->espinoso, $this->telegram);
     }
 }

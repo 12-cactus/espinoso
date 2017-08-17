@@ -1,36 +1,56 @@
 <?php namespace App\Http\Controllers;
 
-use Exception;
 use GuzzleHttp\Client;
-use Telegram\Bot\Laravel\Facades\Telegram;
-use App\Espinoso\Handlers\EspinosoHandler;
+use App\Espinoso\Espinoso;
+use Telegram\Bot\Objects\Message;
+use Telegram\Bot\Api as ApiTelegram;
+use Telegram\Bot\TelegramResponse;
 
 class TelegramController extends Controller
 {
-    public function handleUpdates()
+    /**
+     * Handle Telegram incoming message.
+     *
+     * @param ApiTelegram $telegram
+     * @param Espinoso $espinoso
+     */
+    public function handleUpdates(ApiTelegram $telegram, Espinoso $espinoso)
     {
-        $updates = json_decode(Telegram::getWebhookUpdates());
+        $message = $telegram->getWebhookUpdates()->getMessage();
 
-        collect(config('espinoso.handlers'))->map(function ($handler) {
-            return resolve($handler);
-        })->filter(function (EspinosoHandler $handler) use ($updates) {
-            return $handler->shouldHandle($updates);
-        })->each(function (EspinosoHandler $handler) use ($updates) {
-            // FIXME make try-catch an aspect
-            try {
-                $handler->handle($updates);
-            } catch (Exception $e) {
-                $handler->handleError($e, $updates);
-            }
-        });
+        if ($this->isNotTextMessage($message)) {
+            return;
+        }
+
+        $command = $this->parseCommand($message->getText());
+
+        if (!empty($command)) {
+            $message['text'] = $this->parseCommandAsKeyword($command, $message);
+        }
+
+        $espinoso->executeHandlers($telegram, $message);
+
+        return;
     }
 
-    public function setWebhook()
+    /**
+     * Used for associate handleUpdates path as Telegram Webhook.
+     * By default Telegram use its own hook to catch updates.
+     *
+     * @param ApiTelegram $telegram
+     * @return TelegramResponse
+     */
+    public function setWebhook(ApiTelegram $telegram)
     {
-        return Telegram::setWebhook(['url' => secure_url('handle-update')]);
+        return $telegram->setWebhook(['url' => secure_url('handle-update')]);
     }
 
-    public function githubWebhook()
+    /**
+     * This method is a hook for github to catch & handle last commit.
+     *
+     * @param ApiTelegram $telegram
+     */
+    public function githubWebhook(ApiTelegram $telegram)
     {
         // FIXME get & send branch of commit
         $client = new Client;
@@ -43,10 +63,53 @@ class TelegramController extends Controller
         $message = "De nuevo el pelotudo de `$nombre` commiteando giladas, mirá lo que hizo esta vez:_{$commit->message}_
 [View Commit]({$link})";
 
-        Telegram::sendMessage([
+        $telegram->sendMessage([
             'chat_id' => config('espinoso.chat.dev'),
             'text'    => $message,
             'parse_mode' => 'Markdown',
         ]);
+    }
+
+    /*
+     * Internals
+     */
+
+    /**
+     * @param mixed $message
+     * @return bool
+     */
+    protected function isTextMessage($message): bool
+    {
+        return $message !== null && $message->has('text');
+    }
+
+    /**
+     * @param mixed $message
+     * @return bool
+     */
+    protected function isNotTextMessage($message): bool
+    {
+        return !$this->isTextMessage($message);
+    }
+
+    /**
+     * @param string $text
+     * @return string
+     */
+    protected function parseCommand(string $text)
+    {
+        preg_match('/^\/([^\s@]+)@?(\S+)?\s?(.*)$/', $text, $matches);
+
+        return isset($matches[1]) ? trim($matches[1]) : '';
+    }
+
+    /**
+     * @param string $command
+     * @param Message $message
+     * @return string
+     */
+    protected function parseCommandAsKeyword(string $command, Message $message): string
+    {
+        return str_replace("/{$command}", "espi {$command}", $message->getText());
     }
 }

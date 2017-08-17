@@ -1,6 +1,13 @@
 <?php
 
-function completeWordRegex($word)
+/**
+ * @param string $str
+ * @return string
+ */
+function clean_string(string $str)
 {
-    return "^(?:.*[^a-z])?" . $word . "[^a-z]?";
+    $str = trim($str);
+
+    // replace multiple spaces with a single space
+    return strval(preg_replace('!\s+!', ' ', $str));
 }

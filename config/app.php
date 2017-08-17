@@ -179,7 +179,7 @@ return [
 
 
         Telegram\Bot\Laravel\TelegramServiceProvider::class,
-         Gmopx\LaravelOWM\LaravelOWMServiceProvider::class,
+        Gmopx\LaravelOWM\LaravelOWMServiceProvider::class,
     ],
 
     /*
