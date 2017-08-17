@@ -15,7 +15,7 @@ class NextHolidaysHandler extends EspinosoCommandHandler
     protected $description = "feriados para rascarse la pelusa";
 
 
-    public function handle(Message $message)
+    public function handle(Message $message): void
     {
         $holidays = collect($this->getHolidays());
         $count = $holidays->count();

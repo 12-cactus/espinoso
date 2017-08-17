@@ -105,7 +105,7 @@ class WeatherHandlerTest extends HandlersTestCase
             'text'    => 'está pronosticado de 00:00 a 23:59 cielo claro con temperaturas entre 10.76 y 16.69 grados',
             'parse_mode' => 'HTML'
         ];
-        $this->telegram->shouldReceive('sendMessage')->once()->with($message);
+        $this->delivery->shouldReceive('sendMessage')->once()->with($message);
 
         $handler = $this->makeHandler();
         $update = $this->makeMessage([
@@ -123,6 +123,6 @@ class WeatherHandlerTest extends HandlersTestCase
      */
     protected function makeHandler(): WeatherHandler
     {
-        return new WeatherHandler($this->espinoso, $this->telegram);
+        return new WeatherHandler($this->espinoso, $this->delivery);
     }
 }

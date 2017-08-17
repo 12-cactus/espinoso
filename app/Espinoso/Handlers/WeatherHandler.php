@@ -15,7 +15,7 @@ class WeatherHandler extends EspinosoCommandHandler
     protected $description = "odio esta mierda...";
 
 
-    public function handle(Message $message)
+    public function handle(Message $message): void
     {
         $date = $this->getNearestDateFromDay($this->getDay());
 

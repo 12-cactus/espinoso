@@ -43,7 +43,7 @@ class GoogleStaticMapsHandler extends EspinosoCommandHandler
     /**
      * @param Message $message
      */
-    public function handle(Message $message)
+    public function handle(Message $message): void
     {
         $address  = $this->getAddress();
         $image    = $this->getMap($address, $this->getOptions($address));

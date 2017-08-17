@@ -32,7 +32,7 @@ class IMDbHandler extends EspinosoCommandHandler
     /**
      * @param Message $message
      */
-    public function handle(Message $message)
+    public function handle(Message $message): void
     {
         $types  = $this->parseTypes($this->matches['type']);
         $result = $this->getData($this->matches['query'], $types);

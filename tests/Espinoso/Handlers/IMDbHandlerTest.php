@@ -98,8 +98,8 @@ storyline
             'parse_mode' => 'Markdown'
         ];
 
-        $this->telegram->shouldReceive('sendPhoto')->once()->with($photo);
-        $this->telegram->shouldReceive('sendMessage')->once()->with($message);
+        $this->delivery->shouldReceive('sendPhoto')->once()->with($photo);
+        $this->delivery->shouldReceive('sendMessage')->once()->with($message);
         $handler = $this->makeHandler();
         $update = $this->makeMessage([
             'chat' => ['id' => 123],
@@ -116,6 +116,6 @@ storyline
      */
     protected function makeHandler(): IMDbHandler
     {
-        return new IMDbHandler($this->espinoso, $this->telegram);
+        return new IMDbHandler($this->espinoso, $this->delivery);
     }
 }

@@ -20,7 +20,7 @@ class GoogleInfoBoxHandler extends EspinosoCommandHandler
     protected $signature   = "[espi] info <cosa a buscar>";
     protected $description = "trato de traer data";
 
-    public function handle(Message $message)
+    public function handle(Message $message): void
     {
         $response = $this->buildResponse(rawurlencode(trim($this->matches['query'])));
         $content = collect(explode("\n", $response['message']));

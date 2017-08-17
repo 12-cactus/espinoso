@@ -13,10 +13,10 @@ class InstagramHandler extends EspinosoCommandHandler
     protected $description = "y... fijate";
 
 
-    public function handle(Message $message)
+    public function handle(Message $message): void
     {
         try {
-            $username = $this->getUsername($message->getText());
+            $username = $this->getUsername();
 
             $this->telegram->sendPhoto([
                 'chat_id' => $message->getChat()->getId(),

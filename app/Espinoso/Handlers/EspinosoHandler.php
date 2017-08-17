@@ -5,6 +5,7 @@ use App\Espinoso\Espinoso;
 use Telegram\Bot\Objects\Message;
 use Telegram\Bot\Api as ApiTelegram;
 use Illuminate\Support\Facades\Log;
+use App\Espinoso\DeliveryServices\EspinosoDeliveryInterface;
 
 abstract class EspinosoHandler
 {
@@ -16,24 +17,36 @@ abstract class EspinosoHandler
      * @var ApiTelegram
      */
     protected $telegram;
-
+    /**
+     * @var string
+     */
     protected $signature;
+    /**
+     * @var string
+     */
     protected $description;
 
+    /**
+     * EspinosoHandler constructor.
+     * @param Espinoso $espinoso
+     * @param EspinosoDeliveryInterface $delivery
+     */
+    public function __construct(Espinoso $espinoso, EspinosoDeliveryInterface $delivery)
+    {
+        $this->espinoso = $espinoso;
+        $this->telegram = $delivery;
+    }
+
+    abstract public function handle(Message $message): void;
+    abstract public function shouldHandle(Message $message): bool;
+
+    /**
+     * @return string
+     */
     protected function help()
     {
         return empty($this->signature) ? '' : "*{$this->signature}*\n\t\t\t{$this->description}";
     }
-
-    public function __construct(Espinoso $espinoso, ApiTelegram $telegram)
-    {
-        $this->espinoso = $espinoso;
-        $this->telegram = $telegram;
-    }
-
-    abstract public function shouldHandle(Message $message): bool;
-
-    abstract public function handle(Message $message);
 
     /**
      * @param Message $message

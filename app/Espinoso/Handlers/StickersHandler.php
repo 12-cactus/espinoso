@@ -39,7 +39,7 @@ class StickersHandler extends EspinosoCommandHandler
         return $this->match->isNotEmpty();
     }
 
-    public function handle(Message $message)
+    public function handle(Message $message): void
     {
         $this->telegram->sendSticker([
             'chat_id' => $message->getChat()->getId(),

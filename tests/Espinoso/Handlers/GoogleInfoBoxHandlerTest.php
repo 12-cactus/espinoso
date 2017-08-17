@@ -67,7 +67,7 @@ class GoogleInfoBoxHandlerTest extends HandlersTestCase
             'text'   => "Uhhh... no hay un carajo!!\nO buscaste como el orto o estoy haciendo cualquiera!",
             'parse_mode' => 'Markdown',
         ];
-        $this->telegram->shouldReceive('sendMessage')->once()->with($message);
+        $this->delivery->shouldReceive('sendMessage')->once()->with($message);
         $handler = $this->makeHandler();
         $update = $this->makeMessage([
             'chat' => ['id' => 123],
@@ -84,6 +84,6 @@ class GoogleInfoBoxHandlerTest extends HandlersTestCase
      */
     protected function makeHandler(): GoogleInfoBoxHandler
     {
-        return new GoogleInfoBoxHandler($this->espinoso, $this->telegram);
+        return new GoogleInfoBoxHandler($this->espinoso, $this->delivery);
     }
 }

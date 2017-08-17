@@ -4,6 +4,7 @@ use App\Espinoso\Espinoso;
 use App\Espinoso\BrainNode;
 use Telegram\Bot\Objects\Message;
 use Telegram\Bot\Api as ApiTelegram;
+use App\Espinoso\DeliveryServices\EspinosoDeliveryInterface;
 
 class BrainHandler extends EspinosoHandler
 {
@@ -13,9 +14,9 @@ class BrainHandler extends EspinosoHandler
     protected $signature   = "macri, facu, ine, alan, asado, ...";
     protected $description = "Macri Gato, Facu Puto";
 
-    public function __construct(Espinoso $espinoso, ApiTelegram $telegram)
+    public function __construct(Espinoso $espinoso, EspinosoDeliveryInterface $delivery)
     {
-        parent::__construct($espinoso, $telegram);
+        parent::__construct($espinoso, $delivery);
 
         $this->matchedNodes = collect([]);
         $this->allNodes = collect(config('brain.patterns'))->map(function ($data, $regex) {
@@ -33,14 +34,10 @@ class BrainHandler extends EspinosoHandler
         return $this->matchedNodes->isNotEmpty();
     }
 
-    public function handle(Message $message)
+    public function handle(Message $message): void
     {
         $this->matchedNodes->each(function (BrainNode $node) use ($message) {
-            $this->telegram->sendMessage([
-                'chat_id' => $message->getChat()->getId(),
-                'text'    => $node->pickReply($message),
-                'parse_mode' => 'Markdown'
-            ]);
+            $this->espinoso->reply($node->pickReply($message));
         });
     }
 

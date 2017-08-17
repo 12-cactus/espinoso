@@ -80,7 +80,7 @@ class NextHolidaysHandlerTest extends HandlersTestCase
             'text'    => $text,
             'parse_mode' => 'Markdown'
         ];
-        $this->telegram->shouldReceive('sendMessage')->once()->with($message);
+        $this->delivery->shouldReceive('sendMessage')->once()->with($message);
 
         $handler = $this->makeHandler();
         $update = $this->makeMessage([
@@ -98,6 +98,6 @@ class NextHolidaysHandlerTest extends HandlersTestCase
      */
     protected function makeHandler(): NextHolidaysHandler
     {
-        return new NextHolidaysHandler($this->espinoso, $this->telegram);
+        return new NextHolidaysHandler($this->espinoso, $this->delivery);
     }
 }

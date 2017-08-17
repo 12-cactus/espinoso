@@ -55,17 +55,12 @@ class GitHubHandlerTest extends HandlersTestCase
             ->andReturn($response);
 
         // Arrange
-        $message = [
-            'chat_id' => 12345678,
-            'text' => '[Issue creado!](http://url.facades.org/issues/12)',
-            'parse_mode' => 'Markdown',
-        ];
-        $this->telegram->shouldReceive('sendMessage')->once()->with($message);
+        $this->espinoso
+            ->shouldReceive('reply')
+            ->once()
+            ->with('[Issue creado!](http://url.facades.org/issues/12)');
         $handler = $this->makeHandler();
-        $update = $this->makeMessage([
-            'chat' => ['id' => 12345678],
-            'text'   => 'espi issue test facade',
-        ]);
+        $update  = $this->makeMessage(['text' => 'espi issue test facade']);
 
         // Act
         $handler->shouldHandle($update);
@@ -77,6 +72,6 @@ class GitHubHandlerTest extends HandlersTestCase
      */
     protected function makeHandler(): GitHubHandler
     {
-        return new GitHubHandler($this->espinoso, $this->telegram);
+        return new GitHubHandler($this->espinoso, $this->delivery);
     }
 }

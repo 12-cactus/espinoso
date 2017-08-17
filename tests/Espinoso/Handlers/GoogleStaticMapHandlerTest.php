@@ -65,7 +65,7 @@ class GoogleStaticMapHandlerTest extends HandlersTestCase
             'photo'   => $photo,
             'caption' => $address . ', Argentinas!'
         ];
-        $this->telegram->shouldReceive('sendPhoto')->once()->with($message);
+        $this->delivery->shouldReceive('sendPhoto')->once()->with($message);
         $handler = $this->makeHandler();
         $update = $this->makeMessage([
             'chat' => ['id' => 123],
@@ -82,6 +82,6 @@ class GoogleStaticMapHandlerTest extends HandlersTestCase
      */
     protected function makeHandler(): GoogleStaticMapsHandler
     {
-        return new GoogleStaticMapsHandler($this->espinoso, $this->telegram);
+        return new GoogleStaticMapsHandler($this->espinoso, $this->delivery);
     }
 }

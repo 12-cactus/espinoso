@@ -43,7 +43,7 @@ class BardoDelEspinosoHandlerTest extends HandlersTestCase
             'photo'   => 'https://cdn.drawception.com/images/panels/2012/4-4/FErsE1a6t7-8.png',
             'caption' => 'Acá tenés tu nude, hijo de puta!'
         ];
-        $this->telegram->shouldReceive('sendPhoto')->once()->with($photo);
+        $this->delivery->shouldReceive('sendPhoto')->once()->with($photo);
 
         // Arrange
         $handler = $this->makeHandler();
@@ -61,6 +61,6 @@ class BardoDelEspinosoHandlerTest extends HandlersTestCase
      */
     protected function makeHandler(): BardoDelEspinosoHandler
     {
-        return new BardoDelEspinosoHandler($this->espinoso, $this->telegram);
+        return new BardoDelEspinosoHandler($this->espinoso, $this->delivery);
     }
 }

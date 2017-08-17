@@ -3,8 +3,8 @@
 use Exception;
 use Illuminate\Support\Collection;
 use Telegram\Bot\Objects\Message;
-use Telegram\Bot\Api as ApiTelegram;
 use App\Espinoso\Handlers\EspinosoHandler;
+use App\Espinoso\DeliveryServices\EspinosoDeliveryInterface;
 
 /**
  * Class Espinoso
@@ -16,6 +16,14 @@ class Espinoso
      * @var array
      */
     protected $handlers;
+    /**
+     * @var EspinosoDeliveryInterface
+     */
+    protected $delivery;
+    /**
+     * @var Message
+     */
+    protected $message;
 
     public function __construct(Collection $handlers)
     {
@@ -23,13 +31,13 @@ class Espinoso
     }
 
     /**
-     * @param ApiTelegram $telegram
      * @param Message $message
      */
-    public function executeHandlers(ApiTelegram $telegram, Message $message)
+    public function executeHandlers(Message $message)
     {
-        $this->getHandlers()->map(function ($handler) use ($telegram) {
-            return new $handler($this, $telegram);
+        $this->message = $message;
+        $this->getHandlers()->map(function ($handler) {
+            return new $handler($this, $this->delivery);
         })->filter(function (EspinosoHandler $handler) use ($message) {
             return $handler->shouldHandle($message);
         })->each(function (EspinosoHandler $handler) use ($message) {
@@ -39,6 +47,25 @@ class Espinoso
                 $handler->handleError($e, $message);
             }
         });
+    }
+
+    public function reply(string $text, string $format = 'Markdown', array $options = []): Message
+    {
+        $params = array_merge([
+            'chat_id' => $this->message->getChat()->getId(),
+            'text'    => $text,
+            'parse_mode' => $format
+        ], $options);
+
+        return $this->delivery->sendMessage($params);
+    }
+
+    /**
+     * @param EspinosoDeliveryInterface $delivery
+     */
+    public function setDelivery(EspinosoDeliveryInterface $delivery)
+    {
+        $this->delivery = $delivery;
     }
 
     /**
