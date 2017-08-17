@@ -27,7 +27,13 @@ return [
             'reply' => "Próxima juntada: sábado 15/7 en lo de Maru. Traigan bebidas. Canelones a la Maru. Para Facu un buen canelón de carne.",
         ],
 
-//    '/no[, ]* espinoso?/i' => Msg::plain($funAsentirRand),
+        '/^(o\s+)?no(,)?\s+(espi(noso)?)(\?)+$/i' => [
+            'reply' => [
+                'Claro que si :name:!',
+                'Exactamente :name:',
+                'Mas vale :name:!'
+            ]
+        ],
 
         '/\b(alan)\b$/i' => [
             'reply' => [
@@ -55,9 +61,9 @@ return [
             ],
         ],
 
-      '/(j+a+){5,}/i' => [
-          'reply' => 'ajajajajajaja, que plato!',
-      ],
+        '/(j+a+){5,}/i' => [
+            'reply' => 'ajajajajajaja, que plato!',
+        ],
 
         '/fu[u]*ck/i' => [
             'reply' => 'tranquilo vieja, todo va a salir bien.',
