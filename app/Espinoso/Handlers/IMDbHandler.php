@@ -38,18 +38,14 @@ class IMDbHandler extends EspinosoCommandHandler
         $result = $this->getData($this->matches['query'], $types);
 
         if (empty($result)) {
-            $this->replyError($message);
+            $this->replyError();
             return;
         }
 
         $matching = $result[0];
 
         if (!empty($matching->photo())) {
-            $this->delivery->sendPhoto([
-                'chat_id' => $message->getChat()->getId(),
-                'photo'   => $matching->photo(),
-                'caption' => $matching->title()
-            ]);
+            $this->espinoso->replyImage($matching->photo(), $matching->title());
         }
 
         $this->espinoso->reply($this->parseAsMarkdown($matching));

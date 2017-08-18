@@ -26,6 +26,10 @@ abstract class EspinosoCommandHandler extends EspinosoHandler
         return $this->matchCommand($this->pattern, $message, $this->matches);
     }
 
+    /*
+     * Internals
+     */
+
     /**
      * @param $pattern
      * @param Message $message

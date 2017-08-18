@@ -60,17 +60,10 @@ class GoogleStaticMapHandlerTest extends HandlersTestCase
         $address = 'islas malvinas';
         $options = "maptype=roadmap&zoom=10&size=600x500&markers=color:yellow|label:X|{$address}";
         $photo   = config('espinoso.url.map') . "?center=" . urlencode($address) . "&{$options}";
-        $message = [
-            'chat_id' => 123,
-            'photo'   => $photo,
-            'caption' => $address . ', Argentinas!'
-        ];
-        $this->delivery->shouldReceive('sendPhoto')->once()->with($message);
+
+        $this->espinoso->shouldReceive('replyImage')->once()->with($photo, "{$address}, Argentinas!");
         $handler = $this->makeHandler();
-        $update = $this->makeMessage([
-            'chat' => ['id' => 123],
-            'text' => 'espi gsm z:10 color:yellow islas malvinas'
-        ]);
+        $update = $this->makeMessage(['text' => 'espi gsm z:10 color:yellow islas malvinas']);
 
         // Act
         $handler->shouldHandle($update);

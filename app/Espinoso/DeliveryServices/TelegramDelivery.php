@@ -29,4 +29,12 @@ class TelegramDelivery implements EspinosoDeliveryInterface
     {
         $this->telegram->sendMessage($params);
     }
+
+    /**
+     * @param array $params
+     */
+    public function sendImage(array $params = []): void
+    {
+        $this->telegram->sendPhoto($params);
+    }
 }

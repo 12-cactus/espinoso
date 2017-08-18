@@ -38,19 +38,13 @@ class BardoDelEspinosoHandlerTest extends HandlersTestCase
     public function it_handle_and_send_photo()
     {
         // Mocking
-        $photo = [
-            'chat_id' => 123,
-            'photo'   => 'https://cdn.drawception.com/images/panels/2012/4-4/FErsE1a6t7-8.png',
-            'caption' => 'Acá tenés tu nude, hijo de puta!'
-        ];
-        $this->delivery->shouldReceive('sendPhoto')->once()->with($photo);
+        $photo = 'https://cdn.drawception.com/images/panels/2012/4-4/FErsE1a6t7-8.png';
+        $caption = 'Acá tenés tu nude, hijo de puta!';
+        $this->espinoso->shouldReceive('replyImage')->once()->with($photo, $caption);
 
         // Arrange
         $handler = $this->makeHandler();
-        $update = $this->makeMessage([
-            'chat' => ['id' => 123],
-            'text' => 'send me nudes'
-        ]);
+        $update = $this->makeMessage(['text' => 'send me nudes']);
 
         // Act
         $handler->handle($update);

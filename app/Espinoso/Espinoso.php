@@ -49,15 +49,26 @@ class Espinoso
         });
     }
 
-    public function reply(string $text, string $format = 'Markdown', array $options = []): Message
+    public function reply(string $text, string $format = 'Markdown', array $options = []): void
     {
-        $params = array_merge([
+        $params = array_merge($options, [
             'chat_id' => $this->message->getChat()->getId(),
             'text'    => $text,
             'parse_mode' => $format
-        ], $options);
+        ]);
 
-        return $this->delivery->sendMessage($params);
+        $this->delivery->sendMessage($params);
+    }
+
+    public function replyImage(string $url, string $caption = '', array $options = []): void
+    {
+        $params = array_merge($options, [
+            'chat_id' => $this->message->getChat()->getId(),
+            'photo'   => $url,
+            'caption' => $caption
+        ]);
+
+        $this->delivery->sendImage($params);
     }
 
     /**

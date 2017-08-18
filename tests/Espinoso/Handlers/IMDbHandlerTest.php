@@ -74,11 +74,8 @@ class IMDbHandlerTest extends HandlersTestCase
             ->with('game of thrones', [Title::MOVIE, Title::TV_SERIES])
             ->andReturn([$mockedTitle]);
 
-        $photo = [
-            'chat_id' => 123,
-            'photo'   => 'https://images-na.ssl-images-amazon.com/;images/M/MV5BMjE3NTQ1NDg1Ml5BMl5BanBnXkFtZTgwNzY2NDA0MjI@._V1_UX182_CR0,0,182,268_AL_.jpg',
-            'caption' => 'Game of Thrones'
-        ];
+        $photo = 'https://images-na.ssl-images-amazon.com/;images/M/MV5BMjE3NTQ1NDg1Ml5BMl5BanBnXkFtZTgwNzY2NDA0MjI@._V1_UX182_CR0,0,182,268_AL_.jpg';
+        $caption = 'Game of Thrones';
         $text = "*Game of Thrones* (2011)
 ⭐ 9.5/10 | 57min
 _Drama_
@@ -93,13 +90,10 @@ storyline
 
 [View on IMDb](http://www.imdb.com/title/tt0944947/)";
 
-        $this->delivery->shouldReceive('sendPhoto')->once()->with($photo);
+        $this->espinoso->shouldReceive('replyImage')->once()->with($photo, $caption);
         $this->espinoso->shouldReceive('reply')->once()->with($text);
         $handler = $this->makeHandler();
-        $update = $this->makeMessage([
-            'chat' => ['id' => 123],
-            'text' => 'espi imdb game of thrones'
-        ]);
+        $update = $this->makeMessage(['text' => 'espi imdb game of thrones']);
 
         // Act
         $handler->shouldHandle($update);

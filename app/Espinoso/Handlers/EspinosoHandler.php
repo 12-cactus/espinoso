@@ -57,14 +57,11 @@ abstract class EspinosoHandler
     }
 
     /**
-     * @param Message $message
+     *
      */
-    protected function replyError(Message $message)
+    protected function replyError()
     {
-        $this->delivery->sendMessage([
-            'chat_id' => $message->getChat()->getId(),
-            'text' => 'Ups! Esta cosa anda como el culo...',
-        ]);
+        $this->espinoso->reply('Ups! Esta cosa anda como el culo...');
     }
 
     public function handleError(Exception $e, Message $message)

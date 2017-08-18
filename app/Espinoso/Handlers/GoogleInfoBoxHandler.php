@@ -27,12 +27,7 @@ class GoogleInfoBoxHandler extends EspinosoCommandHandler
         $images = collect($response['images']);
 
         if ($images->isNotEmpty()) {
-            $title = $content->shift();
-            $this->delivery->sendPhoto([
-                'chat_id' => $message->getChat()->getId(),
-                'photo'   => $images->first(),
-                'caption' => $title
-            ]);
+            $this->espinoso->replyImage($images->first(), $content->shift());
         }
 
         $text = trim($content->implode("\n"));

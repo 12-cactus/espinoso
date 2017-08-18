@@ -18,11 +18,10 @@ class InstagramHandler extends EspinosoCommandHandler
         try {
             $username = $this->getUsername();
 
-            $this->delivery->sendPhoto([
-                'chat_id' => $message->getChat()->getId(),
-                'photo'   => $this->getImage($username, $this->getParam()),
-                'caption' => "Ver https://www.instagram.com/{$username}"
-            ]);
+            $this->espinoso->replyImage(
+                $this->getImage($username, $this->getParam()),
+                "Ver https://www.instagram.com/{$username}"
+            );
         } catch (InstagramException $e) {
             $this->replyNotFound();
         }

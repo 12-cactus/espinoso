@@ -11,4 +11,9 @@ interface EspinosoDeliveryInterface
      * @return mixed
      */
     public function sendMessage(array $params = []): void;
+
+    /**
+     * @param array $params
+     */
+    public function sendImage(array $params = []): void;
 }

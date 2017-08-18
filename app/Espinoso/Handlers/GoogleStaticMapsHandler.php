@@ -49,11 +49,7 @@ class GoogleStaticMapsHandler extends EspinosoCommandHandler
         $image    = $this->getMap($address, $this->getOptions($address));
         $address .= str_contains(strtolower($address), 'malvinas') ? ', Argentinas!' : '';
 
-        $this->delivery->sendPhoto([
-            'chat_id' => $message->getChat()->getId(),
-            'photo'   => $image,
-            'caption' => $address
-        ]);
+        $this->espinoso->replyImage($image, $address);
     }
 
     /**
