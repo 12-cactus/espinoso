@@ -27,7 +27,9 @@ class Espinoso
 
     public function __construct(Collection $handlers)
     {
-        $this->handlers = $handlers;
+        $this->handlers = $handlers->map(function ($handler) {
+            return new $handler($this);
+        });
     }
 
     /**
@@ -36,15 +38,14 @@ class Espinoso
     public function executeHandlers(Message $message)
     {
         $this->message = $message;
-        $this->getHandlers()->map(function ($handler) {
-            return new $handler($this);
-        })->filter(function (EspinosoHandler $handler) use ($message) {
-            return $handler->shouldHandle($message);
-        })->each(function (EspinosoHandler $handler) use ($message) {
+
+        $this->getHandlers()->filter(function (EspinosoHandler $handler) {
+            return $handler->shouldHandle($this->message);
+        })->each(function (EspinosoHandler $handler) {
             try {
-                $handler->handle($message);
+                $handler->handle($this->message);
             } catch (Exception $e) {
-                $handler->handleError($e, $message);
+                $handler->handleError($e, $this->message);
             }
         });
     }
