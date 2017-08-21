@@ -17,7 +17,7 @@ class TelegramController extends Controller
      */
     public function handleUpdates(TelegramDelivery $telegram, Espinoso $espinoso)
     {
-        $message = $telegram->getWebhookUpdates()->getMessage();
+        $message = $telegram->getMessage();
 
         if ($this->isNotTextMessage($message)) {
             return;

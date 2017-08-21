@@ -1,5 +1,6 @@
 <?php namespace App\Espinoso\DeliveryServices;
 
+use Telegram\Bot\Objects\Message;
 use Telegram\Bot\Api as ApiTelegram;
 
 /**
@@ -23,6 +24,14 @@ class TelegramDelivery implements EspinosoDeliveryInterface
     }
 
     /**
+     * @return Message
+     */
+    public function getMessage(): Message
+    {
+        return $this->telegram->getWebhookUpdates()->getMessage();
+    }
+
+    /**
      * @param array $params
      */
     public function sendMessage(array $params = []): void
@@ -36,5 +45,13 @@ class TelegramDelivery implements EspinosoDeliveryInterface
     public function sendImage(array $params = []): void
     {
         $this->telegram->sendPhoto($params);
+    }
+
+    /**
+     * @param array $params
+     */
+    public function sendSticker(array $params = []): void
+    {
+        $this->telegram->sendSticker($params);
     }
 }

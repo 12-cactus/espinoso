@@ -3,7 +3,6 @@
 use App\Espinoso\Espinoso;
 use App\Espinoso\BrainNode;
 use Telegram\Bot\Objects\Message;
-use App\Espinoso\DeliveryServices\EspinosoDeliveryInterface;
 
 /**
  * Class BrainHandler
@@ -31,11 +30,10 @@ class BrainHandler extends EspinosoHandler
     /**
      * BrainHandler constructor.
      * @param Espinoso $espinoso
-     * @param EspinosoDeliveryInterface $delivery
      */
-    public function __construct(Espinoso $espinoso, EspinosoDeliveryInterface $delivery)
+    public function __construct(Espinoso $espinoso)
     {
-        parent::__construct($espinoso, $delivery);
+        parent::__construct($espinoso);
 
         $this->matchedNodes = collect([]);
         $this->allNodes = collect(config('brain.patterns'))->map(function ($data, $regex) {

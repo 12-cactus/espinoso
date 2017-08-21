@@ -15,7 +15,7 @@ class HelpHandler extends EspinosoCommandHandler
     public function handle(Message $message): void
     {
         $data = $this->espinoso->getHandlers()->map(function ($handler) {
-            return new $handler($this->espinoso, $this->delivery);
+            return new $handler($this->espinoso);
         })->map(function (EspinosoHandler $handler) {
             return $handler->help();
         })->reject(function (string $help) {

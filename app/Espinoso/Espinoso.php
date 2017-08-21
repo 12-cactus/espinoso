@@ -1,8 +1,8 @@
 <?php namespace App\Espinoso;
 
 use Exception;
-use Illuminate\Support\Collection;
 use Telegram\Bot\Objects\Message;
+use Illuminate\Support\Collection;
 use App\Espinoso\Handlers\EspinosoHandler;
 use App\Espinoso\DeliveryServices\EspinosoDeliveryInterface;
 
@@ -37,7 +37,7 @@ class Espinoso
     {
         $this->message = $message;
         $this->getHandlers()->map(function ($handler) {
-            return new $handler($this, $this->delivery);
+            return new $handler($this);
         })->filter(function (EspinosoHandler $handler) use ($message) {
             return $handler->shouldHandle($message);
         })->each(function (EspinosoHandler $handler) use ($message) {
@@ -49,10 +49,16 @@ class Espinoso
         });
     }
 
-    public function reply(string $text, string $format = 'Markdown', array $options = []): void
+    /**
+     * @param int $chatId
+     * @param string $text
+     * @param string $format
+     * @param array $options
+     */
+    public function sendMessage(int $chatId, string $text, string $format = 'Markdown', array $options = []): void
     {
         $params = array_merge($options, [
-            'chat_id' => $this->message->getChat()->getId(),
+            'chat_id' => $chatId,
             'text'    => $text,
             'parse_mode' => $format
         ]);
@@ -60,6 +66,21 @@ class Espinoso
         $this->delivery->sendMessage($params);
     }
 
+    /**
+     * @param string $text
+     * @param string $format
+     * @param array $options
+     */
+    public function reply(string $text, string $format = 'Markdown', array $options = []): void
+    {
+        $this->sendMessage($this->message->getChat()->getId(), $text, $format, $options);
+    }
+
+    /**
+     * @param string $url
+     * @param string $caption
+     * @param array $options
+     */
     public function replyImage(string $url, string $caption = '', array $options = []): void
     {
         $params = array_merge($options, [
@@ -69,6 +90,20 @@ class Espinoso
         ]);
 
         $this->delivery->sendImage($params);
+    }
+
+    /**
+     * @param string $sticker
+     * @param array $options
+     */
+    public function replySticker(string $sticker, array $options = []): void
+    {
+        $params = array_merge($options, [
+            'chat_id' => $this->message->getChat()->getId(),
+            'sticker' => $sticker,
+        ]);
+
+        $this->delivery->sendSticker($params);
     }
 
     /**

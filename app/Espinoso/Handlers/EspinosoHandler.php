@@ -3,9 +3,7 @@
 use Exception;
 use App\Espinoso\Espinoso;
 use Telegram\Bot\Objects\Message;
-use Telegram\Bot\Api as ApiTelegram;
 use Illuminate\Support\Facades\Log;
-use App\Espinoso\DeliveryServices\EspinosoDeliveryInterface;
 
 abstract class EspinosoHandler
 {
@@ -13,10 +11,6 @@ abstract class EspinosoHandler
      * @var Espinoso
      */
     protected $espinoso;
-    /**
-     * @var ApiTelegram
-     */
-    protected $delivery;
     /**
      * @var string
      */
@@ -29,12 +23,10 @@ abstract class EspinosoHandler
     /**
      * EspinosoHandler constructor.
      * @param Espinoso $espinoso
-     * @param EspinosoDeliveryInterface $delivery
      */
-    public function __construct(Espinoso $espinoso, EspinosoDeliveryInterface $delivery)
+    public function __construct(Espinoso $espinoso)
     {
         $this->espinoso = $espinoso;
-        $this->delivery = $delivery;
     }
 
     abstract public function handle(Message $message): void;
@@ -86,11 +78,7 @@ abstract class EspinosoHandler
 
 View Log for details";
 
-        $this->delivery->sendMessage([
-            'chat_id' => config('espinoso.chat.dev'),
-            'text'    => $error,
-            'parse_mode' => 'Markdown',
-        ]);
+        $this->espinoso->sendMessage(config('espinoso.chat.dev'), $error);
     }
 
     public function __toString()
