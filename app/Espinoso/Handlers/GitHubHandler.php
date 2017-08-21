@@ -13,7 +13,7 @@ class GitHubHandler extends EspinosoCommandHandler
     protected $signature   = "espi issue <title>";
     protected $description = "genera un issue en el repo";
 
-    public function handle(Message $message)
+    public function handle(Message $message): void
     {
         $response = GuzzleClient::post(config('espinoso.url.issues'), [
             'headers' => ['Authorization' => "token ".config('espinoso.token.github')],
@@ -28,10 +28,6 @@ class GitHubHandler extends EspinosoCommandHandler
             $text .= $response->getBody();
         }
 
-        $this->telegram->sendMessage([
-            'chat_id' => $message->getChat()->getId(),
-            'text'    => $text,
-            'parse_mode' => 'Markdown',
-        ]);
+        $this->espinoso->reply($text);
     }
 }

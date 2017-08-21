@@ -4,6 +4,10 @@ use App\Espinoso\Handlers\BrainHandler;
 use App\Facades\GoutteClient;
 use Mockery;
 
+/**
+ * Class BrainHandlerTest
+ * @package Tests\Espinoso\Handlers
+ */
 class BrainHandlerTest extends HandlersTestCase
 {
     /**
@@ -72,41 +76,36 @@ class BrainHandlerTest extends HandlersTestCase
      */
     protected function makeHandler(): BrainHandler
     {
-        return new BrainHandler($this->espinoso, $this->telegram);
+        return new BrainHandler($this->espinoso, $this->delivery);
     }
 
-    protected function shouldRespondWith(string $in, string $out)
+    /**
+     * @param string $text
+     * @param string $response
+     */
+    protected function shouldRespondWith(string $text, string $response)
     {
-        $message = $this->text($in);
-
-        $response = [
-            'chat_id' => $message->getChat()->getId(),
-            'text'    => $out,
-            'parse_mode' => 'Markdown'
-        ];
-
-        $this->telegram->shouldReceive('sendMessage')->with($response);
-
-        $this->handler = $this->makeHandler();
-        $this->assertTrue($this->handler->shouldHandle($message));
-        $this->handler->handle($message);
+        $this->shouldReceiveReplyWith($text, $response);
     }
 
-    protected function shouldRespondWithAny(string $in, array $outs = [])
+    /**
+     * @param string $text
+     * @param array $outs
+     */
+    protected function shouldRespondWithAny(string $text, array $outs = [])
     {
-        $message = $this->text($in);
+        $this->shouldReceiveReplyWith($text, Mockery::any($outs));
+    }
 
-        $responses = collect($outs)->map(function ($out) use ($message) {
-            return [
-                'chat_id' => $message->getChat()->getId(),
-                'text'    => $out,
-                'parse_mode' => 'Markdown'
-            ];
-        })->toArray();
+    /**
+     * @param string $text
+     * @param $responses
+     */
+    private function shouldReceiveReplyWith(string $text, $responses)
+    {
+        $message = $this->text($text);
 
-        $this->telegram
-            ->shouldReceive('sendMessage')
-            ->with(Mockery::any($responses));
+        $this->espinoso->shouldReceive('reply')->with($responses);
 
         $this->handler = $this->makeHandler();
         $this->assertTrue($this->handler->shouldHandle($message));

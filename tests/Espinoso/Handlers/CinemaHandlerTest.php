@@ -60,8 +60,7 @@ class CinemaHandlerTest extends HandlersTestCase
     {
         // Mocking
         $text = "¿La pensás poner?\n¡Mete Netflix pelotud@, es mas barato!\nPero igual podes ver todas estas:\n\n";
-        $message = ['chat_id' => 123, 'text' => $text];
-        $this->telegram->shouldReceive('sendMessage')->once()->with($message);
+        $this->espinoso->shouldReceive('reply')->once()->with($text);
 
         $crawler = Mockery::mock(Crawler::class);
         $crawler->shouldReceive('filter')->andReturnSelf();
@@ -72,10 +71,7 @@ class CinemaHandlerTest extends HandlersTestCase
 
         // Act
         $handler = $this->makeHandler();
-        $update = $this->makeMessage([
-            'chat' => ['id' => 123],
-            'text' => 'espi cine'
-        ]);
+        $update = $this->makeMessage(['text' => 'espi cine']);
         $handler->handle($update);
     }
 
@@ -84,6 +80,6 @@ class CinemaHandlerTest extends HandlersTestCase
      */
     protected function makeHandler(): CinemaHandler
     {
-        return new CinemaHandler($this->espinoso, $this->telegram);
+        return new CinemaHandler($this->espinoso, $this->delivery);
     }
 }

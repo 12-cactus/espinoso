@@ -14,7 +14,7 @@ class CinemaHandler extends EspinosoCommandHandler
     protected $signature   = "espi cine";
     protected $description = "te muestro que hay para ver en el cine y ponerla";
 
-    public function handle(Message $message)
+    public function handle(Message $message): void
     {
         $crawler = GoutteClient::request('GET', config('espinoso.url.cinema'));
 
@@ -32,9 +32,6 @@ class CinemaHandler extends EspinosoCommandHandler
 Pero igual podes ver todas estas:\n
 {$movies}";
 
-        $this->telegram->sendMessage([
-            'chat_id' => $message->getChat()->getId(),
-            'text'    => $response,
-        ]);
+        $this->espinoso->reply($response);
     }
 }

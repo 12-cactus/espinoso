@@ -1,14 +1,14 @@
 <?php namespace Tests\Espinoso\Handlers;
 
-use App\Espinoso\Espinoso;
 use Mockery;
 use Tests\TestCase;
-use Telegram\Bot\Api as ApiTelegram;
+use App\Espinoso\Espinoso;
+use App\Espinoso\DeliveryServices\EspinosoDeliveryInterface;
 
 abstract class HandlersTestCase extends TestCase
 {
     protected $handler;
-    protected $telegram;
+    protected $delivery;
     protected $espinoso;
 
     protected function setUp()
@@ -16,7 +16,7 @@ abstract class HandlersTestCase extends TestCase
         parent::setUp();
 
         $this->espinoso = Mockery::mock(Espinoso::class);
-        $this->telegram = Mockery::mock(ApiTelegram::class);
+        $this->delivery = Mockery::mock(EspinosoDeliveryInterface::class);
     }
 
     protected function tearDown()

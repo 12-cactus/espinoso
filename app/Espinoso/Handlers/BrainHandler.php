@@ -3,19 +3,37 @@
 use App\Espinoso\Espinoso;
 use App\Espinoso\BrainNode;
 use Telegram\Bot\Objects\Message;
-use Telegram\Bot\Api as ApiTelegram;
 
+/**
+ * Class BrainHandler
+ * @package App\Espinoso\Handlers
+ */
 class BrainHandler extends EspinosoHandler
 {
+    /**
+     * @var static
+     */
     protected $allNodes;
+    /**
+     * @var \Illuminate\Support\Collection
+     */
     protected $matchedNodes;
-
+    /**
+     * @var string
+     */
     protected $signature   = "macri, facu, ine, alan, asado, ...";
+    /**
+     * @var string
+     */
     protected $description = "Macri Gato, Facu Puto";
 
-    public function __construct(Espinoso $espinoso, ApiTelegram $telegram)
+    /**
+     * BrainHandler constructor.
+     * @param Espinoso $espinoso
+     */
+    public function __construct(Espinoso $espinoso)
     {
-        parent::__construct($espinoso, $telegram);
+        parent::__construct($espinoso);
 
         $this->matchedNodes = collect([]);
         $this->allNodes = collect(config('brain.patterns'))->map(function ($data, $regex) {
@@ -23,6 +41,10 @@ class BrainHandler extends EspinosoHandler
         });
     }
 
+    /**
+     * @param Message $message
+     * @return bool
+     */
     public function shouldHandle(Message $message): bool
     {
         $this->matchedNodes = $this->allNodes->filter(function ($node) use ($message) {
@@ -33,14 +55,13 @@ class BrainHandler extends EspinosoHandler
         return $this->matchedNodes->isNotEmpty();
     }
 
-    public function handle(Message $message)
+    /**
+     * @param Message $message
+     */
+    public function handle(Message $message): void
     {
         $this->matchedNodes->each(function (BrainNode $node) use ($message) {
-            $this->telegram->sendMessage([
-                'chat_id' => $message->getChat()->getId(),
-                'text'    => $node->pickReply($message),
-                'parse_mode' => 'Markdown'
-            ]);
+            $this->espinoso->reply($node->pickReply($message));
         });
     }
 
@@ -48,48 +69,12 @@ class BrainHandler extends EspinosoHandler
      * Internals
      */
 
+    /**
+     * @return \Illuminate\Support\Collection
+     */
     protected function globalIgnored()
     {
         return collect(config('brain.ignore_to'));
     }
-
-//    public function handle(Message $message)
-//    {
-//        if ($this->ignoringSender($message->getFrom())) {
-//            $fromName = $message->getFrom()->getFirstName();
-//            $msg = Msg::md("Con vos no hablo porque no viniste al asado $fromName")->build($message);
-//            $this->telegram->sendMessage($msg);
-//            return;
-//        }
-//
-//        foreach ($this->mappings() as $pattern => $response) {
-//            if ( preg_match($pattern, $message->getText()) ) {
-//                $msg = $this->buildMessage($response, $pattern, $message);
-//                $this->telegram->sendMessage($msg);
-//            }
-//        }
-//    }
-
-//    private function buildMessage($response, $pattern, Message $message)
-//    {
-//        if ($response instanceof Msg)
-//            return $response->build($message, $pattern);
-//        else
-//            return Msg::plain($response)->build($message, $pattern);
-//    }
-//
-//    private function mappings()
-//    {
-//        return config('espinoso_data.ResponseByMatch.mappings');
-//    }
-//
-
-//    private function ignoringSender($sender)
-//    {
-//        foreach ($this->ignoredNames() as $name)
-//            if ( preg_match("/$name/i", $sender->first_name) )
-//                return true ;
-//        return false ;
-//    }
     
 }

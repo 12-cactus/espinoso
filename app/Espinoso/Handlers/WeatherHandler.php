@@ -15,21 +15,17 @@ class WeatherHandler extends EspinosoCommandHandler
     protected $description = "odio esta mierda...";
 
 
-    public function handle(Message $message)
+    public function handle(Message $message): void
     {
         $date = $this->getNearestDateFromDay($this->getDay());
 
         $weather = $this->getWeatherDescriptionForDate($date);
 
         if (empty($weather)) {
-            $this->replyNotFound($message);
+            $this->replyNotFound();
         }
 
-        $this->telegram->sendMessage([
-            'chat_id' => $message->getChat()->getId(),
-            'text' => "está pronosticado " . $weather,
-            'parse_mode' => 'HTML'
-        ]);
+        $this->espinoso->reply("está pronosticado " . $weather, 'HTML');
     }
 
     protected function getDay()

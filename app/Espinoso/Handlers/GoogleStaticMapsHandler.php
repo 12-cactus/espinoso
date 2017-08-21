@@ -43,17 +43,13 @@ class GoogleStaticMapsHandler extends EspinosoCommandHandler
     /**
      * @param Message $message
      */
-    public function handle(Message $message)
+    public function handle(Message $message): void
     {
         $address  = $this->getAddress();
         $image    = $this->getMap($address, $this->getOptions($address));
         $address .= str_contains(strtolower($address), 'malvinas') ? ', Argentinas!' : '';
 
-        $this->telegram->sendPhoto([
-            'chat_id' => $message->getChat()->getId(),
-            'photo'   => $image,
-            'caption' => $address
-        ]);
+        $this->espinoso->replyImage($image, $address);
     }
 
     /**

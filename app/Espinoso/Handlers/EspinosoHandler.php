@@ -3,7 +3,6 @@
 use Exception;
 use App\Espinoso\Espinoso;
 use Telegram\Bot\Objects\Message;
-use Telegram\Bot\Api as ApiTelegram;
 use Illuminate\Support\Facades\Log;
 
 abstract class EspinosoHandler
@@ -13,48 +12,48 @@ abstract class EspinosoHandler
      */
     protected $espinoso;
     /**
-     * @var ApiTelegram
+     * @var string
      */
-    protected $telegram;
-
     protected $signature;
+    /**
+     * @var string
+     */
     protected $description;
 
+    /**
+     * EspinosoHandler constructor.
+     * @param Espinoso $espinoso
+     */
+    public function __construct(Espinoso $espinoso)
+    {
+        $this->espinoso = $espinoso;
+    }
+
+    abstract public function handle(Message $message): void;
+    abstract public function shouldHandle(Message $message): bool;
+
+    /**
+     * @return string
+     */
     protected function help()
     {
         return empty($this->signature) ? '' : "*{$this->signature}*\n\t\t\t{$this->description}";
     }
 
-    public function __construct(Espinoso $espinoso, ApiTelegram $telegram)
-    {
-        $this->espinoso = $espinoso;
-        $this->telegram = $telegram;
-    }
-
-    abstract public function shouldHandle(Message $message): bool;
-
-    abstract public function handle(Message $message);
-
     /**
-     * @param Message $message
+     *
      */
-    protected function replyNotFound(Message $message)
+    protected function replyNotFound()
     {
-        $this->telegram->sendMessage([
-            'chat_id' => $message->getChat()->getId(),
-            'text' => 'No encontré una mierda, che',
-        ]);
+        $this->espinoso->reply('No encontré una mierda, che');
     }
 
     /**
-     * @param Message $message
+     *
      */
-    protected function replyError(Message $message)
+    protected function replyError()
     {
-        $this->telegram->sendMessage([
-            'chat_id' => $message->getChat()->getId(),
-            'text' => 'Ups! Esta cosa anda como el culo...',
-        ]);
+        $this->espinoso->reply('Ups! Esta cosa anda como el culo...');
     }
 
     public function handleError(Exception $e, Message $message)
@@ -79,11 +78,7 @@ abstract class EspinosoHandler
 
 View Log for details";
 
-        $this->telegram->sendMessage([
-            'chat_id' => config('espinoso.chat.dev'),
-            'text'    => $error,
-            'parse_mode' => 'Markdown',
-        ]);
+        $this->espinoso->sendMessage(config('espinoso.chat.dev'), $error);
     }
 
     public function __toString()

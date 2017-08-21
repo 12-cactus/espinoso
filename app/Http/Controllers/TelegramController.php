@@ -3,20 +3,21 @@
 use GuzzleHttp\Client;
 use App\Espinoso\Espinoso;
 use Telegram\Bot\Objects\Message;
-use Telegram\Bot\Api as ApiTelegram;
 use Telegram\Bot\TelegramResponse;
+use Telegram\Bot\Api as ApiTelegram;
+use App\Espinoso\DeliveryServices\TelegramDelivery;
 
 class TelegramController extends Controller
 {
     /**
      * Handle Telegram incoming message.
      *
-     * @param ApiTelegram $telegram
+     * @param TelegramDelivery $telegram
      * @param Espinoso $espinoso
      */
-    public function handleUpdates(ApiTelegram $telegram, Espinoso $espinoso)
+    public function handleUpdates(TelegramDelivery $telegram, Espinoso $espinoso)
     {
-        $message = $telegram->getWebhookUpdates()->getMessage();
+        $message = $telegram->getMessage();
 
         if ($this->isNotTextMessage($message)) {
             return;
@@ -28,7 +29,8 @@ class TelegramController extends Controller
             $message['text'] = $this->parseCommandAsKeyword($command, $message);
         }
 
-        $espinoso->executeHandlers($telegram, $message);
+        $espinoso->setDelivery($telegram);
+        $espinoso->executeHandlers($message);
 
         return;
     }

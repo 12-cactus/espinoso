@@ -66,12 +66,9 @@ class InstagramHandlerTest extends HandlersTestCase
             ->with('alanmtk')
             ->andReturn($response);
 
-        $message = [
-            'chat_id' => 123,
-            'photo'   => 'https://instagram.fsst1-1.fna.fbcdn.net/t51.2885-15/s640x640/sh0.08/e35/20687889_2047983445218577_9133972975488335872_n.jpg',
-            'caption' => 'Ver https://www.instagram.com/alanmtk'
-        ];
-        $this->telegram->shouldReceive('sendPhoto')->once()->with($message);
+        $photo = 'https://instagram.fsst1-1.fna.fbcdn.net/t51.2885-15/s640x640/sh0.08/e35/20687889_2047983445218577_9133972975488335872_n.jpg';
+        $caption = 'Ver https://www.instagram.com/alanmtk';
+        $this->espinoso->shouldReceive('replyImage')->once()->with($photo, $caption);
 
         $handler = $this->makeHandler();
         $update = $this->makeMessage([
@@ -89,6 +86,6 @@ class InstagramHandlerTest extends HandlersTestCase
      */
     protected function makeHandler(): InstagramHandler
     {
-        return new InstagramHandler($this->espinoso, $this->telegram);
+        return new InstagramHandler($this->espinoso, $this->delivery);
     }
 }

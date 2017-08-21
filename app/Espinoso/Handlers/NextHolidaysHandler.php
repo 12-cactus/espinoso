@@ -15,7 +15,7 @@ class NextHolidaysHandler extends EspinosoCommandHandler
     protected $description = "feriados para rascarse la pelusa";
 
 
-    public function handle(Message $message)
+    public function handle(Message $message): void
     {
         $holidays = collect($this->getHolidays());
         $count = $holidays->count();
@@ -25,11 +25,7 @@ class NextHolidaysHandler extends EspinosoCommandHandler
 
         $text = "Manga de vagos, *quedan {$count} feriados* en todo el año.\n{$list}";
 
-        $this->telegram->sendMessage([
-            'chat_id' => $message->getChat()->getId(),
-            'text' => $text,
-            'parse_mode' => 'Markdown'
-        ]);
+        $this->espinoso->reply($text);
     }
 
     /**

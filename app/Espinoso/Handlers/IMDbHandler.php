@@ -32,31 +32,23 @@ class IMDbHandler extends EspinosoCommandHandler
     /**
      * @param Message $message
      */
-    public function handle(Message $message)
+    public function handle(Message $message): void
     {
         $types  = $this->parseTypes($this->matches['type']);
         $result = $this->getData($this->matches['query'], $types);
 
         if (empty($result)) {
-            $this->replyError($message);
+            $this->replyError();
             return;
         }
 
         $matching = $result[0];
 
         if (!empty($matching->photo())) {
-            $this->telegram->sendPhoto([
-                'chat_id' => $message->getChat()->getId(),
-                'photo'   => $matching->photo(),
-                'caption' => $matching->title()
-            ]);
+            $this->espinoso->replyImage($matching->photo(), $matching->title());
         }
 
-        $this->telegram->sendMessage([
-            'chat_id' => $message->getChat()->getId(),
-            'text'    => $this->parseAsMarkdown($matching),
-            'parse_mode' => 'Markdown',
-        ]);
+        $this->espinoso->reply($this->parseAsMarkdown($matching));
     }
 
     /*

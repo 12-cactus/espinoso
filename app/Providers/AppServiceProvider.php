@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Espinoso\DeliveryServices\TelegramDelivery;
 use Imdb\Config;
 use Imdb\TitleSearch;
 use App\Espinoso\Espinoso;
+use Telegram\Bot\Api;
 use Vinkla\Instagram\Instagram;
 use Gmopx\LaravelOWM\LaravelOWM;
 use Goutte\Client as GoutteClient;
@@ -39,6 +41,11 @@ class AppServiceProvider extends ServiceProvider
             $config = new Config;
             $config->language = 'es-AR,es,en';
             return new TitleSearch($config);
+        });
+
+        // Delivery Services
+        $this->app->bind(TelegramDelivery::class, function () {
+            return new TelegramDelivery(resolve('telegram'));
         });
 
         // Espinoso

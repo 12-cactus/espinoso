@@ -20,19 +20,14 @@ class GoogleInfoBoxHandler extends EspinosoCommandHandler
     protected $signature   = "[espi] info <cosa a buscar>";
     protected $description = "trato de traer data";
 
-    public function handle(Message $message)
+    public function handle(Message $message): void
     {
         $response = $this->buildResponse(rawurlencode(trim($this->matches['query'])));
         $content = collect(explode("\n", $response['message']));
         $images = collect($response['images']);
 
         if ($images->isNotEmpty()) {
-            $title = $content->shift();
-            $this->telegram->sendPhoto([
-                'chat_id' => $message->getChat()->getId(),
-                'photo'   => $images->first(),
-                'caption' => $title
-            ]);
+            $this->espinoso->replyImage($images->first(), $content->shift());
         }
 
         $text = trim($content->implode("\n"));
@@ -40,11 +35,7 @@ class GoogleInfoBoxHandler extends EspinosoCommandHandler
             ? "Uhhh... no hay un carajo!!\nO buscaste como el orto o estoy haciendo cualquiera!" // FIXME lang!
             : $text;
 
-        $this->telegram->sendMessage([
-            'chat_id' => $message->getChat()->getId(),
-            'text'    => $text,
-            'parse_mode' => 'Markdown',
-        ]);
+        $this->espinoso->reply($text);
     }
 
     /**

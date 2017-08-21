@@ -58,11 +58,9 @@ class StickersHandlerTest extends HandlersTestCase
     public function it_handle_and_return_info()
     {
         // Mocking
-        $message = [
-            'chat_id' => 123,
-            'sticker' => 'CAADAgADiwUAAvoLtgh812FBxEdUAgI' // LazyPanda
-        ];
-        $this->telegram->shouldReceive('sendSticker')->once()->with($message);
+        $sticker = 'CAADAgADiwUAAvoLtgh812FBxEdUAgI'; // LazyPanda
+
+        $this->espinoso->shouldReceive('replySticker')->once()->with($sticker);
 
         $handler = $this->makeHandler();
         $update = $this->makeMessage([
@@ -81,6 +79,6 @@ class StickersHandlerTest extends HandlersTestCase
      */
     protected function makeHandler(): StickersHandler
     {
-        return new StickersHandler($this->espinoso, $this->telegram);
+        return new StickersHandler($this->espinoso, $this->delivery);
     }
 }
