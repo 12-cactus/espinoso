@@ -28,6 +28,7 @@ class TelegramDelivery implements EspinosoDeliveryInterface
      */
     public function getMessage(): Message
     {
+        logger($this->telegram->getWebhookUpdates());
         return $this->telegram->getWebhookUpdates()->getMessage();
     }
 
