@@ -15,7 +15,7 @@ class GifsHandler extends EspinosoCommandHandler
     protected $patterns = [
         [
             'pattern' => "\b(dracarys)\b",
-            'video'   => 'CgADBAADNp8AAsQYZAdYn5KWR26bbgI'
+            'video'   => 'dracarys.mp4'
         ]
     ];
 
@@ -39,6 +39,6 @@ class GifsHandler extends EspinosoCommandHandler
 
     public function handle(Message $message): void
     {
-        $this->espinoso->replyGif($this->match->first()['video']);
+        $this->espinoso->replyGif(public_path('gifs/'.$this->match->first()['video']));
     }
 }
