@@ -28,4 +28,6 @@ interface EspinosoDeliveryInterface
      * @param array $params
      */
     public function sendSticker(array $params = []): void;
+
+    public function sendGif(array $params = []): void;
 }

@@ -107,6 +107,16 @@ class Espinoso
         $this->delivery->sendSticker($params);
     }
 
+    public function replyGif(string $gif, array $options = []): void
+    {
+        $params = array_merge($options, [
+            'chat_id'  => $this->message->getChat()->getId(),
+            'document' => $gif,
+        ]);
+
+        $this->delivery->sendGif($params);
+    }
+
     /**
      * @param EspinosoDeliveryInterface $delivery
      */

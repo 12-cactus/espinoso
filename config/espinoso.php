@@ -12,7 +12,8 @@ return [
         App\Espinoso\Handlers\NextHolidaysHandler::class,
         App\Espinoso\Handlers\IMDbHandler::class,
         App\Espinoso\Handlers\GoogleInfoBoxHandler::class,
-        App\Espinoso\Handlers\StickersHandler::class
+        App\Espinoso\Handlers\StickersHandler::class,
+        App\Espinoso\Handlers\GifsHandler::class,
     ],
 
     'token' => [

@@ -57,4 +57,9 @@ class TelegramDelivery implements EspinosoDeliveryInterface
     {
         $this->telegram->sendSticker($params);
     }
+
+    public function sendGif(array $params = []): void
+    {
+        $this->telegram->sendDocument($params);
+    }
 }
