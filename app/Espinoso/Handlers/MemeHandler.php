@@ -33,32 +33,29 @@ class MemeHandler extends EspinosoCommandHandler
         $assetPath = asset('img/meme.jpg');
 
         $img = Image::make($src);
-        $x = $img->width() / 2;
-        $y = $img->height() - 60;
         $textMargin = 60;
+        $x = $img->width() / 2;
+        $y = $img->height() - $textMargin;
         $top = Str::upper($top);
         $bottom = Str::upper($bottom);
 
-        $img->text($top, $x, $textMargin, function ($font) use ($color, $fontSize, $fontFile) {
-            $font->file($fontFile);
-            $font->size($fontSize);
-            $font->align('center');
-            $font->valign('bottom');
-            $font->color($color);
-        });
-
-        if (!is_null($bottom)) {
-            $img->text($bottom, $x, $y, function ($font) use ($color, $fontSize, $fontFile) {
-                $font->file($fontFile);
-                $font->size($fontSize);
-                $font->align('center');
-                $font->valign('top');
-                $font->color($color);
-            });
-        }
+        $img = $this->addText($img, $top, $x, $textMargin, $color, $fontSize, $fontFile, 'bottom');
+        if (!is_null($bottom))
+            $img = $this->addText($img, $bottom, $x, $y, $color, $fontSize, $fontFile, 'top');
 
         $img->save($storagePath);
 
         return $assetPath;
+    }
+
+    public function addText($img, $text, $x, $y, $color, $fontSize, $fontFile, $verticalAlign)
+    {
+        return $img->text($text, $x, $y, function ($font) use ($color, $fontSize, $fontFile, $verticalAlign) {
+            $font->file($fontFile);
+            $font->size($fontSize);
+            $font->align('center');
+            $font->valign($verticalAlign);
+            $font->color($color);
+        });
     }
 }
