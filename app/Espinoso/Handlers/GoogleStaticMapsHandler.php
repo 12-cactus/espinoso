@@ -68,15 +68,19 @@ class GoogleStaticMapsHandler extends EspinosoCommandHandler
      */
     protected function getOptions(string $address)
     {
-        $defaults = collect($this->options);
-        $params = isset($this->matches['params']) ? clean_string($this->matches['params']) : '';
-        $params = explode(' ', $params);
-        $params = collect($params)->mapWithKeys(function ($param) {
-            $param = explode(':', $param);
-            return [$this->parseParamKey($param[0]) => $param[1]];
-        });
+        $options = collect($this->options);
 
-        $options = $defaults->merge($params);
+        if (!empty($this->matches['params']))
+        {
+            $params = isset($this->matches['params']) ? clean_string($this->matches['params']) : '';
+            $params = explode(' ', $params);
+            $params = collect($params)->mapWithKeys(function ($param) {
+                $param = explode(':', $param);
+                return [$this->parseParamKey($param[0]) => $param[1]];
+            });
+            logger($params);
+            $options = $options->merge($params);
+        }
         $color = $options->get('color');
         $options->forget('color');
         $options->put('markers', "color:{$color}|label:X|{$address}");
