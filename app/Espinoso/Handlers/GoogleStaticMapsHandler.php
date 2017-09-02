@@ -78,7 +78,6 @@ class GoogleStaticMapsHandler extends EspinosoCommandHandler
                 $param = explode(':', $param);
                 return [$this->parseParamKey($param[0]) => $param[1]];
             });
-            logger($params);
             $options = $options->merge($params);
         }
         $color = $options->get('color');

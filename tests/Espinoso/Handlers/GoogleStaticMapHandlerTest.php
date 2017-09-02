@@ -54,7 +54,7 @@ class GoogleStaticMapHandlerTest extends HandlersTestCase
     /**
      * @test
      */
-    public function it_handle_and_return_movies()
+    public function it_handle_and_return_argentinas()
     {
         // Arrange
         $address = 'islas malvinas';
@@ -63,7 +63,30 @@ class GoogleStaticMapHandlerTest extends HandlersTestCase
 
         $this->espinoso->shouldReceive('replyImage')->once()->with($photo, "{$address}, Argentinas!");
         $handler = $this->makeHandler();
-        $update = $this->makeMessage(['text' => 'espi gsm z:10 color:yellow islas malvinas']);
+        $update = $this->makeMessage(
+            ['text' => 'espi gsm z:10 color:yellow islas malvinas',
+        ]);
+
+        // Act
+        $handler->shouldHandle($update);
+        $handler->handle($update);
+    }
+
+    /**
+     * @test
+     */
+    public function it_handle_and_return_maps()
+    {
+        // Arrange
+        $address = 'islas malvinas';
+        $options = "maptype=roadmap&zoom=10&size=600x500&markers=color:yellow|label:X|{$address}";
+        $photo   = config('espinoso.url.map') . "?center=" . urlencode($address) . "&{$options}";
+
+        $this->espinoso->shouldReceive('replyImage')->once();
+        $handler = $this->makeHandler();
+        $update = $this->makeMessage([
+            ['text' => 'gsm z:17 Quilmes'],
+        ]);
 
         // Act
         $handler->shouldHandle($update);
