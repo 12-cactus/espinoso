@@ -11,6 +11,7 @@
         "gmopx/laravel-owm": "0.1.1",
         "guzzlehttp/guzzle": "^6.3",
         "imdbphp/imdbphp": "^5.2",
+        "intervention/image": "^2.4",
         "irazasyed/telegram-bot-sdk": "^2.2",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",

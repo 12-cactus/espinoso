@@ -180,6 +180,7 @@ return [
 
         Telegram\Bot\Laravel\TelegramServiceProvider::class,
         Gmopx\LaravelOWM\LaravelOWMServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class
     ],
 
     /*
@@ -229,7 +230,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        'Telegram'  => Telegram\Bot\Laravel\Facades\Telegram::class
+        'Telegram'  => Telegram\Bot\Laravel\Facades\Telegram::class,
+        'Image' => Intervention\Image\Facades\Image::class
     ],
 
 ];
