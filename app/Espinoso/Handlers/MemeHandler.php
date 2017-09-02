@@ -12,7 +12,7 @@ class MemeHandler extends EspinosoCommandHandler
     protected $allow_ignore_prefix = true;
     protected $pattern = "(?'cmd'meme)\s+((?'src'[^\s]+))\s+(\"(?'top'[^\"]+)\")(\s+(\"(?'bottom'[^\"]+)\")?)?";
 
-    protected $signature = "[espi] meme src top bottom";
+    protected $signature = "[espi] meme src top [bottom]";
     protected $description = "te armo un meme y no me rompas mas las bolas";
 
     public function handle(Message $message): void
