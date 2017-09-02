@@ -147,5 +147,9 @@ return [
         '/^ayuda gsm$/i' => [
             'reply' => "gsm [-z:ZOOM -s:SIZE -c:COLOR -t:MAPTYPE ] dirección.\nZOOM es un entero del 1-20\nSIZE es una resolución (600x300)\nMAPTYPE es un tipo de mapa de google, por defecto roadmap\n",
         ],
+        
+        '/^asadoodle$/i' => [
+            'reply' => "https://beta.doodle.com/poll/4gq3rtbmqcutw37g"
+        ],
     ],
 ];
