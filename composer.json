@@ -15,7 +15,8 @@
         "irazasyed/telegram-bot-sdk": "^2.2",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
-        "vinkla/instagram": "^6.0"
+        "vinkla/instagram": "^6.0",
+        "ext-gd": "*"
     },
     "require-dev": {
         "codeclimate/php-test-reporter": "dev-master",
