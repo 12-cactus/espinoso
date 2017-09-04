@@ -14,7 +14,7 @@ return [
         App\Espinoso\Handlers\GoogleInfoBoxHandler::class,
         App\Espinoso\Handlers\StickersHandler::class,
         App\Espinoso\Handlers\GifsHandler::class,
-        App\Espinoso\Handlers\MemeHandler::class,
+        //App\Espinoso\Handlers\MemeHandler::class,
     ],
 
     'token' => [
