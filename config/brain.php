@@ -24,7 +24,14 @@ return [
         ],
 
         '/\b(asado)\b$/i'  => [
-            'reply' => "Próxima juntada: sábado 15/7 en lo de Maru. Traigan bebidas. Canelones a la Maru. Para Facu un buen canelón de carne.",
+            'reply' => "Próxima juntada: sábado 09/09 en lo de Maru, como siempre. Traigan bebidas. Sandwiches de bondiola, picada, y algo más. Birra y vino. Alguien pondrá el chori para Facu. En una de esas viene pepito.
+Proveedores: 
+ + Pan: Maru
+ + Bondiola: Dan
+ + Picada: Ine, Pipi y yo
+ + Verduras: Agus
+ + Vinito : Agus y yo
+ + Salsa Barbacoa: Maru o quien se cope si maru no tiene.",
         ],
 
         '/^(o\s+)?no(,)?\s+(espi(noso)?)(\?)+$/i' => [
