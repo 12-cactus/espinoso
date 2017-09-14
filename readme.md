@@ -71,6 +71,12 @@ Open `/etc/hosts` and add this line to the end of file
 
 ### 4. Start Homestead & Init your Bot
 
+Generate RSA SSH Keys
+
+```
+$ ssh-keygen # or read https://www.cyberciti.biz/faq/linux-generating-rsa-keys/
+```
+
 Enter Homestead
 
 ```bash
@@ -95,11 +101,14 @@ $ vagrant ssh
 homestead:$ cd espinoso
 homestead:$ cp .env.example .env
 homestead:$ composer install
+homestead:$ artsisan key:generate
 ```
 
 Open `.env` and search `TELEGRAM_BOT_TOKEN` key.
 
 Copy your **saved token** and paste into var, like this: `TELEGRAM_BOT_TOKEN=123456:ABCDEF`
+
+Add this key too `OPENWEATHER_API_KEY:be37573a09446418bdaaab4699e4895b`
 
 Finally, you need to associate _ngrok_ service as webhook. So, just run
 
