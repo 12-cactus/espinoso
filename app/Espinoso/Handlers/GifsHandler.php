@@ -19,7 +19,7 @@ class GifsHandler extends EspinosoCommandHandler
         ],
         [
             'pattern' => "\b(espinarys)\b",
-            'video'   => 'espinarys.mp4'
+            'video'   => 'espinarys.gif'
         ],
         [
             'pattern' => "\b(cold walk)\b",
