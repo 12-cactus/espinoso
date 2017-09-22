@@ -12,29 +12,6 @@ class GifsHandler extends EspinosoCommandHandler
      * @var string
      */
 
-    protected $patterns = [
-        [
-            'pattern' => "\b(dracarys)\b",
-            'video'   => 'dracarys.mp4'
-        ],
-        [
-            'pattern' => "\b(espinarys)\b",
-            'video'   => 'espinarys.gif'
-        ],
-        [
-            'pattern' => "\b(cold walk)\b",
-            'video'   => 'cold-walk.gif'
-        ],
-        [
-            'pattern' => "\b(pochoclos)\b",
-            'video'   => 'pochoclos.mp4'
-        ],
-        [
-            'pattern' => "\b(magic)\b",
-            'video'   => 'magic.mp4'
-        ]
-    ];
-
     protected $signature   = "[espi] dracarys";
     protected $description = "Valar Morghulis";
 
@@ -46,7 +23,7 @@ class GifsHandler extends EspinosoCommandHandler
 
     public function shouldHandle(Message $message): bool
     {
-        $this->match = collect($this->patterns)->filter(function ($pattern) use ($message) {
+        $this->match = collect(config('gifs.patterns'))->filter(function ($pattern) use ($message) {
             return $this->matchCommand($pattern['pattern'], $message);
         });
 
