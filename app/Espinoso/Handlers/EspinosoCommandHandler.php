@@ -4,8 +4,8 @@ use Telegram\Bot\Objects\Message;
 
 abstract class EspinosoCommandHandler extends EspinosoHandler
 {
-    protected $flags = 'i';
-    protected $prefix_regex = "^(?'e'espi(noso)?\s+)"; // 'espi|espinoso '
+    protected $flags   = 'i';
+    protected $prefix  = "^(?'e'espi(noso)?\s+)"; // 'espi|espinoso '
     protected $pattern = '$';
     protected $matches = [];
     /**
@@ -40,7 +40,7 @@ abstract class EspinosoCommandHandler extends EspinosoHandler
     {
         $quantifier = $this->ignorePrefix ? '{0,3}' : '{1,3}';
         $text = $message->getText();
-        $pattern = "/{$this->prefix_regex}{$quantifier}{$pattern}/{$this->flags}";
+        $pattern = "/{$this->prefix}{$quantifier}{$pattern}/{$this->flags}";
 
         return preg_match($pattern, $text, $matches) === 1;
     }
