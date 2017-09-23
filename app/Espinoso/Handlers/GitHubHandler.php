@@ -1,7 +1,6 @@
 <?php namespace App\Espinoso\Handlers;
 
 use App\Facades\GuzzleClient;
-use Telegram\Bot\Objects\Message;
 
 class GitHubHandler extends EspinosoCommandHandler
 {
@@ -13,7 +12,7 @@ class GitHubHandler extends EspinosoCommandHandler
     protected $signature   = "espi issue <title>";
     protected $description = "genera un issue en el repo";
 
-    public function handle(Message $message): void
+    public function handle(): void
     {
         $response = GuzzleClient::post(config('espinoso.url.issues'), [
             'headers' => ['Authorization' => "token ".config('espinoso.token.github')],

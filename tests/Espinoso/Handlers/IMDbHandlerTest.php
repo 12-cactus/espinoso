@@ -105,6 +105,6 @@ storyline
      */
     protected function makeHandler(): IMDbHandler
     {
-        return new IMDbHandler($this->espinoso, $this->delivery);
+        return new IMDbHandler($this->espinoso);
     }
 }

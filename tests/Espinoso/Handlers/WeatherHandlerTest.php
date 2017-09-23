@@ -116,6 +116,6 @@ class WeatherHandlerTest extends HandlersTestCase
      */
     protected function makeHandler(): WeatherHandler
     {
-        return new WeatherHandler($this->espinoso, $this->delivery);
+        return new WeatherHandler($this->espinoso);
     }
 }

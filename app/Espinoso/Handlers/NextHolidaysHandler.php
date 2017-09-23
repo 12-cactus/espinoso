@@ -2,7 +2,6 @@
 
 use stdClass;
 use App\Facades\GoutteClient;
-use Telegram\Bot\Objects\Message;
 
 class NextHolidaysHandler extends EspinosoCommandHandler
 {
@@ -15,7 +14,7 @@ class NextHolidaysHandler extends EspinosoCommandHandler
     protected $description = "feriados para rascarse la pelusa";
 
 
-    public function handle(Message $message): void
+    public function handle(): void
     {
         $holidays = collect($this->getHolidays());
         $count = $holidays->count();

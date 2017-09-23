@@ -86,6 +86,6 @@ class InstagramHandlerTest extends HandlersTestCase
      */
     protected function makeHandler(): InstagramHandler
     {
-        return new InstagramHandler($this->espinoso, $this->delivery);
+        return new InstagramHandler($this->espinoso);
     }
 }

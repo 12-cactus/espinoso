@@ -79,6 +79,6 @@ class StickersHandlerTest extends HandlersTestCase
      */
     protected function makeHandler(): StickersHandler
     {
-        return new StickersHandler($this->espinoso, $this->delivery);
+        return new StickersHandler($this->espinoso);
     }
 }

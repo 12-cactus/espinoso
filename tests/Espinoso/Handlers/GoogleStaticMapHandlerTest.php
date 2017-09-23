@@ -98,6 +98,6 @@ class GoogleStaticMapHandlerTest extends HandlersTestCase
      */
     protected function makeHandler(): GoogleStaticMapsHandler
     {
-        return new GoogleStaticMapsHandler($this->espinoso, $this->delivery);
+        return new GoogleStaticMapsHandler($this->espinoso);
     }
 }

@@ -1,7 +1,5 @@
 <?php namespace App\Espinoso\Handlers;
 
-use Telegram\Bot\Objects\Message;
-
 /**
  * Class BardoDelEspinosoHandler
  * @package App\Espinoso\Handlers
@@ -26,9 +24,9 @@ class BardoDelEspinosoHandler extends EspinosoCommandHandler
     protected $description = "no sé, fijate";
 
     /**
-     * @param Message $message
+     *
      */
-    public function handle(Message $message): void
+    public function handle(): void
     {
         $this->espinoso->replyImage(
             'https://cdn.drawception.com/images/panels/2012/4-4/FErsE1a6t7-8.png',

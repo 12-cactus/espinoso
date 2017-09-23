@@ -1,11 +1,7 @@
-<?php
+<?php namespace App\Espinoso\Handlers;
 
-namespace App\Espinoso\Handlers;
-
-use Illuminate\Contracts\Logging\Log;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
-use Telegram\Bot\Objects\Message;
 
 class MemeHandler extends EspinosoCommandHandler
 {
@@ -15,7 +11,7 @@ class MemeHandler extends EspinosoCommandHandler
     protected $signature = "[espi] meme src top [bottom]";
     protected $description = "te armo un meme y no me rompas mas las bolas";
 
-    public function handle(Message $message): void
+    public function handle(): void
     {
         $meme = $this->generateMeme(
             $this->matches['src'],

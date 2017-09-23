@@ -21,6 +21,6 @@ class HelpHandlerTest extends HandlersTestCase
      */
     protected function makeHandler(): HelpHandler
     {
-        return new HelpHandler($this->espinoso, $this->delivery);
+        return new HelpHandler($this->espinoso);
     }
 }

@@ -1,7 +1,6 @@
 <?php namespace App\Espinoso\Handlers;
 
 use App\Facades\InstagramSearch;
-use Telegram\Bot\Objects\Message;
 use Vinkla\Instagram\InstagramException;
 
 class InstagramHandler extends EspinosoCommandHandler
@@ -13,7 +12,7 @@ class InstagramHandler extends EspinosoCommandHandler
     protected $description = "y... fijate";
 
 
-    public function handle(Message $message): void
+    public function handle(): void
     {
         try {
             $username = $this->getUsername();

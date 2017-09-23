@@ -91,6 +91,6 @@ class NextHolidaysHandlerTest extends HandlersTestCase
      */
     protected function makeHandler(): NextHolidaysHandler
     {
-        return new NextHolidaysHandler($this->espinoso, $this->delivery);
+        return new NextHolidaysHandler($this->espinoso);
     }
 }

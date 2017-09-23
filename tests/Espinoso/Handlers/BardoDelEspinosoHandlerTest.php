@@ -47,7 +47,8 @@ class BardoDelEspinosoHandlerTest extends HandlersTestCase
         $update = $this->makeMessage(['text' => 'send me nudes']);
 
         // Act
-        $handler->handle($update);
+        $handler->shouldHandle($update);
+        $handler->handle();
     }
 
     /**
@@ -55,6 +56,6 @@ class BardoDelEspinosoHandlerTest extends HandlersTestCase
      */
     protected function makeHandler(): BardoDelEspinosoHandler
     {
-        return new BardoDelEspinosoHandler($this->espinoso, $this->delivery);
+        return new BardoDelEspinosoHandler($this->espinoso);
     }
 }

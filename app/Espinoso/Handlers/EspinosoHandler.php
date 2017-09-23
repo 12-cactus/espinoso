@@ -20,6 +20,10 @@ abstract class EspinosoHandler
      * @var string
      */
     protected $description;
+    /**
+     * @var Message
+     */
+    protected $message;
 
     /**
      * EspinosoHandler constructor.
@@ -30,7 +34,7 @@ abstract class EspinosoHandler
         $this->espinoso = $espinoso;
     }
 
-    abstract public function handle(Message $message): void;
+    abstract public function handle(): void;
     abstract public function shouldHandle(Message $message): bool;
 
     /**

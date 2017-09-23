@@ -31,15 +31,17 @@ class StickersHandler extends EspinosoCommandHandler
 
     public function shouldHandle(Message $message): bool
     {
-        $this->match = collect($this->patterns)->filter(function ($pattern) use ($message) {
-            return $message->getFrom()->getFirstName() === $pattern['user']
-                && $this->matchCommand($pattern['pattern'], $message);
+        $this->message = $message;
+
+        $this->match = collect($this->patterns)->filter(function ($pattern) {
+            return $this->message->getFrom()->getFirstName() === $pattern['user']
+                && $this->matchCommand($pattern['pattern'], $this->message);
         });
 
         return $this->match->isNotEmpty();
     }
 
-    public function handle(Message $message): void
+    public function handle(): void
     {
         $this->espinoso->replySticker($this->match->first()['sticker']);
     }

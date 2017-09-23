@@ -23,14 +23,16 @@ class GifsHandler extends EspinosoCommandHandler
 
     public function shouldHandle(Message $message): bool
     {
-        $this->match = collect(config('gifs.patterns'))->filter(function ($pattern) use ($message) {
-            return $this->matchCommand($pattern['pattern'], $message);
+        $this->message = $message;
+
+        $this->match = collect(config('gifs.patterns'))->filter(function ($pattern) {
+            return $this->matchCommand($pattern['pattern'], $this->message);
         });
 
         return $this->match->isNotEmpty();
     }
 
-    public function handle(Message $message): void
+    public function handle(): void
     {
         $this->espinoso->replyGif(public_path('gifs/'.$this->match->first()['video']));
     }

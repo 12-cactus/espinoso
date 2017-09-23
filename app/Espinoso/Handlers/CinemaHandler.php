@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Str;
 use App\Facades\GoutteClient;
-use Telegram\Bot\Objects\Message;
 
 class CinemaHandler extends EspinosoCommandHandler
 {
@@ -14,7 +13,7 @@ class CinemaHandler extends EspinosoCommandHandler
     protected $signature   = "espi cine";
     protected $description = "te muestro que hay para ver en el cine y ponerla";
 
-    public function handle(Message $message): void
+    public function handle(): void
     {
         $crawler = GoutteClient::request('GET', config('espinoso.url.cinema'));
 

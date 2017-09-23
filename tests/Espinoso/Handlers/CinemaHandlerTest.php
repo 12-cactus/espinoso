@@ -80,6 +80,6 @@ class CinemaHandlerTest extends HandlersTestCase
      */
     protected function makeHandler(): CinemaHandler
     {
-        return new CinemaHandler($this->espinoso, $this->delivery);
+        return new CinemaHandler($this->espinoso);
     }
 }

@@ -77,6 +77,6 @@ class GoogleInfoBoxHandlerTest extends HandlersTestCase
      */
     protected function makeHandler(): GoogleInfoBoxHandler
     {
-        return new GoogleInfoBoxHandler($this->espinoso, $this->delivery);
+        return new GoogleInfoBoxHandler($this->espinoso);
     }
 }

@@ -1,6 +1,5 @@
 <?php namespace App\Espinoso\Handlers;
 
-use Telegram\Bot\Objects\Message;
 
 class HelpHandler extends EspinosoCommandHandler
 {
@@ -12,7 +11,7 @@ class HelpHandler extends EspinosoCommandHandler
     protected $signature   = "espi help|ayuda|aiiiuuda";
     protected $description = "muestra cosas que entiendo";
 
-    public function handle(Message $message): void
+    public function handle(): void
     {
         $data = $this->espinoso->getHandlers()->map(function (EspinosoHandler $handler) {
             return $handler->help();

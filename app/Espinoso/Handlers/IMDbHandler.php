@@ -3,7 +3,6 @@
 use Imdb\Title;
 use Spatie\Emoji\Emoji;
 use App\Facades\IMDbSearch;
-use Telegram\Bot\Objects\Message;
 
 /**
  * Class IMDbHandler
@@ -31,9 +30,9 @@ class IMDbHandler extends EspinosoCommandHandler
     ];
 
     /**
-     * @param Message $message
+     *
      */
-    public function handle(Message $message): void
+    public function handle(): void
     {
         $types  = $this->parseTypes($this->matches['type']);
         $result = $this->getData($this->matches['query'], $types);

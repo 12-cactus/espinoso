@@ -47,21 +47,23 @@ class BrainHandler extends EspinosoHandler
      */
     public function shouldHandle(Message $message): bool
     {
-        $this->matchedNodes = $this->allNodes->filter(function ($node) use ($message) {
+        $this->message = $message;
+
+        $this->matchedNodes = $this->allNodes->filter(function ($node) {
             $node->addIgnored($this->globalIgnored());
-            return $node->matchMessage($message);
+            return $node->matchMessage($this->message);
         });
 
         return $this->matchedNodes->isNotEmpty();
     }
 
     /**
-     * @param Message $message
+     *
      */
-    public function handle(Message $message): void
+    public function handle(): void
     {
-        $this->matchedNodes->each(function (BrainNode $node) use ($message) {
-            $this->espinoso->reply($node->pickReply($message));
+        $this->matchedNodes->each(function (BrainNode $node) {
+            $this->espinoso->reply($node->pickReply($this->message));
         });
     }
 

@@ -23,7 +23,9 @@ abstract class EspinosoCommandHandler extends EspinosoHandler
      */
     public function shouldHandle(Message $message): bool
     {
-        return $this->matchCommand($this->pattern, $message, $this->matches);
+        $this->message = $message;
+
+        return $this->matchCommand($this->pattern, $this->message, $this->matches);
     }
 
     /*

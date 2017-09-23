@@ -76,7 +76,7 @@ class BrainHandlerTest extends HandlersTestCase
      */
     protected function makeHandler(): BrainHandler
     {
-        return new BrainHandler($this->espinoso, $this->delivery);
+        return new BrainHandler($this->espinoso);
     }
 
     /**

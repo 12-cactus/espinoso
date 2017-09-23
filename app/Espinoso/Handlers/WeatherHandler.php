@@ -3,7 +3,6 @@
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use App\Facades\WeatherSearch;
-use Telegram\Bot\Objects\Message;
 use Cmfcmf\OpenWeatherMap\Forecast;
 
 class WeatherHandler extends EspinosoCommandHandler
@@ -15,7 +14,7 @@ class WeatherHandler extends EspinosoCommandHandler
     protected $description = "odio esta mierda...";
 
 
-    public function handle(Message $message): void
+    public function handle(): void
     {
         $date = $this->getNearestDateFromDay($this->getDay());
 

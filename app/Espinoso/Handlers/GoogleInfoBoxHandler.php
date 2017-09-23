@@ -1,9 +1,6 @@
-<?php
-
-namespace App\Espinoso\Handlers;
+<?php namespace App\Espinoso\Handlers;
 
 use App\Facades\GoutteClient;
-use Telegram\Bot\Objects\Message;
 use Symfony\Component\DomCrawler\Crawler;
 
 class GoogleInfoBoxHandler extends EspinosoCommandHandler
@@ -20,7 +17,7 @@ class GoogleInfoBoxHandler extends EspinosoCommandHandler
     protected $signature   = "[espi] info <cosa a buscar>";
     protected $description = "trato de traer data";
 
-    public function handle(Message $message): void
+    public function handle(): void
     {
         $response = $this->buildResponse(rawurlencode(trim($this->matches['query'])));
         $content = collect(explode("\n", $response['message']));

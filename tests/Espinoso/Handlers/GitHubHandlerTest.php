@@ -72,6 +72,6 @@ class GitHubHandlerTest extends HandlersTestCase
      */
     protected function makeHandler(): GitHubHandler
     {
-        return new GitHubHandler($this->espinoso, $this->delivery);
+        return new GitHubHandler($this->espinoso);
     }
 }

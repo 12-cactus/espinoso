@@ -1,6 +1,5 @@
 <?php namespace App\Espinoso\Handlers;
 
-use Telegram\Bot\Objects\Message;
 
 class GoogleStaticMapsHandler extends EspinosoCommandHandler
 {
@@ -41,9 +40,9 @@ class GoogleStaticMapsHandler extends EspinosoCommandHandler
     ];
 
     /**
-     * @param Message $message
+     *
      */
-    public function handle(Message $message): void
+    public function handle(): void
     {
         $address  = $this->getAddress();
         $image    = $this->getMap($address, $this->getOptions($address));
