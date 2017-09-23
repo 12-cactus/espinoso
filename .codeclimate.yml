@@ -1,0 +1,27 @@
+---
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - php
+  csslint:
+    enabled: true
+  fixme:
+    enabled: true
+  phpcodesniffer:
+    enabled: true
+  phpmd:
+    enabled: true
+ratings:
+  paths:
+  - "**.css"
+  - "**.php"
+  - "**.inc"
+languages:
+   PHP: true
+   JavaScript: true
+exclude_paths:
+- "vendor/**/*"
+- "tests/**/*"
+- "tests/*"
