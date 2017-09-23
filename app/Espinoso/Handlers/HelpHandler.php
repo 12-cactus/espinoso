@@ -1,6 +1,5 @@
 <?php namespace App\Espinoso\Handlers;
 
-
 class HelpHandler extends EspinosoCommandHandler
 {
     /**

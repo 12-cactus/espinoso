@@ -24,5 +24,4 @@ return [
             'video'   => 'magic.mp4'
         ]
     ],
-
 ];

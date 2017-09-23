@@ -1,4 +1,5 @@
 <?php
+
 return [
     'handlers' => [ 
         App\Espinoso\Handlers\HelpHandler::class,

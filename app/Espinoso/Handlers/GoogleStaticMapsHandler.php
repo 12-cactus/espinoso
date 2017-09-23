@@ -1,6 +1,5 @@
 <?php namespace App\Espinoso\Handlers;
 
-
 class GoogleStaticMapsHandler extends EspinosoCommandHandler
 {
     protected $ignorePrefix = true;
@@ -69,8 +68,7 @@ class GoogleStaticMapsHandler extends EspinosoCommandHandler
     {
         $options = collect($this->options);
 
-        if (!empty($this->matches['params']))
-        {
+        if (!empty($this->matches['params'])) {
             $params = isset($this->matches['params']) ? clean_string($this->matches['params']) : '';
             $params = explode(' ', $params);
             $params = collect($params)->mapWithKeys(function ($param) {
