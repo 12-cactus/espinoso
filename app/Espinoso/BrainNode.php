@@ -39,7 +39,8 @@ class BrainNode
             : $this->reply;
     }
 
-    public function addIgnored(Collection $ignored) {
+    public function addIgnored(Collection $ignored)
+    {
         $this->ignored->merge($ignored);
     }
 

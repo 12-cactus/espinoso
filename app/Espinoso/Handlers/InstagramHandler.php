@@ -49,7 +49,6 @@ class InstagramHandler extends EspinosoCommandHandler
         }
 
         return $param;
-
     }
 
     protected function getImage($username, $param)

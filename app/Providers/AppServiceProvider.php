@@ -32,16 +32,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // Facades
-        $this->app->bind('GoutteClient', function () { return new GoutteClient; });
-        $this->app->bind('GuzzleClient', function () { return new GuzzleClient; });
-        $this->app->bind('InstagramSearch', function () { return new Instagram; });
-        $this->app->bind('WeatherSearch', function () { return new LaravelOWM; });
-        $this->app->bind('IMDbSearch', function () {
-            $config = new Config;
-            $config->language = 'es-AR,es,en';
-            return new TitleSearch($config);
-        });
+        $this->bindHandlersFacades();
 
         // Delivery Services
         $this->app->bind(TelegramDelivery::class, function () {
@@ -51,6 +42,31 @@ class AppServiceProvider extends ServiceProvider
         // Espinoso
         $this->app->bind(Espinoso::class, function () {
             return new Espinoso(collect(config('espinoso.handlers')));
+        });
+    }
+
+    protected function bindHandlersFacades(): void
+    {
+        $this->app->bind('GoutteClient', function () {
+            return new GoutteClient;
+        });
+
+        $this->app->bind('GuzzleClient', function () {
+            return new GuzzleClient;
+        });
+
+        $this->app->bind('InstagramSearch', function () {
+            return new Instagram;
+        });
+
+        $this->app->bind('WeatherSearch', function () {
+            return new LaravelOWM;
+        });
+
+        $this->app->bind('IMDbSearch', function () {
+            $config = new Config;
+            $config->language = 'es-AR,es,en';
+            return new TitleSearch($config);
         });
     }
 }

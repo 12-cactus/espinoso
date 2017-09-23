@@ -17,9 +17,11 @@ class MemeHandler extends EspinosoCommandHandler
 
     public function handle(Message $message): void
     {
-        $meme = $this->generateMeme($this->matches['src'],
+        $meme = $this->generateMeme(
+            $this->matches['src'],
             $this->matches['top'],
-            $this->matches['bottom'] ?? null);
+            $this->matches['bottom'] ?? null
+        );
 
         $this->espinoso->replyImage($meme);
     }

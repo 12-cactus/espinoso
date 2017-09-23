@@ -65,7 +65,7 @@ class GoogleInfoBoxHandler extends EspinosoCommandHandler
                 if (! is_null($key) && $div->filter($key)->count() > 0)
                     $left = $div->filter($key)->first()->text();
 
-                if ( ! is_null($value) && $div->filter($value)->count() > 0)
+                if (! is_null($value) && $div->filter($value)->count() > 0)
                     $right = $div->filter($value)->first()->text();
             }
 
