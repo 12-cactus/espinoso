@@ -1,5 +1,13 @@
 <?php
 
+use Spatie\Emoji\Emoji;
+
+// This mapper is just for a more comfortable use
+$emoji = (object) [
+    'cat' => Emoji::catFaceWithWrySmile(),
+    'meat' => Emoji::meatOnBone()
+];
+
 return [
 
     'ignore_to' => [],
@@ -16,7 +24,7 @@ return [
     'patterns' => [
 
         '/^macri\W*$/i' => [
-            'reply' => 'Gato',
+            'reply' => "Gato {$emoji->cat}",
         ],
 
         '/^(espi(noso)?\s*){1,3}[i!\?\.]*$/i' => [
@@ -24,14 +32,7 @@ return [
         ],
 
         '/\b(asado)\b$/i'  => [
-            'reply' => "Próxima juntada: sábado 09/09 en lo de Maru, como siempre. Traigan bebidas. Sandwiches de bondiola, picada, y algo más. Birra y vino. Alguien pondrá el chori para Facu. En una de esas viene pepito.
-Proveedores: 
- + Pan: Maru
- + Bondiola: Dan
- + Picada: Ine, Pipi y yo
- + Verduras: Agus
- + Vinito : Agus y yo
- + Salsa Barbacoa: Maru o quien se cope si maru no tiene.",
+            'reply' => "{$emoji->meat} Hay que armar algo... Pero que sea tranca porque Maru anda flojita del hígado",
         ],
 
         '/^(o\s+)?no(,)?\s+(espi(noso)?)(\?)+$/i' => [

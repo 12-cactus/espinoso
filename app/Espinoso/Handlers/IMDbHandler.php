@@ -1,6 +1,7 @@
 <?php namespace App\Espinoso\Handlers;
 
 use Imdb\Title;
+use Spatie\Emoji\Emoji;
 use App\Facades\IMDbSearch;
 use Telegram\Bot\Objects\Message;
 
@@ -82,7 +83,7 @@ class IMDbHandler extends EspinosoCommandHandler
      */
     protected function parseAsMarkdown(Title $result)
     {
-        $star = "\u{2B50}";
+        $star = Emoji::whiteMediumStar();
         $sinopsis  = str_limit(trim($result->storyline()), 250);
         $cast      = collect($result->cast())->take(3)->pluck('name')->implode(', ');
         $genres    = collect($result->genres())->implode(', ');

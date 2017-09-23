@@ -1,8 +1,8 @@
 <?php namespace Tests\Espinoso\Handlers;
 
-use App\Espinoso\Handlers\BrainHandler;
-use App\Facades\GoutteClient;
 use Mockery;
+use Spatie\Emoji\Emoji;
+use App\Espinoso\Handlers\BrainHandler;
 
 /**
  * Class BrainHandlerTest
@@ -49,7 +49,7 @@ class BrainHandlerTest extends HandlersTestCase
      */
     public function it_should_respond_with_concrete_message()
     {
-        $this->shouldRespondWith('macri',    'Gato');
+        $this->shouldRespondWith('macri',    'Gato ' . Emoji::catFaceWithWrySmile());
         $this->shouldRespondWith('espi',     'Otra vez rompiendo los huevos... Que pija quieren?');
         $this->shouldRespondWith('empanada', 'mmmm de carne y bien jugosa');
     }
