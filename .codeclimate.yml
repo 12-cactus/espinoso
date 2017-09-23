@@ -15,6 +15,7 @@ engines:
     enabled: true
     checks:
       Naming/ShortMethodName:
+        enabled: true
         exclude_paths:
         - "database/migrations/*"
 ratings:
