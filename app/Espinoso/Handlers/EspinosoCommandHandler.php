@@ -44,5 +44,4 @@ abstract class EspinosoCommandHandler extends EspinosoHandler
 
         return preg_match($pattern, $text, $matches) === 1;
     }
-
 }

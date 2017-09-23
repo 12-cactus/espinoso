@@ -21,6 +21,8 @@ engines:
     checks:
       Naming/ShortVariable:
         enabled: false
+      CleanCode/ElseExpression:
+        enabled: false
 
 ratings:
   paths:
@@ -34,3 +36,4 @@ exclude_paths:
 - "vendor/**/*"
 - "tests/**/*"
 - "tests/*"
+- "bootstrap/autoload.php"

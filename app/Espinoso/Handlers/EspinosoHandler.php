@@ -78,6 +78,4 @@ View Log for details";
     {
         return get_called_class();
     }
-
-
 }
