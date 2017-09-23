@@ -1,6 +1,7 @@
 <?php namespace App\Espinoso\Handlers;
 
 use Exception;
+use Spatie\Emoji\Emoji;
 use App\Espinoso\Espinoso;
 use Telegram\Bot\Objects\Message;
 use Illuminate\Support\Facades\Log;
@@ -63,9 +64,10 @@ abstract class EspinosoHandler
         Log::error($message);
         Log::error($e);
 
-        $error = "Fuck! Something blow up on `{$clazz}`:
-- _{$e->getMessage()}_
-- *Text:* {$message->getText()}
+        $scream = Emoji::faceScreamingInFear();
+        $error = "{$scream} Fuck! Something blow up on `{$clazz}`
+- *Error Message:* _{$e->getMessage()}_
+- *Original Text:* {$message->getText()}
 
 View Log for details";
 
