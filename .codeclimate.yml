@@ -23,6 +23,8 @@ engines:
         enabled: false
       CleanCode/ElseExpression:
         enabled: false
+      CleanCode/StaticAccess:
+          enabled: false
 
 ratings:
   paths:
