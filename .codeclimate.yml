@@ -13,11 +13,9 @@ engines:
     enabled: true
   phpmd:
     enabled: true
-    checks:
-      Naming/ShortMethodName:
-        enabled: true
-        exclude_paths:
-        - "database/migrations/*"
+    exclude_paths:
+    - "database/migrations/*"
+
 ratings:
   paths:
   - "**.css"
