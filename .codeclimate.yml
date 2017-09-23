@@ -18,8 +18,9 @@ engines:
     enabled: true
     exclude_paths:
     - "database/migrations/*"
-    Naming/ShortVariable:
-      enabled: false
+    checks:
+      Naming/ShortVariable:
+        enabled: false
 
 ratings:
   paths:
