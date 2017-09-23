@@ -14,11 +14,12 @@ engines:
     exclude_paths:
     - "database/seeds/*"
     - "database/migrations/*"
-
   phpmd:
     enabled: true
     exclude_paths:
     - "database/migrations/*"
+    Naming/ShortVariable:
+      enabled: false
 
 ratings:
   paths:
