@@ -6,7 +6,7 @@ use Vinkla\Instagram\InstagramException;
 
 class InstagramHandler extends EspinosoCommandHandler
 {
-    protected $allow_ignore_prefix = true;
+    protected $ignorePrefix = true;
     protected $pattern = "(\b(ig)\b)(\s+)(?'username'\b(\S+)\b)(?'param'\s*(last|pos:\d+))?$";
 
     protected $signature   = "[espi] ig username [last|pos:n]";

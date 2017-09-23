@@ -8,7 +8,7 @@ use Cmfcmf\OpenWeatherMap\Forecast;
 
 class WeatherHandler extends EspinosoCommandHandler
 {
-    protected $allow_ignore_prefix = true;
+    protected $ignorePrefix = true;
     protected $pattern = "(\b(clima)\b)\s+(?'p'(este|el)\s+)?(?'day'(lunes|martes|mi(e|é)rcoles|jueves|viernes|s(a|á)bado|domingo))$";
 
     protected $signature   = "[espi] clima este lunez|martes|...";

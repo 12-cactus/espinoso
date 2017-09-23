@@ -4,7 +4,7 @@ use Telegram\Bot\Objects\Message;
 
 class GoogleStaticMapsHandler extends EspinosoCommandHandler
 {
-    protected $allow_ignore_prefix = true;
+    protected $ignorePrefix = true;
 
     /**
      * gsm [param] address
