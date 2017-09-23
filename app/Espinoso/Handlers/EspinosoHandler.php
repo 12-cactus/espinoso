@@ -63,18 +63,9 @@ abstract class EspinosoHandler
         Log::error($message);
         Log::error($e);
 
-        $chat = $message->getChat();
-        $username = $chat->getUsername() ? " (@{$chat->getUsername()})" : "";
-        $fromUser = $chat->getFirstName() . $username;
-
-        // chat could be private, group, supergroup or channel
-        $fromChat = $chat->getType() == 'private' ? $fromUser : $chat->getTitle();
-
-        $error = "Fuck! Something blow up on {$clazz}
- - `{$e->getMessage()}`
- - *From:* {$fromUser}
- - *Chat:* {$fromChat}
- - *Text:* _{$message->getText()}_
+        $error = "Fuck! Something blow up on `{$clazz}`:
+- _{$e->getMessage()}_
+- *Text:* {$message->getText()}
 
 View Log for details";
 
