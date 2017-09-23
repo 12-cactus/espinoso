@@ -76,5 +76,4 @@ class BrainHandler extends EspinosoHandler
     {
         return collect(config('brain.ignore_to'));
     }
-    
 }

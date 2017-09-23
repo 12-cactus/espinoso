@@ -148,5 +148,4 @@ class Espinoso
 //        $user->username   = $from->username ?? '';
 //        $user->save();
 //    }
-
 }

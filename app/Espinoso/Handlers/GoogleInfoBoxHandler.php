@@ -32,17 +32,13 @@ class GoogleInfoBoxHandler extends EspinosoCommandHandler
 
         $text = trim($content->implode("\n"));
         $text = empty($text)
-            ? "Uhhh... no hay un carajo!!\nO buscaste como el orto o estoy haciendo cualquiera!" // FIXME lang!
+            ? trans('messages.search.empty')
             : $text;
 
         $this->espinoso->reply($text);
     }
 
     /**
-     * FIXME
-     * Content extracted should be more rich than plain.
-     * For example, it should keep links as Markdown.
-     *
      * @param string $query
      * @return mixed
      */
@@ -50,9 +46,10 @@ class GoogleInfoBoxHandler extends EspinosoCommandHandler
     {
         $crawler = GoutteClient::request('GET', config('espinoso.url.info') . $query);
         $block = $crawler->filter('#rhs_block');
-        
-        $message = $this->getText($block);
-        $message = array_filter($message, function ($text) { return !is_null($text); });
+
+        $message = array_filter($this->getText($block), function ($text) {
+            return !is_null($text);
+        });
 
         $result['message'] = implode("\n", $this->tuning($message));
         $result['images'] = $this->getImages($block);
@@ -61,27 +58,30 @@ class GoogleInfoBoxHandler extends EspinosoCommandHandler
 
     private function getText(Crawler $node)
     {
-        return $node->filter('._o0d')->each(function($div)
-        {
+        return $node->filter('._o0d')->each(function ($div) {
             $left = $right = "";
-            foreach ($this->keyValueSelectors() as $key => $value)
-            {
-                if (! is_null($key) && $div->filter($key)->count() > 0) 
+
+            foreach ($this->keyValueSelectors() as $key => $value) {
+                if (! is_null($key) && $div->filter($key)->count() > 0)
                     $left = $div->filter($key)->first()->text();
 
-                if ( ! is_null($value) && $div->filter($value)->count() > 0) 
+                if ( ! is_null($value) && $div->filter($value)->count() > 0)
                     $right = $div->filter($value)->first()->text();
             }
-            if (empty($left) && empty($right))
+
+            if (empty($left) && empty($right)) {
                 return null;
+            }
 
-            if (empty($left))
+            if (empty($left)) {
                 return $right;
+            }
 
-            if (empty($right))
-                return $left ; 
+            if (empty($right)) {
+                return $left;
+            }
             
-            return "$left: $right"; 
+            return "$left: $right";
         });
     }
 
@@ -95,7 +95,7 @@ class GoogleInfoBoxHandler extends EspinosoCommandHandler
 
     private function getImages(Crawler $node)
     {
-        return $node->filter('img')->each(function($tag) {
+        return $node->filter('img')->each(function ($tag) {
             return $tag->attr('src');
         });
     }
@@ -105,8 +105,8 @@ class GoogleInfoBoxHandler extends EspinosoCommandHandler
         return [
             '._B5d' => '._zdb',
             '.fl'   => '._Fng',
-            '._tXc' =>  null , 
-            '._gS'  => '._tA', 
+            '._tXc' =>  null,
+            '._gS'  => '._tA',
         ];
     }
 }

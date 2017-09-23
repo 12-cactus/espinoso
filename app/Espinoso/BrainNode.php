@@ -62,5 +62,4 @@ class BrainNode
 
         return $reply;
     }
-
 }
