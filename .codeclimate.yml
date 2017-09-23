@@ -12,6 +12,7 @@ engines:
   phpcodesniffer:
     enabled: true
     exclude_paths:
+    - "database/seeds/*"
     - "database/migrations/*"
 
   phpmd:
