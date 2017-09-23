@@ -7,7 +7,7 @@ class GifsHandler extends EspinosoCommandHandler
     /**
      * @var bool
      */
-    protected $allow_ignore_prefix = true;
+    protected $ignorePrefix = true;
     /**
      * @var string
      */

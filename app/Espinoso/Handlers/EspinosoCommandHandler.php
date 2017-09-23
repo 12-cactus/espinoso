@@ -13,7 +13,7 @@ abstract class EspinosoCommandHandler extends EspinosoHandler
      * If false, should match 'espi'
      * If true, could not match 'espi'
      */
-    protected $allow_ignore_prefix = false;
+    protected $ignorePrefix = false;
 
     /**
      * Default behavior to determine is Command handler should response the message.
@@ -38,7 +38,7 @@ abstract class EspinosoCommandHandler extends EspinosoHandler
      */
     protected function matchCommand($pattern, Message $message, array &$matches = null): bool
     {
-        $quantifier = $this->allow_ignore_prefix ? '{0,3}' : '{1,3}';
+        $quantifier = $this->ignorePrefix ? '{0,3}' : '{1,3}';
         $text = $message->getText();
         $pattern = "/{$this->prefix_regex}{$quantifier}{$pattern}/{$this->flags}";
 

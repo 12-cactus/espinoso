@@ -11,7 +11,7 @@ class GoogleInfoBoxHandler extends EspinosoCommandHandler
     /**
      * @var string
      */
-    protected $allow_ignore_prefix = true;
+    protected $ignorePrefix = true;
     /**
      * @var string
      */

@@ -7,7 +7,7 @@ class StickersHandler extends EspinosoCommandHandler
     /**
      * @var bool
      */
-    protected $allow_ignore_prefix = true;
+    protected $ignorePrefix = true;
     /**
      * FIXME load from some config
      * @var string

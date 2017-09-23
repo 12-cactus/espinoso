@@ -9,7 +9,7 @@ use Telegram\Bot\Objects\Message;
 
 class MemeHandler extends EspinosoCommandHandler
 {
-    protected $allow_ignore_prefix = true;
+    protected $ignorePrefix = true;
     protected $pattern = "(?'cmd'meme)\s+((?'src'[^\s]+))\s+(\"(?'top'[^\"]+)\")(\s+(\"(?'bottom'[^\"]+)\")?)?";
 
     protected $signature = "[espi] meme src top [bottom]";
