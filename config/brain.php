@@ -124,6 +124,10 @@ return [
         '/(dan.*tip)|(tip.*dan)/i' => [
             'reply' => 'dan, no quiero asustarte pero sin TIP no hay titulo.. hace el TIP MIERDA!',
         ],
+        
+        '/(pipi.*tip)|(tip.*pipi)/i' => [
+            'reply' => 'Y Pipi, cómo va el TIP? Seguís llorando como una nenita o ya solucionaste tus punteros?',
+        ],
 
         '/^(.)*(espi(noso)?)\s+(c(o|ó)mo)\s+(and(a|á)s|est(a|á)s)(\?)*$/i' => [
             'reply' => [
