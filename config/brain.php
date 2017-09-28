@@ -126,7 +126,7 @@ return [
         ],
         
         '/(pipi.*tip)|(tip.*pipi)/i' => [
-            'reply' => 'Y Pipi, cómo va el TIP? Seguís llorando como una nenita o ya solucionaste tus punteros?',
+            'reply' => 'Y Pipi, cómo va el TIP? Seguís llorando como una nenita? No la mandes a niñita, contestá vos pollerudo!',
         ],
 
         '/^(.)*(espi(noso)?)\s+(c(o|ó)mo)\s+(and(a|á)s|est(a|á)s)(\?)*$/i' => [
