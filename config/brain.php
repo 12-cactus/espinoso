@@ -45,7 +45,7 @@ return [
 
         '/\b(pipi)\b$/i' => [
             'reply' => [
-                'leche me salió con vos pipi, leche...',
+                'pipi te sermonea con smalltalk y hace su tip en c...',
             ],
         ],
 
