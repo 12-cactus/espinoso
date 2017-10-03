@@ -43,6 +43,13 @@ return [
             ]
         ],
 
+        '/\b(pipi)\b$/i' => [
+            'reply' => [
+                'leche me salió con vos pipi, leche...',
+            ],
+        ],
+
+
         '/\b(alan)\b$/i' => [
             'reply' => [
                 'Alan lo hace por dinero',
