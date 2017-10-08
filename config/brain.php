@@ -77,6 +77,14 @@ return [
             ],
         ],
 
+        '/\b(maru?)\b$/i' => [
+            'reply' => [
+                'Maru te ubica!', 
+                'Maru no anda con vueltas, te canta la posta te guste o no'
+            ],
+        ],
+
+
         '/(j+a+){5,}/i' => [
             'reply' => 'ajajajajajaja, que plato!',
         ],
