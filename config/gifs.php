@@ -22,6 +22,10 @@ return [
         [
             'pattern' => "\b(magic)\b",
             'video'   => 'magic.mp4'
+        ],
+        [
+            'pattern' => "\b(peola)\b",
+            'video'   => 'peola.mp4'
         ]
     ],
 ];
