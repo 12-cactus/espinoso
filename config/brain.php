@@ -176,7 +176,7 @@ return [
         ],
         
         '/^asadoodle$/i' => [
-            'reply' => "https://beta.doodle.com/poll/4gq3rtbmqcutw37g"
+            'reply' => "https://beta.doodle.com/poll/p92zv4vmii4gdpbm"
         ],
     ],
 ];
