@@ -8,17 +8,6 @@ class StickersHandler extends EspinosoCommandHandler
      * @var bool
      */
     protected $ignorePrefix = true;
-    /**
-     * FIXME load from some config
-     * @var string
-     */
-    protected $patterns = [
-        [
-            'user' => 'Facundo',
-            'pattern' => ".*\bmaybe\b.*",
-            'sticker' => 'CAADAgADiwUAAvoLtgh812FBxEdUAgI' // LazyPanda FIXME put on agnostic class
-        ]
-    ];
 
     protected $signature   = "[espi] maybe";
     protected $description = "solo funciona para facu... los demás a comerla";
@@ -33,8 +22,8 @@ class StickersHandler extends EspinosoCommandHandler
     {
         $this->message = $message;
 
-        $this->match = collect($this->patterns)->filter(function ($pattern) {
-            return $this->message->getFrom()->getFirstName() === $pattern['user']
+        $this->match = collect(config('stickers.patterns'))->filter(function ($pattern) {
+            return $this->message->getFrom()->getId() === $pattern['userId']
                 && $this->matchCommand($pattern['pattern'], $this->message);
         });
 
