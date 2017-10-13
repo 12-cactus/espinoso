@@ -32,7 +32,7 @@ return [
         ],
 
         '/\b(asado)\b$/i'  => [
-            'reply' => "{$emoji->meat} Hay que armar algo... Pero que sea tranca porque Maru anda flojita del hígado",
+            'reply' => "{$emoji->meat} Definan fecha, giles!",
         ],
 
         '/^(o\s+)?no(,)?\s+(espi(noso)?)(\?)+$/i' => [
@@ -136,11 +136,11 @@ return [
             'reply' => 'no eh, cuidame la boquita.',
         ],
 
-        '/(dan.*tip)|(tip.*dan)/i' => [
+        '/(\bdan\b.*\btip\b)|(\btip\b.*\bdan\b)/i' => [
             'reply' => 'dan, no quiero asustarte pero sin TIP no hay titulo.. hace el TIP MIERDA!',
         ],
-        
-        '/(pipi.*tip)|(tip.*pipi)/i' => [
+
+        '/(\bpipi\b.*\btip\b)|(\btip\b.*\bpipi\b)/i' => [
             'reply' => 'Y Pipi, cómo va el TIP? Seguís llorando como una nenita? No la mandes a niñita, contestá vos pollerudo!',
         ],
 
