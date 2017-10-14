@@ -13,11 +13,11 @@ class StickersHandlerTest extends HandlersTestCase
         $handler = $this->makeHandler();
         $updates = [
             $this->makeMessage([
-                'from' => ['first_name' => 'Facundo'],
+                'from' => ['id'=> 350079781,'first_name' => 'Facundo'],
                 'text' => 'espi maybe']
             ),
             $this->makeMessage([
-                'from' => ['first_name' => 'Facundo'],
+                'from' => ['id'=> 350079781,'first_name' => 'Facundo'],
                 'text' => 'maybe']
             ),
         ];
@@ -37,11 +37,11 @@ class StickersHandlerTest extends HandlersTestCase
         $handler = $this->makeHandler();
         $updates = [
             $this->makeMessage([
-                    'from' => ['first_name' => 'Dan'],
+                    'from' => ['id'=> 000000000,'first_name' => 'Dan'],
                     'text' => 'espi maybe']
             ),
             $this->makeMessage([
-                    'from' => ['first_name' => 'Facundo'],
+                    'from' => ['id'=> 350079781,'first_name' => 'Facundo'],
                     'text' => 'espimaybe']
             ),
         ];
@@ -65,7 +65,7 @@ class StickersHandlerTest extends HandlersTestCase
         $handler = $this->makeHandler();
         $update = $this->makeMessage([
             'chat' => ['id' => 123],
-            'from' => ['first_name' => 'Facundo'],
+            'from' => ['id'=> 350079781,'first_name' => 'Facundo'],
             'text' => 'espi maybe'
         ]);
 
