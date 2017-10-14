@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/Argentina/Buenos_Aires',
 
     /*
     |--------------------------------------------------------------------------
@@ -178,9 +178,13 @@ return [
         App\Providers\RouteServiceProvider::class,
 
 
+        /*
+         * Vendor's Service Providers
+         */
         Telegram\Bot\Laravel\TelegramServiceProvider::class,
         Gmopx\LaravelOWM\LaravelOWMServiceProvider::class,
-        Intervention\Image\ImageServiceProvider::class
+        Intervention\Image\ImageServiceProvider::class,
+        Unisharp\Setting\SettingServiceProvider::class,
     ],
 
     /*
@@ -231,7 +235,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Telegram'  => Telegram\Bot\Laravel\Facades\Telegram::class,
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Setting' => Unisharp\Setting\SettingFacade::class,
     ],
 
 ];

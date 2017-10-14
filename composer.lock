@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9e6e5d8ddcf104d9b4ed25884a40104d",
+    "content-hash": "6cc58d91e5c3d3c0eabee9f22301b404",
     "packages": [
         {
             "name": "cmfcmf/openweathermap-php-api",
@@ -2533,6 +2533,60 @@
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
             "time": "2016-09-20T12:50:39+00:00"
+        },
+        {
+            "name": "unisharp/laravel-settings",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/UniSharp/laravel-settings.git",
+                "reference": "83f93779200c1208034babdb9cbfb7e73c85dc5c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/UniSharp/laravel-settings/zipball/83f93779200c1208034babdb9cbfb7e73c85dc5c",
+                "reference": "83f93779200c1208034babdb9cbfb7e73c85dc5c",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/cache": ">=5.0.0",
+                "illuminate/database": ">=5.0.0",
+                "illuminate/support": ">=5.0.0",
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9.9",
+                "phpunit/php-code-coverage": "^5.2",
+                "phpunit/phpunit": "^6.1"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/migrations"
+                ],
+                "psr-4": {
+                    "Unisharp\\Setting\\": "src/Setting/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Unisharp Ltd.",
+                    "email": "service@unisharp.com"
+                }
+            ],
+            "description": "Persistent settings manager for laravel, translations are supported.",
+            "keywords": [
+                "Settings",
+                "key-value",
+                "laravel",
+                "persistent",
+                "storage"
+            ],
+            "time": "2017-06-23T08:14:46+00:00"
         },
         {
             "name": "vinkla/instagram",
