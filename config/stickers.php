@@ -8,9 +8,10 @@ return [
             'pattern' => ".*\bmaybe\b.*",
             'sticker' => 'CAADAgADiwUAAvoLtgh812FBxEdUAgI' // LazyPanda FIXME put on agnostic class
         ],
-  /*      [
-        'pattern' => "(\bpint\w.*el perro\b)",
-        'sticker' => 'perro.jpg'
+        [
+            'userId' => 305359996,
+            'pattern' => ".*\bminion\w.*",
+            'sticker' => 'CAADAgADcQAD9XK2AdjRDFXRsyGKAg'
         ],
-*/    ],
+   ],
 ];
