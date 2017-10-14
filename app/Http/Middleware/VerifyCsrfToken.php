@@ -15,6 +15,6 @@ class VerifyCsrfToken extends BaseVerifier
         '/handle-update',
         '/set-webhook',
         '/get-updates',
-        '/github-webhook'
+        '/webhooks/github/commits'
     ];
 }

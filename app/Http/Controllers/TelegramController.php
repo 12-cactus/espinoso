@@ -1,6 +1,5 @@
 <?php namespace App\Http\Controllers;
 
-use GuzzleHttp\Client;
 use App\Espinoso\Espinoso;
 use Telegram\Bot\Objects\Message;
 use Telegram\Bot\TelegramResponse;
@@ -45,31 +44,6 @@ class TelegramController extends Controller
     public function setWebhook(ApiTelegram $telegram)
     {
         return $telegram->setWebhook(['url' => secure_url('handle-update')]);
-    }
-
-    /**
-     * This method is a hook for github to catch & handle last commit.
-     *
-     * @param ApiTelegram $telegram
-     */
-    public function githubWebhook(ApiTelegram $telegram)
-    {
-        // FIXME get & send branch of commit
-        $client = new Client;
-        $response = $client->get('https://api.github.com/repos/12-cactus/espinoso/events')->getBody()->getContents();
-        $response = json_decode($response);
-        $commit = $response[0]->payload->commits[0];
-        $link = "https://github.com/12-cactus/espinoso/commit/{$commit->sha}";
-        $nombre = explode(' ', $commit->author->name)[0];
-
-        $message = "De nuevo el pelotudo de `$nombre` commiteando giladas, mirá lo que hizo esta vez:_{$commit->message}_
-[View Commit]({$link})";
-
-        $telegram->sendMessage([
-            'chat_id' => config('espinoso.chat.dev'),
-            'text'    => $message,
-            'parse_mode' => 'Markdown',
-        ]);
     }
 
     /*

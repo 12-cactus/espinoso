@@ -17,6 +17,7 @@
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
         "spatie/emoji": "^1.0",
+        "unisharp/laravel-settings": "^2.0",
         "vinkla/instagram": "^6.0"
     },
     "require-dev": {
