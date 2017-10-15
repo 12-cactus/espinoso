@@ -23,6 +23,7 @@ class GitHubController extends Controller
         $lastEvent = Setting::get('github_last_event');
         $response = GuzzleClient::get(config('github.events'))->getBody()->getContents();
 
+        publish($response, 'log.json');
         collect(json_decode($response))
             ->filter($this->newestPushes($lastEvent))
             ->sortBy($this->creation())
