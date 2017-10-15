@@ -53,8 +53,7 @@ return [
         '/\b(alan)\b$/i' => [
             'reply' => [
                 'Alan lo hace por dinero',
-                'acaso dijiste $$$ oriented programming?',
-                'no hagan calentar a Alan, que no está en condiciones de manosearse'
+                'acaso dijiste $$$ oriented programming?'
             ],
         ],
 
