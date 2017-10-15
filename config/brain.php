@@ -73,7 +73,8 @@ return [
         '/\b(ines?)\b$/i' => [
             'reply' => [
                 'esa Ines esa una babosa, siempre mirando abs',
-                'Ine es una niñita sensible e inocente!', 'Ine te deja sin pilas'
+                'Ine es una niñita sensible e inocente!',
+                'Ine te deja sin pilas'
             ],
         ],
 
