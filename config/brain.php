@@ -32,7 +32,7 @@ return [
         ],
 
         '/\b(asado)\b$/i'  => [
-            'reply' => "{$emoji->meat} Hay que armar algo... Pero que sea tranca porque Maru anda flojita del hígado",
+            'reply' => "{$emoji->meat} tirate un asadoodle para ver que onda",
         ],
 
         '/^(o\s+)?no(,)?\s+(espi(noso)?)(\?)+$/i' => [
