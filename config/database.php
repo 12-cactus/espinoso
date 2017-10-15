@@ -2,11 +2,14 @@
 
 // This config is for heroku postgres database
 // DO NOT DELETE
-$url = parse_url(getenv("DATABASE_URL"));
-$host = $url["host"];
-$username = $url["user"];
-$password = $url["pass"];
-$database = substr($url["path"], 1);
+$url = $host = $username = $password = $database = null;
+if (env('APP_ENV') === 'production') {
+    $url = parse_url(getenv("DATABASE_URL"));
+    $host = $url["host"];
+    $username = $url["user"];
+    $password = $url["pass"];
+    $database = substr($url["path"], 1);
+}
 
 return [
 
