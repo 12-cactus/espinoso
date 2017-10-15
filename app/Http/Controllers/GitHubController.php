@@ -22,7 +22,7 @@ class GitHubController extends Controller
         $espinoso->setDelivery($telegram);
         $lastEvent = Setting::get('github_last_event');
         $response = GuzzleClient::get(config('github.events'))->getBody()->getContents();
-
+        dump($response);
         logger($response);
         collect(json_decode($response))
             ->filter($this->newestPushes($lastEvent))
