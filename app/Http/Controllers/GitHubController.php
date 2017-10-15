@@ -21,7 +21,9 @@ class GitHubController extends Controller
     {
         $espinoso->setDelivery($telegram);
         $lastEvent = Setting::get('github_last_event');
-        $response = GuzzleClient::get(config('github.events'))->getBody()->getContents();
+        $response = GuzzleClient::get(config('github.events'), [
+            'auth' => [config('github.username'), config('github.token')]
+        ])->getBody()->getContents();
         dump($response);
         logger($response);
         collect(json_decode($response))
