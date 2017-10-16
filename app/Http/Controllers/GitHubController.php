@@ -1,16 +1,19 @@
 <?php namespace App\Http\Controllers;
 
+use Closure;
 use Carbon\Carbon;
 use Spatie\Emoji\Emoji;
 use App\Espinoso\Espinoso;
 use App\Facades\GuzzleClient;
-use Telegram\Bot\Objects\Message;
 use Telegram\Bot\Api as ApiTelegram;
 use Unisharp\Setting\SettingFacade as Setting;
 use App\Espinoso\DeliveryServices\TelegramDelivery;
 
 class GitHubController extends Controller
 {
+    const SHA_LIMIT = 7;
+    protected $allowedEvents = ['PushEvent'];
+
     /**
      * This method is a hook for github to catch & handle last commit.
      *
@@ -20,14 +23,12 @@ class GitHubController extends Controller
     public function commitsWebhook(TelegramDelivery $telegram, Espinoso $espinoso)
     {
         $espinoso->setDelivery($telegram);
-        $lastEvent = Setting::get('github_last_event');
         $response = GuzzleClient::get(config('github.events'), [
             'auth' => [config('github.username'), config('github.token')]
         ])->getBody()->getContents();
-        dump($response);
-        logger($response);
+
         collect(json_decode($response))
-            ->filter($this->newestPushes($lastEvent))
+            ->filter($this->newest())
             ->sortBy($this->creation())
             ->each($this->sendMessage($espinoso));
     }
@@ -37,60 +38,22 @@ class GitHubController extends Controller
      */
 
     /**
-     * @param mixed $message
-     * @return bool
+     * @return Closure
      */
-    protected function isTextMessage($message): bool
+    protected function newest(): Closure
     {
-        return $message !== null && $message->has('text');
-    }
+        return function ($event) {
+            $lastEvent = Setting::get('github_last_event');
 
-    /**
-     * @param mixed $message
-     * @return bool
-     */
-    protected function isNotTextMessage($message): bool
-    {
-        return !$this->isTextMessage($message);
-    }
-
-    /**
-     * @param string $text
-     * @return string
-     */
-    protected function parseCommand(string $text)
-    {
-        preg_match('/^\/([^\s@]+)@?(\S+)?\s?(.*)$/', $text, $matches);
-
-        return isset($matches[1]) ? trim($matches[1]) : '';
-    }
-
-    /**
-     * @param string $command
-     * @param Message $message
-     * @return string
-     */
-    protected function parseCommandAsKeyword(string $command, Message $message): string
-    {
-        return str_replace("/{$command}", "espi {$command}", $message->getText());
-    }
-
-    /**
-     * @param $lastEvent
-     * @return \Closure
-     */
-    protected function newestPushes($lastEvent): \Closure
-    {
-        return function ($event) use ($lastEvent) {
-            return Carbon::parse($event->created_at) > Carbon::parse($lastEvent)
-                && $event->type === 'PushEvent';
+            return in_array($event->type, $this->allowedEvents)
+                && Carbon::parse($event->created_at) > Carbon::parse($lastEvent);
         };
     }
 
     /**
-     * @return \Closure
+     * @return Closure
      */
-    protected function creation(): \Closure
+    protected function creation(): Closure
     {
         return function ($event) {
             return Carbon::parse($event->created_at);
@@ -99,9 +62,9 @@ class GitHubController extends Controller
 
     /**
      * @param Espinoso $espinoso
-     * @return \Closure
+     * @return Closure
      */
-    protected function sendMessage(Espinoso $espinoso): \Closure
+    protected function sendMessage(Espinoso $espinoso): Closure
     {
         return function ($event) use ($espinoso) {
             $emoji1 = Emoji::cactus();
@@ -111,8 +74,8 @@ class GitHubController extends Controller
 
             $commits = collect($event->payload->commits)->map(function ($commit) use ($event) {
                 $link = config('github.url.commit') . $commit->sha;
-                $sha = str_limit($commit->sha, 7, '');
-                return "[Commit {$sha}]({$link}) _{$commit->message}_";
+                $sha  = str_limit($commit->sha, self::SHA_LIMIT, '');
+                return "[{$sha}]({$link}) _{$commit->message}_";
             })->implode("\n");
 
             $espinoso->sendMessage(
