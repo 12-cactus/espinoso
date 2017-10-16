@@ -53,8 +53,7 @@ return [
         '/\b(alan)\b$/i' => [
             'reply' => [
                 'Alan lo hace por dinero',
-                'acaso dijiste $$$ oriented programming?',
-                'no hagan calentar a Alan, que no está en condiciones de manosearse'
+                'acaso dijiste $$$ oriented programming?'
             ],
         ],
 
@@ -73,7 +72,8 @@ return [
         '/\b(ines?)\b$/i' => [
             'reply' => [
                 'esa Ines esa una babosa, siempre mirando abs',
-                'Ine es una niñita sensible e inocente!', 'Ine te deja sin pilas'
+                'Ine es una niñita sensible e inocente!',
+                'Ine te deja sin pilas'
             ],
         ],
 
