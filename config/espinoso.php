@@ -16,6 +16,8 @@ return [
         App\Espinoso\Handlers\GoogleInfoBoxHandler::class,
         App\Espinoso\Handlers\StickersHandler::class,
         App\Espinoso\Handlers\GifsHandler::class,
+        //App\Espinoso\Handlers\ListIssuesHandler::class,
+        App\Espinoso\Handlers\TraductorHandler::class,
         //App\Espinoso\Handlers\MemeHandler::class,
     ],
 
@@ -33,5 +35,6 @@ return [
         'cinema' => 'http://www.hoyts.com.ar/ajaxCartelera.aspx?filter=Home&cine=&premium=False&_=1493929858090',
         'map'    => 'https://maps.googleapis.com/maps/api/staticmap',
         'holidays' => 'http://www.elproximoferiado.com/',
+        'traductor' => 'http://translate.google.cn/translate_a/single',
     ]
 ];

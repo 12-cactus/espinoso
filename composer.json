@@ -18,7 +18,8 @@
         "laravel/tinker": "~1.0",
         "spatie/emoji": "^1.0",
         "unisharp/laravel-settings": "^2.0",
-        "vinkla/instagram": "^6.0"
+        "vinkla/instagram": "^6.0",
+        "stichoza/google-translate-php": "~3.2"
     },
     "require-dev": {
         "codeclimate/php-test-reporter": "dev-master",
