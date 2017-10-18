@@ -1,8 +1,6 @@
 <?php namespace App\Facades;
 
-use Stichoza\GoogleTranslate\TranslateClient;
 use Illuminate\Support\Facades\Facade;
-
 
 class TranslateGClient extends Facade
 {
