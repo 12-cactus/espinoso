@@ -9,4 +9,4 @@ Route::post('/handle-update', ['uses' => 'TelegramController@handleUpdates']);
 
 Route::post('/set-webhook', ['uses' => 'TelegramController@setWebhook']);
 
-Route::post('/github-webhook', ['uses' => 'TelegramController@githubWebhook']);
+Route::post('/webhooks/github/commits', ['uses' => 'GitHubController@commitsWebhook']);
