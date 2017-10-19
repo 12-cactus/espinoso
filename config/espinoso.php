@@ -17,7 +17,7 @@ return [
         App\Espinoso\Handlers\StickersHandler::class,
         App\Espinoso\Handlers\GifsHandler::class,
         //App\Espinoso\Handlers\ListIssuesHandler::class,
-        App\Espinoso\Handlers\TraductorHandler::class,
+        App\Espinoso\Handlers\TranslationHandler::class,
         //App\Espinoso\Handlers\MemeHandler::class,
     ],
 

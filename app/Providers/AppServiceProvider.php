@@ -6,6 +6,7 @@ use App\Espinoso\DeliveryServices\TelegramDelivery;
 use Imdb\Config;
 use Imdb\TitleSearch;
 use App\Espinoso\Espinoso;
+use Stichoza\GoogleTranslate\TranslateClient;
 use Telegram\Bot\Api;
 use Vinkla\Instagram\Instagram;
 use Gmopx\LaravelOWM\LaravelOWM;
@@ -67,6 +68,12 @@ class AppServiceProvider extends ServiceProvider
             $config = new Config;
             $config->language = 'es-AR,es,en';
             return new TitleSearch($config);
+        });
+
+        $this->app->bind('Translator', function () {
+            $translator = new TranslateClient(null, 'es');
+            $translator->setUrlBase(config('espinoso.url.traductor'));
+            return $translator;
         });
     }
 }

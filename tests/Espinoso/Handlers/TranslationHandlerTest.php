@@ -1,8 +1,9 @@
 <?php namespace Tests\Espinoso\Handlers;
 
-use App\Espinoso\Handlers\TraductorHandler;
+use App\Espinoso\Handlers\TranslationHandler;
+use App\Facades\Translator;
 
-class TraductorHandlerTest extends HandlersTestCase
+class TranslationHandlerTest extends HandlersTestCase
 {
     /**
      * @test
@@ -11,7 +12,7 @@ class TraductorHandlerTest extends HandlersTestCase
     {
         // Arrange
         $handler = $this->makeHandler();
-        $update = $this->makeMessage(['text' => 'gt fuckyou']);
+        $update = $this->makeMessage(['text' => 'gt fuck you']);
 
         $this->assertTrue($handler->shouldHandle($update));
     }
@@ -40,24 +41,24 @@ class TraductorHandlerTest extends HandlersTestCase
      */
         public function it_handle_and_return_info()
         {
+            $query = 'the winter is coming';
+            $translation = "viene el invierno";
 
             $handler = $this->makeHandler();
-            $update = $this->makeMessage(['text' => 'gt the winter is comming']);
+            $update = $this->makeMessage(['text' => "gt {$query}"]);
 
-            $text = "El invierno esta llegando";
-            $this->espinoso->shouldReceive('reply')->once()->with($text);
+            Translator::shouldReceive('translate')->with($query)->andReturn($translation);
+            $this->espinoso->shouldReceive('reply')->once()->with($translation);
 
             $handler->shouldHandle($update);
             $handler->handle($update);
-
-            $this->assertTrue($handler->shouldHandle($update),'El invierno esta llegando');
         }
 
     /**
-     * @return TraductorHandler
+     * @return TranslationHandler
      */
-    protected function makeHandler(): TraductorHandler
+    protected function makeHandler(): TranslationHandler
     {
-        return new TraductorHandler($this->espinoso);
+        return new TranslationHandler($this->espinoso);
     }
 }
