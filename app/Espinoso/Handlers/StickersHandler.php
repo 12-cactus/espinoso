@@ -1,6 +1,7 @@
 <?php namespace App\Espinoso\Handlers;
 
 use Telegram\Bot\Objects\Message;
+use Illuminate\Support\Collection;
 
 class StickersHandler extends EspinosoCommandHandler
 {
@@ -11,10 +12,8 @@ class StickersHandler extends EspinosoCommandHandler
 
     protected $signature   = "[espi] maybe";
     protected $description = "solo funciona para facu... los demás a comerla";
-
-
     /**
-     * @var null
+     * @var Collection|null
      */
     protected $match = null;
 
