@@ -53,7 +53,7 @@ abstract class TestCase extends BaseTestCase
         $voice = [
             "duration" => 1,
             "mime_type" => "audio\/ogg",
-            "file_id" => "AwADAQADCQAD4buoR50l11XGeJaAAg",
+            "file_id" => env('TELEGRAM_TEST_VOICE_ID'),
             "file_size" => 12635
         ];
         $data = array_merge($message, ['voice' => $voice]);

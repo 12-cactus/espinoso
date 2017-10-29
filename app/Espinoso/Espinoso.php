@@ -146,7 +146,7 @@ class Espinoso
         Storage::put("{$file_id}.ogg", $stream->getContents());
         $fileIn  = storage_path("app/{$file_id}.ogg");
         $fileOut = storage_path("app/{$file_id}.wav");
-        @exec("ffmpeg -y -i {$fileIn} {$fileOut} 2> /dev/null");
+        @exec("ffmpeg -y -i {$fileIn} {$fileOut}");
         $audio = Storage::get("{$file_id}.wav");
         @exec("rm -f {$fileIn} 2> /dev/null");
         @exec("rm -f {$fileOut} 2> /dev/null");
