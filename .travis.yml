@@ -4,7 +4,9 @@ php:
   - 7.1
 
 before_install:
-  - sudo aptitude -y -q install ffmpeg
+  - sudo apt-add-repository ppa:mc3man/trusty-media
+  - sudo apt-get update
+  - sudo apt-get -y -q install ffmpeg
 
 before_script:
   - mv .env.travis .env
