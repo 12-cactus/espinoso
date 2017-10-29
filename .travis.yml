@@ -3,12 +3,14 @@ language: php
 php:
   - 7.1
 
+before_install:
+  - sudo aptitude -y -q install ffmpeg
+
 before_script:
   - mv .env.travis .env
   - composer self-update
   - composer install --no-interaction
   - php artisan key:generate
-  - sudo aptitude -y -q install ffmpeg
 
 script:
   - vendor/bin/phpunit
