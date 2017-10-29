@@ -1,6 +1,8 @@
 <?php namespace App\Espinoso\DeliveryServices;
 
+use Telegram\Bot\Objects\Voice;
 use Telegram\Bot\Objects\Message;
+use Psr\Http\Message\StreamInterface;
 
 /**
  * Interface EspinosoDeliveryInterface
@@ -30,4 +32,8 @@ interface EspinosoDeliveryInterface
     public function sendSticker(array $params = []): void;
 
     public function sendGif(array $params = []): void;
+
+    public function getFileUrl(array $params = []): string;
+
+    public function getVoiceStream(Voice $voice): StreamInterface;
 }

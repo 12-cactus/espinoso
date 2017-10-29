@@ -7,7 +7,6 @@ use Imdb\Config;
 use Imdb\TitleSearch;
 use App\Espinoso\Espinoso;
 use Stichoza\GoogleTranslate\TranslateClient;
-use Telegram\Bot\Api;
 use Vinkla\Instagram\Instagram;
 use Gmopx\LaravelOWM\LaravelOWM;
 use Goutte\Client as GoutteClient;

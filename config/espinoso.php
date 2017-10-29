@@ -36,5 +36,16 @@ return [
         'map'    => 'https://maps.googleapis.com/maps/api/staticmap',
         'holidays' => 'http://www.elproximoferiado.com/',
         'traductor' => 'http://translate.google.cn/translate_a/single',
+    ],
+
+    'voice' => [
+        'url' => 'https://api.wit.ai/speech',
+        'token' => env('VOICE_TOKEN', '123')
+    ],
+
+    'telegram' => [
+        'url' => [
+            'file' => 'https://api.telegram.org/file/bot'.env('TELEGRAM_BOT_TOKEN').'/'
+        ]
     ]
 ];

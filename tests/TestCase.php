@@ -39,4 +39,25 @@ abstract class TestCase extends BaseTestCase
 
         return new Message($data);
     }
+
+    public function makeAudioMessage(array $params = []): Message
+    {
+        // FIXME
+        // rename makeMessage as makeTextMessage
+        // put common message in a common method
+        // add :voice => $data here
+        // and add :text => $data en makeTextMessage
+        $message = $this->makeMessage($params);
+        $message->forget('text');
+        $message = $message->toArray();
+        $voice = [
+            "duration" => 1,
+            "mime_type" => "audio\/ogg",
+            "file_id" => "AwADAQADCQAD4buoR50l11XGeJaAAg",
+            "file_size" => 12635
+        ];
+        $data = array_merge($message, ['voice' => $voice]);
+
+        return new Message($data);
+    }
 }
