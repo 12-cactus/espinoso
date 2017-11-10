@@ -98,30 +98,7 @@ class WeatherHandler extends EspinosoCommandHandler
 
     protected function getCronicaTitleForForecast(Forecast $forecast)
     {
-        $titles = [
-            2 =>    "Cuidado con el rayo que te parte al medio!",
-            3 =>    "Atento el que quiere ver gotas!",
-            5 =>    "Lindo día para ponerla!",
-            8 =>    "",
-            800 =>  "Se vienen las tanguitas!",
-            801 =>  "", // few clouds
-            802 =>  "", // scattered clouds
-            803 =>  "", // broken clouds
-            804 =>  "", // overcast clouds
-            9 =>    "Guarda que se te vuela la peluca!",
-            951 => "" , // calm
-            952 => "" , // light breeze
-            953 => "" , // gentle breeze
-            954 => "" , // moderate breeze
-            955 => "" , // fresh breeze
-            956 => "" , // strong breeze
-            957 => "" , // high wind, near gale
-            958 => "" , // gale
-            959 => "" , // severe gale
-            960 => "" , // storm
-            961 => "" , // violent storm
-            962 => "" , // hurricane 
-        ];
+        $titles = $this->cronicalTitlesMapping();
 
         $code = (int)$forecast->weather->id;
         if (!array_key_exists($code, $titles))
@@ -131,5 +108,37 @@ class WeatherHandler extends EspinosoCommandHandler
             return "";
 
         return $titles[$code];
+    }
+
+    /**
+     * @return array
+     */
+    protected function cronicalTitlesMapping(): array
+    {
+        $titles = [
+            2 => "Cuidado con el rayo que te parte al medio!",
+            3 => "Atento el que quiere ver gotas!",
+            5 => "Lindo dia para ponerla!",
+            8 => "",
+            800 => "Se vienen las tanguitas!",
+            801 => "", // few clouds
+            802 => "", // scattered clouds
+            803 => "", // broken clouds
+            804 => "", // overcast clouds
+            9 => "Guarda que se te vuela la peluca!",
+            951 => "", // calm
+            952 => "", // light breeze
+            953 => "", // gentle breeze
+            954 => "", // moderate breeze
+            955 => "", // fresh breeze
+            956 => "", // strong breeze
+            957 => "", // high wind, near gale
+            958 => "", // gale
+            959 => "", // severe gale
+            960 => "", // storm
+            961 => "", // violent storm
+            962 => "", // hurricane
+        ];
+        return $titles;
     }
 }
