@@ -95,6 +95,7 @@ class WeatherHandlerTest extends HandlersTestCase
         $forecast->time = $time;
         $forecast->temperature = $temperature;
         $forecast->weather = $weather;
+        $forecast->id = 800;
 
         WeatherSearch::shouldReceive('getWeatherForecast')
             ->withArgs(['Quilmes, AR', "es", "metric", 10, ''])
