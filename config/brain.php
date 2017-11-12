@@ -89,6 +89,11 @@ return [
             ],
         ],
 
+        '/\b(agus?)\b$/i' => [
+            'reply' => [
+                'Agus careta!, anarquista con osde'
+            ],
+        ],
 
         '/(j+a+){5,}/i' => [
             'reply' => 'ajajajajajaja, que plato!',
@@ -182,6 +187,12 @@ return [
         
         '/^asadoodle$/i' => [
             'reply' => "https://beta.doodle.com/poll/p92zv4vmii4gdpbm"
+        ],
+
+        '/infobae/i' => [
+            'reply' => [
+                'Deja de leer infobae, pelotud@!'
+            ],
         ],
     ],
 ];
