@@ -32,12 +32,7 @@ return [
         ],
 
         '/\b(asado)\b$/i'  => [
-            'reply' => "{$emoji->meat} Cena sab 21/10 en lo de Maru :
-- Niñita/Pipi/Dan --> picada
-- Dan   --> vinito (NO crespi !!)
-- Resto --> bebidas
-- Maru --> canelores y tuco
-- pan   --> ???",
+            'reply' => "{$emoji->meat} La proxima en lo de Agus y su pileta",
         ],
 
         '/^(o\s+)?no(,)?\s+(espi(noso)?)(\?)+$/i' => [
