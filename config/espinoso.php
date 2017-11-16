@@ -3,6 +3,7 @@
 return [
 
     'handlers' => [
+        App\Espinoso\Handlers\StartCommandHandler::class,
         App\Espinoso\Handlers\HelpHandler::class,
         App\Espinoso\Handlers\GitHubHandler::class,
         App\Espinoso\Handlers\CinemaHandler::class,
