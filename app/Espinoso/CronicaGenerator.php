@@ -22,7 +22,7 @@ class CronicaGenerator
 
         $urlRedirect = $status['redirect_url'];
         preg_match("#http://placasrojas.me/ver/(?'id'[^/]*)/#", $urlRedirect, $matches);
-        $id = $matches['id'];
+        $id = $matches['id'] ?? null;
         return $urlMeme = "http://placasrojas.me/placa2G.php?idC=" . $id ;
     }
 
