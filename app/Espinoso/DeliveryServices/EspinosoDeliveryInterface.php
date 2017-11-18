@@ -1,5 +1,6 @@
 <?php namespace App\Espinoso\DeliveryServices;
 
+use Telegram\Bot\Objects\Chat;
 use Telegram\Bot\Objects\Message;
 
 /**
@@ -29,5 +30,16 @@ interface EspinosoDeliveryInterface
      */
     public function sendSticker(array $params = []): void;
 
+    /**
+     * @param array $params
+     */
     public function sendGif(array $params = []): void;
+
+    /**
+     * Register chat and return true if new
+     *
+     * @param Chat $chat
+     * @return bool
+     */
+    public function registerChat(Chat $chat): bool;
 }

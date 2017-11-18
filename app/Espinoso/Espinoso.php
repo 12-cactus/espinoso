@@ -1,6 +1,5 @@
 <?php namespace App\Espinoso;
 
-use App\Model\TelegramChat;
 use Exception;
 use Telegram\Bot\Objects\Chat;
 use Telegram\Bot\Objects\Message;
@@ -136,38 +135,11 @@ class Espinoso
     }
 
     /**
-     * Register chat and return true if new.
-     *
      * @param Chat $chat
      * @return bool
      */
     public function registerChat(Chat $chat)
     {
-        $isNew = empty(TelegramChat::find($chat->getId()));
-        TelegramChat::updateOrCreate([
-            'id' => $chat->getId(),
-            'first_name' => $chat->getFirstName(),
-            'last_name' => $chat->getLastName(),
-            'username' => $chat->getUsername(),
-            'type' => $chat->getType(),
-        ]);
-
-        return $isNew;
+        return $this->delivery->registerChat($chat);
     }
-
-//    public function register(stdClass $update)
-//    {
-//        $from = $update->message->from;
-//
-//        $user = TelegramUser::whereTelegramId($from->id)->first();
-//        if (!$user) {
-//            $user = new TelegramUser;
-//            $user->telegram_id = $from->id;
-//        }
-//
-//        $user->first_name  = $from->first_name ?? '';
-//        $user->last_name   = $from->last_name ?? '';
-//        $user->username   = $from->username ?? '';
-//        $user->save();
-//    }
 }
