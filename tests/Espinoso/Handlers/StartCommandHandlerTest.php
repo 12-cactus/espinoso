@@ -49,7 +49,7 @@ class StartCommandHandlerTest extends HandlersTestCase
     /**
      * @test
      */
-    public function when_handle_a_new_chat_it_reply()
+    public function it_should_reply_with_a_welcome_message_when_new_private_chat_is_started()
     {
         // Assert
         $update = $this->makeMessage(['text' => 'start']);
@@ -71,6 +71,34 @@ class StartCommandHandlerTest extends HandlersTestCase
         $handler->shouldHandle($update);
         $handler->handle();
     }
+
+    /**
+     * @test
+     */
+    public function it_should_reply_with_a_common_message_when_message_is_start_again()
+    {
+        // Assert
+        $update = $this->makeMessage(['text' => 'start']);
+        $replyText = trans('messages.chat.new-again');
+
+        // Mocking
+        $this->espinoso
+            ->shouldReceive('registerChat')
+            ->once()
+            ->with(Mockery::type(Chat::class))
+            ->andReturn(false);
+        $this->espinoso
+            ->shouldReceive('reply')
+            ->once()
+            ->with($replyText);
+
+        // Act
+        $handler = $this->makeHandlerWith($this->espinoso);
+        $handler->shouldHandle($update);
+        $handler->handle();
+    }
+
+
 
     /**
      * @param Espinoso $espinoso
