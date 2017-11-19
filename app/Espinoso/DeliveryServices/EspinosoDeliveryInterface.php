@@ -1,7 +1,8 @@
 <?php namespace App\Espinoso\DeliveryServices;
 
 use Telegram\Bot\Objects\Chat;
-use Telegram\Bot\Objects\Message;
+use Telegram\Bot\Objects\Update;
+use Telegram\Bot\Objects\User as UserObject;
 
 /**
  * Interface EspinosoDeliveryInterface
@@ -10,9 +11,15 @@ use Telegram\Bot\Objects\Message;
 interface EspinosoDeliveryInterface
 {
     /**
-     * @return Message
+     * @param UserObject $user
+     * @return bool
      */
-    public function getMessage(): Message;
+    public function isMe(UserObject $user): bool;
+
+    /**
+     * @return Update
+     */
+    public function getUpdate(): Update;
 
     /**
      * @param array $params
@@ -42,4 +49,17 @@ interface EspinosoDeliveryInterface
      * @return bool
      */
     public function registerChat(Chat $chat): bool;
+
+    /**
+     * Delete chat
+     *
+     * @param Chat $chat
+     */
+    public function deleteChat(Chat $chat): void;
+
+    /**
+     * @param Chat $chat
+     * @return bool
+     */
+    public function hasRegisteredChat(Chat $chat): bool;
 }

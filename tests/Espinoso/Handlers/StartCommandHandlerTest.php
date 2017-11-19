@@ -19,6 +19,7 @@ class StartCommandHandlerTest extends HandlersTestCase
         $updates = [
             $this->makeMessage(['text' => 'start']),
             $this->makeMessage(['text' => 'start    ']),
+            $this->makeMessage(['text' => 'start@espi']),
         ];
 
         // Act & Assert

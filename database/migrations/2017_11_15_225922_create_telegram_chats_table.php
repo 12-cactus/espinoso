@@ -25,7 +25,6 @@ class CreateTelegramChatsTable extends Migration
             $table->string('photo')->nullable();
             $table->string('description')->nullable();
             $table->timestamps();
-            $table->softDeletes();
 
             $table->primary('id');
         });

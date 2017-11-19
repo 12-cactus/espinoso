@@ -2,8 +2,9 @@
 
 use App\Model\TelegramChat;
 use Telegram\Bot\Objects\Chat;
-use Telegram\Bot\Objects\Message;
 use Telegram\Bot\Api as ApiTelegram;
+use Telegram\Bot\Objects\Update;
+use Telegram\Bot\Objects\User as UserObject;
 
 /**
  * Class TelegramDelivery
@@ -26,15 +27,17 @@ class TelegramDelivery implements EspinosoDeliveryInterface
     }
 
     /**
-     * @return Message
+     * @return Update
      */
-    public function getMessage(): Message
+    public function getUpdate(): Update
     {
         $update = $this->telegram->getWebhookUpdates();
         logger($update);
 
-        return $update->getMessage() ?? new Message($update['edited_message']);
+        return $update;
     }
+
+
 
     /**
      * @param array $params
@@ -73,16 +76,54 @@ class TelegramDelivery implements EspinosoDeliveryInterface
      */
     public function registerChat(Chat $chat): bool
     {
-        $isNew = empty(TelegramChat::find($chat->getId()));
+        /** @var TelegramChat $telegramChat */
+        $telegramChat = TelegramChat::find($chat->getId());
+        $isNew = empty($telegramChat);
 
-        TelegramChat::updateOrCreate([
-            'id' => $chat->getId(),
-            'first_name' => $chat->getFirstName(),
-            'last_name' => $chat->getLastName(),
-            'username' => $chat->getUsername(),
-            'type' => $chat->getType(),
-        ]);
+        $telegramChat = $telegramChat ?? new TelegramChat;
+        $telegramChat->id = $chat->getId();
+        $telegramChat->type = $chat->getType();
+        $telegramChat->title = $chat->getTitle();
+        $telegramChat->username = $chat->getUsername();
+        $telegramChat->first_name = $chat->getFirstName();
+        $telegramChat->last_name = $chat->getLastName();
+        $telegramChat->all_members_are_administrators = boolval($chat->get("all_members_are_administrators"));
+        $telegramChat->photo = $chat->get("photo")->big_file_id ?? "";
+        $telegramChat->description = $chat->get('description');
+        $telegramChat->save();
 
         return $isNew;
+    }
+
+    /**
+     * Delete chat
+     *
+     * @param Chat $chat
+     */
+    public function deleteChat(Chat $chat): void
+    {
+        $chat = TelegramChat::find($chat->getId());
+        if (!empty($chat)) {
+            $chat->delete();
+        }
+    }
+
+    /**
+     * @param UserObject $user
+     * @return bool
+     */
+    public function isMe(UserObject $user): bool
+    {
+        return $user->getUsername() == $this->telegram->getMe()->getUsername();
+    }
+
+    /**
+     * @param Chat $chat
+     * @return bool
+     */
+    public function hasRegisteredChat(Chat $chat): bool
+    {
+        $telegramChat = TelegramChat::find($chat->getId());
+        return !empty($telegramChat);
     }
 }

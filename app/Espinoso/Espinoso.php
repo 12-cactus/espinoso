@@ -6,6 +6,7 @@ use Telegram\Bot\Objects\Message;
 use Illuminate\Support\Collection;
 use App\Espinoso\Handlers\EspinosoHandler;
 use App\Espinoso\DeliveryServices\EspinosoDeliveryInterface;
+use Telegram\Bot\Objects\User as UserObject;
 
 /**
  * Class Espinoso
@@ -126,6 +127,11 @@ class Espinoso
         $this->delivery = $delivery;
     }
 
+    public function isMe(UserObject $user)
+    {
+        return $this->delivery->isMe($user);
+    }
+
     /**
      * @return Collection
      */
@@ -141,5 +147,23 @@ class Espinoso
     public function registerChat(Chat $chat)
     {
         return $this->delivery->registerChat($chat);
+    }
+
+    /**
+     * @param Chat $chat
+     */
+    public function deleteChat(Chat $chat): void
+    {
+        $this->delivery->deleteChat($chat);
+    }
+
+    public function checkIfHasRegisteredChat(Chat $chat): void {
+        if (!$this->hasRegisteredChat($chat)) {
+            $this->sendMessage($chat->getId(), trans('messages.chat.set-start'));
+        }
+    }
+
+    public function hasRegisteredChat(Chat $chat): bool {
+        return $this->delivery->hasRegisteredChat($chat);
     }
 }

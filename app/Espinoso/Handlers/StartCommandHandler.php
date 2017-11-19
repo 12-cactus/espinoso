@@ -8,7 +8,7 @@ class StartCommandHandler extends EspinosoCommandHandler
     /**
      * @var string
      */
-    protected $pattern = "\b(start)\b\s*$";
+    protected $pattern = "\b(start)\b(@[a-z]*)?\s*$";
     protected $ignorePrefix = true;
     protected $signature    = "start";
     protected $description  = "es el comando que se ejecuta cuando iniciás un chat con espi o lo agregás a un grupo";
@@ -18,8 +18,9 @@ class StartCommandHandler extends EspinosoCommandHandler
         $isNew = $this->espinoso->registerChat($this->message->getChat());
 
         if ($isNew) {
+            $chat = $this->message->getChat();
             $this->espinoso->reply(trans('messages.chat.new', [
-                'name' => $this->message->getChat()->getFirstName()
+                'name' => $chat->getFirstName() ?? $chat->getTitle()
             ]));
             return;
         }
