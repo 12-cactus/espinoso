@@ -26,6 +26,14 @@ return [
         [
             'pattern' => "\b(peola)\b",
             'video'   => 'peola.mp4'
-        ]
+        ],
+        [
+            'pattern' => "\b.*pint.*perro\b",
+            'video'   => 'perro.gif'
+        ],
+        [
+            'pattern' => "\b.*chupala\b.*",
+            'video'   => 'chupaChupa.mp4'
+        ],
     ],
 ];

@@ -32,12 +32,7 @@ return [
         ],
 
         '/\b(asado)\b$/i'  => [
-            'reply' => "{$emoji->meat} Cena sab 21/10 en lo de Maru :
-- Niñita/Pipi/Dan --> picada
-- Dan   --> vinito (NO crespi !!)
-- Resto --> bebidas
-- Maru --> canelores y tuco
-- pan   --> ???",
+            'reply' => "{$emoji->meat} La proxima en lo de Agus y su pileta",
         ],
 
         '/^(o\s+)?no(,)?\s+(espi(noso)?)(\?)+$/i' => [
@@ -89,6 +84,11 @@ return [
             ],
         ],
 
+        '/\b(agus?)\b$/i' => [
+            'reply' => [
+                'Agus careta!, anarquista con osde'
+            ],
+        ],
 
         '/(j+a+){5,}/i' => [
             'reply' => 'ajajajajajaja, que plato!',
@@ -182,6 +182,12 @@ return [
         
         '/^asadoodle$/i' => [
             'reply' => "https://beta.doodle.com/poll/p92zv4vmii4gdpbm"
+        ],
+
+        '/infobae/i' => [
+            'reply' => [
+                'Deja de leer infobae, pelotud@!'
+            ],
         ],
     ],
 ];

@@ -10,8 +10,8 @@ return [
         ],
         [
             'userId' => 305359996,
-            'pattern' => ".*\bminion\w.*",
-            'sticker' => 'CAADAgADcQAD9XK2AdjRDFXRsyGKAg'
+            'pattern' => ".*\bloca\b.*|.*\bsra\b.*|.*\bkaka\b.*|.*\bkk\b.*|.*\bcristi.*|.*\bkirchner.*",
+            'sticker' => 'CAADAQADJAADIJP6EN2qQ_arP86eAg'
         ],
     ],
 ];
