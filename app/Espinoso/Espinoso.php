@@ -1,10 +1,12 @@
 <?php namespace App\Espinoso;
 
 use Exception;
+use Telegram\Bot\Objects\Chat;
 use Telegram\Bot\Objects\Message;
 use Illuminate\Support\Collection;
 use App\Espinoso\Handlers\EspinosoHandler;
 use App\Espinoso\DeliveryServices\EspinosoDeliveryInterface;
+use Telegram\Bot\Objects\User as UserObject;
 
 /**
  * Class Espinoso
@@ -125,6 +127,11 @@ class Espinoso
         $this->delivery = $delivery;
     }
 
+    public function isMe(UserObject $user)
+    {
+        return $this->delivery->isMe($user);
+    }
+
     /**
      * @return Collection
      */
@@ -133,19 +140,30 @@ class Espinoso
         return $this->handlers;
     }
 
-//    public function register(stdClass $update)
-//    {
-//        $from = $update->message->from;
-//
-//        $user = TelegramUser::whereTelegramId($from->id)->first();
-//        if (!$user) {
-//            $user = new TelegramUser;
-//            $user->telegram_id = $from->id;
-//        }
-//
-//        $user->first_name  = $from->first_name ?? '';
-//        $user->last_name   = $from->last_name ?? '';
-//        $user->username   = $from->username ?? '';
-//        $user->save();
-//    }
+    /**
+     * @param Chat $chat
+     * @return bool
+     */
+    public function registerChat(Chat $chat)
+    {
+        return $this->delivery->registerChat($chat);
+    }
+
+    /**
+     * @param Chat $chat
+     */
+    public function deleteChat(Chat $chat): void
+    {
+        $this->delivery->deleteChat($chat);
+    }
+
+    public function checkIfHasRegisteredChat(Chat $chat): void {
+        if (!$this->hasRegisteredChat($chat)) {
+            $this->sendMessage($chat->getId(), trans('messages.chat.set-start'));
+        }
+    }
+
+    public function hasRegisteredChat(Chat $chat): bool {
+        return $this->delivery->hasRegisteredChat($chat);
+    }
 }

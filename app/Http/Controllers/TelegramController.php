@@ -2,6 +2,7 @@
 
 use App\Espinoso\Espinoso;
 use Telegram\Bot\Objects\Message;
+use Telegram\Bot\Objects\Update;
 use Telegram\Bot\TelegramResponse;
 use Telegram\Bot\Api as ApiTelegram;
 use App\Espinoso\DeliveryServices\TelegramDelivery;
@@ -16,20 +17,15 @@ class TelegramController extends Controller
      */
     public function handleUpdates(TelegramDelivery $telegram, Espinoso $espinoso)
     {
-        $message = $telegram->getMessage();
-
-        if ($this->isNotTextMessage($message)) {
-            return;
-        }
-
-        $command = $this->parseCommand($message->getText());
-
-        if (!empty($command)) {
-            $message['text'] = $this->parseCommandAsKeyword($command, $message);
-        }
-
         $espinoso->setDelivery($telegram);
-        $espinoso->executeHandlers($message);
+
+        $update = $telegram->getUpdate();
+
+        $this->handleUpdate($espinoso, $update);
+
+        $this->handleMessage($espinoso, $update);
+
+        $espinoso->checkIfHasRegisteredChat($update->getMessage()->getChat());
 
         return;
     }
@@ -49,6 +45,41 @@ class TelegramController extends Controller
     /*
      * Internals
      */
+
+    protected function handleUpdate(Espinoso $espinoso, Update $update)
+    {
+        $newMember  = $update->getMessage()->getNewChatParticipant();
+        $leftMember = $update->getMessage()->get('left_chat_participant');
+        $chat = $update->getMessage()->getChat();
+
+        if (!empty($newMember) && $espinoso->isMe($newMember)) {
+            $espinoso->registerChat($chat);
+            $espinoso->sendMessage($chat->getId(), trans('messages.chat.new', [
+                'name' => $chat->getFirstName() ?? $chat->getTitle()
+            ]));
+        }
+
+        if (!empty($leftMember) && $espinoso->isMe($leftMember)) {
+            $espinoso->deleteChat($chat);
+        }
+    }
+
+    protected function handleMessage(Espinoso $espinoso, Update $update)
+    {
+        $message = $update->getMessage() ?? new Message($update->get('edited_message'));
+
+        if ($this->isNotTextMessage($message)) {
+            return;
+        }
+
+        $command = $this->parseCommand($message->getText());
+
+        if (!empty($command)) {
+            $message['text'] = $this->parseCommandAsKeyword($command, $message);
+        }
+
+        $espinoso->executeHandlers($message);
+    }
 
     /**
      * @param mixed $message
