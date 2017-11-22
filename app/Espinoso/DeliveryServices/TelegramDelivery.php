@@ -31,7 +31,9 @@ class TelegramDelivery implements EspinosoDeliveryInterface
      */
     public function getUpdate(): Update
     {
-        $update = $this->telegram->getWebhookUpdates();
+        $update = $this->telegram->getWebhookUpdates()->getRawResponse();
+        $update['message'] = $update['message'] ?? $update['edited_message'] ?? [];
+        $update = new Update($update);
         logger($update);
 
         return $update;
