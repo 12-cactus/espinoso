@@ -77,14 +77,14 @@ return [
             ],
         ],
 
-        '/\b(maru?)\b$/i' => [
+        '/\b(maru)\b$/i' => [
             'reply' => [
                 'Maru te ubica!',
                 'Maru no anda con vueltas, te canta la posta te guste o no'
             ],
         ],
 
-        '/\b(agus?)\b$/i' => [
+        '/\b(agus)\b$/i' => [
             'reply' => [
                 'Agus careta!, anarquista con osde'
             ],
