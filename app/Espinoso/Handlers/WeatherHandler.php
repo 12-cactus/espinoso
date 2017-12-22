@@ -59,7 +59,7 @@ class WeatherHandler extends EspinosoCommandHandler
     {
         return $forecasts
             ->map(function (Forecast $forecast) {
-            return $this->forecastToDescription($forecast);
+                return $this->forecastToDescription($forecast);
         })->reduce(function ($carry, $str) {
             return empty($carry) ? $str : $carry . "," . $str;
         }, '');

@@ -157,13 +157,15 @@ class Espinoso
         $this->delivery->deleteChat($chat);
     }
 
-    public function checkIfHasRegisteredChat(Chat $chat): void {
+    public function checkIfHasRegisteredChat(Chat $chat): void
+    {
         if (!$this->hasRegisteredChat($chat)) {
             $this->sendMessage($chat->getId(), trans('messages.chat.set-start'));
         }
     }
 
-    public function hasRegisteredChat(Chat $chat): bool {
+    public function hasRegisteredChat(Chat $chat): bool
+    {
         return $this->delivery->hasRegisteredChat($chat);
     }
 }
