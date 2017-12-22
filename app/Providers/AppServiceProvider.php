@@ -58,7 +58,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->app->bind('InstagramSearch', function () {
-            return new Instagram;
+            return new Instagram('6248236525.1677ed0.33c2371bfbc54db684a50bce2f95c3a6');
         });
 
         $this->app->bind('WeatherSearch', function () {
