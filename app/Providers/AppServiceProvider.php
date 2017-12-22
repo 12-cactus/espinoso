@@ -62,8 +62,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->app->bind('WeatherSearch', function () {
-            //return new LaravelOWM;
-            return new OpenWeatherMap('151c2850e43e4d9ad19b979ae185b8aa');
+            return new LaravelOWM;
         });
 
         $this->app->bind('IMDbSearch', function () {
