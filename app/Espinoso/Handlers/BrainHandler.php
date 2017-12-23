@@ -36,7 +36,6 @@ class BrainHandler extends EspinosoHandler
         parent::__construct($espinoso);
 
         $this->matchedNodes = collect([]);
-        dump(trans('brain.patterns'));
         $this->allNodes = collect(trans('brain.patterns'))->map(function ($data, $regex) {
             return new BrainNode($regex, $data);
         });
