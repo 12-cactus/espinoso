@@ -36,7 +36,8 @@ class BrainHandler extends EspinosoHandler
         parent::__construct($espinoso);
 
         $this->matchedNodes = collect([]);
-        $this->allNodes = collect(config('brain.patterns'))->map(function ($data, $regex) {
+        dump(trans('brain.patterns'));
+        $this->allNodes = collect(trans('brain.patterns'))->map(function ($data, $regex) {
             return new BrainNode($regex, $data);
         });
     }
@@ -76,6 +77,6 @@ class BrainHandler extends EspinosoHandler
      */
     protected function globalIgnored()
     {
-        return collect(config('brain.ignore_to'));
+        return collect(trans('brain.ignore_to'));
     }
 }
