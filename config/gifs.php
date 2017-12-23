@@ -36,8 +36,8 @@ return [
             'video'   => 'chupaChupa.mp4'
         ],
         [
-            'pattern' => "\b.hippie\b.*",
-            'video'   => 'hippie.mp4'
+            'pattern' => "\b(hippie)\b.*",
+            'video'   => 'hippie.gif'
         ],
     ],
 ];
