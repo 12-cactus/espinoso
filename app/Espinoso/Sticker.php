@@ -3,8 +3,7 @@
 class Sticker
 {
 
-    public const facuMaybe = 'CAADAgADiwUAAvoLtgh812FBxEdUAgI';
+    public const FACUMAYBE = 'CAADAgADiwUAAvoLtgh812FBxEdUAgI';
 
-    public const cfk = 'CAADAQADJAADIJP6EN2qQ_arP86eAg';
-
+    public const CFK = 'CAADAQADJAADIJP6EN2qQ_arP86eAg';
 }
