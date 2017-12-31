@@ -22,11 +22,13 @@ class GitHubController extends Controller
      */
     public function commitsWebhook(TelegramDelivery $telegram, Espinoso $espinoso)
     {
+        logger('commit hook');
         $espinoso->setDelivery($telegram);
         $response = GuzzleClient::get(config('github.events'), [
             'auth' => [config('github.username'), config('github.token')]
         ])->getBody()->getContents();
 
+        logger($response);
         collect(json_decode($response))
             ->filter($this->newest())
             ->sortBy($this->creation())
