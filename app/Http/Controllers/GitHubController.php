@@ -28,7 +28,6 @@ class GitHubController extends Controller
             'auth' => [config('github.username'), config('github.token')]
         ])->getBody()->getContents();
 
-        logger($response);
         collect(json_decode($response))
             ->filter($this->newest())
             ->sortBy($this->creation())
@@ -46,6 +45,10 @@ class GitHubController extends Controller
     {
         return function ($event) {
             $lastEvent = Setting::get('github_last_event');
+            logger($event);
+            logger(Carbon::parse($event->created_at));
+            logger(Carbon::parse($lastEvent));
+            logger(Carbon::parse($event->created_at) > Carbon::parse($lastEvent));
 
             return in_array($event->type, $this->allowedEvents)
                 && Carbon::parse($event->created_at) > Carbon::parse($lastEvent);
