@@ -45,7 +45,7 @@ class GitHubController extends Controller
     {
         return function ($event) {
             $lastEvent = Setting::get('github_last_event');
-            logger($event);
+            logger($event->created_at);
             logger(Carbon::parse($event->created_at));
             logger(Carbon::parse($lastEvent));
             logger(Carbon::parse($event->created_at) > Carbon::parse($lastEvent));
