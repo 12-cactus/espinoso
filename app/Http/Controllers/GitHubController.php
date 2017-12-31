@@ -44,11 +44,11 @@ class GitHubController extends Controller
     protected function newest(): Closure
     {
         return function ($event) {
-            $lastEvent = Setting::get('github_last_event');
+            $lastEvent = Setting::get('github_last_event', Carbon::minValue());
             logger($event->created_at);
             logger(Carbon::parse($event->created_at));
             logger(Carbon::parse($lastEvent));
-            logger(Carbon::parse($event->created_at) > Carbon::parse($lastEvent));
+            logger(Carbon::parse($event->created_at) > Carbon::parse($lastEvent) ? 'true' : 'false');
 
             return in_array($event->type, $this->allowedEvents)
                 && Carbon::parse($event->created_at) > Carbon::parse($lastEvent);
