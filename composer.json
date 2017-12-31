@@ -8,6 +8,7 @@
         "php": "~7.1.0",
         "ext-gd": "*",
         "cmfcmf/openweathermap-php-api": "2.2.0",
+        "doctrine/dbal": "^2.6",
         "fabpot/goutte": "^3.2",
         "gmopx/laravel-owm": "0.1.1",
         "guzzlehttp/guzzle": "^6.3",
@@ -17,9 +18,9 @@
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
         "spatie/emoji": "^1.0",
+        "stichoza/google-translate-php": "~3.2",
         "unisharp/laravel-settings": "^2.0",
-        "vinkla/instagram": "^6.0",
-        "stichoza/google-translate-php": "~3.2"
+        "vinkla/instagram": "^6.0"
     },
     "require-dev": {
         "codeclimate/php-test-reporter": "dev-master",
