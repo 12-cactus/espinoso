@@ -22,6 +22,7 @@ class GitHubController extends Controller
      */
     public function commitsWebhook(TelegramDelivery $telegram, Espinoso $espinoso)
     {
+        logger('commit hook');
         $espinoso->setDelivery($telegram);
         $response = GuzzleClient::get(config('github.events'), [
             'auth' => [config('github.username'), config('github.token')]
@@ -43,7 +44,7 @@ class GitHubController extends Controller
     protected function newest(): Closure
     {
         return function ($event) {
-            $lastEvent = Setting::get('github_last_event');
+            $lastEvent = Setting::get('github_last_event', Carbon::minValue());
 
             return in_array($event->type, $this->allowedEvents)
                 && Carbon::parse($event->created_at) > Carbon::parse($lastEvent);
