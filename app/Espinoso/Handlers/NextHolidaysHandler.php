@@ -18,12 +18,9 @@ class NextHolidaysHandler extends EspinosoCommandHandler
     {
         $crawler = GoutteClient::request('GET', config('espinoso.url.holidays'));
 
-        dump($crawler);
-
         $holidays = collect($crawler);
 
         $count = $holidays->count();
-        dump($count);
 
         $list = $holidays->map(
             function (stdClass $holiday) {
