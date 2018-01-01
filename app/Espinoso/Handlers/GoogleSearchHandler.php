@@ -3,6 +3,7 @@
 namespace App\Espinoso\Handlers;
 
 use App\Facades\GoogleSearch;
+use stdClass;
 
 class GoogleSearchHandler extends EspinosoCommandHandler
 {
@@ -21,7 +22,15 @@ class GoogleSearchHandler extends EspinosoCommandHandler
             return;
         }
 
-        $response = "Google me tira esto, si no te sirve jodete!:\n{$info}";
+        $search = collect($info);
+
+        $list = $search->map(
+            function (stdClass $node) {
+                return " - *{$node->name}* -> {$node->url} -> {$node->snippet}";
+            })->implode("\n");
+
+
+        $response = "Google me tira esto, si no te sirve jodete!:\n{$list}";
 
         $this->espinoso->reply($response);
 
