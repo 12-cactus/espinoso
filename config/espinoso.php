@@ -35,7 +35,7 @@ return [
         'info'   => 'https://www.google.com.ar/search?q=',
         'cinema' => 'http://www.hoyts.com.ar/ajaxCartelera.aspx?filter=Home&cine=&premium=False&_=1493929858090',
         'map'    => 'https://maps.googleapis.com/maps/api/staticmap',
-        'holidays' => 'http://www.elproximoferiado.com/',
+        'holidays' => 'http://nolaborables.com.ar/api/v2/feriados/2018',
         'traductor' => 'http://translate.google.cn/translate_a/single',
     ]
 ];
