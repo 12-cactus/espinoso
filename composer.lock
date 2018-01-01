@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0286cc1c14c84b236963a8c73d93d924",
+    "content-hash": "c1adf87da596f7ff6cc963d570617994",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -2390,6 +2390,55 @@
                 "spatie"
             ],
             "time": "2017-05-23T07:39:03+00:00"
+        },
+        {
+            "name": "spatie/googlesearch",
+            "version": "2.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/googlesearch.git",
+                "reference": "c5807db3c5abfb38c4e310f11c7054f2b7744c05"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/googlesearch/zipball/c5807db3c5abfb38c4e310f11c7054f2b7744c05",
+                "reference": "c5807db3c5abfb38c4e310f11c7054f2b7744c05",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^4.0|^6.0",
+                "illuminate/support": "~4.1|5.*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "2.0.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Spatie\\GoogleSearch": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be"
+                }
+            ],
+            "description": "Get searchresults from a Google Custom Search Engine",
+            "homepage": "https://github.com/spatie/googlesearch",
+            "keywords": [
+                "custom",
+                "engine",
+                "google",
+                "laravel",
+                "search"
+            ],
+            "time": "2016-01-29T11:07:49+00:00"
         },
         {
             "name": "stichoza/google-translate-php",

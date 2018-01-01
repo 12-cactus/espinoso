@@ -17,7 +17,7 @@ return [
         App\Espinoso\Handlers\GoogleInfoBoxHandler::class,
         App\Espinoso\Handlers\StickersHandler::class,
         App\Espinoso\Handlers\GifsHandler::class,
-        //App\Espinoso\Handlers\ListIssuesHandler::class,
+        App\Espinoso\Handlers\GoogleSearchHandler::class,
         App\Espinoso\Handlers\TranslationHandler::class,
         //App\Espinoso\Handlers\MemeHandler::class,
     ],

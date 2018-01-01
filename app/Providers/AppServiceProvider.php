@@ -7,6 +7,7 @@ use Cmfcmf\OpenWeatherMap;
 use Imdb\Config;
 use Imdb\TitleSearch;
 use App\Espinoso\Espinoso;
+use Spatie\GoogleSearch\GoogleSearch;
 use Stichoza\GoogleTranslate\TranslateClient;
 use Telegram\Bot\Api;
 use Vinkla\Instagram\Instagram;
@@ -75,6 +76,10 @@ class AppServiceProvider extends ServiceProvider
             $translator = new TranslateClient(null, 'es');
             $translator->setUrlBase(config('espinoso.url.traductor'));
             return $translator;
+        });
+
+        $this->app->bind('GoogleSearch', function () {
+            return new GoogleSearch(config('googleSearch.searchEngineId'));
         });
     }
 }
