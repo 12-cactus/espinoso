@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'api_key' => env('OPENWEATHER_API_KEY', '151c2850e43e4d9ad19b979ae185b8aa'),
+    'api_key' => env('OPENWEATHER_API_KEY', 'be37573a09446418bdaaab4699e4895b'),
     'routes_enabled' => false
 ];
