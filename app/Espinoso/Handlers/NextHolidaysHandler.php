@@ -1,7 +1,8 @@
 <?php namespace App\Espinoso\Handlers;
 
+use App\Facades\GuzzleClient;
 use stdClass;
-use App\Facades\GoutteClient;
+
 
 class NextHolidaysHandler extends EspinosoCommandHandler
 {
@@ -16,9 +17,9 @@ class NextHolidaysHandler extends EspinosoCommandHandler
 
     public function handle(): void
     {
-        $crawler = GoutteClient::request('GET', config('espinoso.url.holidays'));
+        $crawler = GuzzleClient::request('GET', 'https://nolaborables.com.ar/api/v2/feriados/2018')->getBody()->getContents();
 
-        $holidays = collect($crawler);
+        $holidays = collect(json_decode($crawler));
 
         $count = $holidays->count();
 
