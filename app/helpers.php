@@ -23,6 +23,7 @@ function publish($data, $file = 'log')
 /**
  * @return Carbon
  */
-function now() {
+function now()
+{
     return Carbon::now();
 }

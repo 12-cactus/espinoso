@@ -39,4 +39,3 @@ class NextHolidaysHandler extends EspinosoCommandHandler
         return " - *{$holiday->motivo}*, {$holiday->tipo}, {$holiday->dia}/{$holiday->mes} ({$diff})";
     }
 }
-
