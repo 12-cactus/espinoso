@@ -2,6 +2,7 @@
 
 use App\Facades\GuzzleClient;
 use stdClass;
+use Carbon\Carbon;
 
 
 class NextHolidaysHandler extends EspinosoCommandHandler
@@ -17,15 +18,21 @@ class NextHolidaysHandler extends EspinosoCommandHandler
 
     public function handle(): void
     {
-        $crawler = GuzzleClient::request('GET', 'https://nolaborables.com.ar/api/v2/feriados/2018')->getBody()->getContents();
+        $crawler = GuzzleClient::request('GET', config('espinoso.url.holidays'))->getBody()->getContents();
 
         $holidays = collect(json_decode($crawler));
 
-        $count = $holidays->count();
+        $filteredList = $holidays->filter(
+            function ($holiday){
+                return Carbon::createFromDate(2018, (int) $holiday->mes, (int) $holiday->dia)->isFuture();
+            }
+        );
 
-        $list = $holidays->map(
+        $count = $filteredList->count();
+
+        $list = $filteredList->map(
             function (stdClass $holiday) {
-                return " - *{$holiday->motivo}*, {$holiday->tipo} , {$holiday->dia}-{$holiday->mes} ";
+                    return " - *{$holiday->motivo}*, {$holiday->tipo} , {$holiday->dia}/{$holiday->mes} ";
             })->implode("\n");
 
         $text = "Manga de vagos, *quedan {$count} feriados* en todo el año.\n{$list}";
