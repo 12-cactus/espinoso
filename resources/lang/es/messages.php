@@ -9,7 +9,8 @@ return [
     */
 
     'search' => [
-        'empty' => "Uhhh... no hay un carajo!!\nO buscaste como el orto o estoy haciendo cualquiera!"
+        'empty' => "Uhhh... no hay un carajo!!\nO buscaste como el orto o estoy haciendo cualquiera!",
+        'google' => "Google me tira esto, si no te sirve jodete!:\n:list:"
     ],
     'chat' => [
         'new' => "¡Hola :name, soy Espi! Si no sabés que onda tirate un `espi aiiiuuuda`. Si ya sabés como funciona la cosa... ¡ahí te ves, careta!",

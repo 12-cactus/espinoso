@@ -2,8 +2,8 @@
 
 namespace App\Espinoso\Handlers;
 
-use App\Facades\GoogleSearch;
 use stdClass;
+use App\Facades\GoogleSearch;
 
 class GoogleSearchHandler extends EspinosoCommandHandler
 {
@@ -18,21 +18,14 @@ class GoogleSearchHandler extends EspinosoCommandHandler
         $info = GoogleSearch::getResults($this->matches['query']);
 
         if (empty($info)) {
-            $this->replyError();
+            $this->replyNotFound();
             return;
         }
 
-        $search = collect($info);
+        $list = collect($info)->map(function (stdClass $node) {
+            return " - *{$node->name}* -> {$node->url} -> {$node->snippet}";
+        })->implode("\n");
 
-        $list = $search->map(
-            function (stdClass $node) {
-                return " - *{$node->name}* -> {$node->url} -> {$node->snippet}";
-            })->implode("\n");
-
-
-        $response = "Google me tira esto, si no te sirve jodete!:\n{$list}";
-
-        $this->espinoso->reply($response);
-
+        $this->espinoso->reply(trans('messages.search.google', compact('list')));
     }
 }
