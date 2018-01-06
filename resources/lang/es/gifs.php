@@ -39,5 +39,9 @@ return [
             'pattern' => "\b(hippie)\b.*",
             'video'   => 'hippie.gif'
         ],
+        [
+            'pattern' => "\b(bicivolador)\b.*",
+            'video'   => 'bici.gif'
+        ],
     ],
 ];
