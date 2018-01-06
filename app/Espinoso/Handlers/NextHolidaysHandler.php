@@ -1,9 +1,8 @@
 <?php namespace App\Espinoso\Handlers;
 
-use App\Facades\GuzzleClient;
 use stdClass;
 use Carbon\Carbon;
-
+use App\Facades\GuzzleClient;
 
 class NextHolidaysHandler extends EspinosoCommandHandler
 {
@@ -19,29 +18,25 @@ class NextHolidaysHandler extends EspinosoCommandHandler
     public function handle(): void
     {
         $crawler = GuzzleClient::request('GET', config('espinoso.url.holidays'))->getBody()->getContents();
-
         $holidays = collect(json_decode($crawler));
 
-        $filteredList = $holidays->filter(
-            function ($holiday){
-                return Carbon::createFromDate(Carbon::today()->year, (int) $holiday->mes, (int) $holiday->dia)->isFuture();
-            }
-        );
+        $filteredList = $holidays->filter(function ($holiday) {
+            return Carbon::create(now()->year, $holiday->mes, $holiday->dia)->isFuture();
+        });
 
         $count = $filteredList->count();
+        $list = $filteredList->map(function (stdClass $holiday) {
+            return $this->parseHoliday($holiday);
+        })->implode("\n");
 
-        $list = $filteredList->map(
-            function (stdClass $holiday) {
-
-                $diff = Carbon::today()->diffInDays(Carbon::createFromDate(Carbon::today()->year, (int) $holiday->mes, (int) $holiday->dia));
-
-                return " - *{$holiday->motivo}*, {$holiday->tipo} , {$holiday->dia}/{$holiday->mes} ({$diff})";
-            })->implode("\n");
-
-        $text = "Manga de vagos, *quedan {$count} feriados* en todo el año.\n\n{$list}";
-
-        $this->espinoso->reply($text);
+        $this->espinoso->reply(trans('messages.feriados', compact('count', 'list')));
     }
 
+    protected function parseHoliday(stdClass $holiday)
+    {
+        $diff = now()->diffInDays(Carbon::create(now()->year, $holiday->mes, $holiday->dia));
+
+        return " - *{$holiday->motivo}*, {$holiday->tipo}, {$holiday->dia}/{$holiday->mes} ({$diff})";
+    }
 }
 
