@@ -24,7 +24,7 @@ class NextHolidaysHandler extends EspinosoCommandHandler
 
         $filteredList = $holidays->filter(
             function ($holiday){
-                return Carbon::createFromDate(2018, (int) $holiday->mes, (int) $holiday->dia)->isFuture();
+                return Carbon::createFromDate(Carbon::today()->year, (int) $holiday->mes, (int) $holiday->dia)->isFuture();
             }
         );
 
@@ -32,10 +32,13 @@ class NextHolidaysHandler extends EspinosoCommandHandler
 
         $list = $filteredList->map(
             function (stdClass $holiday) {
-                    return " - *{$holiday->motivo}*, {$holiday->tipo} , {$holiday->dia}/{$holiday->mes} ";
+
+                $diff = Carbon::today()->diffInDays(Carbon::createFromDate(Carbon::today()->year, (int) $holiday->mes, (int) $holiday->dia));
+
+                return " - *{$holiday->motivo}*, {$holiday->tipo} , {$holiday->dia}/{$holiday->mes} ({$diff})";
             })->implode("\n");
 
-        $text = "Manga de vagos, *quedan {$count} feriados* en todo el año.\n{$list}";
+        $text = "Manga de vagos, *quedan {$count} feriados* en todo el año.\n\n{$list}";
 
         $this->espinoso->reply($text);
     }
