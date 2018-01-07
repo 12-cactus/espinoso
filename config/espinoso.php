@@ -20,6 +20,7 @@ return [
         App\Espinoso\Handlers\GoogleSearchHandler::class,
         App\Espinoso\Handlers\TranslationHandler::class,
         //App\Espinoso\Handlers\MemeHandler::class,
+        App\Espinoso\Handlers\IssuesListHandler::class,
     ],
 
     'token' => [
