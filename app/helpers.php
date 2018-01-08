@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -17,4 +18,12 @@ function clean_string(string $str)
 function publish($data, $file = 'log')
 {
     Storage::disk('public')->put($file, $data);
+}
+
+/**
+ * @return Carbon
+ */
+function now()
+{
+    return Carbon::now();
 }

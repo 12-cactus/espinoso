@@ -50,7 +50,15 @@ abstract class EspinosoHandler
      */
     protected function replyNotFound()
     {
-        $this->espinoso->reply('No encontré una mierda, che');
+        $this->espinoso->reply(trans('messages.search.empty'));
+    }
+
+    /**
+     *
+     */
+    protected function replyInMaintenance()
+    {
+        $this->espinoso->reply('Esta mierda no anda todavía...');
     }
 
     /**

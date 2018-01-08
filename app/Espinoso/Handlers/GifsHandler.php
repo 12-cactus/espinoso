@@ -25,7 +25,7 @@ class GifsHandler extends EspinosoCommandHandler
     {
         $this->message = $message;
 
-        $this->match = collect(config('gifs.patterns'))->filter(function ($pattern) {
+        $this->match = collect(trans('gifs.patterns'))->filter(function ($pattern) {
             return $this->matchCommand($pattern['pattern'], $this->message);
         });
 

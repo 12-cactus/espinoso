@@ -27,19 +27,19 @@ class CronicaGenerator
     }
 
     // ASCO, pero no importa nada
-    private static function getUrl($url, $params, $follow_redirs=false, &$status)
+    private static function getUrl($url, $params, $follow_redirs = false, &$status)
     {
         if (!function_exists('curl_init'))
             throw new Exception('cURL Must be installed for geturl function to work. Ask your host to enable it or uncomment extension=php_curl.dll in php.ini');
 
-        $cookie = tempnam ("/tmp", "CURLCOOKIE");
+        $cookie = tempnam("/tmp", "CURLCOOKIE");
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; CrawlBot/1.0.0)');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_COOKIEJAR, $cookie);
         curl_setopt($ch, CURLOPT_HEADER, true);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT , 5);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
         curl_setopt($ch, CURLOPT_TIMEOUT, 5);
         //curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_ENCODING, "");

@@ -77,14 +77,14 @@ return [
             ],
         ],
 
-        '/\b(maru?)\b$/i' => [
+        '/\b(maru)\b$/i' => [
             'reply' => [
                 'Maru te ubica!',
                 'Maru no anda con vueltas, te canta la posta te guste o no'
             ],
         ],
 
-        '/\b(agus?)\b$/i' => [
+        '/\b(agus)\b$/i' => [
             'reply' => [
                 'Agus careta!, anarquista con osde'
             ],
@@ -149,7 +149,7 @@ return [
             'reply' => 'Y Pipi, cómo va el TIP? Seguís llorando como una nenita? No la mandes a niñita, contestá vos pollerudo!',
         ],
 
-        '/^(.)*(espi(noso)?)\s+(c(o|ó)mo)\s+(and(a|á)s|est(a|á)s)(\?)*$/i' => [
+        '/^(.)*(espi(noso)?)\s+(c(o|ó)mo)\s+(and(a|á)s|est(a|á)s)(\?)|(c(o|ó)mo)\s+(and(a|á)s|est(a|á)s)\s+(espi(noso)?)(\?)*$/i' => [
             'reply' => [
                 'He tenido dias mejores..',
                 'De lujo!!' ,

@@ -17,9 +17,10 @@ return [
         App\Espinoso\Handlers\GoogleInfoBoxHandler::class,
         App\Espinoso\Handlers\StickersHandler::class,
         App\Espinoso\Handlers\GifsHandler::class,
-        //App\Espinoso\Handlers\ListIssuesHandler::class,
+        App\Espinoso\Handlers\GoogleSearchHandler::class,
         App\Espinoso\Handlers\TranslationHandler::class,
         //App\Espinoso\Handlers\MemeHandler::class,
+        App\Espinoso\Handlers\IssuesListHandler::class,
     ],
 
     'token' => [
@@ -35,7 +36,7 @@ return [
         'info'   => 'https://www.google.com.ar/search?q=',
         'cinema' => 'http://www.hoyts.com.ar/ajaxCartelera.aspx?filter=Home&cine=&premium=False&_=1493929858090',
         'map'    => 'https://maps.googleapis.com/maps/api/staticmap',
-        'holidays' => 'http://www.elproximoferiado.com/',
+        'holidays' => 'https://nolaborables.com.ar/api/v2/feriados/2018',
         'traductor' => 'http://translate.google.cn/translate_a/single',
     ]
 ];
