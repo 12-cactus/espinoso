@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use Imdb\Config;
 use Imdb\TitleSearch;
-use App\Facades\GoogleSearch;
 use Vinkla\Instagram\Instagram;
 use Gmopx\LaravelOWM\LaravelOWM;
 use Goutte\Client as GoutteClient;
@@ -52,7 +51,6 @@ class FacadesServiceProvider extends ServiceProvider
                 $translator->setUrlBase(config('espinoso.url.traductor'));
                 return $translator;
             },
-            'GoogleSearch' => new GoogleSearch(config('googleSearch.searchEngineId'))
         ];
     }
 }

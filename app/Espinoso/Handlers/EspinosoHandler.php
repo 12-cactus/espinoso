@@ -56,6 +56,14 @@ abstract class EspinosoHandler
     /**
      *
      */
+    protected function replyInMaintenance()
+    {
+        $this->espinoso->reply('Esta mierda no anda todavía...');
+    }
+
+    /**
+     *
+     */
     protected function replyError()
     {
         $this->espinoso->reply('Ups! Esta cosa anda como el culo...');

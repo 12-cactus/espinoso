@@ -20,7 +20,6 @@
         "php-http/guzzle6-adapter": "^1.1",
         "php-http/message": "^1.6",
         "spatie/emoji": "^1.0",
-        "spatie/googlesearch": "^2.0",
         "stichoza/google-translate-php": "~3.2",
         "unisharp/laravel-settings": "^2.0",
         "vinkla/instagram": "^8.0"

@@ -3,7 +3,7 @@
 namespace App\Espinoso\Handlers;
 
 use stdClass;
-use App\Facades\GoogleSearch;
+use Spatie\GoogleSearch\Facades\GoogleSearch;
 
 class GoogleSearchHandler extends EspinosoCommandHandler
 {
@@ -15,6 +15,10 @@ class GoogleSearchHandler extends EspinosoCommandHandler
 
     public function handle(): void
     {
+        $this->replyInMaintenance();
+        return;
+
+        /*
         $info = GoogleSearch::getResults($this->matches['query']);
 
         if (empty($info)) {
@@ -27,5 +31,6 @@ class GoogleSearchHandler extends EspinosoCommandHandler
         })->implode("\n");
 
         $this->espinoso->reply(trans('messages.search.google', compact('list')));
+        */
     }
 }
