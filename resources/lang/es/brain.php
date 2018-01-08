@@ -181,7 +181,7 @@ return [
         ],
 
         '/^asadoodle$/i' => [
-            'reply' => "https://doodle.com/poll/emmmebnxs87hpydk"
+            'reply' => "https://doodle.com/poll/t5vrtfqp77kiwdps"
         ],
 
         '/infobae/i' => [
