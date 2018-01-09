@@ -21,6 +21,9 @@
             <directory suffix=".php">./app/</directory>
         </whitelist>
     </filter>
+    <listeners>
+        <listener class="JohnKary\PHPUnit\Listener\SpeedTrapListener" />
+    </listeners>
     <logging>
         <log type="coverage-clover" target="./build/logs/clover.xml"/>
     </logging>

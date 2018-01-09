@@ -121,7 +121,7 @@ class IssuesListHandlerTest extends HandlersTestCase
         // Act
         $handler->shouldHandle($update);
         $handler->handle($update);
-
+        $this->assertTrue(true);
     }
 
     protected function makeHandler(): IssuesListHandler

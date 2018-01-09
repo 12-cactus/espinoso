@@ -71,6 +71,7 @@ class StartCommandHandlerTest extends HandlersTestCase
         $handler = $this->makeHandlerWith($this->espinoso);
         $handler->shouldHandle($update);
         $handler->handle();
+        $this->assertTrue(true);
     }
 
     /**
@@ -97,6 +98,7 @@ class StartCommandHandlerTest extends HandlersTestCase
         $handler = $this->makeHandlerWith($this->espinoso);
         $handler->shouldHandle($update);
         $handler->handle();
+        $this->assertTrue(true);
     }
 
 

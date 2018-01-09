@@ -49,6 +49,7 @@ class BardoDelEspinosoHandlerTest extends HandlersTestCase
         // Act
         $handler->shouldHandle($update);
         $handler->handle();
+        $this->assertTrue(true);
     }
 
     /**
