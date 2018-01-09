@@ -73,6 +73,7 @@ class CinemaHandlerTest extends HandlersTestCase
         $handler = $this->makeHandler();
         $update = $this->makeMessage(['text' => 'espi cine']);
         $handler->handle($update);
+        $this->assertTrue(true);
     }
 
     /**

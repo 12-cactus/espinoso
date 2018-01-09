@@ -70,6 +70,7 @@ class GoogleStaticMapHandlerTest extends HandlersTestCase
         // Act
         $handler->shouldHandle($update);
         $handler->handle($update);
+        $this->assertTrue(true);
     }
 
     /**
@@ -91,6 +92,7 @@ class GoogleStaticMapHandlerTest extends HandlersTestCase
         // Act
         $handler->shouldHandle($update);
         $handler->handle($update);
+        $this->assertTrue(true);
     }
 
     /**

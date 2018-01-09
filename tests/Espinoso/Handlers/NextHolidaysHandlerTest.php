@@ -1,6 +1,7 @@
 <?php namespace Tests\Espinoso\Handlers;
 
 use App\Facades\GuzzleClient;
+use Carbon\Carbon;
 use Mockery;
 use Symfony\Component\DomCrawler\Crawler;
 use App\Espinoso\Handlers\NextHolidaysHandler;
@@ -57,8 +58,9 @@ class NextHolidaysHandlerTest extends HandlersTestCase
      */
     public function it_handle_and_return_info()
     {
-
         $jsonText = '[{"motivo":"Año Nuevo","tipo":"inamovible","dia":1,"mes":1,"id":"año-nuevo"},{"motivo":"Carnaval","tipo":"inamovible","dia":12,"mes":2,"id":"carnaval"},{"motivo":"Carnaval","tipo":"inamovible","dia":13,"mes":2,"id":"carnaval"},{"motivo":"Día Nacional de la Memoria por la Verdad y la Justicia","tipo":"inamovible","dia":24,"mes":3,"id":"memoria-verdad-justicia"},{"motivo":"Día del Veterano y de los Caídos en la Guerra de Malvinas","tipo":"inamovible","dia":2,"mes":4,"id":"veteranos-malvinas"},{"motivo":"Día del Trabajador","tipo":"inamovible","dia":1,"mes":5,"id":"trabajador"},{"motivo":"Día de la Revolución de Mayo","tipo":"inamovible","dia":25,"mes":5,"id":"revolucion-mayo"},{"motivo":"Paso a la Inmortalidad del Gral. Don Martín Güemes","tipo":"nolaborable","dia":17,"mes":6,"id":"martin-guemes"},{"motivo":"Paso a la Inmortalidad del General Manuel Belgrano","tipo":"inamovible","dia":20,"mes":6,"id":"belgrano"},{"motivo":"Día de la Independencia","tipo":"inamovible","dia":9,"mes":7,"id":"independencia"},{"motivo":"Paso a la Inmortalidad del General José de San Martín","tipo":"trasladable","original":"17-08","dia":20,"mes":8,"id":"san-martin"},{"motivo":"Día del Respeto a la Diversidad Cultural","tipo":"trasladable","original":"12-10","dia":15,"mes":10,"id":"diversidad"},{"motivo":"Día de la Soberanía Nacional","tipo":"trasladable","original":"20-11","dia":19,"mes":11,"id":"soberania-nacional"},{"motivo":"Inmaculada Concepción de María","tipo":"inamovible","dia":8,"mes":12,"id":"inmaculada-maria"},{"motivo":"Feriado Puente Turístico","tipo":"puente","dia":24,"mes":12,"id":"puente-turistico"},{"motivo":"Navidad","tipo":"inamovible","dia":25,"mes":12,"id":"navidad"},{"motivo":"Feriado Puente Turístico","tipo":"puente","dia":31,"mes":12,"id":"puente-turistico"}]';
+
+        Carbon::setTestNow(Carbon::create(2018, 1, 7));
 
         $crawler = Mockery::mock(Crawler::class);
         $crawler->shouldReceive('getBody')->andReturnSelf();
@@ -95,7 +97,7 @@ class NextHolidaysHandlerTest extends HandlersTestCase
         // Act
         $handler->shouldHandle($update);
         $handler->handle($update);
-
+        $this->assertTrue(true);
     }
 
     /**

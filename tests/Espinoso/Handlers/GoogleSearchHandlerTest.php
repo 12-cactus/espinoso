@@ -37,9 +37,9 @@ class GoogleSearchHandlerTest extends HandlersTestCase
         });
     }
 
-    /**
-     * @test
-     */
+//    /**
+//     * @test
+//     */
 /*
     public function it_handle_and_return_info()
     {
