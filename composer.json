@@ -29,6 +29,7 @@
         "phpunit/phpunit": "~6.0",
         "mockery/mockery": "~1.0",
         "fzaninotto/faker": "~1.4",
+        "johnkary/phpunit-speedtrap": "^2.0",
         "codeclimate/php-test-reporter": "dev-master"
     },
     "autoload": {
