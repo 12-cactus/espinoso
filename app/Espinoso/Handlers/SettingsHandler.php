@@ -14,7 +14,7 @@ class SettingsHandler extends MultipleCommand
             'pattern' => "(?'command'get)\s+(?'key'\w+)\s*$",
         ], [
             'name' => 'set',
-            'pattern' => "(?'command'set)\s+(?'key'\w+)\s+(?'value'\w*)\s*$",
+            'pattern' => "(?'command'set)\s+(?'key'\w+)\s+(?'value'.+)$",
         ],
     ];
     protected $signature   = "[espi] get|set key [value]";
@@ -44,7 +44,7 @@ class SettingsHandler extends MultipleCommand
     {
         $key   = $this->matches['key'];
         $chat  = $this->message->getChat()->getId();
-        $value = $this->matches['value'];
+        $value = trim($this->matches['value']);
 
         Setting::set("{$chat}.{$key}", $value);
 

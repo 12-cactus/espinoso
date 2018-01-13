@@ -59,7 +59,7 @@ class SettingsHandlerTest extends HandlersTestCase
         $handler = $this->makeHandler();
         $update = $this->makeMessage([
             'chat' => ['id' => 123],
-            'text' => 'espi set phpunit test'
+            'text' => 'espi set phpunit test blabla'
         ]);
 
         // Act
@@ -68,7 +68,7 @@ class SettingsHandlerTest extends HandlersTestCase
 
         $this->assertDatabaseHas('settings', [
             'key' => 123,
-            'value' => '{"phpunit":"test"}'
+            'value' => '{"phpunit":"test blabla"}'
         ]);
     }
 
