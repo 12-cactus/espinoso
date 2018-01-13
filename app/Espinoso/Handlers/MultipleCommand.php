@@ -3,7 +3,7 @@
 use App\Espinoso\Espinoso;
 use Telegram\Bot\Objects\Message;
 
-class MultipleCommand extends EspinosoCommandHandler
+abstract class MultipleCommand extends EspinosoCommandHandler
 {
     /**
      * @var array
