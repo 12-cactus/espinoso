@@ -1,6 +1,6 @@
 <?php namespace App\Espinoso\Handlers;
 
-class GoogleStaticMapsHandler extends EspinosoCommandHandler
+class GoogleStaticMapsHandler extends BaseCommand
 {
     protected $ignorePrefix = true;
 

@@ -3,7 +3,7 @@
 use App\Facades\GoutteClient;
 use Symfony\Component\DomCrawler\Crawler;
 
-class GoogleInfoBoxHandler extends EspinosoCommandHandler
+class GoogleInfoBoxHandler extends BaseCommand
 {
     /**
      * @var string

@@ -3,7 +3,7 @@
 use App\Facades\InstagramSearch;
 use Vinkla\Instagram\InstagramException;
 
-class InstagramHandler extends EspinosoCommandHandler
+class InstagramHandler extends BaseCommand
 {
     protected $ignorePrefix = true;
     protected $pattern = "(\b(ig)\b)(\s+)(?'username'\b(\S+)\b)(?'param'\s*(last|pos:\d+))?$";

@@ -3,7 +3,7 @@
 use Telegram\Bot\Objects\Message;
 use Illuminate\Support\Collection;
 
-class StickersHandler extends EspinosoCommandHandler
+class StickersHandler extends BaseCommand
 {
     /**
      * @var bool

@@ -2,7 +2,7 @@
 
 use App\Facades\GuzzleClient;
 
-class GitHubHandler extends EspinosoCommandHandler
+class GitHubHandler extends BaseCommand
 {
     /**
      * @var string

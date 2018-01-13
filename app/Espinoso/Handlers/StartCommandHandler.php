@@ -3,7 +3,7 @@
 use Illuminate\Support\Str;
 use App\Facades\GoutteClient;
 
-class StartCommandHandler extends EspinosoCommandHandler
+class StartCommandHandler extends BaseCommand
 {
     /**
      * @var string

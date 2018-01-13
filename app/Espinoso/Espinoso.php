@@ -4,7 +4,7 @@ use Exception;
 use Telegram\Bot\Objects\Chat;
 use Telegram\Bot\Objects\Message;
 use Illuminate\Support\Collection;
-use App\Espinoso\Handlers\EspinosoHandler;
+use App\Espinoso\Handlers\BaseHandler;
 use App\Espinoso\DeliveryServices\EspinosoDeliveryInterface;
 use Telegram\Bot\Objects\User as UserObject;
 
@@ -41,9 +41,9 @@ class Espinoso
     {
         $this->message = $message;
 
-        $this->getHandlers()->filter(function (EspinosoHandler $handler) {
+        $this->getHandlers()->filter(function (BaseHandler $handler) {
             return $handler->shouldHandle($this->message);
-        })->each(function (EspinosoHandler $handler) {
+        })->each(function (BaseHandler $handler) {
             try {
                 $handler->handle($this->message);
             } catch (Exception $e) {

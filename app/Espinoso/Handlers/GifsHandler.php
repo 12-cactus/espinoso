@@ -2,7 +2,7 @@
 
 use Telegram\Bot\Objects\Message;
 
-class GifsHandler extends EspinosoCommandHandler
+class GifsHandler extends BaseCommand
 {
     /**
      * @var bool
