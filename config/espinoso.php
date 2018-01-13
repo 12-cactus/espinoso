@@ -21,6 +21,7 @@ return [
         App\Espinoso\Handlers\TranslationHandler::class,
         //App\Espinoso\Handlers\MemeHandler::class,
         App\Espinoso\Handlers\IssuesListHandler::class,
+        App\Espinoso\Handlers\SettingsHandler::class,
     ],
 
     'token' => [
