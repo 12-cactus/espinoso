@@ -16,8 +16,17 @@ class HelpHandler extends BaseCommand
             return $handler->help();
         })->reject(function (string $help) {
             return empty($help);
+        })->sort(function ($firstText, $secondText) {
+            return strcmp($this->removePrefix($firstText), $this->removePrefix($secondText));
         })->implode("\n");
 
         $this->espinoso->reply("Entiendo masomenos estas cosas:\n\n{$data}");
+    }
+
+    protected function removePrefix($text)
+    {
+        $text = str_replace('[espi] ', '', $text);
+
+        return str_replace('espi ', '', $text);
     }
 }

@@ -10,8 +10,6 @@ class StickersHandler extends BaseCommand
      */
     protected $ignorePrefix = true;
 
-    protected $signature   = "[espi] maybe";
-    protected $description = "solo funciona para facu... los demás a comerla";
     /**
      * @var Collection|null
      */

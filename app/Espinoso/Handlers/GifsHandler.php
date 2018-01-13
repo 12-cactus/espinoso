@@ -12,10 +12,6 @@ class GifsHandler extends BaseCommand
      * @var string
      */
 
-    protected $signature   = "[espi] dracarys";
-    protected $description = "Valar Morghulis";
-
-
     /**
      * @var null
      */
