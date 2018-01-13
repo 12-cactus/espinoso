@@ -7,13 +7,13 @@ use App\Facades\WeatherSearch;
 use Cmfcmf\OpenWeatherMap\Forecast;
 use App\Espinoso\CronicaGenerator;
 
-class WeatherHandler extends EspinosoCommandHandler
+class WeatherHandler extends BaseCommand
 {
     protected $ignorePrefix = true;
     protected $pattern = "(\b(clima)\b)\s+(?'p'(este|el)\s+)?(?'day'(lunes|martes|mi(e|é)rcoles|jueves|viernes|s(a|á)bado|domingo))$";
 
-    protected $signature   = "[espi] clima este lunez|martes|...";
-    protected $description = "odio esta mierda...";
+    protected $signature   = "[espi] clima este lunes|martes|...";
+    protected $description = "está medio choto esto...";
 
 
     public function handle(): void

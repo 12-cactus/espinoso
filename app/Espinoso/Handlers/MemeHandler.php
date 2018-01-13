@@ -3,7 +3,7 @@
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
-class MemeHandler extends EspinosoCommandHandler
+class MemeHandler extends BaseCommand
 {
     protected $ignorePrefix = true;
     protected $pattern = "(?'cmd'meme)\s+((?'src'[^\s]+))\s+(\"(?'top'[^\"]+)\")(\s+(\"(?'bottom'[^\"]+)\")?)?";

@@ -8,7 +8,7 @@ use App\Facades\IMDbSearch;
  * Class IMDbHandler
  * @package App\Espinoso\Handlers
  */
-class IMDbHandler extends EspinosoCommandHandler
+class IMDbHandler extends BaseCommand
 {
     /**
      * @var string

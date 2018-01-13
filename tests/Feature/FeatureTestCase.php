@@ -2,16 +2,19 @@
 
 namespace Tests\Feature;
 
-use App\Espinoso\DeliveryServices\EspinosoDeliveryInterface;
+use Tests\TestCase;
 use App\Espinoso\Espinoso;
-use Tests\DBTestCase;
+use App\Espinoso\DeliveryServices\EspinosoDeliveryInterface;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
  * Class FeatureTestCase
  * @package Tests
  */
-class FeatureTestCase extends DBTestCase
+class FeatureTestCase extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * @var Espinoso
      */

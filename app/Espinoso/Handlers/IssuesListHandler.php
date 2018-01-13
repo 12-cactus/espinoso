@@ -5,7 +5,7 @@ namespace App\Espinoso\Handlers;
 use App\Facades\GuzzleClient;
 use stdClass;
 
-class IssuesListHandler extends EspinosoCommandHandler
+class IssuesListHandler extends BaseCommand
 {
 
     protected $ignorePrefix = true;

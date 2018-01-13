@@ -21,6 +21,10 @@ return [
 
     'new-event' => ":emoji1 Apa... parece que a `:user` le gusta meterme mano en el `:branch` :emoji2\nMirá lo que hizo esta vez:\n:commits",
 
-    'feriados' => "Manga de vagos, *quedan :count feriados* en todo el año.\n\n:list"
+    'feriados' => "Manga de vagos, *quedan :count feriados* en todo el año.\n\n:list",
+
+    'settings' => [
+        'saved' => "Guardado! para traerlo usá _get_"
+    ],
 
 ];

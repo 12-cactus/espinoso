@@ -2,7 +2,7 @@
 
 use Telegram\Bot\Objects\Message;
 
-class GifsHandler extends EspinosoCommandHandler
+class GifsHandler extends BaseCommand
 {
     /**
      * @var bool
@@ -11,10 +11,6 @@ class GifsHandler extends EspinosoCommandHandler
     /**
      * @var string
      */
-
-    protected $signature   = "[espi] dracarys";
-    protected $description = "Valar Morghulis";
-
 
     /**
      * @var null

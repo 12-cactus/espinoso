@@ -3,15 +3,13 @@
 use Illuminate\Support\Str;
 use App\Facades\GoutteClient;
 
-class StartCommandHandler extends EspinosoCommandHandler
+class StartCommandHandler extends BaseCommand
 {
     /**
      * @var string
      */
     protected $pattern = "\b(start)\b(@[a-z]*)?\s*$";
     protected $ignorePrefix = true;
-    protected $signature    = "start";
-    protected $description  = "es el comando que se ejecuta cuando iniciás un chat con espi o lo agregás a un grupo";
 
     public function handle(): void
     {

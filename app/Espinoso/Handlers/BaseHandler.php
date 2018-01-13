@@ -6,7 +6,7 @@ use App\Espinoso\Espinoso;
 use Telegram\Bot\Objects\Message;
 use Illuminate\Support\Facades\Log;
 
-abstract class EspinosoHandler
+abstract class BaseHandler
 {
     /**
      * @var Espinoso

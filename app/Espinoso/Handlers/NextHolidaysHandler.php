@@ -4,7 +4,7 @@ use stdClass;
 use Carbon\Carbon;
 use App\Facades\GuzzleClient;
 
-class NextHolidaysHandler extends EspinosoCommandHandler
+class NextHolidaysHandler extends BaseCommand
 {
     /**
      * @var string

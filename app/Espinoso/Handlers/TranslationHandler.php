@@ -2,7 +2,7 @@
 
 use App\Facades\Translator;
 
-class TranslationHandler extends EspinosoCommandHandler
+class TranslationHandler extends BaseCommand
 {
     protected $ignorePrefix = true;
     protected $pattern = "(?'i'\b(gt)\b)(?'query'.+)$";

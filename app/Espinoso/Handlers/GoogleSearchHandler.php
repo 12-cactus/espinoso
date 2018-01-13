@@ -5,7 +5,7 @@ namespace App\Espinoso\Handlers;
 use stdClass;
 use Spatie\GoogleSearch\Facades\GoogleSearch;
 
-class GoogleSearchHandler extends EspinosoCommandHandler
+class GoogleSearchHandler extends BaseCommand
 {
     protected $ignorePrefix = true;
     protected $pattern = "(?'i'\b(gg)\b)(?'query'.+)$";

@@ -3,15 +3,13 @@
 use Telegram\Bot\Objects\Message;
 use Illuminate\Support\Collection;
 
-class StickersHandler extends EspinosoCommandHandler
+class StickersHandler extends BaseCommand
 {
     /**
      * @var bool
      */
     protected $ignorePrefix = true;
 
-    protected $signature   = "[espi] maybe";
-    protected $description = "solo funciona para facu... los demás a comerla";
     /**
      * @var Collection|null
      */
