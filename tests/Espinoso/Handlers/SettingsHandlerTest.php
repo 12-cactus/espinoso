@@ -54,7 +54,7 @@ class SettingsHandlerTest extends HandlersTestCase
     public function it_handle_set_and_store_it()
     {
         // Mocking
-        $this->espinoso->shouldReceive('reply')->once()->with("Guardado! para traerlo usá _get_");
+        $this->espinoso->shouldReceive('reply')->once()->with(trans('messages.settings.saved'));
 
         $handler = $this->makeHandler();
         $update = $this->makeMessage([
