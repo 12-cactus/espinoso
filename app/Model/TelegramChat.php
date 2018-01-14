@@ -4,7 +4,6 @@ namespace App\Model;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class TelegramChat
@@ -24,4 +23,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class TelegramChat extends Model
 {
+    public function tags()
+    {
+        return $this->hasMany(Tag::class);
+    }
 }
