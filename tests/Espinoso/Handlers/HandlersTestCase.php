@@ -31,8 +31,8 @@ abstract class HandlersTestCase extends TestCase
         $this->assertTrue($this->handler->shouldHandle($this->makeMessage(['text' => $message])));
     }
 
-    protected function assertShouldNotHandle($handler, $message)
+    protected function assertShouldNotHandle($message)
     {
-        $this->assertFalse($handler->shouldHandle($this->makeMessage(['text' => $message])));
+        $this->assertFalse($this->handler->shouldHandle($this->makeMessage(['text' => $message])));
     }
 }

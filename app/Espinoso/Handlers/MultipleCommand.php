@@ -29,7 +29,11 @@ abstract class MultipleCommand extends BaseCommand
         $this->message = $message;
 
         return collect($this->patterns)->filter(function ($item) {
-            return $this->matchCommand($item['pattern'], $this->message, $this->matches[$item['name']]);
+            $match = $this->matchCommand($item['pattern'], $this->message, $this->matches[$item['name']]);
+            if ($match) {
+                $this->matches[$item['name']]['method'] = camel_case("handle-{$item['name']}");
+            }
+            return $match;
         })->isNotEmpty();
     }
 
@@ -37,7 +41,7 @@ abstract class MultipleCommand extends BaseCommand
     {
         $this->matches = collect($this->matches)->filter()->first();
 
-        $method = "handle" . ucfirst(trim($this->matches['command']));
+        $method = $this->matches['method'];
 
         $this->$method();
     }
