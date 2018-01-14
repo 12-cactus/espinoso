@@ -27,4 +27,8 @@ return [
         'saved' => "Guardado! para traerlo usá _get_"
     ],
 
+    'issues' => [
+        'all' => "Van todos, cualquier cosa andá al [repo](:repo)\n\n:issues"
+    ]
+
 ];

@@ -1,20 +1,29 @@
 <?php namespace App\Espinoso\Handlers;
 
+use stdClass;
 use App\Facades\GuzzleClient;
 
-class GitHubHandler extends BaseCommand
+class GitHubHandler extends MultipleCommand
 {
     /**
      * @var string
      */
-    protected $pattern = "(issue)(\s+)(?'title'.+)$";
+    protected $patterns = [
+        [
+            'name' => 'issue-creation',
+            'pattern' => "(issue)\s+(?'title'.+)$"
+        ],[
+            'name' => 'issues-list',
+            'pattern' => "((list|listar|show|ver)\s+)?(issues)\s*$"
+        ],
+    ];
 
-    protected $signature   = "espi issue <title>";
-    protected $description = "genera un issue en el repo";
+    protected $signature   = "espi issues\nespi issue <title>";
+    protected $description = "lista los issues o crea uno nuevo";
 
-    public function handle(): void
+    public function handleIssueCreation(): void
     {
-        $response = GuzzleClient::post(config('espinoso.url.issues'), [
+        $response = GuzzleClient::post(config('espinoso.api.issues'), [
             'headers' => ['Authorization' => "token ".config('github.token')],
             'json'    => ['title' => $this->matches['title']]
         ]);
@@ -28,5 +37,23 @@ class GitHubHandler extends BaseCommand
         }
 
         $this->espinoso->reply($text);
+    }
+
+    public function handleIssuesList(): void
+    {
+        $response = GuzzleClient::request('GET', config('espinoso.api.issues'));
+
+        if ($response->getStatusCode() !== 200) {
+            $this->replyError();
+            return;
+        }
+
+        $repo   = config('espinoso.url.issues');
+        $items  = collect(json_decode($response->getBody()));
+        $issues = $items->map(function (stdClass $issue) {
+            return "[#{$issue->number}]({$issue->html_url}) {$issue->title}";
+        })->implode("\n");
+
+        $this->espinoso->reply(trans('messages.issues.all', compact('repo', 'issues')));
     }
 }
