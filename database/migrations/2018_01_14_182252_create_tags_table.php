@@ -16,7 +16,7 @@ class CreateTagsTable extends Migration
         Schema::create('tags', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('telegram_chat_id');
-            $table->string('tag');
+            $table->string('name');
 
             $table->foreign('telegram_chat_id')->references('id')->on('telegram_chats');
         });

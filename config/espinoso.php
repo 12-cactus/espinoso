@@ -20,6 +20,7 @@ return [
         App\Espinoso\Handlers\GoogleSearchHandler::class,
         App\Espinoso\Handlers\TranslationHandler::class,
         App\Espinoso\Handlers\SettingsHandler::class,
+        App\Espinoso\Handlers\TagsHandler::class,
     ],
 
     'token' => [
