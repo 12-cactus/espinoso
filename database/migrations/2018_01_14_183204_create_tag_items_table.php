@@ -18,7 +18,7 @@ class CreateTagItemsTable extends Migration
             $table->integer('tag_id');
             $table->string('text');
 
-            $table->foreign('tag_id')->references('id')->on('tags');
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
         });
     }
 

@@ -33,7 +33,9 @@ return [
 
     'tags' => [
         'saved' => "Guardado! Para ver lo que hay en :tag escribí `show :tag`",
-        'items' => "Tag :tag\n:items"
+        'items' => "Tag :tag\n:items",
+        'tags' => "Tags con data:\n:tags",
+        'clear' => "Listo vieja!"
     ]
 
 ];

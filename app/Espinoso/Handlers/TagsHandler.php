@@ -32,7 +32,7 @@ class TagsHandler extends MultipleCommand
 [espi] clean|clear|limpiar|vaciar #tag";
     protected $description = "cosas con los tags";
 
-    public function handleSetItem(): void
+    protected function handleSetItem(): void
     {
         $tag = $this->matches['tag'];
         $item = $this->matches['item'];
@@ -50,11 +50,14 @@ class TagsHandler extends MultipleCommand
         $this->espinoso->reply(trans('messages.tags.saved', ['tag' => $tag->name]));
     }
 
-    public function handleItemsList(): void
+    protected function handleItemsList(): void
     {
         $tag = $this->matches['tag'];
 
-        $items = Tag::whereName($tag)->first()->items;
+        $items = Tag::whereName($tag)
+            ->whereTelegramChatId($this->message->getChat()->getId())
+            ->first()
+            ->items;
 
         $items = $items->map(function (TagItem $item) {
             return "- {$item->text}";
@@ -62,4 +65,37 @@ class TagsHandler extends MultipleCommand
 
         $this->espinoso->reply(trans('messages.tags.items', compact('tag', 'items')));
     }
+
+    protected function handleTagsList(): void
+    {
+        $tags = Tag::whereTelegramChatId($this->message->getChat()->getId())->get();
+
+        $tags = $tags->map(function (Tag $tag) {
+            return "- {$tag->name}";
+        })->implode("\n");
+
+        if (empty($tags)) {
+            $this->replyNotFound();
+            return;
+        }
+
+        $this->espinoso->reply(trans('messages.tags.tags', compact('tags')));
+    }
+
+    protected function handleClearTag(): void
+    {
+        $tag = $this->matches['tag'];
+        $tag = Tag::whereName($tag)
+            ->whereTelegramChatId($this->message->getChat()->getId())
+            ->first();
+
+        if (!empty($tag)) {
+            $tag->items()->delete();
+            $tag->delete();
+        }
+
+        $this->espinoso->reply(trans('messages.tags.clear'));
+    }
+
+
 }
