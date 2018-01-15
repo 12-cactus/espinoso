@@ -50,7 +50,7 @@ abstract class BaseHandler
      */
     protected function replyNotFound()
     {
-        $this->espinoso->reply(trans('messages.search.empty'));
+        $this->espinoso->reply($this->pickOne(trans('messages.not-found')));
     }
 
     /**
@@ -67,6 +67,15 @@ abstract class BaseHandler
     protected function replyError()
     {
         $this->espinoso->reply('Ups! Esta cosa anda como el culo...');
+    }
+
+    protected function pickOne($messages)
+    {
+        $messages = collect($messages);
+
+        $pos = mt_rand(0, $messages->count() - 1);
+
+        return $messages->get($pos);
     }
 
     public function handleError(Exception $e, Message $message)

@@ -8,8 +8,13 @@ return [
     |--------------------------------------------------------------------------
     */
 
+    'not-found' => [
+        'No hay un carajo! Hiciste cualquiera',
+        'Nada por aquí, nada por allá...',
+        '404 not found a tu hermana'
+    ],
+
     'search' => [
-        'empty' => "Uhhh... no hay un carajo!!\nO buscaste como el orto o estoy haciendo cualquiera!",
         'google' => "Google me tira esto, si no te sirve jodete!:\n:list:"
     ],
 
