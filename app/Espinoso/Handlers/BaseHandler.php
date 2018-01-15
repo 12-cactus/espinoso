@@ -58,7 +58,15 @@ abstract class BaseHandler
      */
     protected function replyInMaintenance()
     {
-        $this->espinoso->reply('Esta mierda no anda todavía...');
+        $this->espinoso->reply($this->pickOne(trans('messages.maintenance')));
+    }
+
+    /**
+     *
+     */
+    protected function replyOk()
+    {
+        $this->espinoso->reply($this->pickOne(trans('messages.ok')));
     }
 
     /**
@@ -66,7 +74,7 @@ abstract class BaseHandler
      */
     protected function replyError()
     {
-        $this->espinoso->reply('Ups! Esta cosa anda como el culo...');
+        $this->espinoso->reply($this->pickOne(trans('messages.error')));
     }
 
     protected function pickOne($messages)

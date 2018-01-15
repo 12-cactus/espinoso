@@ -1,9 +1,15 @@
 <?php namespace Tests\Espinoso\Handlers;
 
+use Mockery;
+use App\Model\Tag;
+use App\Model\TagItem;
 use App\Espinoso\Handlers\TagsHandler;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TagsHandlerTest extends HandlersTestCase
 {
+    use RefreshDatabase;
+
     /**
      * @test
      */
@@ -41,6 +47,141 @@ class TagsHandlerTest extends HandlersTestCase
         // Act & Assert
         $this->assertShouldNotHandle('espi ver tag');
         $this->assertShouldNotHandle('espi limpiar tag');
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_set_item()
+    {
+        // Mocking
+        $this->espinoso
+            ->shouldReceive('reply')->once()
+            ->with(Mockery::anyOf(...trans('messages.ok')));
+
+        $handler = $this->makeHandler();
+        $update = $this->makeMessage([
+            'chat' => ['id' => 123],
+            'text' => 'espi #tag cosa'
+        ]);
+
+        // Act
+        $handler->shouldHandle($update);
+        $handler->handle($update);
+
+        $this->assertDatabaseHas('tags', [
+            'telegram_chat_id' => 123,
+            'name' => '#tag'
+        ]);
+        $this->assertDatabaseHas('tag_items', [
+            'id' => 1,
+            'text' => 'cosa'
+        ]);
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_list_items()
+    {
+        // Mocking && Arrange
+        $tag = Tag::firstOrCreate([
+            'telegram_chat_id' => 123,
+            'name' => '#tag'
+        ]);
+        TagItem::firstOrCreate([
+            'tag_id' => $tag->id,
+            'text' => 'cosa'
+        ]);
+        $tag = $tag->name;
+        $items = TagItem::all()->map(function (TagItem $item) {
+            return "- {$item->text}";
+        })->implode("\n");
+
+        $this->espinoso
+            ->shouldReceive('reply')->once()
+            ->with(trans('messages.tags.items', compact('tag', 'items')));
+
+        $handler = $this->makeHandler();
+        $update = $this->makeMessage([
+            'chat' => ['id' => 123],
+            'text' => 'espi show #tag'
+        ]);
+
+        // Act
+        $handler->shouldHandle($update);
+        $handler->handle($update);
+        $this->assertTrue(true);
+    }
+/**
+     * @test
+     */
+    public function it_should_list_tags()
+    {
+        // Mocking && Arrange
+        $tag = Tag::firstOrCreate([
+            'telegram_chat_id' => 123,
+            'name' => '#tag'
+        ]);
+        TagItem::firstOrCreate([
+            'tag_id' => $tag->id,
+            'text' => 'cosa'
+        ]);
+        $tags = Tag::all()->map(function (Tag $tag) {
+            return "- {$tag->name}";
+        })->implode("\n");
+
+        $this->espinoso
+            ->shouldReceive('reply')->once()
+            ->with(trans('messages.tags.tags', compact('tags')));
+
+        $handler = $this->makeHandler();
+        $update = $this->makeMessage([
+            'chat' => ['id' => 123],
+            'text' => 'espi tags'
+        ]);
+
+        // Act
+        $handler->shouldHandle($update);
+        $handler->handle($update);
+        $this->assertTrue(true);
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_clear_tag()
+    {
+        // Mocking && Arrange
+        $tag = Tag::firstOrCreate([
+            'telegram_chat_id' => 123,
+            'name' => '#tag'
+        ]);
+        TagItem::firstOrCreate([
+            'tag_id' => $tag->id,
+            'text' => 'cosa'
+        ]);
+        $this->espinoso
+            ->shouldReceive('reply')->once()
+            ->with(Mockery::anyOf(...trans('messages.ok')));
+
+        $handler = $this->makeHandler();
+        $update = $this->makeMessage([
+            'chat' => ['id' => 123],
+            'text' => 'espi clear #tag'
+        ]);
+
+        // Act
+        $handler->shouldHandle($update);
+        $handler->handle($update);
+        $this->assertDatabaseMissing('tags', [
+            'telegram_chat_id' => 123,
+            'name' => '#tag'
+        ]);
+        $this->assertDatabaseMissing('tag_items', [
+            'id' => 1,
+            'text' => 'cosa'
+        ]);
     }
 
     /**

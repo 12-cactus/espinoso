@@ -47,7 +47,7 @@ class TagsHandler extends MultipleCommand
             'text' => $item
         ]);
 
-        $this->espinoso->reply(trans('messages.tags.saved', ['tag' => $tag->name]));
+        $this->replyOk();
     }
 
     protected function handleItemsList(): void
@@ -94,8 +94,6 @@ class TagsHandler extends MultipleCommand
             $tag->delete();
         }
 
-        $this->espinoso->reply(trans('messages.tags.clear'));
+        $this->replyOk();
     }
-
-
 }
