@@ -105,7 +105,7 @@ class WeatherHandler extends BaseCommand
             $code = intdiv($code, 100);
 
         if (!array_key_exists($code, $titles))
-            return "";
+            return "Dan arreglá este asco de código";
 
         return $titles[$code];
     }
@@ -115,29 +115,30 @@ class WeatherHandler extends BaseCommand
      */
     protected function cronicalTitlesMapping(): array
     {
+        $default = "Dan arreglá este asco de código";
         $titles = [
             2 => "Cuidado con el rayo que te parte al medio!",
             3 => "Atento el que quiere ver gotas!",
             5 => "Lindo dia para ponerla!",
-            8 => "",
+            8 => $default,
             800 => "Se vienen las tanguitas!",
-            801 => "", // few clouds
-            802 => "", // scattered clouds
-            803 => "", // broken clouds
-            804 => "", // overcast clouds
+            801 => $default, // few clouds
+            802 => $default, // scattered clouds
+            803 => $default, // broken clouds
+            804 => $default, // overcast clouds
             9 => "Guarda que se te vuela la peluca!",
-            951 => "", // calm
-            952 => "", // light breeze
-            953 => "", // gentle breeze
-            954 => "", // moderate breeze
-            955 => "", // fresh breeze
-            956 => "", // strong breeze
-            957 => "", // high wind, near gale
-            958 => "", // gale
-            959 => "", // severe gale
-            960 => "", // storm
-            961 => "", // violent storm
-            962 => "", // hurricane
+            951 => $default, // calm
+            952 => $default, // light breeze
+            953 => $default, // gentle breeze
+            954 => $default, // moderate breeze
+            955 => $default, // fresh breeze
+            956 => $default, // strong breeze
+            957 => $default, // high wind, near gale
+            958 => $default, // gale
+            959 => $default, // severe gale
+            960 => $default, // storm
+            961 => $default, // violent storm
+            962 => $default, // hurricane
         ];
         return $titles;
     }
