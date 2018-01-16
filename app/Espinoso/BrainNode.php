@@ -46,14 +46,12 @@ class BrainNode
 
     protected function shouldResponseTo(TelegramUser $from)
     {
-        // TODO
         return true;
     }
 
     protected function pickFromBag(Message $message)
     {
-        // FIXME: make a better behavior than simple random
-        $number = rand(0, count($this->reply) - 1);
+        $number = mt_rand(0, count($this->reply) - 1);
 
         $reply = $this->reply[$number];
 

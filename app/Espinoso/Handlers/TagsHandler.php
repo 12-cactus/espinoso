@@ -1,5 +1,6 @@
-<?php namespace App\Espinoso\Handlers;
+<?php
 
+namespace App\Espinoso\Handlers;
 
 use App\Model\Tag;
 use App\Model\TagItem;

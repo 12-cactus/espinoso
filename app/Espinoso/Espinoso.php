@@ -164,7 +164,7 @@ class Espinoso
         }
     }
 
-    public function hasRegisteredChat(Chat $chat): bool
+    protected function hasRegisteredChat(Chat $chat): bool
     {
         return $this->delivery->hasRegisteredChat($chat);
     }
