@@ -8,8 +8,27 @@ return [
     |--------------------------------------------------------------------------
     */
 
+    'not-found' => [
+        'No hay un carajo! Hiciste cualquiera',
+        'Nada por aquí, nada por allá...',
+        '404 not found a tu hermana'
+    ],
+
+    'maintenance' => [
+        'Esta mierda no anda todavía...'
+    ],
+
+    'error' => [
+        'Ups! Esta cosa anda como el culo...'
+    ],
+
+    'ok' => [
+        'Yastá!',
+        'Listo vieja!',
+        'Ya lo anoté en mi máquina de escribir invisible',
+    ],
+
     'search' => [
-        'empty' => "Uhhh... no hay un carajo!!\nO buscaste como el orto o estoy haciendo cualquiera!",
         'google' => "Google me tira esto, si no te sirve jodete!:\n:list:"
     ],
 
@@ -23,19 +42,13 @@ return [
 
     'feriados' => "Manga de vagos, *quedan :count feriados* en todo el año.\n\n:list",
 
-    'settings' => [
-        'saved' => "Guardado! para traerlo usá _get_"
-    ],
-
     'issues' => [
         'all' => "Van todos, cualquier cosa andá al [repo](:repo)\n\n:issues"
     ],
 
     'tags' => [
-        'saved' => "Guardado! Para ver lo que hay en :tag escribí `show :tag`",
         'items' => "Tag :tag\n:items",
         'tags' => "Tags con data:\n:tags",
-        'clear' => "Listo vieja!"
     ]
 
 ];

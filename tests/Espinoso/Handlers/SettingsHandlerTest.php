@@ -1,7 +1,8 @@
 <?php namespace Tests\Espinoso\Handlers;
 
-use Unisharp\Setting\SettingFacade as Setting;
+use Mockery;
 use App\Espinoso\Handlers\SettingsHandler;
+use Unisharp\Setting\SettingFacade as Setting;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class SettingsHandlerTest extends HandlersTestCase
@@ -78,7 +79,9 @@ class SettingsHandlerTest extends HandlersTestCase
     public function it_handle_get_with_unknown_key()
     {
         // Mocking
-        $this->espinoso->shouldReceive('reply')->once()->with(trans('messages.search.empty'));
+        $this->espinoso
+            ->shouldReceive('reply')->once()
+            ->with(Mockery::anyOf(...trans('messages.not-found')));
 
         $handler = $this->makeHandler();
         $update = $this->makeMessage([

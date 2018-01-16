@@ -38,7 +38,7 @@ class IMDbHandler extends BaseCommand
         $result = $this->getData($this->matches['query'], $types);
 
         if (empty($result)) {
-            $this->replyError();
+            $this->replyNotFound();
             return;
         }
 

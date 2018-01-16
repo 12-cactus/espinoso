@@ -62,8 +62,9 @@ class GoogleInfoBoxHandlerTest extends HandlersTestCase
             ->andReturn($crawler);
 
         // Arrange
-        $text = "Uhhh... no hay un carajo!!\nO buscaste como el orto o estoy haciendo cualquiera!";
-        $this->espinoso->shouldReceive('reply')->once()->with($text);
+        $this->espinoso
+            ->shouldReceive('reply')->once()
+            ->with(Mockery::anyOf(...trans('messages.not-found')));
         $handler = $this->makeHandler();
         $update = $this->makeMessage(['text' => 'espi info got']);
 

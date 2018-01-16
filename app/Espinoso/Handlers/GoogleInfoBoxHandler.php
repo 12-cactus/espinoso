@@ -28,9 +28,11 @@ class GoogleInfoBoxHandler extends BaseCommand
         }
 
         $text = trim($content->implode("\n"));
-        $text = empty($text)
-            ? trans('messages.search.empty')
-            : $text;
+
+        if (empty($text)) {
+            $this->replyNotFound();
+            return;
+        }
 
         $this->espinoso->reply($text);
     }
