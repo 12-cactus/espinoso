@@ -43,7 +43,8 @@ return [
     'feriados' => "Manga de vagos, *quedan :count feriados* en todo el año.\n\n:list",
 
     'issues' => [
-        'all' => "Van todos, cualquier cosa andá al [repo](:repo)\n\n:issues"
+        'all' => "Van todos, cualquier cosa andá al [repo](:repo)\n\n:issues",
+        'empty' => "Nada por aquí, nada por allá... [repo](:repo)"
     ],
 
     'tags' => [

@@ -54,6 +54,10 @@ class GitHubHandler extends MultipleCommand
             return "[#{$issue->number}]({$issue->html_url}) {$issue->title}";
         })->implode("\n");
 
-        $this->espinoso->reply(trans('messages.issues.all', compact('repo', 'issues')));
+        $message = $items->isEmpty()
+            ? trans('messages.issues.empty', compact('repo'))
+            : trans('messages.issues.all', compact('repo', 'issues'));
+
+        $this->espinoso->reply($message);
     }
 }
