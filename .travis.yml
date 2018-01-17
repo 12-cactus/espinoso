@@ -7,6 +7,7 @@ before_install:
   - sudo apt-add-repository ppa:mc3man/xerus-media
   - sudo apt-get update
   - sudo apt-get dist-upgrade
+  - sudo ppa-purge ppa:mc3man/xerus-media
   - sudo apt-get -y -q install ffmpeg
 
 before_script:
