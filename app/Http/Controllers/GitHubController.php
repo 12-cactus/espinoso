@@ -73,7 +73,7 @@ class GitHubController extends Controller
             $user = $event->actor->display_login ?? $event->actor->login ?? 'anonymous';
 
             $commits = collect($event->payload->commits)->map(function ($commit) use ($event) {
-                $link = config('github.url.commit') . $commit->sha;
+                $link = config('github.commits') . $commit->sha;
                 $sha  = str_limit($commit->sha, self::SHA_LIMIT, '');
                 return "[{$sha}]({$link}) _{$commit->message}_";
             })->implode("\n");

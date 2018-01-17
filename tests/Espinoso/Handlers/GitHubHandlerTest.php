@@ -48,7 +48,7 @@ class GitHubHandlerTest extends HandlersTestCase
         $response->shouldReceive('getBody')->andReturn('{"html_url": "http://url.facades.org/issues/12"}');
         GuzzleClient::shouldReceive('post')
             ->withArgs([
-                config('espinoso.api.issues'),
+                config('github.issues-api'),
                 [
                     'headers' => [
                         'Authorization' => "token ".config('github.token'),
@@ -88,10 +88,10 @@ class GitHubHandlerTest extends HandlersTestCase
         $response->shouldReceive('getBody')->andReturn($jsonText);
 
         GuzzleClient::shouldReceive('request')
-            ->withArgs(['GET', config('espinoso.api.issues')])
+            ->withArgs(['GET', config('github.issues-api')])
             ->andReturn($response);
 
-        $repo = config('espinoso.url.issues');
+        $repo = config('github.issues');
         $issues = "[#103](https://github.com/12-cactus/espinoso/issues/103) Hacer Handler con el GSM";
         $text = trans('messages.issues.all', compact('repo', 'issues'));
 

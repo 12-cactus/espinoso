@@ -23,7 +23,7 @@ class GitHubHandler extends MultipleCommand
 
     public function handleIssueCreation(): void
     {
-        $response = GuzzleClient::post(config('espinoso.api.issues'), [
+        $response = GuzzleClient::post(config('github.issues-api'), [
             'headers' => ['Authorization' => "token ".config('github.token')],
             'json'    => ['title' => $this->matches['title']]
         ]);
@@ -41,14 +41,14 @@ class GitHubHandler extends MultipleCommand
 
     public function handleIssuesList(): void
     {
-        $response = GuzzleClient::request('GET', config('espinoso.api.issues'));
+        $response = GuzzleClient::request('GET', config('github.issues-api'));
 
         if ($response->getStatusCode() !== 200) {
             $this->replyError();
             return;
         }
 
-        $repo   = config('espinoso.url.issues');
+        $repo   = config('github.issues');
         $items  = collect(json_decode($response->getBody()));
         $issues = $items->map(function (stdClass $issue) {
             return "[#{$issue->number}]({$issue->html_url}) {$issue->title}";
