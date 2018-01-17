@@ -4,8 +4,7 @@ php:
   - 7.1
 
 before_install:
-  - sudo apt-add-repository ppa:mc3man/trusty-media 
-  - sudo ppa-purge ppa:mc3man/trusty-media
+  - sudo apt-add-repository ppa:mc3man/xerus-media
   - sudo apt-get update
   - sudo apt-get dist-upgrade
   - sudo apt-get -y -q install ffmpeg
