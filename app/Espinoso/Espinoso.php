@@ -4,6 +4,7 @@ use Exception;
 use App\Facades\GuzzleClient;
 use App\Espinoso\Handlers\BaseHandler;
 use App\Espinoso\DeliveryServices\EspinosoDeliveryInterface;
+use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Objects\Chat;
 use Telegram\Bot\Objects\Message;
 use Telegram\Bot\Objects\User as UserObject;
@@ -144,6 +145,8 @@ class Espinoso
 
     public function transcribe(Message $message)
     {
+        $this->message = $message;
+
         $voice   = $message->getVoice();
         $file_id = $voice->getFileId();
         $stream  = $this->delivery->getVoiceStream($voice);
@@ -158,18 +161,23 @@ class Espinoso
         @exec("rm -f {$fileIn} 2> /dev/null");
         @exec("rm -f {$fileOut} 2> /dev/null");
 
-        // Get transcription
-        $response = GuzzleClient::post(config('espinoso.voice.url'), [
-            'headers' => [
-                'Authorization' => "Bearer " . config('espinoso.voice.token'),
-                'Content-Type' => 'audio/wav'
-            ],
-            'body' => $audio
-        ]);
+        try {
+            // Get transcription
+            $response = GuzzleClient::post(config('espinoso.voice.url'), [
+                'headers' => [
+                    'Authorization' => "Bearer " . config('espinoso.voice.token'),
+                    'Content-Type' => 'audio/wav'
+                ],
+                'body' => $audio
+            ]);
 
-        $data = json_decode($response->getBody());
+            $data = json_decode($response->getBody());
 
-        return $data->_text;
+            return $data->_text;
+        } catch (Exception $e) {
+            Log::error($e);
+            return '**Error al intentar trascribir**';
+        }
     }
 
     /**

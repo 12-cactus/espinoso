@@ -1,6 +1,8 @@
 <?php namespace App\Http\Controllers;
 
+use Exception;
 use App\Espinoso\Espinoso;
+use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Objects\Message;
 use Telegram\Bot\Objects\Update;
 use Telegram\Bot\TelegramResponse;
@@ -66,7 +68,13 @@ class TelegramController extends Controller
 
     protected function handleMessage(Espinoso $espinoso, Update $update)
     {
-        $message = $update->getMessage() ?? new Message($update->get('edited_message'));
+        $message = $update->getMessage();
+
+        if ($this->isVoiceMessage($message)) {
+            $text = trim($espinoso->transcribe($message));
+            $espinoso->reply($text);
+            $message['text'] = $text;
+        }
 
         if ($this->isNotTextMessage($message)) {
             return;
@@ -88,6 +96,15 @@ class TelegramController extends Controller
     protected function isTextMessage($message): bool
     {
         return $message !== null && $message->has('text');
+    }
+
+    /**
+     * @param mixed $message
+     * @return bool
+     */
+    protected function isVoiceMessage($message): bool
+    {
+        return $message !== null && $message->has('voice');
     }
 
     /**
