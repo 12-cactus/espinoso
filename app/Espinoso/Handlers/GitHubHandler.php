@@ -11,21 +11,24 @@ class GitHubHandler extends MultipleCommand
     protected $patterns = [
         [
             'name' => 'issue-creation',
-            'pattern' => "(issue)\s+(?'title'.+)$"
+            'pattern' => "(issue)\s+(?'title'.+)(\s|\n)*(?'body'(.|\n)+)?"
         ],[
             'name' => 'issues-list',
             'pattern' => "((list|listar|show|ver)\s+)?(issues)\s*$"
         ],
     ];
 
-    protected $signature   = "espi issues\nespi issue <title>";
+    protected $signature   = "espi issues\nespi issue <title> [\\n<content>]";
     protected $description = "lista los issues o crea uno nuevo";
 
     public function handleIssueCreation(): void
     {
         $response = GuzzleClient::post(config('github.issues-api'), [
             'headers' => ['Authorization' => "token ".config('github.token')],
-            'json'    => ['title' => $this->matches['title']]
+            'json'    => [
+                'title' => $this->matches['title'],
+                'body'  => $this->matches['body'] ?? ''
+            ]
         ]);
 
         if ($response->getStatusCode() == 201) {

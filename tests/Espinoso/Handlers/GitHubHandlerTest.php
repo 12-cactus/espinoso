@@ -22,6 +22,8 @@ class GitHubHandlerTest extends HandlersTestCase
         $this->assertShouldHandle('espi list issues');
         $this->assertShouldHandle('espi listar issues');
         $this->assertShouldHandle('espi issue bla bla test');
+        $this->assertShouldHandle("espi issue titulo\ndescription");
+        $this->assertShouldHandle("espi issue title\nmulti\nline");
     }
 
     /**
@@ -53,7 +55,10 @@ class GitHubHandlerTest extends HandlersTestCase
                     'headers' => [
                         'Authorization' => "token ".config('github.token'),
                     ],
-                    'json' => ['title' => 'test facade']
+                    'json' => [
+                        'title' => 'test facade',
+                        'body' => ''
+                    ]
                 ]
             ])
             ->andReturn($response);
