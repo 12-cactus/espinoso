@@ -6,6 +6,7 @@ php:
 before_install:
   - sudo apt-add-repository ppa:mc3man/trusty-media
   - sudo apt-get update
+  - sudo apt-get dist-upgrade
   - sudo apt-get -y -q install ffmpeg
 
 before_script:
