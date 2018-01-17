@@ -1,49 +1,41 @@
 <?php namespace App\Espinoso\Handlers;
 
 use stdClass;
-use App\Facades\GoutteClient;
+use Carbon\Carbon;
+use App\Facades\GuzzleClient;
 
-class NextHolidaysHandler extends EspinosoCommandHandler
+class NextHolidaysHandler extends BaseCommand
 {
     /**
      * @var string
      */
     protected $pattern = "(\b(pr(o|ó)x(imo(s?))?)\b\s+)?(\b(feriado(s?))\b)$";
 
-    protected $signature   = "espi feriados";
+    protected $signature = "espi feriados";
     protected $description = "feriados para rascarse la pelusa";
 
 
     public function handle(): void
     {
-        $holidays = collect($this->getHolidays());
-        $count = $holidays->count();
-        $list = $holidays->map(function (stdClass $holiday) {
-            return " - *{$holiday->phrase}*, {$holiday->description} ({$holiday->count} días)";
+        $crawler = GuzzleClient::request('GET', config('espinoso.url.holidays'))->getBody()->getContents();
+        $holidays = collect(json_decode($crawler));
+
+        $filteredList = $holidays->filter(function ($holiday) {
+            return Carbon::create(now()->year, $holiday->mes, $holiday->dia)->isFuture();
+        });
+
+        $count = $filteredList->count();
+        $list = $filteredList->map(function (stdClass $holiday) {
+            return $this->parseHoliday($holiday);
         })->implode("\n");
 
-        $text = "Manga de vagos, *quedan {$count} feriados* en todo el año.\n{$list}";
-
-        $this->espinoso->reply($text);
+        $this->espinoso->reply(trans('messages.feriados', compact('count', 'list')));
     }
 
-    /**
-     * Método dedicado a Dan. Chorea data de elproximoferiado.com y de algún modo saca
-     * un json que tienen guardado en un <script> y lo transforma en objects.
-     *
-     * @return array
-     */
-    private function getHolidays()
+    protected function parseHoliday(stdClass $holiday)
     {
-        $crawler = GoutteClient::request('GET', config('espinoso.url.holidays'));
+        $diff = now()->diffInDays(Carbon::create(now()->year, $holiday->mes, $holiday->dia));
 
-        // here starts crap
-        $data = str_replace("\n", "", $crawler->filter('script')->eq(2)->text());
-        $data = str_replace("\t", "", $data);
-        $data = str_replace("var json = '", '', $data);
-        $data = str_replace("';var position = 0;", '', $data);
-        // here finishes crap
-
-        return json_decode($data);
+        return " - *{$holiday->motivo}*, {$holiday->tipo}, {$holiday->dia}/{$holiday->mes} ({$diff})";
     }
 }

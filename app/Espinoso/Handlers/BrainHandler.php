@@ -8,7 +8,7 @@ use Telegram\Bot\Objects\Message;
  * Class BrainHandler
  * @package App\Espinoso\Handlers
  */
-class BrainHandler extends EspinosoHandler
+class BrainHandler extends BaseHandler
 {
     /**
      * @var static
@@ -18,14 +18,6 @@ class BrainHandler extends EspinosoHandler
      * @var \Illuminate\Support\Collection
      */
     protected $matchedNodes;
-    /**
-     * @var string
-     */
-    protected $signature   = "macri, facu, ine, alan, asado, ...";
-    /**
-     * @var string
-     */
-    protected $description = "Macri Gato, Facu Puto";
 
     /**
      * BrainHandler constructor.
@@ -36,7 +28,7 @@ class BrainHandler extends EspinosoHandler
         parent::__construct($espinoso);
 
         $this->matchedNodes = collect([]);
-        $this->allNodes = collect(config('brain.patterns'))->map(function ($data, $regex) {
+        $this->allNodes = collect(trans('brain.patterns'))->map(function ($data, $regex) {
             return new BrainNode($regex, $data);
         });
     }
@@ -76,6 +68,6 @@ class BrainHandler extends EspinosoHandler
      */
     protected function globalIgnored()
     {
-        return collect(config('brain.ignore_to'));
+        return collect(trans('brain.ignore_to'));
     }
 }

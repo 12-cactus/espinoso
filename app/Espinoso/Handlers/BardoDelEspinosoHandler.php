@@ -4,7 +4,7 @@
  * Class BardoDelEspinosoHandler
  * @package App\Espinoso\Handlers
  */
-class BardoDelEspinosoHandler extends EspinosoCommandHandler
+class BardoDelEspinosoHandler extends BaseCommand
 {
     /**
      * @var string

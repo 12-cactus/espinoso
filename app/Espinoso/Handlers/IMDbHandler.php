@@ -8,7 +8,7 @@ use App\Facades\IMDbSearch;
  * Class IMDbHandler
  * @package App\Espinoso\Handlers
  */
-class IMDbHandler extends EspinosoCommandHandler
+class IMDbHandler extends BaseCommand
 {
     /**
      * @var string
@@ -38,7 +38,7 @@ class IMDbHandler extends EspinosoCommandHandler
         $result = $this->getData($this->matches['query'], $types);
 
         if (empty($result)) {
-            $this->replyError();
+            $this->replyNotFound();
             return;
         }
 

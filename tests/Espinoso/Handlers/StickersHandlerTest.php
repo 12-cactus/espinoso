@@ -1,6 +1,7 @@
 <?php namespace Tests\Espinoso\Handlers;
 
 use App\Espinoso\Handlers\StickersHandler;
+use App\Espinoso\Sticker;
 
 class StickersHandlerTest extends HandlersTestCase
 {
@@ -58,9 +59,7 @@ class StickersHandlerTest extends HandlersTestCase
     public function it_handle_and_return_info()
     {
         // Mocking
-        $sticker = 'CAADAgADiwUAAvoLtgh812FBxEdUAgI'; // LazyPanda
-
-        $this->espinoso->shouldReceive('replySticker')->once()->with($sticker);
+        $this->espinoso->shouldReceive('replySticker')->once()->with(Sticker::FACUMAYBE);
 
         $handler = $this->makeHandler();
         $update = $this->makeMessage([
@@ -72,6 +71,7 @@ class StickersHandlerTest extends HandlersTestCase
         // Act
         $handler->shouldHandle($update);
         $handler->handle($update);
+        $this->assertTrue(true);
     }
 
     /**

@@ -1,17 +1,19 @@
 <?php
 
+use App\Espinoso\Sticker;
+
 return [
 
     'patterns' => [
         [
             'userId' => 350079781,
             'pattern' => ".*\bmaybe\b.*",
-            'sticker' => 'CAADAgADiwUAAvoLtgh812FBxEdUAgI'
+            'sticker' => Sticker::FACUMAYBE
         ],
         [
             'userId' => 305359996,
-            'pattern' => ".*\bminion\w.*",
-            'sticker' => 'CAADAgADcQAD9XK2AdjRDFXRsyGKAg'
+            'pattern' => ".*\bloca\b.*|.*\bsra\b.*|.*\bkaka\b.*|.*\bkk\b.*|.*\bcristi.*|.*\bkirchner.*",
+            'sticker' => Sticker::CFK
         ],
     ],
 ];

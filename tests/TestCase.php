@@ -51,10 +51,10 @@ abstract class TestCase extends BaseTestCase
         $message->forget('text');
         $message = $message->toArray();
         $voice = [
-            "duration" => 1,
+            "duration" => 3,
             "mime_type" => "audio\/ogg",
-            "file_id" => env('TELEGRAM_TEST_VOICE_ID'),
-            "file_size" => 12635
+            "file_id" => 'AwADAQADLQAD2sv5Rnvt3pgJCTl5Ag',
+            "file_size" => 18714
         ];
         $data = array_merge($message, ['voice' => $voice]);
 

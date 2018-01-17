@@ -2,7 +2,7 @@
 
 use Telegram\Bot\Objects\Message;
 
-abstract class EspinosoCommandHandler extends EspinosoHandler
+abstract class BaseCommand extends BaseHandler
 {
     protected $flags   = 'i';
     protected $prefix  = "^(?'e'espi(noso)?\s+)"; // 'espi|espinoso '

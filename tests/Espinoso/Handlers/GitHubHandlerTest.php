@@ -13,11 +13,17 @@ class GitHubHandlerTest extends HandlersTestCase
     public function it_should_handle_when_receives_issue_command()
     {
         // Arrange
-        $handler = $this->makeHandler();
-        $update = $this->makeMessage(['text' => 'espi issue blablatest']);
+        $this->handler = $this->makeHandler();
 
         // Act & Assert
-        $this->assertTrue($handler->shouldHandle($update));
+        $this->assertShouldHandle('espi issues');
+        $this->assertShouldHandle('espi ver issues');
+        $this->assertShouldHandle('espi show issues');
+        $this->assertShouldHandle('espi list issues');
+        $this->assertShouldHandle('espi listar issues');
+        $this->assertShouldHandle('espi issue bla bla test');
+        $this->assertShouldHandle("espi issue titulo\ndescription");
+        $this->assertShouldHandle("espi issue title\nmulti\nline");
     }
 
     /**
@@ -26,11 +32,11 @@ class GitHubHandlerTest extends HandlersTestCase
     public function it_should_not_handle_when_receives_another_text()
     {
         // Arrange
-        $handler = $this->makeHandler();
-        $update = $this->makeMessage(['text' => 'not espi issue blablatest']);
+        $this->handler = $this->makeHandler();
 
         // Act & Assert
-        $this->assertFalse($handler->shouldHandle($update));
+        $this->assertShouldNotHandle('not espi issue bla bla test');
+        $this->assertShouldNotHandle('espi issues bla bla test');
     }
 
     /**
@@ -44,12 +50,15 @@ class GitHubHandlerTest extends HandlersTestCase
         $response->shouldReceive('getBody')->andReturn('{"html_url": "http://url.facades.org/issues/12"}');
         GuzzleClient::shouldReceive('post')
             ->withArgs([
-                config('espinoso.url.issues'),
+                config('github.issues-api'),
                 [
                     'headers' => [
                         'Authorization' => "token ".config('github.token'),
                     ],
-                    'json' => ['title' => 'test facade']
+                    'json' => [
+                        'title' => 'test facade',
+                        'body' => ''
+                    ]
                 ]
             ])
             ->andReturn($response);
@@ -65,6 +74,41 @@ class GitHubHandlerTest extends HandlersTestCase
         // Act
         $handler->shouldHandle($update);
         $handler->handle($update);
+        $this->assertTrue(true);
+    }
+
+    /**
+     * @test
+     */
+    public function it_handle_and_list_issues()
+    {
+        $jsonText = '[{
+            "html_url": "https://github.com/12-cactus/espinoso/issues/103",
+            "number": 103,
+            "title": "Hacer Handler con el GSM"
+        }]';
+
+        $response = Mockery::mock(ResponseInterface::class);
+        $response->shouldReceive('getStatusCode')->andReturn(200);
+        $response->shouldReceive('getBody')->andReturn($jsonText);
+
+        GuzzleClient::shouldReceive('request')
+            ->withArgs(['GET', config('github.issues-api')])
+            ->andReturn($response);
+
+        $repo = config('github.issues');
+        $issues = "[#103](https://github.com/12-cactus/espinoso/issues/103) Hacer Handler con el GSM";
+        $text = trans('messages.issues.all', compact('repo', 'issues'));
+
+        $this->espinoso->shouldReceive('reply')->once()->with($text);
+
+        $handler = $this->makeHandler();
+        $update = $this->makeMessage(['text' => 'espi issues']);
+
+        // Act
+        $handler->shouldHandle($update);
+        $handler->handle($update);
+        $this->assertTrue(true);
     }
 
     /**

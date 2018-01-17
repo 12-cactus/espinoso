@@ -1,6 +1,6 @@
 <?php namespace App\Espinoso\Handlers;
 
-class HelpHandler extends EspinosoCommandHandler
+class HelpHandler extends BaseCommand
 {
     /**
      * @var string
@@ -12,12 +12,21 @@ class HelpHandler extends EspinosoCommandHandler
 
     public function handle(): void
     {
-        $data = $this->espinoso->getHandlers()->map(function (EspinosoHandler $handler) {
+        $data = $this->espinoso->getHandlers()->map(function (BaseHandler $handler) {
             return $handler->help();
         })->reject(function (string $help) {
             return empty($help);
+        })->sort(function ($firstText, $secondText) {
+            return strcmp($this->removePrefix($firstText), $this->removePrefix($secondText));
         })->implode("\n");
 
         $this->espinoso->reply("Entiendo masomenos estas cosas:\n\n{$data}");
+    }
+
+    protected function removePrefix($text)
+    {
+        $text = str_replace('[espi] ', '', $text);
+
+        return str_replace('espi ', '', $text);
     }
 }

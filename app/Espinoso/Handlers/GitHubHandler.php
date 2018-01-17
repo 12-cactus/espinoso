@@ -1,22 +1,34 @@
 <?php namespace App\Espinoso\Handlers;
 
+use stdClass;
 use App\Facades\GuzzleClient;
 
-class GitHubHandler extends EspinosoCommandHandler
+class GitHubHandler extends MultipleCommand
 {
     /**
      * @var string
      */
-    protected $pattern = "(issue)(\s+)(?'title'.+)$";
+    protected $patterns = [
+        [
+            'name' => 'issue-creation',
+            'pattern' => "(issue)\s+(?'title'.+)(\s|\n)*(?'body'(.|\n)+)?"
+        ],[
+            'name' => 'issues-list',
+            'pattern' => "((list|listar|show|ver)\s+)?(issues)\s*$"
+        ],
+    ];
 
-    protected $signature   = "espi issue <title>";
-    protected $description = "genera un issue en el repo";
+    protected $signature   = "espi issues\nespi issue <title> [\\n<content>]";
+    protected $description = "lista los issues o crea uno nuevo";
 
-    public function handle(): void
+    public function handleIssueCreation(): void
     {
-        $response = GuzzleClient::post(config('espinoso.url.issues'), [
+        $response = GuzzleClient::post(config('github.issues-api'), [
             'headers' => ['Authorization' => "token ".config('github.token')],
-            'json'    => ['title' => $this->matches['title']]
+            'json'    => [
+                'title' => $this->matches['title'],
+                'body'  => $this->matches['body'] ?? ''
+            ]
         ]);
 
         if ($response->getStatusCode() == 201) {
@@ -28,5 +40,27 @@ class GitHubHandler extends EspinosoCommandHandler
         }
 
         $this->espinoso->reply($text);
+    }
+
+    public function handleIssuesList(): void
+    {
+        $response = GuzzleClient::request('GET', config('github.issues-api'));
+
+        if ($response->getStatusCode() !== 200) {
+            $this->replyError();
+            return;
+        }
+
+        $repo   = config('github.issues');
+        $items  = collect(json_decode($response->getBody()));
+        $issues = $items->map(function (stdClass $issue) {
+            return "[#{$issue->number}]({$issue->html_url}) {$issue->title}";
+        })->implode("\n");
+
+        $message = $items->isEmpty()
+            ? trans('messages.issues.empty', compact('repo'))
+            : trans('messages.issues.all', compact('repo', 'issues'));
+
+        $this->espinoso->reply($message);
     }
 }

@@ -20,6 +20,6 @@ class AudioTranscriptionTest extends TestCase
         $espinoso = resolve(Espinoso::class);
         $espinoso->setDelivery(resolve(TelegramDelivery::class));
         $text = $espinoso->transcribe($this->makeAudioMessage());
-        $this->assertContains('Hola', $text);
+        $this->assertContains('mensaje para espinoso', $text);
     }
 }

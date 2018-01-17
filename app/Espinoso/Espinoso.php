@@ -2,11 +2,13 @@
 
 use Exception;
 use App\Facades\GuzzleClient;
+use App\Espinoso\Handlers\BaseHandler;
+use App\Espinoso\DeliveryServices\EspinosoDeliveryInterface;
+use Telegram\Bot\Objects\Chat;
 use Telegram\Bot\Objects\Message;
+use Telegram\Bot\Objects\User as UserObject;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
-use App\Espinoso\Handlers\EspinosoHandler;
-use App\Espinoso\DeliveryServices\EspinosoDeliveryInterface;
 
 /**
  * Class Espinoso
@@ -41,9 +43,9 @@ class Espinoso
     {
         $this->message = $message;
 
-        $this->getHandlers()->filter(function (EspinosoHandler $handler) {
+        $this->getHandlers()->filter(function (BaseHandler $handler) {
             return $handler->shouldHandle($this->message);
-        })->each(function (EspinosoHandler $handler) {
+        })->each(function (BaseHandler $handler) {
             try {
                 $handler->handle($this->message);
             } catch (Exception $e) {
@@ -127,6 +129,11 @@ class Espinoso
         $this->delivery = $delivery;
     }
 
+    public function isMe(UserObject $user)
+    {
+        return $this->delivery->isMe($user);
+    }
+
     /**
      * @return Collection
      */
@@ -146,7 +153,7 @@ class Espinoso
         Storage::put("{$file_id}.ogg", $stream->getContents());
         $fileIn  = storage_path("app/{$file_id}.ogg");
         $fileOut = storage_path("app/{$file_id}.wav");
-        @exec("ffmpeg -y -i {$fileIn} {$fileOut}");
+        @exec("ffmpeg -y -i {$fileIn} {$fileOut} 2> /dev/null");
         $audio = Storage::get("{$file_id}.wav");
         @exec("rm -f {$fileIn} 2> /dev/null");
         @exec("rm -f {$fileOut} 2> /dev/null");
@@ -165,19 +172,32 @@ class Espinoso
         return $data->_text;
     }
 
-//    public function register(stdClass $update)
-//    {
-//        $from = $update->message->from;
-//
-//        $user = TelegramUser::whereTelegramId($from->id)->first();
-//        if (!$user) {
-//            $user = new TelegramUser;
-//            $user->telegram_id = $from->id;
-//        }
-//
-//        $user->first_name  = $from->first_name ?? '';
-//        $user->last_name   = $from->last_name ?? '';
-//        $user->username   = $from->username ?? '';
-//        $user->save();
-//    }
+    /**
+     * @param Chat $chat
+     * @return bool
+     */
+    public function registerChat(Chat $chat)
+    {
+        return $this->delivery->registerChat($chat);
+    }
+
+    /**
+     * @param Chat $chat
+     */
+    public function deleteChat(Chat $chat): void
+    {
+        $this->delivery->deleteChat($chat);
+    }
+
+    public function checkIfHasRegisteredChat(Chat $chat): void
+    {
+        if (!$this->hasRegisteredChat($chat)) {
+            $this->sendMessage($chat->getId(), trans('messages.chat.set-start'));
+        }
+    }
+
+    protected function hasRegisteredChat(Chat $chat): bool
+    {
+        return $this->delivery->hasRegisteredChat($chat);
+    }
 }

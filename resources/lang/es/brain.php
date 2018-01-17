@@ -31,15 +31,6 @@ return [
             'reply' => 'Otra vez rompiendo los huevos... Que pija quieren?',
         ],
 
-        '/\b(asado)\b$/i'  => [
-            'reply' => "{$emoji->meat} Cena sab 21/10 en lo de Maru :
-- Niñita/Pipi/Dan --> picada
-- Dan   --> vinito (NO crespi !!)
-- Resto --> bebidas
-- Maru --> canelores y tuco
-- pan   --> ???",
-        ],
-
         '/^(o\s+)?no(,)?\s+(espi(noso)?)(\?)+$/i' => [
             'reply' => [
                 'Claro que si :name:!',
@@ -82,13 +73,18 @@ return [
             ],
         ],
 
-        '/\b(maru?)\b$/i' => [
+        '/\b(maru)\b$/i' => [
             'reply' => [
-                'Maru te ubica!', 
+                'Maru te ubica!',
                 'Maru no anda con vueltas, te canta la posta te guste o no'
             ],
         ],
 
+        '/\b(agus)\b$/i' => [
+            'reply' => [
+                'Agus careta!, anarquista con osde'
+            ],
+        ],
 
         '/(j+a+){5,}/i' => [
             'reply' => 'ajajajajajaja, que plato!',
@@ -149,7 +145,7 @@ return [
             'reply' => 'Y Pipi, cómo va el TIP? Seguís llorando como una nenita? No la mandes a niñita, contestá vos pollerudo!',
         ],
 
-        '/^(.)*(espi(noso)?)\s+(c(o|ó)mo)\s+(and(a|á)s|est(a|á)s)(\?)*$/i' => [
+        '/^(.)*(espi(noso)?)\s+(c(o|ó)mo)\s+(and(a|á)s|est(a|á)s)(\?)|(c(o|ó)mo)\s+(and(a|á)s|est(a|á)s)\s+(espi(noso)?)(\?)*$/i' => [
             'reply' => [
                 'He tenido dias mejores..',
                 'De lujo!!' ,
@@ -179,9 +175,11 @@ return [
         '/^ayuda gsm$/i' => [
             'reply' => "gsm [-z:ZOOM -s:SIZE -c:COLOR -t:MAPTYPE ] dirección.\nZOOM es un entero del 1-20\nSIZE es una resolución (600x300)\nMAPTYPE es un tipo de mapa de google, por defecto roadmap\n",
         ],
-        
-        '/^asadoodle$/i' => [
-            'reply' => "https://beta.doodle.com/poll/p92zv4vmii4gdpbm"
+
+        '/infobae/i' => [
+            'reply' => [
+                'Deja de leer infobae, pelotud@!'
+            ],
         ],
     ],
 ];

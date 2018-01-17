@@ -52,6 +52,7 @@ class TranslationHandlerTest extends HandlersTestCase
 
             $handler->shouldHandle($update);
             $handler->handle($update);
+            $this->assertTrue(true);
         }
 
     /**

@@ -43,7 +43,7 @@ class GitHubController extends Controller
     protected function newest(): Closure
     {
         return function ($event) {
-            $lastEvent = Setting::get('github_last_event');
+            $lastEvent = Setting::get('github_last_event', Carbon::minValue());
 
             return in_array($event->type, $this->allowedEvents)
                 && Carbon::parse($event->created_at) > Carbon::parse($lastEvent);
@@ -73,7 +73,7 @@ class GitHubController extends Controller
             $user = $event->actor->display_login ?? $event->actor->login ?? 'anonymous';
 
             $commits = collect($event->payload->commits)->map(function ($commit) use ($event) {
-                $link = config('github.url.commit') . $commit->sha;
+                $link = config('github.commits') . $commit->sha;
                 $sha  = str_limit($commit->sha, self::SHA_LIMIT, '');
                 return "[{$sha}]({$link}) _{$commit->message}_";
             })->implode("\n");

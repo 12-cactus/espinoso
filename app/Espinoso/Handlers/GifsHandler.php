@@ -2,7 +2,7 @@
 
 use Telegram\Bot\Objects\Message;
 
-class GifsHandler extends EspinosoCommandHandler
+class GifsHandler extends BaseCommand
 {
     /**
      * @var bool
@@ -11,10 +11,6 @@ class GifsHandler extends EspinosoCommandHandler
     /**
      * @var string
      */
-
-    protected $signature   = "[espi] dracarys";
-    protected $description = "Valar Morghulis";
-
 
     /**
      * @var null
@@ -25,7 +21,7 @@ class GifsHandler extends EspinosoCommandHandler
     {
         $this->message = $message;
 
-        $this->match = collect(config('gifs.patterns'))->filter(function ($pattern) {
+        $this->match = collect(trans('gifs.patterns'))->filter(function ($pattern) {
             return $this->matchCommand($pattern['pattern'], $this->message);
         });
 
