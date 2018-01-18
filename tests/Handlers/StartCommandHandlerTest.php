@@ -1,4 +1,6 @@
-<?php namespace Tests\Espinoso\Handlers;
+<?php
+
+namespace Tests\Handlers;
 
 use App\Espinoso\Espinoso;
 use App\Espinoso\Handlers\StartCommandHandler;

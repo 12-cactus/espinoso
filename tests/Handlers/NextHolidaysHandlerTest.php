@@ -1,8 +1,10 @@
-<?php namespace Tests\Espinoso\Handlers;
+<?php
 
-use App\Facades\GuzzleClient;
-use Carbon\Carbon;
+namespace Tests\Handlers;
+
 use Mockery;
+use Carbon\Carbon;
+use App\Facades\GuzzleClient;
 use Symfony\Component\DomCrawler\Crawler;
 use App\Espinoso\Handlers\NextHolidaysHandler;
 

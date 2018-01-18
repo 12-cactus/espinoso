@@ -1,4 +1,6 @@
-<?php namespace Tests\Espinoso\Handlers;
+<?php
+
+namespace Tests\Handlers;
 
 use Mockery;
 use App\Facades\GoutteClient;

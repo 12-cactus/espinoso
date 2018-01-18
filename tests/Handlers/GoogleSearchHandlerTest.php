@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Espinoso\Handlers;
+namespace Tests\Handlers;
 
 use App\Espinoso\Handlers\GoogleSearchHandler;
 
