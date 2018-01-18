@@ -2,7 +2,7 @@
 
 namespace Tests\Handlers;
 
-use App\Espinoso\Handlers\GoogleStaticMapsHandler;
+use App\Handlers\GoogleStaticMapsHandler;
 
 class GoogleStaticMapHandlerTest extends HandlersTestCase
 {

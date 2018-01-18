@@ -6,7 +6,7 @@ use Mockery;
 use App\Model\Tag;
 use App\Model\TagItem;
 use App\Model\TelegramChat;
-use App\Espinoso\Handlers\TagsHandler;
+use App\Handlers\TagsHandler;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TagsHandlerTest extends HandlersTestCase

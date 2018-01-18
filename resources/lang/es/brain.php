@@ -17,7 +17,7 @@ return [
     | Brain Matches
     |--------------------------------------------------------------------------
     |
-    | The following are matches used by \App\Espinoso\Handlers\BrainHandler
+    | The following are matches used by \App\Handlers\BrainHandler
     |
     */
 

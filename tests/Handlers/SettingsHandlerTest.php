@@ -3,7 +3,7 @@
 namespace Tests\Handlers;
 
 use Mockery;
-use App\Espinoso\Handlers\SettingsHandler;
+use App\Handlers\SettingsHandler;
 use Unisharp\Setting\SettingFacade as Setting;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 

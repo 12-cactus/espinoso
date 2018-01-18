@@ -3,7 +3,7 @@
 namespace Tests\Handlers;
 
 use App\Espinoso\Espinoso;
-use App\Espinoso\Handlers\StartCommandHandler;
+use App\Handlers\StartCommandHandler;
 use Mockery;
 use App\Facades\GoutteClient;
 use Symfony\Component\DomCrawler\Crawler;

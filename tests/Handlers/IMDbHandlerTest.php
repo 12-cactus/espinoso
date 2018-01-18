@@ -5,7 +5,7 @@ namespace Tests\Handlers;
 use Mockery;
 use Imdb\Title;
 use App\Facades\IMDbSearch;
-use App\Espinoso\Handlers\IMDbHandler;
+use App\Handlers\IMDbHandler;
 
 class IMDbHandlerTest extends HandlersTestCase
 {

@@ -2,7 +2,7 @@
 
 namespace Tests\Handlers;
 
-use App\Espinoso\Handlers\TranslationHandler;
+use App\Handlers\TranslationHandler;
 use App\Facades\Translator;
 
 class TranslationHandlerTest extends HandlersTestCase

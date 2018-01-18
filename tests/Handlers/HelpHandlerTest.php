@@ -2,7 +2,7 @@
 
 namespace Tests\Handlers;
 
-use App\Espinoso\Handlers\HelpHandler;
+use App\Handlers\HelpHandler;
 
 class HelpHandlerTest extends HandlersTestCase
 {

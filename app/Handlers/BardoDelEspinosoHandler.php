@@ -1,8 +1,10 @@
-<?php namespace App\Espinoso\Handlers;
+<?php
+
+namespace App\Handlers;
 
 /**
  * Class BardoDelEspinosoHandler
- * @package App\Espinoso\Handlers
+ * @package App\Handlers
  */
 class BardoDelEspinosoHandler extends BaseCommand
 {

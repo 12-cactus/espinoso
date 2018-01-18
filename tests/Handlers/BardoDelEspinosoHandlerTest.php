@@ -2,7 +2,7 @@
 
 namespace Tests\Handlers;
 
-use App\Espinoso\Handlers\BardoDelEspinosoHandler;
+use App\Handlers\BardoDelEspinosoHandler;
 
 class BardoDelEspinosoHandlerTest extends HandlersTestCase
 {

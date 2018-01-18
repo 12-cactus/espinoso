@@ -6,7 +6,7 @@ use Mockery;
 use Carbon\Carbon;
 use App\Facades\GuzzleClient;
 use Symfony\Component\DomCrawler\Crawler;
-use App\Espinoso\Handlers\NextHolidaysHandler;
+use App\Handlers\NextHolidaysHandler;
 
 class NextHolidaysHandlerTest extends HandlersTestCase
 {

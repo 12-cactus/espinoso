@@ -1,4 +1,6 @@
-<?php namespace App\Espinoso\Handlers;
+<?php
+
+namespace App\Handlers;
 
 use Exception;
 use Spatie\Emoji\Emoji;

@@ -2,7 +2,7 @@
 
 namespace Tests\Handlers;
 
-use App\Espinoso\Handlers\GoogleSearchHandler;
+use App\Handlers\GoogleSearchHandler;
 
 class GoogleSearchHandlerTest extends HandlersTestCase
 {

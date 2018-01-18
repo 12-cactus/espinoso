@@ -1,4 +1,6 @@
-<?php namespace App\Espinoso\Handlers;
+<?php
+
+namespace App\Handlers;
 
 use App\Espinoso\Espinoso;
 use App\Espinoso\BrainNode;
@@ -6,7 +8,7 @@ use Telegram\Bot\Objects\Message;
 
 /**
  * Class BrainHandler
- * @package App\Espinoso\Handlers
+ * @package App\Handlers
  */
 class BrainHandler extends BaseHandler
 {

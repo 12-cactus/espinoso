@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Espinoso\Handlers;
+namespace App\Handlers;
 
 use stdClass;
 use Spatie\GoogleSearch\Facades\GoogleSearch;

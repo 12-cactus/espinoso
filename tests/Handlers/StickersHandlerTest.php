@@ -2,7 +2,7 @@
 
 namespace Tests\Handlers;
 
-use App\Espinoso\Handlers\StickersHandler;
+use App\Handlers\StickersHandler;
 use App\Espinoso\Sticker;
 
 class StickersHandlerTest extends HandlersTestCase

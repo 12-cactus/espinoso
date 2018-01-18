@@ -11,7 +11,7 @@ use Cmfcmf\OpenWeatherMap\Util\Unit;
 use Cmfcmf\OpenWeatherMap\Util\Weather;
 use Cmfcmf\OpenWeatherMap\CurrentWeather;
 use App\Facades\WeatherSearch;
-use App\Espinoso\Handlers\WeatherHandler;
+use App\Handlers\WeatherHandler;
 
 class WeatherHandlerTest extends HandlersTestCase
 {

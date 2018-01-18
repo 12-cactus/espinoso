@@ -1,4 +1,6 @@
-<?php namespace App\Espinoso\Handlers;
+<?php
+
+namespace App\Handlers;
 
 use Imdb\Title;
 use Spatie\Emoji\Emoji;
@@ -6,7 +8,7 @@ use App\Facades\IMDbSearch;
 
 /**
  * Class IMDbHandler
- * @package App\Espinoso\Handlers
+ * @package App\Handlers
  */
 class IMDbHandler extends BaseCommand
 {

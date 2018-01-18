@@ -3,7 +3,7 @@
 namespace Tests\Handlers;
 
 use App\Facades\InstagramSearch;
-use App\Espinoso\Handlers\InstagramHandler;
+use App\Handlers\InstagramHandler;
 
 class InstagramHandlerTest extends HandlersTestCase
 {

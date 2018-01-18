@@ -4,7 +4,7 @@ namespace Tests\Handlers;
 
 use Mockery;
 use App\Facades\GuzzleClient;
-use App\Espinoso\Handlers\GitHubHandler;
+use App\Handlers\GitHubHandler;
 use Psr\Http\Message\ResponseInterface;
 
 class GitHubHandlerTest extends HandlersTestCase

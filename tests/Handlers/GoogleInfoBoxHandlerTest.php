@@ -5,7 +5,7 @@ namespace Tests\Handlers;
 use Mockery;
 use App\Facades\GoutteClient;
 use Symfony\Component\DomCrawler\Crawler;
-use App\Espinoso\Handlers\GoogleInfoBoxHandler;
+use App\Handlers\GoogleInfoBoxHandler;
 
 class GoogleInfoBoxHandlerTest extends HandlersTestCase
 {

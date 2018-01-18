@@ -4,7 +4,7 @@ namespace Tests\Handlers;
 
 use Mockery;
 use Spatie\Emoji\Emoji;
-use App\Espinoso\Handlers\BrainHandler;
+use App\Handlers\BrainHandler;
 
 /**
  * Class BrainHandlerTest
