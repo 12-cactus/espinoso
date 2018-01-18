@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Handlers\BrainHandler;
 
 use Illuminate\Support\Collection;
 use Telegram\Bot\Objects\Message;
