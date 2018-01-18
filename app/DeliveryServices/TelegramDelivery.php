@@ -13,7 +13,7 @@ use Psr\Http\Message\StreamInterface;
 
 /**
  * Class TelegramDelivery
- * @package App\Espinoso\DeliveryServices
+ * @package App\DeliveryServices
  */
 class TelegramDelivery implements EspinosoDeliveryInterface
 {

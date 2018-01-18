@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use App\Facades\WeatherSearch;
 use Cmfcmf\OpenWeatherMap\Forecast;
-use App\Espinoso\CronicaGenerator;
+use App\Lib\CronicaGenerator;
 
 class WeatherHandler extends BaseCommand
 {

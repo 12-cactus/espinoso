@@ -1,14 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: daniel
- * Date: 09/11/17
- * Time: 14:39
- */
 
-namespace App\Espinoso;
+namespace App\Lib;
 
-use \Exception;
+use Exception;
 
 class CronicaGenerator
 {

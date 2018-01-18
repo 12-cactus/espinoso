@@ -10,7 +10,7 @@ use Telegram\Bot\Objects\User as UserObject;
 
 /**
  * Interface EspinosoDeliveryInterface
- * @package App\Espinoso\DeliveryServices
+ * @package App\DeliveryServices
  */
 interface EspinosoDeliveryInterface
 {

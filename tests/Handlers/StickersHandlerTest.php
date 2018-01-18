@@ -3,7 +3,7 @@
 namespace Tests\Handlers;
 
 use App\Handlers\StickersHandler;
-use App\Espinoso\Sticker;
+use App\Lib\Sticker;
 
 class StickersHandlerTest extends HandlersTestCase
 {
