@@ -3,6 +3,7 @@
 use Mockery;
 use App\Model\Tag;
 use App\Model\TagItem;
+use App\Model\TelegramChat;
 use App\Espinoso\Handlers\TagsHandler;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -89,7 +90,7 @@ class TagsHandlerTest extends HandlersTestCase
             'telegram_chat_id' => 123,
             'name' => '#tag'
         ]);
-        TagItem::firstOrCreate([
+        $item = TagItem::firstOrCreate([
             'tag_id' => $tag->id,
             'text' => 'cosa'
         ]);
@@ -112,6 +113,8 @@ class TagsHandlerTest extends HandlersTestCase
         $handler->shouldHandle($update);
         $handler->handle($update);
         $this->assertTrue(true);
+
+        $this->assertEquals('#tag', $item->tag->name);
     }
 /**
      * @test
@@ -119,8 +122,9 @@ class TagsHandlerTest extends HandlersTestCase
     public function it_should_list_tags()
     {
         // Mocking && Arrange
+        $chat = factory(TelegramChat::class)->create();
         $tag = Tag::firstOrCreate([
-            'telegram_chat_id' => 123,
+            'telegram_chat_id' => $chat->id,
             'name' => '#tag'
         ]);
         TagItem::firstOrCreate([
@@ -137,14 +141,16 @@ class TagsHandlerTest extends HandlersTestCase
 
         $handler = $this->makeHandler();
         $update = $this->makeMessage([
-            'chat' => ['id' => 123],
+            'chat' => ['id' => $chat->id],
             'text' => 'espi tags'
         ]);
 
         // Act
         $handler->shouldHandle($update);
         $handler->handle($update);
-        $this->assertTrue(true);
+
+        $this->assertEquals(1, $chat->tags->count());
+        $this->assertEquals($tag->name, $chat->tags->first()->name);
     }
 
     /**

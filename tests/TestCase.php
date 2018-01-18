@@ -1,4 +1,6 @@
-<?php namespace Tests;
+<?php
+
+namespace Tests;
 
 use Faker\Factory;
 use Telegram\Bot\Objects\Message;
@@ -36,6 +38,27 @@ abstract class TestCase extends BaseTestCase
             'date' => $params['date'] ?? 1459957719,
             'text' => $params['text'] ?? $faker->word
         ];
+
+        return new Message($data);
+    }
+
+    public function makeAudioMessage(array $params = []): Message
+    {
+        // FIXME
+        // rename makeMessage as makeTextMessage
+        // put common message in a common method
+        // add :voice => $data here
+        // and add :text => $data en makeTextMessage
+        $message = $this->makeMessage($params);
+        $message->forget('text');
+        $message = $message->toArray();
+        $voice = [
+            "duration" => 3,
+            "mime_type" => "audio\/ogg",
+            "file_id" => 'AwADAQADLQAD2sv5Rnvt3pgJCTl5Ag',
+            "file_size" => 18714
+        ];
+        $data = array_merge($message, ['voice' => $voice]);
 
         return new Message($data);
     }

@@ -1,5 +1,7 @@
 <?php namespace App\Espinoso\DeliveryServices;
 
+use Telegram\Bot\Objects\Voice;
+use Psr\Http\Message\StreamInterface;
 use Telegram\Bot\Objects\Chat;
 use Telegram\Bot\Objects\Update;
 use Telegram\Bot\Objects\User as UserObject;
@@ -41,6 +43,10 @@ interface EspinosoDeliveryInterface
      * @param array $params
      */
     public function sendGif(array $params = []): void;
+
+    public function getFileUrl(array $params = []): string;
+
+    public function getVoiceStream(Voice $voice): StreamInterface;
 
     /**
      * Register chat and return true if new

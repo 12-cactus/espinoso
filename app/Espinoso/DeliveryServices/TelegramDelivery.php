@@ -1,10 +1,13 @@
 <?php namespace App\Espinoso\DeliveryServices;
 
 use App\Model\TelegramChat;
+use App\Facades\GuzzleClient;
 use Telegram\Bot\Objects\Chat;
-use Telegram\Bot\Api as ApiTelegram;
+use Telegram\Bot\Objects\Voice;
 use Telegram\Bot\Objects\Update;
+use Telegram\Bot\Api as ApiTelegram;
 use Telegram\Bot\Objects\User as UserObject;
+use Psr\Http\Message\StreamInterface;
 
 /**
  * Class TelegramDelivery
@@ -68,6 +71,24 @@ class TelegramDelivery implements EspinosoDeliveryInterface
     public function sendGif(array $params = []): void
     {
         $this->telegram->sendDocument($params);
+    }
+
+    public function getFileUrl(array $params = []): string
+    {
+        return $this->telegram->getFile($params)['file_path'];
+    }
+
+    public function getVoiceStream(Voice $voice): StreamInterface
+    {
+        $id = $voice->getFileId();
+        $file = $this->getFileUrl(['file_id' => $id]);
+
+        $response = GuzzleClient::get(
+            config('espinoso.telegram.url.file')."{$file}",
+            ['stream' => true]
+        );
+
+        return $response->getBody();
     }
 
     /**

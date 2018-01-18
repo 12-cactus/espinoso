@@ -1,12 +1,15 @@
 <?php namespace App\Espinoso;
 
 use Exception;
-use Telegram\Bot\Objects\Chat;
-use Telegram\Bot\Objects\Message;
-use Illuminate\Support\Collection;
+use App\Facades\GuzzleClient;
 use App\Espinoso\Handlers\BaseHandler;
 use App\Espinoso\DeliveryServices\EspinosoDeliveryInterface;
+use Illuminate\Support\Facades\Log;
+use Telegram\Bot\Objects\Chat;
+use Telegram\Bot\Objects\Message;
 use Telegram\Bot\Objects\User as UserObject;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Class Espinoso
@@ -138,6 +141,43 @@ class Espinoso
     public function getHandlers(): Collection
     {
         return $this->handlers;
+    }
+
+    public function transcribe(Message $message)
+    {
+        $this->message = $message;
+
+        $voice   = $message->getVoice();
+        $fileId = $voice->getFileId();
+        $stream  = $this->delivery->getVoiceStream($voice);
+
+        // Save as ogg (Telegram audio format)
+        // and convert it to wav (Voice format required)
+        Storage::put("{$fileId}.ogg", $stream->getContents());
+        $fileIn  = storage_path("app/{$fileId}.ogg");
+        $fileOut = storage_path("app/{$fileId}.wav");
+        @exec("ffmpeg -y -i {$fileIn} {$fileOut} 2> /dev/null");
+        $audio = Storage::get("{$fileId}.wav");
+        @exec("rm -f {$fileIn} 2> /dev/null");
+        @exec("rm -f {$fileOut} 2> /dev/null");
+
+        try {
+            // Get transcription
+            $response = GuzzleClient::post(config('espinoso.voice.url'), [
+                'headers' => [
+                    'Authorization' => "Bearer " . config('espinoso.voice.token'),
+                    'Content-Type' => 'audio/wav'
+                ],
+                'body' => $audio
+            ]);
+
+            $data = json_decode($response->getBody());
+
+            return $data->_text;
+        } catch (Exception $e) {
+            Log::error($e);
+            return '**Error al intentar trascribir**';
+        }
     }
 
     /**
