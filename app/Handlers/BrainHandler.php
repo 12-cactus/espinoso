@@ -2,8 +2,8 @@
 
 namespace App\Handlers;
 
-use App\Espinoso\Espinoso;
-use App\Espinoso\BrainNode;
+use App\Espinoso;
+use App\BrainNode;
 use Telegram\Bot\Objects\Message;
 
 /**

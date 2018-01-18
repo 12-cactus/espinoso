@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers;
 
-use App\Espinoso\Espinoso;
+use App\Espinoso;
 use Telegram\Bot\Objects\Message;
 use Telegram\Bot\Objects\Update;
 use Telegram\Bot\TelegramResponse;

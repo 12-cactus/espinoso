@@ -4,7 +4,7 @@ namespace App\Handlers;
 
 use Exception;
 use Spatie\Emoji\Emoji;
-use App\Espinoso\Espinoso;
+use App\Espinoso;
 use Telegram\Bot\Objects\Message;
 use Illuminate\Support\Facades\Log;
 

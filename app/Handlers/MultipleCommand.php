@@ -2,7 +2,7 @@
 
 namespace App\Handlers;
 
-use App\Espinoso\Espinoso;
+use App\Espinoso;
 use Telegram\Bot\Objects\Message;
 
 abstract class MultipleCommand extends BaseCommand

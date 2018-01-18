@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Espinoso\Espinoso;
+use App\Espinoso;
 use Illuminate\Support\ServiceProvider;
 use App\DeliveryServices\TelegramDelivery;
 

@@ -3,7 +3,7 @@
 use Closure;
 use Carbon\Carbon;
 use Spatie\Emoji\Emoji;
-use App\Espinoso\Espinoso;
+use App\Espinoso;
 use App\Facades\GuzzleClient;
 use Telegram\Bot\Api as ApiTelegram;
 use Unisharp\Setting\SettingFacade as Setting;

@@ -1,4 +1,6 @@
-<?php namespace App\Espinoso;
+<?php
+
+namespace App;
 
 use Illuminate\Support\Collection;
 use Telegram\Bot\Objects\Message;

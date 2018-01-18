@@ -2,11 +2,9 @@
 
 namespace Tests\Handlers;
 
-use App\Espinoso\Espinoso;
-use App\Handlers\StartCommandHandler;
 use Mockery;
-use App\Facades\GoutteClient;
-use Symfony\Component\DomCrawler\Crawler;
+use App\Espinoso;
+use App\Handlers\StartCommandHandler;
 use Telegram\Bot\Objects\Chat;
 
 class StartCommandHandlerTest extends HandlersTestCase

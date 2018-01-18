@@ -1,4 +1,6 @@
-<?php namespace App\Espinoso;
+<?php
+
+namespace App;
 
 use Exception;
 use App\Facades\GuzzleClient;
