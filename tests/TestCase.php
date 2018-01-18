@@ -1,4 +1,6 @@
-<?php namespace Tests;
+<?php
+
+namespace Tests;
 
 use Faker\Factory;
 use Telegram\Bot\Objects\Message;
