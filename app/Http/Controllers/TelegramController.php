@@ -1,13 +1,11 @@
 <?php namespace App\Http\Controllers;
 
-use Exception;
 use App\Espinoso\Espinoso;
-use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Objects\Message;
 use Telegram\Bot\Objects\Update;
 use Telegram\Bot\TelegramResponse;
 use Telegram\Bot\Api as ApiTelegram;
-use App\Espinoso\DeliveryServices\TelegramDelivery;
+use App\DeliveryServices\TelegramDelivery;
 
 class TelegramController extends Controller
 {

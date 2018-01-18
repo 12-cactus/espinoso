@@ -4,7 +4,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Espinoso\Espinoso;
-use App\Espinoso\DeliveryServices\EspinosoDeliveryInterface;
+use App\DeliveryServices\EspinosoDeliveryInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**

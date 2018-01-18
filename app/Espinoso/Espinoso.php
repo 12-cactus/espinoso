@@ -3,7 +3,7 @@
 use Exception;
 use App\Facades\GuzzleClient;
 use App\Espinoso\Handlers\BaseHandler;
-use App\Espinoso\DeliveryServices\EspinosoDeliveryInterface;
+use App\DeliveryServices\EspinosoDeliveryInterface;
 use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Objects\Chat;
 use Telegram\Bot\Objects\Message;

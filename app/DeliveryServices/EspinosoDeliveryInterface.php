@@ -1,4 +1,6 @@
-<?php namespace App\Espinoso\DeliveryServices;
+<?php
+
+namespace App\DeliveryServices;
 
 use Telegram\Bot\Objects\Voice;
 use Psr\Http\Message\StreamInterface;

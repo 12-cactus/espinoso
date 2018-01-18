@@ -7,7 +7,7 @@ use App\Espinoso\Espinoso;
 use App\Facades\GuzzleClient;
 use Telegram\Bot\Api as ApiTelegram;
 use Unisharp\Setting\SettingFacade as Setting;
-use App\Espinoso\DeliveryServices\TelegramDelivery;
+use App\DeliveryServices\TelegramDelivery;
 
 class GitHubController extends Controller
 {

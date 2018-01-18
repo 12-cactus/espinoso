@@ -1,4 +1,6 @@
-<?php namespace App\Espinoso\DeliveryServices;
+<?php
+
+namespace App\DeliveryServices;
 
 use App\Model\TelegramChat;
 use App\Facades\GuzzleClient;

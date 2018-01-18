@@ -5,7 +5,7 @@ namespace Tests\Handlers;
 use Mockery;
 use Tests\TestCase;
 use App\Espinoso\Espinoso;
-use App\Espinoso\DeliveryServices\EspinosoDeliveryInterface;
+use App\DeliveryServices\EspinosoDeliveryInterface;
 
 abstract class HandlersTestCase extends TestCase
 {

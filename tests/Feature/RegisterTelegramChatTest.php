@@ -4,7 +4,7 @@ namespace Tests\Feature;
 
 use App\Model\TelegramChat;
 use Telegram\Bot\Objects\Chat;
-use App\Espinoso\DeliveryServices\TelegramDelivery;
+use App\DeliveryServices\TelegramDelivery;
 
 /**
  * Class RegisterChatTest
