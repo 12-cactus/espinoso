@@ -77,7 +77,7 @@ class TelegramDelivery implements EspinosoDeliveryInterface
 
     public function getFileUrl(array $params = []): string
     {
-        return $this->telegram->getFile($params)['file_path'];
+        return $this->telegram->getFile($params)->getFilePath();
     }
 
     public function getVoiceStream(Voice $voice): StreamInterface
