@@ -1,6 +1,6 @@
 <?php
 
-use App\Espinoso\Sticker;
+use App\Lib\Sticker;
 
 return [
 

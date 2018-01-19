@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use Telegram\Bot\Laravel\Facades\Telegram;
+
 Route::get('/', function () {
     $response = Telegram::getMe();
     return "I'm @{$response->getUsername()}";

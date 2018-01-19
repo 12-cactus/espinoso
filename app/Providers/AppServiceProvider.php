@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use App\Espinoso\Espinoso;
+use App\Espinoso;
 use Illuminate\Support\ServiceProvider;
-use App\Espinoso\DeliveryServices\TelegramDelivery;
+use App\DeliveryServices\TelegramDelivery;
 
 class AppServiceProvider extends ServiceProvider
 {
