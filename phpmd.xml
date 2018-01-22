@@ -8,10 +8,19 @@
     <rule ref="rulesets/codesize.xml">
         <exclude name="TooManyPublicMethods"/>
     </rule>
+    <rule ref="rulesets/naming.xml">
+        <exclude name="ShortMethodName"/>
+    </rule>
 
     <rule ref="rulesets/codesize.xml/TooManyPublicMethods">
         <properties>
             <property name="maxmethods" value="25" />
+        </properties>
+    </rule>
+    <rule ref="rulesets/naming.xml/ShortMethodName">
+        <properties>
+            <property name="minimum" value="3"/>
+            <property name="exceptions" value="./database/migrations/*"/>
         </properties>
     </rule>
 </ruleset>

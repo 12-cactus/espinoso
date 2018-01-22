@@ -34,7 +34,7 @@ plugins:
       file_extensions:
         - php
         - inc
-      rulesets: "cleancode,controversial,design,naming,unusedcode,phpmd.xml"
+      rulesets: "cleancode,controversial,design,unusedcode,phpmd.xml"
 exclude_paths:
 - "vendor/**/*"
 - "tests/**/*"
