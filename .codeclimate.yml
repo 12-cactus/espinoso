@@ -30,6 +30,11 @@ plugins:
     enabled: true
   phpmd:
     enabled: true
+    config:
+      file_extensions:
+        - php
+        - inc
+      rulesets: "cleancode,controversial,design,naming,unusedcode,phpmd.xml"
 exclude_paths:
 - "vendor/**/*"
 - "tests/**/*"
