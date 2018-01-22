@@ -20,7 +20,7 @@
     <rule ref="rulesets/naming.xml/ShortMethodName">
         <properties>
             <property name="minimum" value="3"/>
-            <property name="exceptions" value="./database/migrations/*"/>
+            <property name="exceptions" value="database/migrations/*"/>
         </properties>
     </rule>
 </ruleset>
