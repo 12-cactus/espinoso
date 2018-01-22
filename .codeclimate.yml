@@ -32,8 +32,8 @@ plugins:
       PSR1 Classes ClassDeclaration MissingNamespace:
         enabled: true
         exclude_paths:
-         - "database/seeds/*"
-         - "database/migrations/*"
+          - "database/seeds/*"
+          - "database/migrations/*"
   phpmd:
     enabled: true
     config:
