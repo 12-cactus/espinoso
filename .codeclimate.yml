@@ -9,6 +9,9 @@ engines:
     enabled: true
   fixme:
     enabled: true
+  method-count:
+    config:
+      threshold: 45
   phpcodesniffer:
     enabled: true
     checks:
