@@ -19,15 +19,24 @@ class NextHolidaysHandler extends BaseCommand
 
     public function handle(): void
     {
-        $crawler = GuzzleClient::request('GET', config('espinoso.url.holidays'))->getBody()->getContents();
+        $crawler = GuzzleClient::request('GET', config('espinoso.url.holidays').now()->year.'?incluir=opcional')->getBody()->getContents();
         $holidays = collect(json_decode($crawler));
 
+        //filtro los feriados ya pasados
         $filteredList = $holidays->filter(function ($holiday) {
-            return Carbon::create(now()->year, $holiday->mes, $holiday->dia)->isFuture();
+            return (Carbon::create(now()->year, $holiday->mes, $holiday->dia)->isFuture());
         });
 
-        $count = $filteredList->count();
-        $list = $filteredList->map(function (stdClass $holiday) {
+        //filtro quedando solo los feriados cristianos y los no opcionales
+        $rejectList =  $filteredList->filter(function ($holiday) {
+            return (property_exists($holiday, 'opcional') and
+                property_exists($holiday, 'religion') and
+                $holiday->religion == 'cristianismo') or
+                ! property_exists($holiday, 'opcional');
+        });
+
+        $count = $rejectList->count();
+        $list = $rejectList->map(function (stdClass $holiday) {
             return $this->parseHoliday($holiday);
         })->implode("\n");
 
