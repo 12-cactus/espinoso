@@ -31,7 +31,7 @@ class SetWebhook extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $route = "/set-webhook";
         $url = shell_exec('curl -s http://127.0.0.1:4040/status | grep -P "https://.*?ngrok.io" -oh');
@@ -41,7 +41,9 @@ class SetWebhook extends Command
             $this->error('ngrok is not running...');
         } else {
             $data = shell_exec("wget --method=POST -q -O - {$url}");
-            $data == '[true]' ? $this->info('Done!') : $this->error('something was wrong');
+            $data == '[true]'
+                ? $this->info('Done!')
+                : $this->error('something is wrong, check ./storage/logs/ to find the error');
         }
     }
 }

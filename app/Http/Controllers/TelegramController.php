@@ -35,7 +35,7 @@ class TelegramController extends Controller
      * @param ApiTelegram $telegram
      * @return TelegramResponse
      */
-    public function setWebhook(ApiTelegram $telegram): TelegramResponse
+    public function setWebhook(ApiTelegram $telegram)
     {
         return $telegram->setWebhook(['url' => secure_url('handle-update')]);
     }
