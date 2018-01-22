@@ -21,6 +21,15 @@ checks:
     enabled: true
   identical-code:
     enabled: true
+plugins:
+  csslint:
+    enabled: true
+  fixme:
+    enabled: true
+  phpcodesniffer:
+    enabled: true
+  phpmd:
+    enabled: true
 exclude_paths:
 - "vendor/**/*"
 - "tests/**/*"
