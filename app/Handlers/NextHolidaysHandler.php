@@ -11,9 +11,9 @@ class NextHolidaysHandler extends BaseCommand
     /**
      * @var string
      */
-    protected $pattern = "(\b(pr(o|ó)x(imo(s?))?)\b\s+)?(\b(feriado(s?))\b)$";
+    protected $pattern = "(\b(pr(o|ó)x(imo(s?))?)\b\s+)?(\b(feriado(s?))\b)(?'size'.+)?$";
 
-    protected $signature = "espi feriados";
+    protected $signature = "espi feriados [cantidad]";
     protected $description = "feriados para rascarse la pelusa";
 
 
@@ -36,6 +36,10 @@ class NextHolidaysHandler extends BaseCommand
         });
 
         $count = $rejectList->count();
+
+        if(!empty($this->matches['size']))
+            $rejectList = $rejectList->take($this->matches['size']);
+
         $list = $rejectList->map(function (stdClass $holiday) {
             return $this->parseHoliday($holiday);
         })->implode("\n");
