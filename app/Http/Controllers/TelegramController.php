@@ -1,8 +1,8 @@
 <?php namespace App\Http\Controllers;
 
 use App\Espinoso;
-use Telegram\Bot\Objects\Message;
 use Telegram\Bot\Objects\Update;
+use Telegram\Bot\Objects\Message;
 use Telegram\Bot\TelegramResponse;
 use Telegram\Bot\Api as ApiTelegram;
 use App\DeliveryServices\TelegramDelivery;
@@ -15,7 +15,7 @@ class TelegramController extends Controller
      * @param TelegramDelivery $telegram
      * @param Espinoso $espinoso
      */
-    public function handleUpdates(TelegramDelivery $telegram, Espinoso $espinoso)
+    public function handleUpdates(TelegramDelivery $telegram, Espinoso $espinoso): void
     {
         $espinoso->setDelivery($telegram);
 
@@ -26,8 +26,6 @@ class TelegramController extends Controller
         $this->handleMessage($espinoso, $update);
 
         $espinoso->checkIfHasRegisteredChat($update->getMessage()->getChat());
-
-        return;
     }
 
     /**
@@ -37,7 +35,7 @@ class TelegramController extends Controller
      * @param ApiTelegram $telegram
      * @return TelegramResponse
      */
-    public function setWebhook(ApiTelegram $telegram)
+    public function setWebhook(ApiTelegram $telegram): TelegramResponse
     {
         return $telegram->setWebhook(['url' => secure_url('handle-update')]);
     }
@@ -46,9 +44,9 @@ class TelegramController extends Controller
      * Internals
      */
 
-    protected function handleUpdate(Espinoso $espinoso, Update $update)
+    protected function handleUpdate(Espinoso $espinoso, Update $update): void
     {
-        $newMember  = $update->getMessage()->getNewChatParticipant();
+        $newMember  = $update->getMessage()->get('new_chat_participant');
         $leftMember = $update->getMessage()->get('left_chat_participant');
         $chat = $update->getMessage()->getChat();
 
@@ -71,7 +69,7 @@ class TelegramController extends Controller
         if ($this->isVoiceMessage($message)) {
             $text = trim($espinoso->transcribe($message));
             $espinoso->reply($text);
-            $message['text'] = $text;
+            $message->put('text', $text);
         }
 
         if ($this->isNotTextMessage($message)) {
@@ -81,7 +79,7 @@ class TelegramController extends Controller
         $command = $this->parseCommand($message->getText());
 
         if (!empty($command)) {
-            $message['text'] = $this->parseCommandAsKeyword($command, $message);
+            $message->put('text', $this->parseCommandAsKeyword($command, $message));
         }
 
         $espinoso->executeHandlers($message);
@@ -118,7 +116,7 @@ class TelegramController extends Controller
      * @param string $text
      * @return string
      */
-    protected function parseCommand(string $text)
+    protected function parseCommand(string $text): string
     {
         preg_match('/^\/([^\s@]+)@?(\S+)?\s?(.*)$/', $text, $matches);
 

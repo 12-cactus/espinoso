@@ -2,16 +2,15 @@
 
 namespace Tests\Http\Controllers;
 
-use App\DeliveryServices\TelegramDelivery;
+use Mockery;
+use Tests\TestCase;
 use App\Espinoso;
 use App\Facades\GuzzleClient;
+use App\DeliveryServices\TelegramDelivery;
 use App\Http\Controllers\GitHubController;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Mockery;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
-use Telegram\Bot\Api;
-use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
  * Class GitHubControllerTest
@@ -26,7 +25,7 @@ class GitHubControllerTest extends TestCase
      *
      * @return void
      */
-    public function it_is_an_example_test()
+    public function it_should_retrieve_last_events()
     {
         // Arrange
         $espinoso = Mockery::mock(Espinoso::class);
