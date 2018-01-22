@@ -1,43 +1,9 @@
 ---
-engines:
-  duplication:
-    enabled: true
+version: "2"
+checks:
+  method-count:
     config:
-      languages:
-      - php
-  csslint:
-    enabled: true
-  fixme:
-    enabled: true
-  phpcodesniffer:
-    enabled: true
-    checks:
-      Generic Files LineLength TooLong:
-        enabled: false
-    exclude_paths:
-    - "database/seeds/*"
-    - "database/migrations/*"
-  phpmd:
-    enabled: true
-    exclude_paths:
-    - "database/migrations/*"
-    rulesets: "phpmd.xml"
-    checks:
-      Naming/ShortVariable:
-        enabled: false
-      CleanCode/ElseExpression:
-        enabled: false
-      CleanCode/StaticAccess:
-          enabled: false
-
-ratings:
-  paths:
-  - "**.css"
-  - "**.php"
-  - "**.inc"
-languages:
-   PHP: true
-   JavaScript: true
+      threshold: 20
 exclude_paths:
 - "vendor/**/*"
 - "tests/**/*"
