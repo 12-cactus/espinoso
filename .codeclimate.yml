@@ -21,9 +21,8 @@ engines:
     enabled: true
     exclude_paths:
     - "database/migrations/*"
+    rulesets: "phpmd.xml"
     checks:
-      Design/TooManyPublicMethods:
-        maxmethods: 45
       Naming/ShortVariable:
         enabled: false
       CleanCode/ElseExpression:
