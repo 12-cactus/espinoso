@@ -9,9 +9,6 @@ engines:
     enabled: true
   fixme:
     enabled: true
-  method-count:
-    config:
-      threshold: 45
   phpcodesniffer:
     enabled: true
     checks:
@@ -25,6 +22,9 @@ engines:
     exclude_paths:
     - "database/migrations/*"
     checks:
+      method-count:
+        config:
+          threshold: 45
       Naming/ShortVariable:
         enabled: false
       CleanCode/ElseExpression:
