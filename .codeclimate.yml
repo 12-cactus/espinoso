@@ -22,9 +22,8 @@ engines:
     exclude_paths:
     - "database/migrations/*"
     checks:
-      method-count:
-        config:
-          threshold: 45
+      Design/TooManyPublicMethods:
+        maxmethods: 45
       Naming/ShortVariable:
         enabled: false
       CleanCode/ElseExpression:
