@@ -28,12 +28,9 @@ plugins:
     enabled: true
   phpcodesniffer:
     enabled: true
-    checks:
-      PSR1 Classes ClassDeclaration MissingNamespace:
-        enabled: true
-        exclude_paths:
-          - "database/seeds/*"
-          - "database/migrations/*"
+    exclude_paths:
+      - "database/seeds/*"
+      - "database/migrations/*"
   phpmd:
     enabled: true
     config:
