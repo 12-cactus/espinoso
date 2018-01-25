@@ -33,6 +33,7 @@ return [
         'map'    => 'https://maps.googleapis.com/maps/api/staticmap',
         'holidays' => 'https://nolaborables.com.ar/api/v2/feriados/',
         'traductor' => 'http://translate.google.cn/translate_a/single',
+        'hoyts'  => 'http://www.hoyts.com.ar'
     ],
 
     'voice' => [

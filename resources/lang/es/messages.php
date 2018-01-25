@@ -50,6 +50,8 @@ return [
     'tags' => [
         'items' => "Tag :tag\n:items",
         'tags' => "Tags con data:\n:tags",
-    ]
+    ],
+
+    'cinema' => ":emoji ¿La pensás poner?\n¡Mete Netflix pelotud@, es mas barato!\nPero igual podes ver todas estas:\n\n:movies"
 
 ];
