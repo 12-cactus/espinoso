@@ -63,7 +63,8 @@ class CinemaHandlerTest extends HandlersTestCase
     {
         $emoji = EMOJI::cinema();
         // Mocking
-        $text = "{$emoji}¿La pensás poner?\n¡Mete Netflix pelotud@, es mas barato!\nPero igual podes ver todas estas:\n\n";
+
+        $text = "{$emoji} ¿La pensás poner?\n¡Mete Netflix pelotud@, es mas barato!\nPero igual podes ver todas estas:\n\n";
         $this->espinoso->shouldReceive('reply')->once()->with($text);
 
         $crawler = Mockery::mock(Crawler::class);

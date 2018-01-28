@@ -26,7 +26,7 @@ class CinemaHandler extends BaseCommand
             $movie = Str::ucfirst(Str::lower($node->text()));
             $url = config('espinoso.url.hoyts');
 
-            return "[{$movie}]\n {$url}{$node->attr('href')}";
+            return "[{$movie}]({$url}{$node->attr('href')})";
 
             });
         $movies = collect($movies)->map(function ($movie) {

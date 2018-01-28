@@ -38,7 +38,6 @@ class GitHubHandlerTest extends HandlersTestCase
 
         // Act & Assert
         $this->assertShouldNotHandle('not espi issue bla bla test');
-        $this->assertShouldNotHandle('espi issues bla bla test');
     }
 
     /**
