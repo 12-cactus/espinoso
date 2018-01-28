@@ -52,6 +52,11 @@ return [
         'tags' => "Tags con data:\n:tags",
     ],
 
-    'cinema' => ":emoji ¿La pensás poner?\n¡Mete Netflix pelotud@, es mas barato!\nPero igual podes ver todas estas:\n\n:movies"
+    'cinema' => ":emoji ¿La pensás poner?\n¡Mete Netflix pelotud@, es mas barato!\nPero igual podes ver todas estas:\n\n:movies",
 
+    'not-transcribe' => [
+        'Aprendé a hablar:name',
+        'No se te entiende una mierda:name',
+        'Sacate la papa de la boca:name'
+    ]
 ];

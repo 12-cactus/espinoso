@@ -152,6 +152,7 @@ class Espinoso
         $voice   = $message->getVoice();
         $fileId = $voice->getFileId();
         $stream  = $this->delivery->getVoiceStream($voice);
+        $chat = $message->getChat();
 
         // Save as ogg (Telegram audio format)
         // and convert it to wav (Voice format required)
@@ -178,7 +179,9 @@ class Espinoso
             return $data->_text;
         } catch (Exception $e) {
             Log::error($e);
-            return '**Error al intentar trascribir**';
+            return trans('messages.not-transcribe', [
+                'name' => $chat->getFirstName() ?? $chat->getTitle()
+            ]);
         }
     }
 
