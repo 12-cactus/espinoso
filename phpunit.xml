@@ -9,6 +9,9 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
+        <testsuite name="Espinaland Tests">
+            <directory suffix="Test.php">./tests/Espinaland/Ruling</directory>
+        </testsuite>
         <testsuite name="DeliveryServices Tests">
             <directory suffix="Test.php">./tests/DeliveryServices</directory>
         </testsuite>
@@ -25,6 +28,9 @@
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./app/</directory>
+            <exclude>
+                <file>./app/rules.php</file>
+            </exclude>
         </whitelist>
     </filter>
     <listeners>

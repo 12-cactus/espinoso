@@ -1,0 +1,34 @@
+<?php
+
+namespace Tests\Espinaland\Ruling;
+
+use Tests\TestCase;
+use App\Espinaland\Ruling\Rules;
+
+/**
+ * Class RulesTest
+ * @package Tests\Espinaland
+ */
+class RulesTest extends TestCase
+{
+    /**
+     * @test
+     *
+     * @return void
+     */
+    public function it_should_store_a_match()
+    {
+        // Arrange
+        $pattern = new Rules;
+        $pattern->match('espi help', 'HelpManager@basic');
+        $pattern->match('espi not help', 'HelpManager@nothing');
+
+        // Act
+        $patterns = $pattern->findRulesTo('espi help');
+
+        // Assert
+        $this->assertEquals(1, $patterns->count());
+        $this->assertEquals('espi help', $patterns->first()['command']);
+        $this->assertEquals('HelpManager@basic', $patterns->first()['action']);
+    }
+}
