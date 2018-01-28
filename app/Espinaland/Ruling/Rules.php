@@ -43,7 +43,7 @@ class Rules
      * @param string $text
      * @return Collection
      */
-    public function findRulesTo(string $text): Collection
+    public function findRules(string $text): Collection
     {
         return $this->rules->getRules()->filter(function (array $item) use ($text) {
             return $item['command'] == $text;

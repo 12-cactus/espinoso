@@ -2,8 +2,8 @@
 
 namespace App\Managers;
 
-use App\Objects\OutputMessage;
-use App\Objects\InputMessageInterface;
+use App\Espinaland\Support\Objects\RequestMessageInterface;
+use App\Espinaland\Support\Objects\ResponseMessage;
 
 /**
  * Class GreetingManager
@@ -16,14 +16,14 @@ class GreetingManager
      */
     protected $message;
 
-    public function __construct(InputMessageInterface $message)
+    public function __construct(RequestMessageInterface $message)
     {
         $this->message = $message;
     }
 
-    public function sayHi(): OutputMessage
+    public function sayHi(): ResponseMessage
     {
-        return new OutputMessage([
+        return new ResponseMessage([
             'chat-id' => $this->message->getChatId(),
             'text' => 'How you doing?'
         ]);

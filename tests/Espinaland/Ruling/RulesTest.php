@@ -16,7 +16,7 @@ class RulesTest extends TestCase
      *
      * @return void
      */
-    public function it_should_store_a_match()
+    public function it_should_find_a_stored_rule()
     {
         // Arrange
         $pattern = new Rules;
@@ -24,7 +24,7 @@ class RulesTest extends TestCase
         $pattern->match('espi not help', 'HelpManager@nothing');
 
         // Act
-        $patterns = $pattern->findRulesTo('espi help');
+        $patterns = $pattern->findRules('espi help');
 
         // Assert
         $this->assertEquals(1, $patterns->count());

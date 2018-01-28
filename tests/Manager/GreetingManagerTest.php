@@ -2,12 +2,10 @@
 
 namespace Tests\Manager;
 
-use App\Managers\GreetingManager;
-use App\Objects\ChatInterface;
-use App\Objects\InputMessageInterface;
 use Mockery;
-use Telegram\Bot\Objects\Chat;
 use Tests\TestCase;
+use App\Managers\GreetingManager;
+use App\Espinaland\Support\Objects\RequestMessageInterface;
 
 /**
  * Class GreetingManagerTest
@@ -24,7 +22,7 @@ class GreetingManagerTest extends TestCase
     {
         // Arrange
         $chatId  = 12345;
-        $message = Mockery::mock(InputMessageInterface::class);
+        $message = Mockery::mock(RequestMessageInterface::class);
         $message->shouldReceive('getChatId')->andReturn($chatId);
         $manager = new GreetingManager($message);
 

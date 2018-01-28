@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Objects;
+namespace App\Espinaland\Support\Objects;
 
 use Illuminate\Support\Collection;
 
 /**
- * Class OutputMessage
+ * Class ResponseMessage
  * @package App\Objects\Telegram
  */
-class OutputMessage
+class ResponseMessage
 {
     /**
      * @var Collection

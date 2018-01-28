@@ -2,15 +2,14 @@
 
 namespace App\Objects\Telegram;
 
-use App\Objects\ChatInterface;
-use App\Objects\InputMessageInterface;
 use Telegram\Bot\Objects\Message;
+use App\Espinaland\Support\Objects\RequestMessageInterface;
 
 /**
  * Class TelegramInputMessage
  * @package App\Objects\Telegram
  */
-class TelegramInputMessage implements InputMessageInterface
+class TelegramInputMessage implements RequestMessageInterface
 {
     /**
      * @var Message
@@ -29,5 +28,10 @@ class TelegramInputMessage implements InputMessageInterface
     public function getChatId(): int
     {
         return $this->message->getChat()->getId();
+    }
+
+    public function getTextMessage(): string
+    {
+        return $this->message->getText();
     }
 }
