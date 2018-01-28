@@ -29,7 +29,7 @@ return [
     ],
 
     'search' => [
-        'google' => "Google me tira esto, si no te sirve jodete!:\n:list:"
+        'google' => ":emoji Google me tira esto, si no te sirve jodete!:\n\n:list"
     ],
 
     'chat' => [
