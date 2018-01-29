@@ -2,7 +2,7 @@
 
 namespace App\Parsers;
 
-use App\Espinaland\Parsing\MessageParser;
+use Espinaland\Parsing\MessageParser;
 
 /**
  * Class SampleParser

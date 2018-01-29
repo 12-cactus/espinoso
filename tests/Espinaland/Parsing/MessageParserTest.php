@@ -4,9 +4,9 @@ namespace Tests\Espinaland\Parsing;
 
 use Mockery;
 use Tests\TestCase;
-use App\Espinaland\Parsing\MessageParser;
-use App\Espinaland\Support\Objects\MatchedCommand;
-use App\Espinaland\Support\Objects\RequestMessageInterface;
+use Espinaland\Parsing\MessageParser;
+use Espinaland\Support\Objects\MatchedCommand;
+use Espinaland\Support\Objects\RequestMessageInterface;
 
 /**
  * Class MessageParserTest

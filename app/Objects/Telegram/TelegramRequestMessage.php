@@ -3,7 +3,7 @@
 namespace App\Objects\Telegram;
 
 use Telegram\Bot\Objects\Message;
-use App\Espinaland\Support\Objects\RequestMessageInterface;
+use Espinaland\Support\Objects\RequestMessageInterface;
 
 /**
  * Class TelegramRequestMessage

@@ -1,10 +1,10 @@
 <?php namespace App\Http\Controllers;
 
 use App\Espinoso;
-use App\Espinaland\Ruling\Rules;
+use Espinaland\Ruling\Rules;
 use App\DeliveryServices\TelegramDelivery;
-use App\Espinaland\Parsing\ParserCollection;
-use App\Espinaland\Support\Objects\ResponseMessage;
+use Espinaland\Parsing\ParserCollection;
+use Espinaland\Support\Objects\ResponseMessage;
 use Telegram\Bot\Objects\Update;
 use Telegram\Bot\Objects\Message;
 use Telegram\Bot\TelegramResponse;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Espinaland\Support\Objects;
+namespace Espinaland\Support\Objects;
 
 use Illuminate\Support\Collection;
 

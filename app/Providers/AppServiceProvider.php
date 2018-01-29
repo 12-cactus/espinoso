@@ -3,10 +3,10 @@
 namespace App\Providers;
 
 use App\Espinoso;
-use App\Espinaland\Ruling\Rules;
+use Espinaland\Ruling\Rules;
 use Illuminate\Support\ServiceProvider;
 use App\DeliveryServices\TelegramDelivery;
-use App\Espinaland\Parsing\ParserCollection;
+use Espinaland\Parsing\ParserCollection;
 
 class AppServiceProvider extends ServiceProvider
 {

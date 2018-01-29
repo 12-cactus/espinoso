@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Espinaland\Support\Objects;
+namespace Espinaland\Support\Objects;
 
 /**
  * Class MatchedCommand
- * @package App\Espinaland\Support\Objects
+ * @package Espinaland\Support\Objects
  */
 class MatchedCommand
 {

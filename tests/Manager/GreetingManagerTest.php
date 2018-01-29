@@ -5,7 +5,7 @@ namespace Tests\Manager;
 use Mockery;
 use Tests\TestCase;
 use App\Managers\GreetingManager;
-use App\Espinaland\Support\Objects\RequestMessageInterface;
+use Espinaland\Support\Objects\RequestMessageInterface;
 
 /**
  * Class GreetingManagerTest

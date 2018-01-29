@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Espinaland\Parsing;
+namespace Espinaland\Parsing;
 
 use Illuminate\Support\Collection;
-use App\Espinaland\Support\Objects\RequestMessageInterface;
+use Espinaland\Support\Objects\RequestMessageInterface;
 
 /**
  * Class ParserCollection
- * @package App\Espinaland\Parsing
+ * @package Espinaland\Parsing
  */
 class ParserCollection
 {

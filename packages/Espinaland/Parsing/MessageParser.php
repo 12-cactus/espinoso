@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Espinaland\Parsing;
+namespace Espinaland\Parsing;
 
 use Illuminate\Support\Collection;
-use App\Espinaland\Support\Objects\MatchedCommand;
-use App\Espinaland\Support\Objects\RequestMessageInterface;
+use Espinaland\Support\Objects\MatchedCommand;
+use Espinaland\Support\Objects\RequestMessageInterface;
 
 /**
  * Class MessageParser
- * @package App\Espinaland\Parsing
+ * @package Espinaland\Parsing
  */
 abstract class MessageParser
 {

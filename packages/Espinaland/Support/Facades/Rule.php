@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Espinaland\Support\Facades;
+namespace Espinaland\Support\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static Rule match(string $command, string $action)
  *
- * @see \App\Espinaland\Ruling\Rules
+ * @see \Espinaland\Ruling\Rules
  */
 class Rule extends Facade
 {

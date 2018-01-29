@@ -2,8 +2,8 @@
 
 namespace App\Managers;
 
-use App\Espinaland\Support\Objects\RequestMessageInterface;
-use App\Espinaland\Support\Objects\ResponseMessage;
+use Espinaland\Support\Objects\RequestMessageInterface;
+use Espinaland\Support\Objects\ResponseMessage;
 
 /**
  * Class GreetingManager

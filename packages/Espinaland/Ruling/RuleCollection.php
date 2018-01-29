@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Espinaland\Ruling;
+namespace Espinaland\Ruling;
 
 use Countable;
 use ArrayIterator;
@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 
 /**
  * Class RuleCollection
- * @package App\Espinaland\Ruling
+ * @package Espinaland\Ruling
  *
  * @inspired by \Illuminate\Routing\RouteCollection
  */

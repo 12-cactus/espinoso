@@ -1,6 +1,6 @@
 <?php
 
-use App\Espinaland\Support\Facades\Rule;
+use Espinaland\Support\Facades\Rule;
 
 Rule::match('espi hi', 'GreetingManager@sayHi');
 Rule::match('espi test {text}', 'GreetingManager@sayHi');

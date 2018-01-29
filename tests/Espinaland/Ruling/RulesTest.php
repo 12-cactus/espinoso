@@ -3,7 +3,7 @@
 namespace Tests\Espinaland\Ruling;
 
 use Tests\TestCase;
-use App\Espinaland\Ruling\Rules;
+use Espinaland\Ruling\Rules;
 
 /**
  * Class RulesTest
