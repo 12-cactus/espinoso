@@ -29,6 +29,7 @@
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./app/</directory>
+            <directory suffix=".php">./packages/</directory>
             <exclude>
                 <file>./app/rules.php</file>
             </exclude>
