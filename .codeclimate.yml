@@ -1,42 +1,43 @@
 ---
-engines:
-  duplication:
+version: "2"
+checks:
+  argument-count:
     enabled: true
-    config:
-      languages:
-      - php
+  complex-logic:
+    enabled: true
+  file-lines:
+    enabled: true
+  method-complexity:
+    enabled: true
+  method-count:
+    enabled: true
+  method-lines:
+    enabled: true
+  nested-control-flow:
+    enabled: true
+  return-statements:
+    enabled: true
+  similar-code:
+    enabled: true
+  identical-code:
+    enabled: true
+plugins:
   csslint:
     enabled: true
   fixme:
     enabled: true
   phpcodesniffer:
     enabled: true
-    checks:
-      Generic Files LineLength TooLong:
-        enabled: false
     exclude_paths:
-    - "database/seeds/*"
-    - "database/migrations/*"
+      - "database/seeds/*"
+      - "database/migrations/*"
   phpmd:
     enabled: true
-    exclude_paths:
-    - "database/migrations/*"
-    checks:
-      Naming/ShortVariable:
-        enabled: false
-      CleanCode/ElseExpression:
-        enabled: false
-      CleanCode/StaticAccess:
-          enabled: false
-
-ratings:
-  paths:
-  - "**.css"
-  - "**.php"
-  - "**.inc"
-languages:
-   PHP: true
-   JavaScript: true
+    config:
+      file_extensions:
+        - php
+        - inc
+      rulesets: "controversial,design,unusedcode,phpmd.xml"
 exclude_paths:
 - "vendor/**/*"
 - "tests/**/*"
