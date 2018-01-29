@@ -56,8 +56,8 @@ class GitHubHandler extends MultipleCommand
         $repo   = config('github.issues');
         $items  = collect(json_decode($response->getBody()));
 
-        if(!empty($this->matches['query']))
-            $items = $items->filter(function ($issue){
+        if (!empty($this->matches['query']))
+            $items = $items->filter(function ($issue) {
                 return strrpos($issue->title, $this->matches['query']);
             });
 

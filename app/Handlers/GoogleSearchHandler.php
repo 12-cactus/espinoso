@@ -2,7 +2,6 @@
 
 namespace App\Handlers;
 
-
 use App\Facades\GoutteClient;
 use Illuminate\Support\Str;
 use Spatie\Emoji\Emoji;
@@ -23,12 +22,12 @@ class GoogleSearchHandler extends BaseCommand
 
         $filter = $crawler->filter('.r');
 
-        $filter = $filter->filter('a')->each(function ($node){
+        $filter = $filter->filter('a')->each(function ($node) {
 
             $text = Str::ucfirst(Str::lower($node->text()));
 
             $href = explode('&sa=U&v', $node->attr('href'));
-            $link = substr($href[0],7);
+            $link = substr($href[0], 7);
 
             return "[{$text}]({$link})";
         });

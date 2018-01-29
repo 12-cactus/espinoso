@@ -37,7 +37,7 @@ class NextHolidaysHandler extends BaseCommand
 
         $count = $rejectList->count();
 
-        if(!empty($this->matches['size']))
+        if (!empty($this->matches['size']))
             $rejectList = $rejectList->take($this->matches['size']);
 
         $list = $rejectList->map(function (stdClass $holiday) {

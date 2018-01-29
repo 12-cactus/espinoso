@@ -22,19 +22,19 @@ class CinemaHandler extends BaseCommand
 
         $crawler = $crawler->filter('.title > a');
 
-        $movies = $crawler->each(function ($node){
+        $movies = $crawler->each(function ($node) {
             $movie = Str::ucfirst(Str::lower($node->text()));
             $url = config('espinoso.url.hoyts');
 
             return "[{$movie}]({$url}{$node->attr('href')})";
-
             });
+
         $movies = collect($movies)->map(function ($movie) {
             return " - {$movie}";
         })->implode("\n");
 
         $emoji = EMOJI::cinema();
-        $response =  trans('messages.cinema', compact('emoji','movies'));
+        $response =  trans('messages.cinema', compact('emoji', 'movies'));
 
         $this->espinoso->reply($response);
     }
