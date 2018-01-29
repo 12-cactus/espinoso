@@ -13,6 +13,7 @@ class VerifyCsrfToken extends BaseVerifier
      */
     protected $except = [
         '/handle-update',
+        '/new-handle-update',
         '/set-webhook',
         '/get-updates',
         '/webhooks/github/commits'

@@ -2,7 +2,8 @@
 
 use App\Espinaland\Support\Facades\Rule;
 
-Rule::match('espi hi', 'GreetingsManager@sayHi');
+Rule::match('espi hi', 'GreetingManager@sayHi');
+Rule::match('espi test {text}', 'GreetingManager@sayHi');
 //Rule::match('espi #{tagName} {content}', 'TagsManager@set');
 //Rule::prefix('espi')->group(function () {
 //    Rule::match('#{tagName} {content}', 'TagsManager@setContent');
@@ -15,4 +16,4 @@ Rule::match('espi hi', 'GreetingsManager@sayHi');
 //    ]);
 //});
 
-//dump(resolve('rules'));
+// dump(resolve('rules'));

@@ -1,14 +1,28 @@
 <?php namespace App\Http\Controllers;
 
 use App\Espinoso;
+use App\Espinaland\Ruling\Rules;
+use App\DeliveryServices\TelegramDelivery;
+use App\Espinaland\Parsing\ParserCollection;
+use App\Espinaland\Support\Objects\ResponseMessage;
 use Telegram\Bot\Objects\Update;
 use Telegram\Bot\Objects\Message;
 use Telegram\Bot\TelegramResponse;
 use Telegram\Bot\Api as ApiTelegram;
-use App\DeliveryServices\TelegramDelivery;
 
 class TelegramController extends Controller
 {
+    public function newHandleUpdates(TelegramDelivery $delivery, Rules $rules, ParserCollection $parsers)
+    {
+        $message = $delivery->getIncomingMessage();
+        $rulesArgs = $parsers->parse($message);
+        $responses = $rules->applyRules($rulesArgs, $message);
+        $responses->map(function (ResponseMessage $message) {
+            logger($message);
+        });
+        return $delivery->applyResponses($responses);
+    }
+
     /**
      * Handle Telegram incoming message.
      *
@@ -37,7 +51,7 @@ class TelegramController extends Controller
      */
     public function setWebhook(ApiTelegram $telegram)
     {
-        return $telegram->setWebhook(['url' => secure_url('handle-update')]);
+        return $telegram->setWebhook(['url' => secure_url('new-handle-update')]);
     }
 
     /*

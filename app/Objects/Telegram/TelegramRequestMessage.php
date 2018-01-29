@@ -6,10 +6,10 @@ use Telegram\Bot\Objects\Message;
 use App\Espinaland\Support\Objects\RequestMessageInterface;
 
 /**
- * Class TelegramInputMessage
+ * Class TelegramRequestMessage
  * @package App\Objects\Telegram
  */
-class TelegramInputMessage implements RequestMessageInterface
+class TelegramRequestMessage implements RequestMessageInterface
 {
     /**
      * @var Message
@@ -33,5 +33,10 @@ class TelegramInputMessage implements RequestMessageInterface
     public function getTextMessage(): string
     {
         return $this->message->getText();
+    }
+
+    public function __toString(): string
+    {
+        return $this->message;
     }
 }

@@ -17,6 +17,10 @@ class ResponseMessage
 
     public function __construct(array $data = [])
     {
+        $data = array_merge([
+            'type_text' => 'Markdown'
+        ], $data);
+
         $this->data = collect($data);
     }
 
@@ -28,5 +32,15 @@ class ResponseMessage
     public function getText(): string
     {
         return $this->data->get('text');
+    }
+
+    public function getTypeText(): string
+    {
+        return $this->data->get('type_text');
+    }
+
+    public function __toString(): string
+    {
+        return "chat: {$this->getChatId()} :: text: {$this->getText()}";
     }
 }

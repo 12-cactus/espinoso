@@ -4,11 +4,15 @@ namespace App\DeliveryServices;
 
 use App\Model\TelegramChat;
 use App\Facades\GuzzleClient;
+use App\Objects\Telegram\TelegramRequestMessage;
+use App\Espinaland\Support\Objects\ResponseMessage;
+use App\Espinaland\Support\Objects\RequestMessageInterface;
 use Telegram\Bot\Objects\Chat;
 use Telegram\Bot\Objects\Voice;
 use Telegram\Bot\Objects\Update;
 use Telegram\Bot\Api as ApiTelegram;
 use Telegram\Bot\Objects\User as UserObject;
+use Illuminate\Support\Collection;
 use Psr\Http\Message\StreamInterface;
 
 /**
@@ -44,7 +48,23 @@ class TelegramDelivery implements EspinosoDeliveryInterface
         return $update;
     }
 
+    public function getIncomingMessage(): RequestMessageInterface
+    {
+        $update = $this->getUpdate();
 
+        return new TelegramRequestMessage($update->getMessage());
+    }
+
+    public function applyResponses(Collection $responses)
+    {
+        $responses->each(function (ResponseMessage $response) {
+            $this->sendMessage([
+                'chat_id' => $response->getChatId(),
+                'text'    => $response->getText(),
+                'parse_mode' => $response->getTypeText()
+            ]);
+        });
+    }
 
     /**
      * @param array $params

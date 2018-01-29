@@ -12,7 +12,7 @@ use App\Espinaland\Support\Objects\ResponseMessage;
 class GreetingManager
 {
     /**
-     * @var InputMessageInterface
+     * @var RequestMessageInterface
      */
     protected $message;
 
@@ -23,6 +23,8 @@ class GreetingManager
 
     public function sayHi(): ResponseMessage
     {
+        logger('sayHi inside');
+
         return new ResponseMessage([
             'chat-id' => $this->message->getChatId(),
             'text' => 'How you doing?'

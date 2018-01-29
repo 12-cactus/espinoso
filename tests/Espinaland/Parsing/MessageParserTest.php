@@ -5,6 +5,7 @@ namespace Tests\Espinaland\Parsing;
 use Mockery;
 use Tests\TestCase;
 use App\Espinaland\Parsing\MessageParser;
+use App\Espinaland\Support\Objects\MatchedCommand;
 use App\Espinaland\Support\Objects\RequestMessageInterface;
 
 /**
@@ -22,18 +23,20 @@ class MessageParserTest extends TestCase
     {
         // Arrange
         $message = Mockery::mock(RequestMessageInterface::class);
+        $matchedCommand = Mockery::mock(MatchedCommand::class);
+        $expectedMatches = [
+            "command" => "espi test {text}",
+            "pattern" => "/^espi test (?'text'\w+)/i",
+            "args"    => ["text" => "phpunit"]
+        ];
         $message->shouldReceive('getTextMessage')->andReturn('espi test phpunit');
+        $matchedCommand->shouldReceive('getCommand')->andReturn($expectedMatches['command']);
         $parser = new class extends MessageParser {
             public function getMatches(): array
             {
                 return ['espi test {text}' => ["/^espi test (?'text'\w+)/i"]];
             }
         };
-        $expectedMatches = [
-            "command" => "espi test {text}",
-            "pattern" => "/^espi test (?'text'\w+)/i",
-            "args"    => ["text" => "phpunit"]
-        ];
 
 
         // Act
@@ -41,6 +44,6 @@ class MessageParserTest extends TestCase
 
         // Assert
         $this->assertEquals(1, $matches->count());
-        $this->assertEquals($expectedMatches, $matches->first());
+        $this->assertEquals($expectedMatches['command'], $matches->first()->getCommand());
     }
 }

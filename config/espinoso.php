@@ -2,6 +2,10 @@
 
 return [
 
+    'parsers' => [
+        \App\Parsers\SampleParser::class
+    ],
+
     'handlers' => [
         App\Handlers\StartCommandHandler::class,
         App\Handlers\HelpHandler::class,

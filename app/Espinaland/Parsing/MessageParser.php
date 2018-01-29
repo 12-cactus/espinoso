@@ -3,6 +3,7 @@
 namespace App\Espinaland\Parsing;
 
 use Illuminate\Support\Collection;
+use App\Espinaland\Support\Objects\MatchedCommand;
 use App\Espinaland\Support\Objects\RequestMessageInterface;
 
 /**
@@ -20,15 +21,11 @@ abstract class MessageParser
             return $this->firstMatch($message, $patterns);
         });
 
-        $matches = $matches->map(function ($item, $key) {
-            return [
-                'command' => $key,
-                'pattern' => $item['match'],
-                'args'    => $item['args']
-            ];
-        })->toArray();
-
-        return collect(array_values($matches));
+        return $matches->map(function ($item, $key) {
+            return new MatchedCommand($key, $item['match'] ?? '', $item['args']);
+        })->filter(function (MatchedCommand $matched) {
+            return $matched->hasMatched();
+        });
     }
 
     protected function firstMatch(RequestMessageInterface $message, array $patterns)
