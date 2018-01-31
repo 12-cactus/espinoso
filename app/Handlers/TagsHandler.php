@@ -27,7 +27,7 @@ class TagsHandler extends MultipleCommand
     ];
 
     protected $ignorePrefix = true;
-    protected $signature   = "[espi] #tag <text>
+    protected $signature   ="[espi] #tag <text> 
 [espi] list|listar|show|ver #tag
 [espi] tags
 [espi] clean|clear|limpiar|vaciar #tag";
