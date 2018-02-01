@@ -1,26 +1,36 @@
 <?php namespace App\Http\Controllers;
 
 use App\Espinoso;
-use Espinaland\Ruling\Rules;
-use App\DeliveryServices\TelegramDelivery;
-use Espinaland\Parsing\ParserCollection;
-use Espinaland\Support\Objects\ResponseMessage;
 use Telegram\Bot\Objects\Update;
 use Telegram\Bot\Objects\Message;
 use Telegram\Bot\TelegramResponse;
 use Telegram\Bot\Api as ApiTelegram;
+use Illuminate\Support\Facades\Request;
+use App\DeliveryServices\TelegramDelivery;
+use Espinaland\Listening\TelegramListener;
+use Espinaland\Interpreters\SimplifierCollection;
 
 class TelegramController extends Controller
 {
-    public function newHandleUpdates(TelegramDelivery $delivery, Rules $rules, ParserCollection $parsers)
+    public function newHandleUpdates(TelegramListener $listener, SimplifierCollection $simplifier)
     {
-        $message = $delivery->getIncomingMessage();
-        $rulesArgs = $parsers->parse($message);
-        $responses = $rules->applyRules($rulesArgs, $message);
-        $responses->map(function (ResponseMessage $message) {
-            logger($message);
+        $message = $listener->lastMessage();
+
+        $routes = $simplifier->asRoutes($message->text());
+
+        $routes->each(function (string $route) use ($message) {
+            $data = [
+                'delivery' => 'telegram',
+                'orig_message' => $message->raw(),
+                '_token' => csrf_token()
+            ];
+            $request = Request::create('/espi'.$route, 'PUT', $data, [], [], [
+                'HTTP_Accept' => 'application/json',
+            ]);
+            app()->handle($request);
         });
-        return $delivery->applyResponses($responses);
+
+        return null;
     }
 
     /**

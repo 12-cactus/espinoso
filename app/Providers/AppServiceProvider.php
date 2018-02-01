@@ -6,7 +6,7 @@ use App\Espinoso;
 use Espinaland\Ruling\Rules;
 use Illuminate\Support\ServiceProvider;
 use App\DeliveryServices\TelegramDelivery;
-use Espinaland\Parsing\ParserCollection;
+use Espinaland\Interpreters\SimplifierCollection;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,9 +27,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->registerRules();
-
-        $this->registerParserCollection();
+        $this->registerSimplifierCollection();
 
         // Delivery Services
         $this->app->bind(TelegramDelivery::class, function () {
@@ -43,30 +41,14 @@ class AppServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the rules instance.
-     *
-     * @return void
-     */
-    protected function registerRules()
-    {
-        $this->app->singleton(Rules::class, function () {
-            return new Rules;
-        });
-
-        $this->app->alias(Rules::class, 'rules');
-
-        require app_path('rules.php');
-    }
-
-    /**
      * Register the parser collection instance.
      *
      * @return void
      */
-    protected function registerParserCollection()
+    protected function registerSimplifierCollection()
     {
-        $this->app->singleton(ParserCollection::class, function () {
-            return new ParserCollection(config('espinoso.parsers'));
+        $this->app->singleton(SimplifierCollection::class, function () {
+            return new SimplifierCollection(config('espinoso.interpreters'));
         });
     }
 }

@@ -2,9 +2,10 @@
 
 return [
 
-    'parsers' => [
-        \App\Parsers\SampleParser::class
+    'interpreters' => [
+        \Espinaland\Interpreters\RegexSimplifier::class,
     ],
+
 
     'handlers' => [
         App\Handlers\StartCommandHandler::class,

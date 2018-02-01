@@ -35,8 +35,18 @@ class TelegramRequestMessage implements RequestMessageInterface
         return $this->message->getText();
     }
 
+    public function text(): string
+    {
+        return $this->getTextMessage();
+    }
+
     public function __toString(): string
     {
         return $this->message;
+    }
+
+    public function raw()
+    {
+        return $this->message->jsonSerialize();
     }
 }

@@ -10,8 +10,7 @@
          stopOnFailure="false">
     <testsuites>
         <testsuite name="Espinaland Tests">
-            <directory suffix="Test.php">./tests/Espinaland/Ruling</directory>
-            <directory suffix="Test.php">./tests/Espinaland/Parsing</directory>
+            <directory suffix="Test.php">./tests/Espinaland/Interpreters</directory>
         </testsuite>
         <testsuite name="DeliveryServices Tests">
             <directory suffix="Test.php">./tests/DeliveryServices</directory>
