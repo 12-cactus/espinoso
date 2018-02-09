@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\ResolveDelivery;
 use App\Http\Middleware\TrimStrings;
 use App\Http\Middleware\EncryptCookies;
 use App\Http\Middleware\VerifyCsrfToken;
@@ -55,6 +56,10 @@ class Kernel extends HttpKernel
             'throttle:60,1',
             'bindings',
         ],
+
+        'espi' => [
+            ResolveDelivery::class
+        ]
     ];
 
     /**

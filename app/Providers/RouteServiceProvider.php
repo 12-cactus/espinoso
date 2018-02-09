@@ -82,6 +82,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::prefix('espi')
              ->middleware('web')
+             ->middleware('espi')
              ->namespace('App\Http\Managers')
              ->group(base_path('routes/espi.php'));
     }

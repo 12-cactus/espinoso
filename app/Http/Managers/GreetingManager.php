@@ -2,10 +2,7 @@
 
 namespace App\Http\Managers;
 
-use Telegram\Bot\Objects\Message;
-use App\DeliveryServices\TelegramDelivery;
-use Symfony\Component\HttpFoundation\Request;
-use App\Objects\Telegram\TelegramRequestMessage;
+use Espinaland\Support\Facades\ReplyResponses;
 
 /**
  * Class GreetingManager
@@ -13,14 +10,8 @@ use App\Objects\Telegram\TelegramRequestMessage;
  */
 class GreetingManager
 {
-    public function hi(TelegramDelivery $delivery, Request $request)
+    public function cool()
     {
-        $message = new Message($request->input('orig_message'));
-        $message = new TelegramRequestMessage($message);
-
-        $delivery->sendMessage([
-            'chat_id' => $message->getChatId(),
-            'text'    => 'aiiiuuuda',
-        ]);
+        return ReplyResponses::text('cool, men!');
     }
 }

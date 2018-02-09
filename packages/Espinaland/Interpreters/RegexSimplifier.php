@@ -25,6 +25,9 @@ class RegexSimplifier implements SimplificationInterface
             '/help' => [
                 '/^(espi|espinoso)\b(.*)\b(ayuda|help)\b$/i'
             ],
+            '/cool' => [
+                '/^(espi|espinoso)\b(.*)\b(cool)\b$/i'
+            ],
             '/cumple/{user}' => [
                 "/^(espi|espinoso)(\s+)(cumple)(\s+)@(?'user'\w+)(\s*)$/i"
             ],

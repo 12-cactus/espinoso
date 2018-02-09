@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Espinoso;
-use Espinaland\Ruling\Rules;
 use Illuminate\Support\ServiceProvider;
 use App\DeliveryServices\TelegramDelivery;
 use Espinaland\Interpreters\SimplifierCollection;
@@ -33,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(TelegramDelivery::class, function () {
             return new TelegramDelivery(resolve('telegram'));
         });
+        $this->app->alias(TelegramDelivery::class, 'telegram-delivery');
 
         // Espinoso
         $this->app->bind(Espinoso::class, function () {

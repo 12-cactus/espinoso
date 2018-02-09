@@ -2,11 +2,13 @@
 
 namespace App\DeliveryServices;
 
-use Telegram\Bot\Objects\Voice;
-use Psr\Http\Message\StreamInterface;
 use Telegram\Bot\Objects\Chat;
+use Telegram\Bot\Objects\Voice;
 use Telegram\Bot\Objects\Update;
+use Psr\Http\Message\StreamInterface;
 use Telegram\Bot\Objects\User as UserObject;
+use Espinaland\Support\Objects\ResponseMessage;
+use Espinaland\Support\Objects\RequestMessageInterface;
 
 /**
  * Interface EspinosoDeliveryInterface
@@ -20,6 +22,8 @@ interface EspinosoDeliveryInterface
      */
     public function isMe(UserObject $user): bool;
 
+    public function lastMessage(): RequestMessageInterface;
+
     /**
      * @return Update
      */
@@ -29,7 +33,7 @@ interface EspinosoDeliveryInterface
      * @param array $params
      * @return mixed
      */
-    public function sendMessage(array $params = []): void;
+    public function sendMessage(array $params = []): ResponseMessage;
 
     /**
      * @param array $params

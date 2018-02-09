@@ -7,6 +7,7 @@ use App\Facades\GuzzleClient;
 use App\Objects\Telegram\TelegramRequestMessage;
 use Espinaland\Support\Objects\ResponseMessage;
 use Espinaland\Support\Objects\RequestMessageInterface;
+use Espinaland\Support\Objects\TelegramResponseMessage;
 use Telegram\Bot\Objects\Chat;
 use Telegram\Bot\Objects\Voice;
 use Telegram\Bot\Objects\Update;
@@ -33,6 +34,11 @@ class TelegramDelivery implements EspinosoDeliveryInterface
     public function __construct(ApiTelegram $telegram)
     {
         $this->telegram = $telegram;
+    }
+
+    public function lastMessage(): RequestMessageInterface
+    {
+        return $this->getIncomingMessage();
     }
 
     /**
@@ -66,12 +72,9 @@ class TelegramDelivery implements EspinosoDeliveryInterface
         });
     }
 
-    /**
-     * @param array $params
-     */
-    public function sendMessage(array $params = []): void
+    public function sendMessage(array $params = []): ResponseMessage
     {
-        $this->telegram->sendMessage($params);
+        return new TelegramResponseMessage($this->telegram->sendMessage($params));
     }
 
     /**

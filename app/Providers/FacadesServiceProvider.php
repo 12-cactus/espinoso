@@ -38,14 +38,20 @@ class FacadesServiceProvider extends ServiceProvider
     {
         return [
             'GoutteClient' => new GoutteClient,
+
             'GuzzleClient' => new GuzzleClient,
+
             'InstagramSearch' => new Instagram(config('instagram.api_key')),
+
             'WeatherSearch' => new LaravelOWM,
+
             'IMDbSearch' => function () {
                 $config = new Config;
                 $config->language = 'es-AR,es,en';
                 return new TitleSearch($config);
             },
+
+
             'Translator' => function () {
                 $translator = new TranslateClient(null, 'es');
                 $translator->setUrlBase(config('espinoso.url.traductor'));

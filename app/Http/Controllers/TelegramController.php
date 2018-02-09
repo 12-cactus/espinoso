@@ -5,32 +5,35 @@ use Telegram\Bot\Objects\Update;
 use Telegram\Bot\Objects\Message;
 use Telegram\Bot\TelegramResponse;
 use Telegram\Bot\Api as ApiTelegram;
-use Illuminate\Support\Facades\Request;
 use App\DeliveryServices\TelegramDelivery;
-use Espinaland\Listening\TelegramListener;
+use Espinaland\Support\Facades\ThornyRoutes;
+use Symfony\Component\HttpFoundation\Response;
 use Espinaland\Interpreters\SimplifierCollection;
 
 class TelegramController extends Controller
 {
-    public function newHandleUpdates(TelegramListener $listener, SimplifierCollection $simplifier)
+    /**
+     * Main Telegram Reception
+     *
+     * @param TelegramDelivery $delivery
+     * @param SimplifierCollection $simplifier
+     * @return Response
+     */
+    public function newHandleUpdates(TelegramDelivery $delivery, SimplifierCollection $simplifier): Response
     {
-        $message = $listener->lastMessage();
+        $message = $delivery->lastMessage();
 
         $routes = $simplifier->asRoutes($message->text());
 
-        $routes->each(function (string $route) use ($message) {
-            $data = [
-                'delivery' => 'telegram',
-                'orig_message' => $message->raw(),
-                '_token' => csrf_token()
-            ];
-            $request = Request::create('/espi'.$route, 'PUT', $data, [], [], [
-                'HTTP_Accept' => 'application/json',
-            ]);
-            app()->handle($request);
+        $responses = $routes->map(function (string $route) use ($message, $delivery) {
+            return ThornyRoutes::handle($route, $message, 'telegram');
         });
 
-        return null;
+        $all = $responses->none(function (Response $response) {
+            return $response->getStatusCode() !== 200;
+        });
+
+        return response($all ? 'OK' : 'WARNING');
     }
 
     /**

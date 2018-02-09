@@ -2,4 +2,4 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::put('help', 'GreetingManager@hi');
+Route::put('cool', 'GreetingManager@cool');

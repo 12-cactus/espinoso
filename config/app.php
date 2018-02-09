@@ -164,12 +164,13 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         /*
-         * Package Service Providers...
+         * Packages Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
+        Espinaland\Providers\EspinalandServiceProvider::class,
 
         /*
-         * Application Service Providers...
+         * App Service Providers...
          */
         App\Providers\FacadesServiceProvider::class,
         App\Providers\AppServiceProvider::class,

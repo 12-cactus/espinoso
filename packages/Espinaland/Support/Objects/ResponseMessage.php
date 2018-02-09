@@ -8,21 +8,14 @@ use Illuminate\Support\Collection;
  * Class ResponseMessage
  * @package App\Objects\Telegram
  */
-class ResponseMessage
+abstract class ResponseMessage
 {
+    public abstract function getCode(): int;
+    public abstract function getMessage(): string;
     /**
      * @var Collection
      */
     protected $data;
-
-    public function __construct(array $data = [])
-    {
-        $data = array_merge([
-            'type_text' => 'Markdown'
-        ], $data);
-
-        $this->data = collect($data);
-    }
 
     public function getChatId(): int
     {
