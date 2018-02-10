@@ -6,7 +6,7 @@ use Mockery;
 use Tests\TestCase;
 use App\Espinoso;
 use App\Facades\GuzzleClient;
-use App\DeliveryServices\TelegramDelivery;
+use Espinaland\Deliveries\TelegramDelivery;
 use App\Http\Controllers\GitHubController;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;

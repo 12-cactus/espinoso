@@ -2,7 +2,7 @@
 
 namespace Espinaland\Responses;
 
-use App\DeliveryServices\EspinosoDeliveryInterface;
+use Espinaland\Deliveries\EspinosoDeliveryInterface;
 
 /**
  * Class ThornyResponses

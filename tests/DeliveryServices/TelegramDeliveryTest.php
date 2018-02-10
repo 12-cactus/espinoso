@@ -4,7 +4,7 @@ namespace Tests\DeliveryServices;
 
 use Mockery;
 use App\Facades\GuzzleClient;
-use App\DeliveryServices\TelegramDelivery;
+use Espinaland\Deliveries\TelegramDelivery;
 use Tests\TestCase;
 use Telegram\Bot\Api;
 use Telegram\Bot\Objects\File;

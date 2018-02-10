@@ -4,7 +4,7 @@ namespace Tests\Http\Controllers;
 
 use Mockery;
 use App\Espinoso;
-use App\DeliveryServices\TelegramDelivery;
+use Espinaland\Deliveries\TelegramDelivery;
 use App\Http\Controllers\TelegramController;
 use Tests\TestCase;
 use Telegram\Bot\Api;

@@ -5,7 +5,7 @@ use Telegram\Bot\Objects\Update;
 use Telegram\Bot\Objects\Message;
 use Telegram\Bot\TelegramResponse;
 use Telegram\Bot\Api as ApiTelegram;
-use App\DeliveryServices\TelegramDelivery;
+use Espinaland\Deliveries\TelegramDelivery;
 use Espinaland\Support\Facades\ThornyRoutes;
 use Symfony\Component\HttpFoundation\Response;
 use Espinaland\Interpreters\SimplifierCollection;

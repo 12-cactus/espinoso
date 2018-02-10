@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\Espinoso;
 use Illuminate\Support\ServiceProvider;
-use App\DeliveryServices\TelegramDelivery;
+use Espinaland\Deliveries\TelegramDelivery;
 use Espinaland\Interpreters\SimplifierCollection;
 
 class AppServiceProvider extends ServiceProvider

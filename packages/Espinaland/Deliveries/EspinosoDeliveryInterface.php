@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DeliveryServices;
+namespace Espinaland\Deliveries;
 
 use Telegram\Bot\Objects\Chat;
 use Telegram\Bot\Objects\Voice;

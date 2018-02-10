@@ -1,20 +1,20 @@
 <?php
 
-namespace App\DeliveryServices;
+namespace Espinaland\Deliveries;
 
 use App\Model\TelegramChat;
 use App\Facades\GuzzleClient;
-use App\Objects\Telegram\TelegramRequestMessage;
-use Espinaland\Support\Objects\ResponseMessage;
-use Espinaland\Support\Objects\RequestMessageInterface;
-use Espinaland\Support\Objects\TelegramResponseMessage;
 use Telegram\Bot\Objects\Chat;
 use Telegram\Bot\Objects\Voice;
 use Telegram\Bot\Objects\Update;
-use Telegram\Bot\Api as ApiTelegram;
-use Telegram\Bot\Objects\User as UserObject;
 use Illuminate\Support\Collection;
+use Telegram\Bot\Api as ApiTelegram;
 use Psr\Http\Message\StreamInterface;
+use Telegram\Bot\Objects\User as UserObject;
+use Espinaland\Support\Objects\ResponseMessage;
+use App\Objects\Telegram\TelegramRequestMessage;
+use Espinaland\Support\Objects\TelegramResponseMessage;
+use Espinaland\Support\Objects\RequestMessageInterface;
 
 /**
  * Class TelegramDelivery

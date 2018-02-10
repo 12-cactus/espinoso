@@ -4,8 +4,7 @@ namespace Tests\Espinaland\Features;
 
 use Mockery;
 use Tests\TestCase;
-use App\DeliveryServices\TelegramDelivery;
-use Espinaland\Listening\TelegramListener;
+use Espinaland\Deliveries\TelegramDelivery;
 use App\Http\Controllers\TelegramController;
 use Espinaland\Interpreters\SimplifierCollection;
 use Tests\Espinaland\Builders\TelegramMessageBuilder;
