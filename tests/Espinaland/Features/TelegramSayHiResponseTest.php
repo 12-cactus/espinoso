@@ -2,14 +2,13 @@
 
 namespace Tests\Espinaland\Features;
 
-use App\DeliveryServices\TelegramDelivery;
-use App\Http\Controllers\TelegramController;
-use App\Http\Middleware\VerifyCsrfToken;
-use Espinaland\Interpreters\SimplifierCollection;
-use Espinaland\Listening\TelegramListener;
 use Mockery;
-use Tests\Espinaland\Builders\TelegramMessageBuilder;
 use Tests\TestCase;
+use App\DeliveryServices\TelegramDelivery;
+use Espinaland\Listening\TelegramListener;
+use App\Http\Controllers\TelegramController;
+use Espinaland\Interpreters\SimplifierCollection;
+use Tests\Espinaland\Builders\TelegramMessageBuilder;
 
 /**
  * Class TelegramSayHiResponseTest
@@ -22,22 +21,21 @@ class TelegramSayHiResponseTest extends TestCase
      *
      * @return void
      */
-    public function it_says_hi()
+    public function it_says_cool()
     {
         // Arrange
         $this->app->singleton(TelegramDelivery::class, function () {
-            $delivery = Mockery::mock(TelegramDelivery::class);
-            $delivery->shouldReceive('sendMessage')->once();
-            return $delivery;
+            return Mockery::mock(TelegramDelivery::class);
         });
-        $message = TelegramMessageBuilder::new()->text('espi help')->build();
-        $listener = Mockery::mock(TelegramListener::class);
-        $listener->shouldReceive('lastMessage')->andReturn($message);
         $controller = new TelegramController;
         $simplifier = resolve(SimplifierCollection::class);
+        $delivery = resolve(TelegramDelivery::class);
+        $message = TelegramMessageBuilder::new()->text('espi cool')->build();
+        $delivery->shouldReceive('sendMessage')->once();
+        $delivery->shouldReceive('lastMessage')->andReturn($message);
 
         // Act
-        $response = $controller->newHandleUpdates($listener, $simplifier);
+        $response = $controller->newHandleUpdates($delivery, $simplifier);
 
         // Assert
         $this->assertEquals(200, $response->getStatusCode());
