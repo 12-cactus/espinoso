@@ -22,6 +22,7 @@ class GitHubController extends Controller
      */
     public function commitsWebhook(TelegramDelivery $telegram, Espinoso $espinoso)
     {
+        sleep(10);
         $espinoso->setDelivery($telegram);
         $response = GuzzleClient::get(config('github.events'), [
             'auth' => [config('github.username'), config('github.token')]
