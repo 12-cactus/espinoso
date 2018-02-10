@@ -38,8 +38,6 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapApiRoutes();
 
         $this->mapWebRoutes();
-
-        $this->mapEspiRoutes();
     }
 
     /**
@@ -71,19 +69,5 @@ class RouteServiceProvider extends ServiceProvider
              ->group(base_path('routes/api.php'));
     }
 
-    /**
-     * Define the "espi" routes for the application.
-     *
-     * These routes are typically stateless.
-     *
-     * @return void
-     */
-    protected function mapEspiRoutes()
-    {
-        Route::prefix('espi')
-             ->middleware('web')
-             ->middleware('espi')
-             ->namespace('App\Http\Managers')
-             ->group(base_path('routes/espi.php'));
-    }
+
 }
