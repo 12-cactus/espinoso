@@ -5,6 +5,7 @@ namespace Tests\Handlers;
 use Mockery;
 use App\Facades\GoutteClient;
 use App\Handlers\CinemaHandler;
+use Spatie\Emoji\Emoji;
 use Symfony\Component\DomCrawler\Crawler;
 
 class CinemaHandlerTest extends HandlersTestCase
@@ -60,8 +61,10 @@ class CinemaHandlerTest extends HandlersTestCase
      */
     public function it_handle_and_return_movies()
     {
+        $emoji = EMOJI::cinema();
         // Mocking
-        $text = "¿La pensás poner?\n¡Mete Netflix pelotud@, es mas barato!\nPero igual podes ver todas estas:\n\n";
+
+        $text = "{$emoji} ¿La pensás poner?\n¡Mete Netflix pelotud@, es mas barato!\nPero igual podes ver todas estas:\n\n";
         $this->espinoso->shouldReceive('reply')->once()->with($text);
 
         $crawler = Mockery::mock(Crawler::class);

@@ -4,6 +4,7 @@ namespace App\Handlers;
 
 use Illuminate\Support\Str;
 use App\Facades\GoutteClient;
+use Spatie\Emoji\Emoji;
 
 class CinemaHandler extends BaseCommand
 {
@@ -19,19 +20,21 @@ class CinemaHandler extends BaseCommand
     {
         $crawler = GoutteClient::request('GET', config('espinoso.url.cinema'));
 
-        $movies = [];
-        $crawler->filter('.title > a')
-            ->each(function ($node) use (&$movies) {
-                $movies[] = Str::ucfirst(Str::lower($node->text()));
+        $crawler = $crawler->filter('.title > a');
+
+        $movies = $crawler->each(function ($node) {
+            $movie = Str::ucfirst(Str::lower($node->text()));
+            $url = config('espinoso.url.hoyts');
+
+            return "[{$movie}]({$url}{$node->attr('href')})";
             });
+
         $movies = collect($movies)->map(function ($movie) {
             return " - {$movie}";
         })->implode("\n");
 
-        $response = "¿La pensás poner?
-¡Mete Netflix pelotud@, es mas barato!
-Pero igual podes ver todas estas:\n
-{$movies}";
+        $emoji = EMOJI::cinema();
+        $response =  trans('messages.cinema', compact('emoji', 'movies'));
 
         $this->espinoso->reply($response);
     }

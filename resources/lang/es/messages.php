@@ -29,7 +29,7 @@ return [
     ],
 
     'search' => [
-        'google' => "Google me tira esto, si no te sirve jodete!:\n:list:"
+        'google' => ":emoji Google me tira esto, si no te sirve jodete!:\n\n:list"
     ],
 
     'chat' => [
@@ -50,6 +50,13 @@ return [
     'tags' => [
         'items' => "Tag :tag\n:items",
         'tags' => "Tags con data:\n:tags",
-    ]
+    ],
 
+    'cinema' => ":emoji ¿La pensás poner?\n¡Mete Netflix pelotud@, es mas barato!\nPero igual podes ver todas estas:\n\n:movies",
+
+    'not-transcribe' => [
+        'Aprendé a hablar:name',
+        'No se te entiende una mierda:name',
+        'Sacate la papa de la boca:name'
+    ]
 ];

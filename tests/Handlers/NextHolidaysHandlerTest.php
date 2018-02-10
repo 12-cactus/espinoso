@@ -69,7 +69,7 @@ class NextHolidaysHandlerTest extends HandlersTestCase
         $crawler->shouldReceive('getContents')->andReturn($jsonText);
 
         GuzzleClient::shouldReceive('request')
-            ->withArgs(['GET', config('espinoso.url.holidays')])
+            ->withArgs(['GET', config('espinoso.url.holidays').now()->year.'?incluir=opcional'])
             ->andReturn($crawler);
 
         $text = "Manga de vagos, *quedan 16 feriados* en todo el año.

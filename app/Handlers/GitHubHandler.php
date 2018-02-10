@@ -16,11 +16,11 @@ class GitHubHandler extends MultipleCommand
             'pattern' => "(issue)\s+(?'title'.+)(\s|\n)*(?'body'(.|\n)+)?"
         ],[
             'name' => 'issues-list',
-            'pattern' => "((list|listar|show|ver)\s+)?(issues)\s*$"
+            'pattern' => "((list|listar|show|ver)\s+)?(issues)\s*(?'query'.+)?$"
         ],
     ];
 
-    protected $signature   = "espi issues\nespi issue <title> [\\n<content>]";
+    protected $signature   = "espi issues [texto a buscar]\nespi issue <title> [\\n<content>]";
     protected $description = "lista los issues o crea uno nuevo";
 
     public function handleIssueCreation(): void
@@ -55,6 +55,12 @@ class GitHubHandler extends MultipleCommand
 
         $repo   = config('github.issues');
         $items  = collect(json_decode($response->getBody()));
+
+        if (!empty($this->matches['query']))
+            $items = $items->filter(function ($issue) {
+                return strrpos($issue->title, $this->matches['query']);
+            });
+
         $issues = $items->map(function (stdClass $issue) {
             return "[#{$issue->number}]({$issue->html_url}) {$issue->title}";
         })->implode("\n");
