@@ -167,7 +167,6 @@ return [
          * Packages Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
-        Espinaland\Providers\EspinalandServiceProvider::class,
 
         /*
          * App Service Providers...
