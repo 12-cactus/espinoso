@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "12-cactus/espinaland",
-            "version": "0.1.10",
+            "version": "0.1.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/12-cactus/espinaland.git",
-                "reference": "f0c89d93f76e23a7963ae5677d7061ce9ff0736b"
+                "reference": "4aa9583336c84f9fc74220bfb0e45da6bae175a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/12-cactus/espinaland/zipball/f0c89d93f76e23a7963ae5677d7061ce9ff0736b",
-                "reference": "f0c89d93f76e23a7963ae5677d7061ce9ff0736b",
+                "url": "https://api.github.com/repos/12-cactus/espinaland/zipball/4aa9583336c84f9fc74220bfb0e45da6bae175a1",
+                "reference": "4aa9583336c84f9fc74220bfb0e45da6bae175a1",
                 "shasum": ""
             },
             "require": {
@@ -55,7 +55,7 @@
                 }
             ],
             "description": "Tools for Espinoso Bot",
-            "time": "2018-02-13T17:46:58+00:00"
+            "time": "2018-02-17T14:32:38+00:00"
         },
         {
             "name": "clue/stream-filter",

@@ -6,8 +6,9 @@ use Mockery;
 use Tests\TestCase;
 use Espinaland\Deliveries\TelegramDelivery;
 use App\Http\Controllers\TelegramController;
+use Espinaland\Builders\TelegramMessageBuilder;
 use Espinaland\Interpreters\SimplifierCollection;
-use Tests\Espinaland\Builders\TelegramMessageBuilder;
+
 
 /**
  * Class TelegramSayHiResponseTest
