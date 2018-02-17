@@ -7,7 +7,7 @@
     "require": {
         "php": "~7.1.0",
         "ext-gd": "*",
-        "12-cactus/espinaland": "0.1.*",
+        "12-cactus/espinaland": "^0.3",
         "cmfcmf/openweathermap-php-api": "2.2.0",
         "doctrine/dbal": "^2.6",
         "fabpot/goutte": "^3.2",

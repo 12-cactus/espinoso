@@ -1,8 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Espinaland\Support\Facades\ReplyResponses;
 
-Route::put('cool', function () {
-    return ReplyResponses::text('cool, men!');
-});
+Route::put('cool', 'GreetingManager@cool');
+
+Route::put('cool-named', 'GreetingManager@coolNamed');

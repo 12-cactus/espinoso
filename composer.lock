@@ -4,23 +4,24 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "77c029250567f9fd3ef8da60e5c3932d",
+    "content-hash": "aecac4d7a6f387fd443b610a47d729e7",
     "packages": [
         {
             "name": "12-cactus/espinaland",
-            "version": "0.1.12",
+            "version": "0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/12-cactus/espinaland.git",
-                "reference": "4aa9583336c84f9fc74220bfb0e45da6bae175a1"
+                "reference": "91c9a392d4d282115952cf3484b87f55d7592088"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/12-cactus/espinaland/zipball/4aa9583336c84f9fc74220bfb0e45da6bae175a1",
-                "reference": "4aa9583336c84f9fc74220bfb0e45da6bae175a1",
+                "url": "https://api.github.com/repos/12-cactus/espinaland/zipball/91c9a392d4d282115952cf3484b87f55d7592088",
+                "reference": "91c9a392d4d282115952cf3484b87f55d7592088",
                 "shasum": ""
             },
             "require": {
+                "guzzlehttp/guzzle": "^6.2",
                 "irazasyed/telegram-bot-sdk": "^2.2",
                 "laravel/framework": "5.5.*",
                 "php": "~7.1.0"
@@ -55,7 +56,7 @@
                 }
             ],
             "description": "Tools for Espinoso Bot",
-            "time": "2018-02-17T14:32:38+00:00"
+            "time": "2018-02-17T18:44:24+00:00"
         },
         {
             "name": "clue/stream-filter",
