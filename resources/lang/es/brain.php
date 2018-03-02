@@ -54,7 +54,10 @@ return [
         ],
 
         '/\b(marcos)\b$/i' => [
-            'reply' => '¿Quisiste decir Markos?',
+            'reply' => [
+                '¿Quisiste decir Markos?',
+                'Markos nos debe un asado...'
+             ]
         ],
 
         '/maximo\s?$/i' => [
