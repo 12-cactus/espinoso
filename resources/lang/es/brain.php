@@ -30,22 +30,6 @@ return [
         '/^(espi(noso)?\s*){1,3}[i!\?\.]*$/i' => [
             'reply' => 'Otra vez rompiendo los huevos... Que pija quieren?',
         ],
-        
-        '/\b(cactuses)\b$/i' => [
-            'reply' => 'Dan: TIP en Abril
-Pipi: TIP en Abril
-JP: TIP en Abril
-Ine: Mate2, PF, Concu, Obj3, TIP
-Dami: UIs, Ing, Segu, Inglés1-2, Opta(Obj3), DesApp, TIP
-Maru: Desa, Ing, Opta, TIP
-Agus: Desa, Mate2, Opta, TIP
-Ana: Ing, Labo, SisOp, DesApp, Opta, Inglés2, TIP
-Markis: Concu, SisOp, DesApp, Mate2, PF, Opta, TIP
-Pau: ??
-Facu: Mate1-2, PF, Concu, DesApp, Labo, TIP
-Alan: ??
-Saba: ??',
-        ],
 
         '/^(o\s+)?no(,)?\s+(espi(noso)?)(\?)+$/i' => [
             'reply' => [
