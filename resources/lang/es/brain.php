@@ -30,6 +30,22 @@ return [
         '/^(espi(noso)?\s*){1,3}[i!\?\.]*$/i' => [
             'reply' => 'Otra vez rompiendo los huevos... Que pija quieren?',
         ],
+        
+        '/\b(cactuses)\b$/i' => [
+            'reply' => 'Dan -> TIP en Abril
+            Pipi -> TIP en Abril
+            JP -> TIP en Abril
+            Ine -> Mate2, PF, Concu, Obj3, TIP
+            Dami -> ??
+            Maru -> ??
+            Agus -> ??
+            Ana -> ??
+            Markis -> ??
+            Pau -> ??
+            Facu -> ??
+            Alan -> ??
+            Saba -> ??',
+        ],
 
         '/^(o\s+)?no(,)?\s+(espi(noso)?)(\?)+$/i' => [
             'reply' => [
