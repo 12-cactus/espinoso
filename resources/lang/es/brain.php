@@ -36,13 +36,13 @@ return [
 Pipi: TIP en Abril
 JP: TIP en Abril
 Ine: Mate2, PF, Concu, Obj3, TIP
-Dami: ??
+Dami: UIs, Ing, Segu, Ingles 1 y 2, Opta (Obj3), DesApp, TIP
 Maru: ??
 Agus: ??
 Ana: ??
 Markis: ??
 Pau: ??
-Facu: ??
+Facu: Mate 1 y 2, PF, Concu, DesApp, Labo
 Alan: ??
 Saba: ??',
         ],
