@@ -39,6 +39,6 @@ class GoogleSearchHandler extends BaseCommand
         $emoji = EMOJI::CHARACTER_WHITE_DOWN_POINTING_BACKHAND_INDEX;
         $response =  trans('messages.search.google', compact('emoji', 'list'));
 
-        $this->espinoso->reply($response);
+        $this->espinoso->reply($response, 'Markdown',['disable_web_page_preview'=>True]);
     }
 }

@@ -65,7 +65,7 @@ class CinemaHandlerTest extends HandlersTestCase
         // Mocking
 
         $text = "{$emoji} ¿La pensás poner?\n¡Mete Netflix pelotud@, es mas barato!\nPero igual podes ver todas estas:\n\n";
-        $this->espinoso->shouldReceive('reply')->once()->with($text);
+        $this->espinoso->shouldReceive('reply')->once()->with($text,'Markdown',['disable_web_page_preview'=>True]);
 
         $crawler = Mockery::mock(Crawler::class);
         $crawler->shouldReceive('filter')->andReturnSelf();
