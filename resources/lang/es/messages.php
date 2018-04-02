@@ -54,6 +54,10 @@ return [
 
     'cinema' => ":emoji ¿La pensás poner?\n¡Mete Netflix pelotud@, es mas barato!\nPero igual podes ver todas estas:\n\n:movies",
 
+    'settings' => [
+        'saved' => "Guardado! para traerlo usá _get_"
+    ],
+
     'not-transcribe' => [
         'Aprendé a hablar:name',
         'No se te entiende una mierda:name',
