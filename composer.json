@@ -26,12 +26,13 @@
         "vinkla/instagram": "^8.0"
     },
     "require-dev": {
+        "codeclimate/php-test-reporter": "dev-master",
+        "codedungeon/phpunit-result-printer": "^0.11.2",
         "filp/whoops": "~2.0",
-        "phpunit/phpunit": "~6.0",
-        "mockery/mockery": "~1.0",
         "fzaninotto/faker": "~1.4",
         "johnkary/phpunit-speedtrap": "^2.0",
-        "codeclimate/php-test-reporter": "dev-master"
+        "mockery/mockery": "~1.0",
+        "phpunit/phpunit": "~6.0"
     },
     "autoload": {
         "classmap": [

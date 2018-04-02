@@ -101,7 +101,7 @@ class GitHubHandlerTest extends HandlersTestCase
         $issues = "[#103](https://github.com/12-cactus/espinoso/issues/103) Hacer Handler con el GSM";
         $text = trans('messages.issues.all', compact('repo', 'issues'));
 
-        $this->espinoso->shouldReceive('reply')->once()->with($text);
+        $this->espinoso->shouldReceive('replyDisablingPagePreview')->once()->with($text);
 
         $handler = $this->makeHandler();
         $update = $this->makeMessage(['text' => 'espi issues']);

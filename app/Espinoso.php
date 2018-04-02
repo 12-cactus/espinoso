@@ -84,6 +84,11 @@ class Espinoso
         $this->sendMessage($this->message->getChat()->getId(), $text, $format, $options);
     }
 
+    public function replyDisablingPagePreview(string $text): void
+    {
+        $this->reply($text, 'Markdown', ['disable_web_page_preview' => true]);
+    }
+
     /**
      * @param string $url
      * @param string $caption

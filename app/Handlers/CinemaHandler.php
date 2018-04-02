@@ -36,6 +36,6 @@ class CinemaHandler extends BaseCommand
         $emoji = EMOJI::cinema();
         $response =  trans('messages.cinema', compact('emoji', 'movies'));
 
-        $this->espinoso->reply($response);
+        $this->espinoso->replyDisablingPagePreview($response);
     }
 }

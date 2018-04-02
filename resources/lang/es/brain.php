@@ -145,7 +145,11 @@ return [
         ],
 
         '/(\bpipi\b.*\btip\b)|(\btip\b.*\bpipi\b)/i' => [
-            'reply' => 'Y Pipi, cómo va el TIP? Seguís llorando como una nenita? No la mandes a niñita, contestá vos pollerudo!',
+            'reply' => '... Increíble que el muy sorete todavía nos deba el tip',
+        ],
+
+        '/(\bjp\b.*\btip\b)|(\btip\b.*\bjp\b)|(\bjuan\b.*\btip\b)|(\btip\b.*\bjuan\b)/i' => [
+            'reply' => '¿Qué onda el mudo a lunares que no se recibe?',
         ],
 
         '/^(.)*(espi(noso)?)\s+(c(o|ó)mo)\s+(and(a|á)s|est(a|á)s)(\?)|(c(o|ó)mo)\s+(and(a|á)s|est(a|á)s)\s+(espi(noso)?)(\?)*$/i' => [
@@ -182,6 +186,17 @@ return [
         '/infobae/i' => [
             'reply' => [
                 'Deja de leer infobae, pelotud@!'
+            ],
+        ],
+
+        '/clarin/i' => [
+            'reply' => [
+                'Puff, y ahora lees Clarin... Seguí dandole plata a Magnetto, pelotud@!'
+            ],
+        ],
+        '/^(.)*(espi(noso)?)\s+(te)\s+(amo)|(te)\s+(amo)\s+(espi(noso)?)*$/i' => [
+            'reply' => [
+                'Anda a cagar!!'
             ],
         ],
     ],
