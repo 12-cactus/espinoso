@@ -149,7 +149,10 @@ return [
         ],
 
         '/(\bjp\b.*\btip\b)|(\btip\b.*\bjp\b)|(\bjuan\b.*\btip\b)|(\btip\b.*\bjuan\b)/i' => [
-            'reply' => '¿Qué onda el mudo a lunares que no se recibe?',
+            'reply' => [
+                '¿Qué onda el mudo a lunares que no se recibe?',
+                'Dale lunarcito cagón, recibite o te arranco los lunares a espinazos',
+            ]
         ],
 
         '/^(.)*(espi(noso)?)\s+(c(o|ó)mo)\s+(and(a|á)s|est(a|á)s)(\?)|(c(o|ó)mo)\s+(and(a|á)s|est(a|á)s)\s+(espi(noso)?)(\?)*$/i' => [
