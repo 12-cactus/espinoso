@@ -70,6 +70,5 @@ class GitHubHandler extends MultipleCommand
             : trans('messages.issues.all', compact('repo', 'issues'));
 
         $this->espinoso->replyDisablingPagePreview($message);
-
     }
 }
