@@ -149,7 +149,7 @@ return [
         ],
 
         '/(\bjp\b.*\btip\b)|(\btip\b.*\bjp\b)|(\bjuan\b.*\btip\b)|(\btip\b.*\bjuan\b)/i' => [
-            'reply' => '¿Que está esperando el mudo este para recibirse?',
+            'reply' => '¿Qué onda el mudo a lunares que no se recibe?',
         ],
 
         '/^(.)*(espi(noso)?)\s+(c(o|ó)mo)\s+(and(a|á)s|est(a|á)s)(\?)|(c(o|ó)mo)\s+(and(a|á)s|est(a|á)s)\s+(espi(noso)?)(\?)*$/i' => [
