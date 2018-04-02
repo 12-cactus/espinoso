@@ -43,5 +43,13 @@ return [
             'pattern' => "\b(bicivolador)\b.*",
             'video'   => 'bici.gif'
         ],
+        [
+            'pattern' => "\b(piensa)\b.*",
+            'video'   => 'piensa.gif'
+        ],
+        [
+            'pattern' => "\b(maldita lisiada)\b.*",
+            'video'   => 'maldita lisiada.mp4'
+        ],
     ],
 ];
