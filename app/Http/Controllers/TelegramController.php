@@ -66,11 +66,11 @@ class TelegramController extends Controller
     {
         $message = $update->getMessage();
 
-        if ($this->isVoiceMessage($message)) {
-            $text = trim($espinoso->transcribe($message));
-            $espinoso->reply($text);
-            $message->put('text', $text);
-        }
+//        if ($this->isVoiceMessage($message)) {
+//            $text = trim($espinoso->transcribe($message));
+//            $espinoso->reply($text);
+//            $message->put('text', $text);
+//        }
 
         if ($this->isNotTextMessage($message)) {
             return;
