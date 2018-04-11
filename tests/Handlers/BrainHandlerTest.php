@@ -51,7 +51,7 @@ class BrainHandlerTest extends HandlersTestCase
     public function it_should_respond_with_concrete_message()
     {
         $this->shouldRespondWith('macri',    'Gato ' . Emoji::catFaceWithWrySmile());
-        $this->shouldRespondWith('espi',     'Otra vez rompiendo los huevos... Que pija quieren?');
+        $this->shouldRespondWith('mamu',     'papu');
         $this->shouldRespondWith('empanada', 'mmmm de carne y bien jugosa');
     }
 
@@ -63,6 +63,7 @@ class BrainHandlerTest extends HandlersTestCase
         $this->shouldRespondWithAny('alan', [
             'Alan lo hace por dinero',
             'acaso dijiste $$$ oriented programming?',
+            'Alan... extraño tus manos en mi código'
         ]);
 
         $this->shouldRespondWithAny('ines', [

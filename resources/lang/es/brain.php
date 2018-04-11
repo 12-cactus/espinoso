@@ -58,7 +58,7 @@ return [
                 'Alan lo hace por dinero',
                 'acaso dijiste $$$ oriented programming?',
                 'Alan... extraño tus manos en mi código'
-            ],
+            ]
         ],
 
         '/\b(marcos)\b$/i' => [
@@ -98,7 +98,7 @@ return [
                 'Agus, tu panza pide a gritos que arregles la bici',
                 'Agus, 3 días usaste la bici, mamarracho!',
                 'Diganle a Agus que se deje de hacer el deportista si no va a arreglar la bici'
-            ],
+            ]
         ],
 
         '/(j+a+){5,}/i' => [
@@ -123,7 +123,7 @@ return [
                 'Hola :name:',
                 'Alo :name:',
                 'Dejá de molestar de una puta vez!!',
-                'Chupala puto',
+                'Chupala puto'
             ]
         ],
 
@@ -134,8 +134,8 @@ return [
                 'Aloha :name:',
                 'Nos re vimos!',
                 'Saludame a tu jermu, :name:',
-                'Chupala puto',
-            ],
+                'Chupala puto'
+            ]
         ],
 
         '/papu/i' => [
@@ -159,7 +159,7 @@ return [
         ],
 
         '/(\bdan\b.*\btip\b)|(\btip\b.*\bdan\b)/i' => [
-            'reply' => 'Jueves 19 de Abril | 18.00 hs | Aula: CyT-2.... a las 19.00 que dios te ayude, Dan',
+            'reply' => 'Jueves 19 de Abril - 18.00 hs - Aula: CyT-2.... a las 19.00 que dios te ayude, Dan',
         ],
 
         '/(\bpipi\b.*\btip\b)|(\btip\b.*\bpipi\b)/i' => [
@@ -169,7 +169,7 @@ return [
         '/(\bjp\b.*\btip\b)|(\btip\b.*\bjp\b)|(\bjuan\b.*\btip\b)|(\btip\b.*\bjuan\b)/i' => [
             'reply' => [
                 '¿Qué onda el mudo a lunares que no se recibe?',
-                'Dale lunarcito cagón, recibite o te arranco los lunares a espinazos',
+                'Dale lunarcito cagón, recibite o te arranco los lunares a espinazos'
             ]
         ],
 
@@ -220,11 +220,12 @@ return [
                 'Anda a cagar!!'
             ],
         ],
-        //estoy por web, dsp mejoren este regex
-        '(wiki)|(unquipedia)|(unqp)' => [
+
+        '/(\bwiki\b)|(\bunquipedia\b)/i' => [
             'reply' => [
                 'www.unquipedia.com.ar .... agregala a favoritos, así no siguís preguntando como un pelotud@.'
             ],
         ],
+
     ],
 ];
