@@ -29,6 +29,11 @@ return [
 
         '/^(espi(noso)?\s*){1,3}[i!\?\.]*$/i' => [
             'reply' => 'Otra vez rompiendo los huevos... Que pija quieren?',
+            'zzzZZZZzzzz...',
+            '¿Que mierda querés?',
+            'No me rompan los huevos !',
+            'Todos putos... si si, TODOS',
+            'Dejame de joder :name:'
         ],
 
         '/^(o\s+)?no(,)?\s+(espi(noso)?)(\?)+$/i' => [
@@ -49,14 +54,16 @@ return [
         '/\b(alan)\b$/i' => [
             'reply' => [
                 'Alan lo hace por dinero',
-                'acaso dijiste $$$ oriented programming?'
+                'acaso dijiste $$$ oriented programming?',
+                'Alan... extraño tus manos en mi código'
             ],
         ],
 
         '/\b(marcos)\b$/i' => [
             'reply' => [
                 '¿Quisiste decir Markos?',
-                'Markos nos debe un asado...'
+                'Markos nos debe un asado...',
+                'Markos, hay testigos que afirman que esa panza sigue del mismo tamaño, ¿Qué estás esperando?'
              ]
         ],
 
@@ -85,7 +92,10 @@ return [
 
         '/\b(agus)\b$/i' => [
             'reply' => [
-                'Agus careta!, anarquista con osde'
+                'Agus careta!, anarquista con osde',
+                'Agus, tu panza pide a gritos que arregles la bici',
+                'Agus, 3 días usaste la bici, mamarracho!',
+                'Diganle a Agus que se deje de hacer el deportista si no va a arreglar la bici'
             ],
         ],
 
@@ -107,6 +117,10 @@ return [
 
         '/^hola\s*(espi(noso)?)/i' => [
             'reply' => 'Que pija queres?',
+            'Hola :name:',
+            'Alo :name:',
+            'Dejá de molestar de una puta vez!!',
+             'Chupala puto',
         ],
 
         '/^chau\s*(espi(noso)?)/i' => [
@@ -141,7 +155,7 @@ return [
         ],
 
         '/(\bdan\b.*\btip\b)|(\btip\b.*\bdan\b)/i' => [
-            'reply' => 'dan, no quiero asustarte pero sin TIP no hay titulo.. hace el TIP MIERDA!',
+            'reply' => 'Jueves 19 de Abril | 18.00 hs | Aula: CyT-2.... a las 19.00 que dios te ayude, Dan',
         ],
 
         '/(\bpipi\b.*\btip\b)|(\btip\b.*\bpipi\b)/i' => [
@@ -200,6 +214,12 @@ return [
         '/^(.)*(espi(noso)?)\s+(te)\s+(amo)|(te)\s+(amo)\s+(espi(noso)?)*$/i' => [
             'reply' => [
                 'Anda a cagar!!'
+            ],
+        ],
+        //estoy por web, dsp mejoren este regex
+        '(wiki)|(unquipedia)|(unqp)' => [
+            'reply' => [
+                'www.unquipedia.com.ar .... agregala a favoritos, así no siguís preguntando como un pelotud@.'
             ],
         ],
     ],
