@@ -28,12 +28,14 @@ return [
         ],
 
         '/^(espi(noso)?\s*){1,3}[i!\?\.]*$/i' => [
-            'reply' => 'Otra vez rompiendo los huevos... Que pija quieren?',
-            'zzzZZZZzzzz...',
-            '¿Que mierda querés?',
-            'No me rompan los huevos !',
-            'Todos putos... si si, TODOS',
-            'Dejame de joder :name:'
+            'reply' => [
+                'Otra vez rompiendo los huevos... Que pija quieren?',
+                'zzzZZZZzzzz...',
+                '¿Que mierda querés?',
+                'No me rompan los huevos !',
+                'Todos putos... si si, TODOS',
+                'Dejame de joder :name:'
+            ]
         ],
 
         '/^(o\s+)?no(,)?\s+(espi(noso)?)(\?)+$/i' => [
@@ -116,11 +118,13 @@ return [
         ],
 
         '/^hola\s*(espi(noso)?)/i' => [
-            'reply' => 'Que pija queres?',
-            'Hola :name:',
-            'Alo :name:',
-            'Dejá de molestar de una puta vez!!',
-             'Chupala puto',
+            'reply' => [
+                'Que pija queres?',
+                'Hola :name:',
+                'Alo :name:',
+                'Dejá de molestar de una puta vez!!',
+                'Chupala puto',
+            ]
         ],
 
         '/^chau\s*(espi(noso)?)/i' => [
