@@ -220,12 +220,12 @@ return [
                 'Anda a cagar!!'
             ],
         ],
-
+/*
         '/(\bwiki\b)|(\bunquipedia\b)/i' => [
             'reply' => [
-                'www.unquipedia.com.ar .... agregala a favoritos, así no siguís preguntando como un pelotud@.'
+                'www.unquipedia.com.ar .... agregala a favoritos, así no seguís preguntando como un pelotud@.'
             ],
         ],
-
+*/
     ],
 ];
