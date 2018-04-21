@@ -61,11 +61,12 @@ return [
             ]
         ],
 
-        '/\b(marcos)\b$/i' => [
+        '/\b(marcos)\b/i' => [
             'reply' => [
                 '¿Quisiste decir Markos?',
                 'Markos nos debe un asado...',
-                'Markos, hay testigos que afirman que esa panza sigue del mismo tamaño, ¿Qué estás esperando?'
+                'Markos, hay testigos que afirman que esa panza sigue del mismo tamaño, ¿Qué estás esperando?',
+                'Marki Gato'
              ]
         ],
 
@@ -159,11 +160,14 @@ return [
         ],
 
         '/(\bdan\b.*\btip\b)|(\btip\b.*\bdan\b)/i' => [
-            'reply' => 'Jueves 19 de Abril - 18.00 hs - Aula: CyT-2.... a las 19.00 que dios te ayude, Dan',
+            'reply' => 'Al fin chabón! Felicitaciones culo tatuado!!',
         ],
 
         '/(\bpipi\b.*\btip\b)|(\btip\b.*\bpipi\b)/i' => [
-            'reply' => '... Increíble que el muy sorete todavía nos deba el tip',
+            'reply' => [
+                '... Increíble que el muy sorete todavía nos deba el tip',
+                'Dale pelotudo apurate! Se va a recibir la vichy antes que vos, putazo'
+            ]
         ],
 
         '/(\bjp\b.*\btip\b)|(\btip\b.*\bjp\b)|(\bjuan\b.*\btip\b)|(\btip\b.*\bjuan\b)/i' => [
@@ -220,12 +224,12 @@ return [
                 'Anda a cagar!!'
             ],
         ],
-/*
-        '/(\bwiki\b)|(\bunquipedia\b)/i' => [
+
+        '/\b(unquipedia)\b/i' => [
             'reply' => [
-                'www.unquipedia.com.ar .... agregala a favoritos, así no seguís preguntando como un pelotud@.'
+                'Aguante Unquipedia putos, zagüadi gato!'
             ],
         ],
-*/
+
     ],
 ];
