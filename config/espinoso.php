@@ -9,7 +9,7 @@ return [
         App\Handlers\CinemaHandler::class,
         App\Handlers\BrainHandler::class,
         App\Handlers\BardoDelEspinosoHandler::class,
-        App\Handlers\InstagramHandler::class,
+        //App\Handlers\InstagramHandler::class,
         App\Handlers\GoogleStaticMapsHandler::class,
         App\Handlers\WeatherHandler::class,
         App\Handlers\NextHolidaysHandler::class,
