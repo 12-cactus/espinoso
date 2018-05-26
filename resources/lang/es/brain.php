@@ -224,12 +224,5 @@ return [
                 'Anda a cagar!!'
             ],
         ],
-
-        '/\b(unquipedia)\b/i' => [
-            'reply' => [
-                'Aguante Unquipedia putos, zagüadi gato!'
-            ],
-        ],
-
     ],
 ];
