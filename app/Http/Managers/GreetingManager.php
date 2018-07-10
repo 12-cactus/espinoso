@@ -2,8 +2,8 @@
 
 namespace App\Http\Managers;
 
-use Espinaland\Deliveries\DeliveryInterface;
-use Espinaland\Support\Facades\ReplyResponses;
+use Espinarys\Deliveries\DeliveryInterface;
+use Espinarys\Support\Facades\ReplyResponses;
 
 /**
  * Class GreetingManager

@@ -1,18 +1,18 @@
 <?php
 
-namespace Tests\Espinaland\Features;
+namespace Tests\Features;
 
 use Mockery;
 use Tests\TestCase;
-use Espinaland\Deliveries\TelegramDelivery;
+use Espinarys\Deliveries\TelegramDelivery;
 use App\Http\Controllers\TelegramController;
-use Espinaland\Builders\TelegramMessageBuilder;
-use Espinaland\Interpreters\SimplifierCollection;
+use Espinarys\Builders\TelegramMessageBuilder;
+use Espinarys\Parsing\ThornyParsersCollection;
 
 
 /**
  * Class TelegramSayHiResponseTest
- * @package Tests\Espinaland\Features
+ * @package Tests\Features
  */
 class TelegramSayHiResponseTest extends TestCase
 {
@@ -28,14 +28,15 @@ class TelegramSayHiResponseTest extends TestCase
             return Mockery::mock(TelegramDelivery::class);
         });
         $controller = new TelegramController;
-        $simplifier = resolve(SimplifierCollection::class);
+        $parsers = Mockery::mock(ThornyParsersCollection::class);
         $delivery = resolve(TelegramDelivery::class);
         $message = TelegramMessageBuilder::new()->text('espi cool')->build();
+        $parsers->shouldReceive('asRoutes')->with($message->text())->andReturn(collect(['/cool']));
         $delivery->shouldReceive('sendMessage')->once();
         $delivery->shouldReceive('lastMessage')->andReturn($message);
 
         // Act
-        $response = $controller->newHandleUpdates($delivery, $simplifier);
+        $response = $controller->newHandleUpdates($delivery, $parsers);
 
         // Assert
         $this->assertEquals(200, $response->getStatusCode());

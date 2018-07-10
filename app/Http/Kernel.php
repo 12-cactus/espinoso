@@ -6,7 +6,7 @@ use App\Http\Middleware\TrimStrings;
 use App\Http\Middleware\EncryptCookies;
 use App\Http\Middleware\VerifyCsrfToken;
 use App\Http\Middleware\RedirectIfAuthenticated;
-use Espinaland\Middleware\ResolveDelivery;
+use Espinarys\Middleware\ResolveDelivery;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
@@ -57,7 +57,7 @@ class Kernel extends HttpKernel
             'bindings',
         ],
 
-        'espinaland' => [
+        'espinarys' => [
             ResolveDelivery::class
         ]
     ];

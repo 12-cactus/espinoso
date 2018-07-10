@@ -10,8 +10,8 @@ use Telegram\Bot\Objects\Message;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Espinarys\Deliveries\DeliveryInterface;
 use Telegram\Bot\Objects\User as UserObject;
-use Espinaland\Deliveries\EspinosoDeliveryInterface;
 
 /**
  * Class Espinoso
@@ -24,7 +24,7 @@ class Espinoso
      */
     protected $handlers;
     /**
-     * @var EspinosoDeliveryInterface
+     * @var DeliveryInterface
      */
     protected $delivery;
     /**
@@ -125,9 +125,9 @@ class Espinoso
     }
 
     /**
-     * @param EspinosoDeliveryInterface $delivery
+     * @param DeliveryInterface $delivery
      */
-    public function setDelivery(EspinosoDeliveryInterface $delivery)
+    public function setDelivery(DeliveryInterface $delivery)
     {
         $this->delivery = $delivery;
     }

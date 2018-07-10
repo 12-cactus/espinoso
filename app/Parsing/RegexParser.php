@@ -3,11 +3,11 @@
 namespace App\Parsing;
 
 use Illuminate\Support\Collection;
-use Espinaland\Parsing\ThornyRegexParser;
+use Espinarys\Parsing\ThornyRegexParser;
 
 /**
  * Class RegexSimplifier
- * @package Espinaland\Interpreters
+ * @package App\Parsing
  */
 class RegexParser extends ThornyRegexParser
 {

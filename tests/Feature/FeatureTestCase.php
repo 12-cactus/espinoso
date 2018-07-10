@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use App\Espinoso;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Espinaland\Deliveries\EspinosoDeliveryInterface;
+use Espinarys\Deliveries\EspinosoDeliveryInterface;
 
 /**
  * Class FeatureTestCase

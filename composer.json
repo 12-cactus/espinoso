@@ -7,7 +7,7 @@
     "require": {
         "php": "~7.1.0",
         "ext-gd": "*",
-        "12-cactus/espinaland": "^0.3",
+        "12-cactus/espinarys": "^0.4",
         "cmfcmf/openweathermap-php-api": "2.2.0",
         "doctrine/dbal": "^2.6",
         "fabpot/goutte": "^3.2",
@@ -42,7 +42,7 @@
         ],
         "psr-4": {
             "App\\": "app/",
-            "Espinaland\\": "packages/Espinaland"
+            "Espinarys\\": "packages/Espinarys"
         }
     },
     "autoload-dev": {

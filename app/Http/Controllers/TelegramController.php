@@ -7,10 +7,10 @@ use Telegram\Bot\Objects\Update;
 use Telegram\Bot\Objects\Message;
 use Telegram\Bot\TelegramResponse;
 use Telegram\Bot\Api as ApiTelegram;
-use Espinaland\Deliveries\TelegramDelivery;
-use Espinaland\Support\Facades\ThornyRoutes;
+use Espinarys\Deliveries\TelegramDelivery;
+use Espinarys\Support\Facades\ThornyRoutes;
 use Symfony\Component\HttpFoundation\Response;
-use Espinaland\Parsing\ThornyParsersCollection;
+use Espinarys\Parsing\ThornyParsersCollection;
 
 class TelegramController extends Controller
 {
@@ -63,6 +63,7 @@ class TelegramController extends Controller
      *
      * @param ApiTelegram $telegram
      * @return TelegramResponse
+     * @throws \Telegram\Bot\Exceptions\TelegramSDKException
      */
     public function setWebhook(ApiTelegram $telegram)
     {
