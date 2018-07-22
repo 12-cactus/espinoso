@@ -55,5 +55,9 @@ return [
             'pattern' => "\b(shame)\b.*",
             'video'   => 'shame.mp4'
         ],
+        [
+            'pattern' => "\b(di biase)\b.*",
+            'video'   => 'biase.mp4'
+        ],
     ],
 ];
