@@ -19,5 +19,6 @@ notifications:
   email:
     recipients:
       - leandro.jdl@gmail.com
+      - gil.maricruz@gmail.com
     on_success: change
     on_failure: change

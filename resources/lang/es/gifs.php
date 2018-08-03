@@ -51,5 +51,13 @@ return [
             'pattern' => "\b(maldita lisiada)\b.*",
             'video'   => 'maldita lisiada.mp4'
         ],
+        [
+            'pattern' => "\b(shame)\b.*",
+            'video'   => 'shame.mp4'
+        ],
+        [
+            'pattern' => "\b(di biase)\b.*",
+            'video'   => 'biase.mp4'
+        ],
     ],
 ];

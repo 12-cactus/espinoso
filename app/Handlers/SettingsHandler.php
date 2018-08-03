@@ -13,10 +13,10 @@ class SettingsHandler extends MultipleCommand
     protected $patterns = [
         [
             'name' => 'get',
-            'pattern' => "(?'command'get)\s+(?'key'\w+)\s*$",
+            'pattern' => "(?'command'get)\s+(?'key'\w+)",
         ], [
             'name' => 'set',
-            'pattern' => "(?'command'set)\s+(?'key'\w+)\s+(?'value'.+)$",
+            'pattern' => "(?'command'set)\s+(?'key'\w+)+(?'value'.+)$",
         ],
     ];
     protected $signature   = "[espi] get|set key [value]";
