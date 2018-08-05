@@ -102,8 +102,8 @@ return [
             ]
         ],
 
-        '/(j+a+){5,}/i' => [
-            'reply' => 'ajajajajajaja, que plato!',
+        '/(j+a+){7,}/i' => [
+            'reply' => 'jajajajajaja, que plato!',
         ],
 
         '/fu[u]*ck/i' => [

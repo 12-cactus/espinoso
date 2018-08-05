@@ -23,6 +23,9 @@ class TagsHandler extends MultipleCommand
         ],[
             'name' => 'clear-tag',
             'pattern' => "((clean|clear|limpiar|vaciar)\s+)(?'tag'#\w+)\s*$"
+        ],[
+            'name' => 'delete-item',
+            'pattern' => "((delete)\s+)(?'tag'#\w+)\s+(?'item'.+)$"
         ],
     ];
 
@@ -97,4 +100,26 @@ class TagsHandler extends MultipleCommand
 
         $this->replyOk();
     }
+
+    protected function handleDeleteItem(): void
+    {
+        $tag = $this->matches['tag'];
+        $tag = Tag::whereName($tag)
+            ->whereTelegramChatId($this->message->getChat()->getId())
+            ->first();
+
+        $item = $this->matches['item'];
+
+        $itemList = $tag->items();
+
+        foreach($itemList as $key => $value) {
+            if ($value==$item) {
+                unset($itemList[$key]);
+            }
+        }
+        $tag->items()->update(array($itemList));
+
+        $this->espinoso->reply(trans('messages.ok'));
+    }
+
 }
