@@ -48,6 +48,7 @@ return [
 
         '/\b(pipi)\b$/i' => [
             'reply' => [
+                'Pipi... el forrito que se hace un asado a los de videojuegos',
                 'pipi te sermonea con smalltalk y hace su tip en c...',
             ],
         ],
@@ -222,6 +223,24 @@ return [
         '/^(.)*(espi(noso)?)\s+(te)\s+(amo)|(te)\s+(amo)\s+(espi(noso)?)*$/i' => [
             'reply' => [
                 'Anda a cagar!!'
+            ],
+        ],
+
+        '/(Sir)|(Dami)\b$/i' => [
+            'reply' => [
+                'Damian... Guerrillero de Facebook'
+            ],
+        ],
+
+        '/(Pinedo)\b$/i' => [
+            'reply' => [
+                '#PinedoConPDePelotudo'
+            ],
+        ],
+
+        '/Gabi/i' => [
+            'reply' => [
+                '¿Como vienen tus point en la Gabi UNQ Card?'
             ],
         ],
     ],

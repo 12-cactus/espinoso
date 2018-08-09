@@ -29,7 +29,7 @@ return [
 
     'url' => [
         'info'   => 'https://www.google.com.ar/search?q=',
-        'cinema' => 'http://www.hoyts.com.ar/ajaxCartelera.aspx?filter=Home&cine=&premium=False&_=1493929858090',
+        //'cinema' => 'http://www.hoyts.com.ar/ajaxCartelera.aspx?filter=Home&cine=&premium=False&_=1493929858090',
         'map'    => 'https://maps.googleapis.com/maps/api/staticmap',
         'holidays' => 'https://nolaborables.com.ar/api/v2/feriados/',
         'traductor' => 'http://translate.google.cn/translate_a/single',
@@ -45,5 +45,14 @@ return [
         'url' => [
             'file' => 'https://api.telegram.org/file/bot'.env('TELEGRAM_BOT_TOKEN').'/'
         ]
+    ],
+
+    'cinema' => [
+        'search' => 'https://api.themoviedb.org/3/movie/76341?api_key='.env('THEMOVIEDB_TOKEN').'&query=',
+        'language' =>
+            'https://api.themoviedb.org/3/movie/76341?api_key='.env('THEMOVIEDB_TOKEN').'&language=es',
+        'region' =>
+            'https://api.themoviedb.org/3/search/movie?api_key='.env('THEMOVIEDB_TOKEN').'&query=whiplash&language=es-AR&region=AR'
     ]
+
 ];

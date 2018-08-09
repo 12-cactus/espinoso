@@ -23,10 +23,10 @@ class TagsHandler extends MultipleCommand
         ],[
             'name' => 'clear-tag',
             'pattern' => "((clean|clear|limpiar|vaciar)\s+)(?'tag'#\w+)\s*$"
-        ],[
+        ],/*[
             'name' => 'delete-item',
             'pattern' => "((delete)\s+)(?'tag'#\w+)\s+(?'item'.+)$"
-        ],
+        ],*/
     ];
 
     protected $ignorePrefix = true;
@@ -100,7 +100,7 @@ class TagsHandler extends MultipleCommand
 
         $this->replyOk();
     }
-
+/*
     protected function handleDeleteItem(): void
     {
         $tag = $this->matches['tag'];
@@ -121,5 +121,5 @@ class TagsHandler extends MultipleCommand
 
         $this->espinoso->reply(trans('messages.ok'));
     }
-
+*/
 }
