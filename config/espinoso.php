@@ -45,5 +45,14 @@ return [
         'url' => [
             'file' => 'https://api.telegram.org/file/bot'.env('TELEGRAM_BOT_TOKEN').'/'
         ]
+    ],
+/*
+    'cinema' => [
+        'search' => 'https://api.themoviedb.org/3/movie/76341?api_key='.env('THEMOVIEDB_TOKEN').'&query=',
+        'language' =>
+            'https://api.themoviedb.org/3/movie/76341?api_key='.env('THEMOVIEDB_TOKEN').'&language=es',
+        'region' =>
+            'https://api.themoviedb.org/3/search/movie?api_key='.env('THEMOVIEDB_TOKEN').'&query=whiplash&language=es-AR&region=AR'
     ]
+*/
 ];
