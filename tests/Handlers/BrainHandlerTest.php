@@ -30,7 +30,7 @@ class BrainHandlerTest extends HandlersTestCase
         $this->assertShouldHandle('marcos');
         $this->assertShouldHandle('maximo');
         $this->assertShouldHandle('facu');
-        $this->assertShouldHandle('jajajajaja');
+        $this->assertShouldHandle('jajajajajajaja');
         $this->assertShouldHandle('fuck');
         $this->assertShouldHandle('mamu');
         $this->assertShouldHandle('jarvis');
