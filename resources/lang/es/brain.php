@@ -34,7 +34,8 @@ return [
                 '¿Que mierda querés?',
                 'No me rompan los huevos !',
                 'Todos putos... si si, TODOS',
-                'Dejame de joder :name:'
+                'Dejame de joder :name:',
+                'skereeeeee'
             ]
         ],
 
@@ -171,13 +172,6 @@ return [
             ]
         ],
 
-        '/(\bjp\b.*\btip\b)|(\btip\b.*\bjp\b)|(\bjuan\b.*\btip\b)|(\btip\b.*\bjuan\b)/i' => [
-            'reply' => [
-                '¿Qué onda el mudo a lunares que no se recibe?',
-                'Dale lunarcito cagón, recibite o te arranco los lunares a espinazos'
-            ]
-        ],
-
         '/^(.)*(espi(noso)?)\s+(c(o|ó)mo)\s+(and(a|á)s|est(a|á)s)(\?)|(c(o|ó)mo)\s+(and(a|á)s|est(a|á)s)\s+(espi(noso)?)(\?)*$/i' => [
             'reply' => [
                 'He tenido dias mejores..',
@@ -187,6 +181,7 @@ return [
                 'Comela puto',
                 'Si te digo te miento...',
                 'No me jodas :name:',
+                'ATR!!'
             ]
         ],
 
