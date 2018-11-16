@@ -221,7 +221,7 @@ return [
             ],
         ],
 
-        '/(Sir)|(Dami)\b$/i' => [
+        '/(Dami)\b$/i' => [
             'reply' => [
                 'Damian... Guerrillero de Facebook'
             ],
