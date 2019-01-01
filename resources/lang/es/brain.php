@@ -167,8 +167,7 @@ return [
 
         '/(\bpipi\b.*\btip\b)|(\btip\b.*\bpipi\b)/i' => [
             'reply' => [
-                '... Increíble que el muy sorete todavía nos deba el tip',
-                'Dale pelotudo apurate! Se va a recibir la vichy antes que vos, putazo'
+                'Ya está... ahora ponete con el asado'
             ]
         ],
 
