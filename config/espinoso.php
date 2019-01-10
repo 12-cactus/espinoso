@@ -30,11 +30,11 @@ return [
 
     'url' => [
         'info'   => 'https://www.google.com.ar/search?q=',
-        'cinema' => 'http://www.hoyts.com.ar/ajaxCartelera.aspx?filter=Home&cine=&premium=False&_=1493929858090',
+        'cinema' => 'https://www.themoviedb.org/movie/now-playing',
         'map'    => 'https://maps.googleapis.com/maps/api/staticmap',
         'holidays' => 'https://nolaborables.com.ar/api/v2/feriados/',
         'traductor' => 'http://translate.google.cn/translate_a/single',
-        'hoyts'  => 'http://www.hoyts.com.ar'
+        'themoviedb' => 'https://www.themoviedb.org',
     ],
 
     'voice' => [
