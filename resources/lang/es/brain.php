@@ -237,5 +237,26 @@ return [
                 '¿Como vienen tus point en la Gabi UNQ Card?'
             ],
         ],
+
+        '/cumples/i' => [
+            'reply' => [
+                '06-01 Pipi
+21-01 Alan
+10-02 Facu
+27-02 Niñita
+03-03 Agustín
+22-03 Espi
+19-05 Jota
+26-05 Dan
+06-06 Sir
+16-07 Saba
+12-09 Lea
+25-09 Maru
+05-11 Marki
+21-11 Ana
+
+Falta la de siempre...'
+            ],
+        ],
     ],
 ];

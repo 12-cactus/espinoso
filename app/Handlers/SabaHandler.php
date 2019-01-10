@@ -30,7 +30,7 @@ class SabaHandler extends MultipleCommand
 
     public function handleMacriDay(): void
     {
-        $diff = trans(now()->diffInDays(Carbon::create(now()->year, 10, 27)));
+        $diff = trans(now()->diffInDays(Carbon::create(now()->year, 12, 10)));
         $this->espinoso->reply("{$diff} días");
     }
 }
