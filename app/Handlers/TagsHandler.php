@@ -35,21 +35,26 @@ class TagsHandler extends MultipleCommand
 [espi] tags
 [espi] clean|clear|limpiar|vaciar #tag";
     protected $description = "cosas con los tags";
+    protected $tag_id;
 
     protected function handleSetItem(): void
     {
         $tag = $this->matches['tag'];
         $item = $this->matches['item'];
 
-        $tag = Tag::firstOrCreate([
+        $item = explode( '.', $item);
+
+        $this->tag_id = Tag::firstOrCreate([
             'telegram_chat_id' => $this->message->getChat()->getId(),
             'name' => $tag
         ]);
 
-        TagItem::firstOrCreate([
-            'tag_id' => $tag->id,
-            'text' => $item
-        ]);
+        foreach($item as $value) {
+            TagItem::firstOrCreate([
+                'tag_id' => $this->tag_id->id,
+                'text' => $value
+            ]);
+        };
 
         $this->replyOk();
     }
