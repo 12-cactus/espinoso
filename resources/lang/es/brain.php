@@ -77,7 +77,10 @@ return [
         ],
 
         '/\b(facu(?:ndo)?)\b$/i' => [
-            'reply' => 'Facu, ese es terrible puto',
+            'reply' => [
+                'Facu, ese es terrible puto',
+                'Mucho blablabla pero ni rastro de las hamburguesas'
+            ],
         ],
 
         '/\b(ines?)\b$/i' => [

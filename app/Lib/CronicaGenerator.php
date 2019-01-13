@@ -12,7 +12,9 @@ class CronicaGenerator
         $params = ['f' => $title];
         try {
             self::getUrl($url, $params, false, $status);
-        } catch (Exception $e) {}
+        } catch (Exception $e) {
+
+        }
 
         $urlRedirect = $status['redirect_url'];
         preg_match("#http://placasrojas.me/(?'id'[^/]*)/#", $urlRedirect, $matches);
@@ -49,13 +51,13 @@ class CronicaGenerator
         $status = curl_getinfo($ch);
         curl_close($ch);
 
-        if($follow_redirs && ($status['http_code'] == 301 || $status['http_code'] == 302))
+        if ($follow_redirs && ($status['http_code'] == 301 || $status['http_code'] == 302))
         {
             list($header) = explode("\r\n\r\n", $html, 2);
             $matches = array();
             preg_match("/(Location:|URI:)[^(\n)]*/", $header, $matches);
 
-            $url = trim(str_replace($matches[1],"",$matches[0]));
+            $url = trim(str_replace($matches[1],"", $matches[0]));
             $url_parsed = parse_url($url);
 
             return (isset($url_parsed) && !empty($url)) ? geturl($url, $params) : '';

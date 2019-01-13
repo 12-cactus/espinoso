@@ -26,10 +26,10 @@ class CinemaHandler extends BaseCommand
             $overview = $this->getOverview($node);
             $url = config('espinoso.url.themoviedb');
             $urlNameMovie = strtolower($title);
-            $urlNameMovie = str_replace ( ' ' , '-' , $urlNameMovie);
+            $urlNameMovie = str_replace (' ' , '-' , $urlNameMovie);
             return "[{$title}]({$url}{$this->getViewMore($node)}-{$urlNameMovie})
             {$overview}";
-            });
+          });
 
         $movies = collect($movies)->map(function ($movie) {
             return " - {$movie}";

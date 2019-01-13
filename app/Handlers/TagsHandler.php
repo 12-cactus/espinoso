@@ -23,10 +23,10 @@ class TagsHandler extends MultipleCommand
         ],[
             'name' => 'clear-tag',
             'pattern' => "((clean|clear|limpiar|vaciar)\s+)(?'tag'#\w+)\s*$"
-        ],/*[
+        ],[
             'name' => 'delete-item',
             'pattern' => "((delete)\s+)(?'tag'#\w+)\s+(?'item'.+)$"
-        ],*/
+        ],
     ];
 
     protected $ignorePrefix = true;
@@ -35,21 +35,26 @@ class TagsHandler extends MultipleCommand
 [espi] tags
 [espi] clean|clear|limpiar|vaciar #tag";
     protected $description = "cosas con los tags";
+    protected $tag_id;
 
     protected function handleSetItem(): void
     {
         $tag = $this->matches['tag'];
         $item = $this->matches['item'];
 
-        $tag = Tag::firstOrCreate([
+        $item = explode('.', $item);
+
+        $this->tag_id = Tag::firstOrCreate([
             'telegram_chat_id' => $this->message->getChat()->getId(),
             'name' => $tag
         ]);
 
-        TagItem::firstOrCreate([
-            'tag_id' => $tag->id,
-            'text' => $item
-        ]);
+        foreach ($item as $value) {
+            TagItem::firstOrCreate([
+                'tag_id' => $this->tag_id->id,
+                'text' => $value
+            ]);
+        };
 
         $this->replyOk();
     }
@@ -60,8 +65,14 @@ class TagsHandler extends MultipleCommand
 
         $items = Tag::whereName($tag)
             ->whereTelegramChatId($this->message->getChat()->getId())
-            ->first()
-            ->items;
+            ->first();
+
+        if ($items == null) {
+            $this->replyNotFound();
+            return;
+        }
+
+        $items = $items->items;
 
         $items = $items->map(function (TagItem $item) {
             return "- {$item->text}";
@@ -100,26 +111,20 @@ class TagsHandler extends MultipleCommand
 
         $this->replyOk();
     }
-/*
+
     protected function handleDeleteItem(): void
     {
         $tag = $this->matches['tag'];
         $tag = Tag::whereName($tag)
             ->whereTelegramChatId($this->message->getChat()->getId())
-            ->first();
+            ->get();
 
-        $item = $this->matches['item'];
+        $textItem = $this->matches['item'];
 
-        $itemList = $tag->items();
+        TagItem::whereText($textItem)
+            //->whereTagId($tag->name)
+            ->delete();
 
-        foreach($itemList as $key => $value) {
-            if ($value==$item) {
-                unset($itemList[$key]);
-            }
-        }
-        $tag->items()->update(array($itemList));
-
-        $this->espinoso->reply(trans('messages.ok'));
+        $this->replyOk();
     }
-*/
 }
