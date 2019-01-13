@@ -25,7 +25,7 @@ class TagsHandler extends MultipleCommand
             'pattern' => "((clean|clear|limpiar|vaciar)\s+)(?'tag'#\w+)\s*$"
         ],[
             'name' => 'delete-item',
-            'pattern' => "((delete)\s+)(?'tag'#\w+)\s+(?'item'.+)$"
+            'pattern' => "((delete)\s+)(?'tag'#\w+)\s+(?'position'.+)$"
         ],
     ];
 
@@ -52,7 +52,7 @@ class TagsHandler extends MultipleCommand
         foreach ($item as $value) {
             TagItem::firstOrCreate([
                 'tag_id' => $this->tag_id->id,
-                'text' => $value
+                'text' => trim($value)
             ]);
         };
 
@@ -115,14 +115,29 @@ class TagsHandler extends MultipleCommand
     protected function handleDeleteItem(): void
     {
         $tag = $this->matches['tag'];
+        $positionItem = $this->matches['position'];
+
         $tag = Tag::whereName($tag)
             ->whereTelegramChatId($this->message->getChat()->getId())
-            ->get();
+            ->first();
 
-        $textItem = $this->matches['item'];
+        if ($tag == null) {
+            $this->replyNotFound();
+            return;
+        }
 
-        TagItem::whereText($textItem)
-            //->whereTagId($tag->name)
+        $items = $tag->items;
+
+        if (count ($items) < $positionItem-1) {
+            $this->replyNotFound();
+            return;
+        }
+
+        $deleteItem = $items[$positionItem-1];
+
+        TagItem::
+            where('text', $deleteItem->text)
+            ->where('tag_id', $tag->id)
             ->delete();
 
         $this->replyOk();
