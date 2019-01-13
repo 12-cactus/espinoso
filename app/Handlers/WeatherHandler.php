@@ -63,8 +63,8 @@ class WeatherHandler extends BaseCommand
             ->map(function (Forecast $forecast) {
                 return $this->forecastToDescription($forecast);
         })->reduce(function ($carry, $str) {
-            return empty($carry) ? $str : $carry . "," . $str;
-        }, '');
+                return empty($carry) ? $str : $carry . "," . $str;
+            }, '');
     }
 
     protected function getWeatherForcastsForDate(Carbon $date) : Collection

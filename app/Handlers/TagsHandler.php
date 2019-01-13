@@ -42,14 +42,14 @@ class TagsHandler extends MultipleCommand
         $tag = $this->matches['tag'];
         $item = $this->matches['item'];
 
-        $item = explode( '.', $item);
+        $item = explode('.', $item);
 
         $this->tag_id = Tag::firstOrCreate([
             'telegram_chat_id' => $this->message->getChat()->getId(),
             'name' => $tag
         ]);
 
-        foreach($item as $value) {
+        foreach ($item as $value) {
             TagItem::firstOrCreate([
                 'tag_id' => $this->tag_id->id,
                 'text' => $value
@@ -115,11 +115,10 @@ class TagsHandler extends MultipleCommand
 
         $textItem = $this->matches['item'];
 
-        $item = TagItem::whereText($textItem)
+        TagItem::whereText($textItem)
             //->whereTagId($tag->name)
             ->delete();
 
         $this->replyOk();
     }
-
 }

@@ -23,7 +23,8 @@ class SabaHandler extends MultipleCommand
         ],
         ];
 
-    protected function handleSabaDay(): void{
+    protected function handleSabaDay(): void
+    {
         $diff = trans(now()->diffInDays(Carbon::create(now()->year, 03, 18)));
         $this->espinoso->reply("{$diff} días");
     }
