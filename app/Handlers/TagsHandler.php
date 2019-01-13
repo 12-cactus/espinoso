@@ -65,8 +65,14 @@ class TagsHandler extends MultipleCommand
 
         $items = Tag::whereName($tag)
             ->whereTelegramChatId($this->message->getChat()->getId())
-            ->first()
-            ->items;
+            ->first();
+
+        if ($items == null) {
+            $this->replyNotFound();
+            return;
+        }
+
+        $items = $items->items;
 
         $items = $items->map(function (TagItem $item) {
             return "- {$item->text}";
