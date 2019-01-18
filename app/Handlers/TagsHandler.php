@@ -25,7 +25,7 @@ class TagsHandler extends MultipleCommand
             'pattern' => "((clean|clear|limpiar|vaciar)\s+)(?'tag'#\w+)\s*$"
         ],[
             'name' => 'delete-item',
-            'pattern' => "((delete)\s+)(?'tag'#\w+)\s+(?'position'.+)$"
+            'pattern' => "((delete|rm|eliminar|borrar)\s+)(?'tag'#\w+)\s+(?'position'.+)$"
         ],
     ];
 
@@ -73,9 +73,9 @@ class TagsHandler extends MultipleCommand
         }
 
         $items = $items->items;
-
-        $items = $items->map(function (TagItem $item) {
-            return "- {$item->text}";
+        $items = $items->map(function (TagItem $item, $count) {
+            $count++;
+            return "{$count} - {$item->text}";
         })->implode("\n");
 
         $this->espinoso->reply(trans('messages.tags.items', compact('tag', 'items')));
@@ -116,6 +116,11 @@ class TagsHandler extends MultipleCommand
     {
         $tag = $this->matches['tag'];
         $positionItem = $this->matches['position'];
+
+        if (!is_numeric($positionItem)) {
+            $this->replyNotFound();
+            return;
+        }
 
         $tag = Tag::whereName($tag)
             ->whereTelegramChatId($this->message->getChat()->getId())
