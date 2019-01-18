@@ -23,12 +23,11 @@ class CinemaHandler extends BaseCommand
         $crawler = $crawler->filter('.info');
         $movies = $crawler->each(function ($node) {
             $title = $this->getTitle($node);
-            $overview = $this->getOverview($node);
+            //$overview = $this->getOverview($node);
             $url = config('espinoso.url.themoviedb');
             $urlNameMovie = strtolower($title);
             $urlNameMovie = str_replace (' ' , '-' , $urlNameMovie);
-            return "[{$title}]({$url}{$this->getViewMore($node)}-{$urlNameMovie})
-            {$overview}";
+            return "[{$title}]({$url}{$this->getViewMore($node)}-{$urlNameMovie})";
           });
 
         $movies = collect($movies)->map(function ($movie) {
