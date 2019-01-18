@@ -21,7 +21,7 @@ return [
         App\Handlers\TranslationHandler::class,
         App\Handlers\SettingsHandler::class,
         App\Handlers\TagsHandler::class,
-        App\Handlers\SabaHandler::class
+        App\Handlers\HowMuchLeftHandler::class
     ],
 
     'chat' => [

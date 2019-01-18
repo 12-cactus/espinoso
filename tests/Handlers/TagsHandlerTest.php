@@ -37,6 +37,7 @@ class TagsHandlerTest extends HandlersTestCase
         $this->assertShouldHandle('espi clear #list');
         $this->assertShouldHandle('limpiar #tag');
         $this->assertShouldHandle('vaciar #list');
+        $this->assertShouldHandle('espi delete #tag cosa');
     }
 
     /**
@@ -97,8 +98,9 @@ class TagsHandlerTest extends HandlersTestCase
             'text' => 'cosa'
         ]);
         $tag = $tag->name;
-        $items = TagItem::all()->map(function (TagItem $item) {
-            return "- {$item->text}";
+        $items = TagItem::all()->map(function (TagItem $item, $count) {
+            $count++;
+            return "{$count} - {$item->text}";
         })->implode("\n");
 
         $this->espinoso
@@ -191,6 +193,50 @@ class TagsHandlerTest extends HandlersTestCase
             'text' => 'cosa'
         ]);
     }
+
+
+    public function it_should_delete_tag_item()
+    {
+        $tag = Tag::firstOrCreate([
+            'telegram_chat_id' => 123,
+            'name' => '#tag'
+        ]);
+
+        TagItem::firstOrCreate([
+            'tag_id' => $tag->id,
+            'text' => 'cosa'
+        ]);
+
+        TagItem::firstOrCreate([
+            'tag_id' => $tag->id,
+            'text' => 'otra cosa'
+        ]);
+
+        $this->espinoso
+            ->shouldReceive('reply')->once()
+            ->with(Mockery::anyOf(...trans('messages.ok')));
+
+        $handler = $this->makeHandler();
+        $update = $this->makeMessage([
+            'chat' => ['id' => 123],
+            'text' => 'delete #tag cosa'
+        ]);
+
+
+        $handler->shouldHandle($update);
+        $handler->handle($update);
+        $this->assertDatabaseMissing('tags', [
+            'telegram_chat_id' => 123,
+            'name' => '#tag'
+        ]);
+        $this->assertDatabaseMissing('tag_items', [
+            'id' => 1,
+            'text' => 'cosa'
+        ]);
+    }
+
+
+
 
     /**
      * @return TagsHandler
