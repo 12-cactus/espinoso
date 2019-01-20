@@ -2,9 +2,8 @@
 
 namespace App\Handlers;
 
-
-use App\Facades\GoutteClient;
 use App\Facades\GuzzleClient;
+use Spatie\Emoji\Emoji;
 use stdClass;
 
 class ServiceStatusSubwayHandler extends BaseCommand
@@ -21,18 +20,26 @@ class ServiceStatusSubwayHandler extends BaseCommand
         $list =[];
         foreach ($json as $key => $value) {
             $parse = $this->parseSubway($value);
-            array_push($list, "{$key} {$parse}");
+            array_push($list, "*{$key}* {$parse}");
         }
 
         $resultList = collect($list)->map(function ($node) {
             return "$node";
         })->implode("\n");
-
-        $this->espinoso->reply("{$resultList}");
+        $metro = Emoji::CHARACTER_METRO;
+        $this->espinoso->reply("{$metro} *ESTADO DE LOS SUBTES*\n\n{$resultList}");
     }
 
     protected function parseSubway(stdClass $node)
     {
-        return " - Estado => {$node->text}";
+        if ($node->text == 'Normal')
+        {
+            $emoji = Emoji::CHARACTER_WHITE_HEAVY_CHECK_MARK;
+        }
+        else
+        {
+            $emoji = Emoji::CHARACTER_CROSS_MARK;
+        }
+        return "{$emoji} {$node->text}\n";
     }
 }
