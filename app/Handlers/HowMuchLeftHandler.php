@@ -46,10 +46,10 @@ class HowMuchLeftHandler extends MultipleCommand
         $diffCapMarvel = trans(now()->diffInDays(Carbon::create(now()->year, 03, 8)));
 
         $list = [
-            'Capitan Marvel' => $diffCapMarvel,
+            'Captain Marvel' => $diffCapMarvel,
             'UNQ' => $diffUnq,
             'GOT' => $diffGot,
-            'EndGame' => $diffEndGame,
+            'End Game' => $diffEndGame,
             'Chau Mau' => $diffMacri,
         ];
 
@@ -58,7 +58,7 @@ class HowMuchLeftHandler extends MultipleCommand
             if ($value<=0) {
                 $value = 'Llegoooooo';
             }
-            array_push($resultList, "{$key}: {$value}");
+            array_push($resultList, "{$key}: {$value} días");
         }
 
         $resultList = collect($resultList)->map(function ($item) {
