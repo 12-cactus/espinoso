@@ -2,7 +2,6 @@
 
 namespace App\Handlers;
 
-
 use Carbon\Carbon;
 
 class HowMuchLeftHandler extends MultipleCommand
