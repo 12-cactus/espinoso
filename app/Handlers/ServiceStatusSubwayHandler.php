@@ -32,14 +32,9 @@ class ServiceStatusSubwayHandler extends BaseCommand
 
     protected function parseSubway(stdClass $node)
     {
-        if ($node->text == 'Normal')
-        {
-            $emoji = Emoji::CHARACTER_WHITE_HEAVY_CHECK_MARK;
-        }
-        else
-        {
-            $emoji = Emoji::CHARACTER_CROSS_MARK;
-        }
+        $emoji = $node->text == 'Normal'
+            ? Emoji::CHARACTER_WHITE_HEAVY_CHECK_MARK
+            : Emoji::CHARACTER_CROSS_MARK;
         return "{$emoji} {$node->text}\n";
     }
 }

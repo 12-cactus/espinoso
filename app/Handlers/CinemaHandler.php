@@ -26,7 +26,7 @@ class CinemaHandler extends BaseCommand
             //$overview = $this->getOverview($node);
             $url = config('espinoso.url.themoviedb');
             $urlNameMovie = strtolower($title);
-            $urlNameMovie = str_replace (' ' , '-' , $urlNameMovie);
+            $urlNameMovie = str_replace (' ', '-', $urlNameMovie);
             return "[{$title}]({$url}{$this->getViewMore($node)}-{$urlNameMovie})";
           });
 
@@ -40,11 +40,12 @@ class CinemaHandler extends BaseCommand
         $this->espinoso->replyDisablingPagePreview($response);
     }
 
+    /*
     private function getOverview(Crawler $node)
     {
         return $node->filter('.overview')->text();
-
     }
+    */
 
     private function getViewMore(Crawler $node)
     {
