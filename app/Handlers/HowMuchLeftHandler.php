@@ -49,7 +49,7 @@ class HowMuchLeftHandler extends MultipleCommand
             'Captain Marvel' => $diffCapMarvel,
             'UNQ' => $diffUnq,
             'GOT' => $diffGot,
-            'End Game' => $diffEndGame,
+            'Endgame' => $diffEndGame,
             'Chau Mau' => $diffMacri,
         ];
 
