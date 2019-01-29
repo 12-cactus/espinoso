@@ -17,6 +17,7 @@
         "irazasyed/telegram-bot-sdk": "^2.2",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
+        "mgp25/instagram-php": "^5.0",
         "php-http/guzzle6-adapter": "^1.1",
         "php-http/message": "^1.6",
         "spatie/emoji": "^1.0",

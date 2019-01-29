@@ -15,10 +15,10 @@ class InstagramHandlerTest extends HandlersTestCase
         // Arrange
         $handler = $this->makeHandler();
         $updates = [
-            $this->makeMessage(['text' => 'espi ig alanmtk']),
-            $this->makeMessage(['text' => 'ig alanmtk']),
-            $this->makeMessage(['text' => 'espi ig alanmtk last']),
-            $this->makeMessage(['text' => 'ig alanmtk pos:2']),
+            $this->makeMessage(['text' => 'espi ig maricruz.gil']),
+            $this->makeMessage(['text' => 'ig maricruz.gil']),
+            $this->makeMessage(['text' => 'espi ig maricruz.gil last']),
+            $this->makeMessage(['text' => 'ig maricruz.gil pos:2']),
         ];
 
         // Act && Assert
@@ -35,8 +35,8 @@ class InstagramHandlerTest extends HandlersTestCase
         // Arrange
         $handler = $handler = $this->makeHandler();
         $updates = [
-            $this->makeMessage(['text' => 'espiig alanmtk']),
-            $this->makeMessage(['text' => 'ig-alanmtk']),
+            $this->makeMessage(['text' => 'espiig maricruz.gil']),
+            $this->makeMessage(['text' => 'ig-maricruz.gil']),
         ];
 
         // Act && Assert
@@ -59,23 +59,22 @@ class InstagramHandlerTest extends HandlersTestCase
                 'standard_resolution' => [
                     'width' => 640,
                     'height' => 640,
-                    'url' => 'https://instagram.fsst1-1.fna.fbcdn.net/t51.2885-15/s640x640/sh0.08/e35/20687889_2047983445218577_9133972975488335872_n.jpg'
+                    'url' => 'https://instagram.faep6-1.fna.fbcdn.net/vp/3b1a914721f478298940219657910a11/5CF65A25/t51.2885-15/e35/47694397_324083524869771_7854774045045812352_n.jpg?_nc_ht=instagram.faep6-1.fna.fbcdn.net&se=7&ig_cache_key=MTk1Nzc3NTE5ODU3NDc2Njg1OQ%3D%3D.2'
                 ]
             ]
         ]];
 
         InstagramSearch::shouldReceive('get')
-            ->with('alanmtk')
+            ->with('maricruz.gil')
             ->andReturn($response);
 
-        $photo = 'https://instagram.fsst1-1.fna.fbcdn.net/t51.2885-15/s640x640/sh0.08/e35/20687889_2047983445218577_9133972975488335872_n.jpg';
-        $caption = 'Ver https://www.instagram.com/alanmtk';
-        $this->espinoso->shouldReceive('replyImage')->once()->with($photo, $caption);
+        $photo = 'https://instagram.faep6-1.fna.fbcdn.net/vp/3b1a914721f478298940219657910a11/5CF65A25/t51.2885-15/e35/47694397_324083524869771_7854774045045812352_n.jpg?_nc_ht=instagram.faep6-1.fna.fbcdn.net&se=7&ig_cache_key=MTk1Nzc3NTE5ODU3NDc2Njg1OQ%3D%3D.2';
+        $this->espinoso->shouldReceive('replyImage')->once()->with($photo);
 
         $handler = $this->makeHandler();
         $update = $this->makeMessage([
             'chat' => ['id' => 123],
-            'text' => 'ig alanmtk last'
+            'text' => 'ig maricruz.gil last'
         ]);
 
         // Act
