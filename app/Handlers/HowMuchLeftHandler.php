@@ -28,7 +28,8 @@ class HowMuchLeftHandler extends MultipleCommand
     protected function handleSabaDay(): void
     {
         $diff = trans(now()->diffInDays(Carbon::create(now()->year, 03, 18)));
-        $this->espinoso->reply("{$diff} días");
+        //$this->espinoso->reply("{$diff} días");
+        $this->espinoso->reply("Chupala Saba");
     }
 
     public function handleMacriDay(): void
