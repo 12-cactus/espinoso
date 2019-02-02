@@ -62,7 +62,7 @@ class TrainHandler extends BaseCommand
         } else if ($number === 1) {
             return "llega en 1 minuto";
         } else {
-            return "llega en ${$number} minutos";
+            return "llega en {$number} minutos";
         }
     }
 }
