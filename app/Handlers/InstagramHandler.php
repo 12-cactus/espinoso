@@ -29,7 +29,7 @@ class InstagramHandler extends BaseCommand
         $photos = collect($items)->map(function ($item){
             return $item->getImageVersions2()->getCandidates()[0]->getUrl();
         });
-        dump($photos);
+        //dump($photos);
         $this->espinoso->replyImage($this->getImage($photos, $this->getParam()));
     }
 

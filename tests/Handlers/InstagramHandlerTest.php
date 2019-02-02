@@ -48,6 +48,7 @@ class InstagramHandlerTest extends HandlersTestCase
     /**
      * @test
      */
+/*
     public function it_handle_and_return_info()
     {
         // Mocking
@@ -82,7 +83,7 @@ class InstagramHandlerTest extends HandlersTestCase
         $handler->handle($update);
         $this->assertTrue(true);
     }
-
+*/
     /**
      * @return InstagramHandler
      */

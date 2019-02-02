@@ -45,6 +45,7 @@ class HowMuchLeftHandler extends MultipleCommand
         $diffGot = trans(now()->diffInDays(Carbon::create(now()->year, 04, 14)));
         $diffEndGame = trans(now()->diffInDays(Carbon::create(now()->year, 04, 26)));
         $diffCapMarvel = trans(now()->diffInDays(Carbon::create(now()->year, 03, 8)));
+        $diffDaysGone = trans(now()->diffInDays(Carbon::create(now()->year, 04, 26)));
 
         $list = [
             'Captain Marvel' => $diffCapMarvel,
@@ -52,6 +53,7 @@ class HowMuchLeftHandler extends MultipleCommand
             'GOT' => $diffGot,
             'Endgame' => $diffEndGame,
             'Chau Mau' => $diffMacri,
+            'Days Done' => $diffDaysGone
         ];
 
         $resultList =[];

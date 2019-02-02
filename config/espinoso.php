@@ -22,7 +22,8 @@ return [
         App\Handlers\SettingsHandler::class,
         App\Handlers\TagsHandler::class,
         App\Handlers\HowMuchLeftHandler::class,
-        App\Handlers\ServiceStatusSubwayHandler::class
+        App\Handlers\ServiceStatusSubwayHandler::class,
+        App\Handlers\TrainHandler::class
     ],
 
     'chat' => [
@@ -36,7 +37,8 @@ return [
         'holidays' => 'https://nolaborables.com.ar/api/v2/feriados/',
         'traductor' => 'http://translate.google.cn/translate_a/single',
         'themoviedb' => 'https://www.themoviedb.org',
-        'subway' => 'https://rodrigoap.com/subte/api/subte.php'
+        'subway' => 'https://rodrigoap.com/subte/api/subte.php',
+        'train' => 'https://trency-api.now.sh/api/v1/'
     ],
 
     'voice' => [
