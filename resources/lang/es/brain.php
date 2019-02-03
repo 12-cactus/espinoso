@@ -201,11 +201,6 @@ return [
             'reply' => 'mmmm de carne y bien jugosa',
         ],
 
-        // FIXME: this should be in a CommandHandler
-        '/^ayuda gsm$/i' => [
-            'reply' => "gsm [-z:ZOOM -s:SIZE -c:COLOR -t:MAPTYPE ] dirección.\nZOOM es un entero del 1-20\nSIZE es una resolución (600x300)\nMAPTYPE es un tipo de mapa de google, por defecto roadmap\n",
-        ],
-
         '/infobae/i' => [
             'reply' => [
                 'Deja de leer infobae, pelotud@!'

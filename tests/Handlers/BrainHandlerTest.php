@@ -42,7 +42,6 @@ class BrainHandlerTest extends HandlersTestCase
         $this->assertShouldHandle('concha de la lora');
         $this->assertShouldHandle('dan el tip');
         $this->assertShouldHandle('empanada');
-        $this->assertShouldHandle('ayuda gsm');
     }
 
     /**
