@@ -60,7 +60,7 @@ class HowMuchLeftHandler extends MultipleCommand
             if ($value<=0) {
                 $value = 'Llegoooooo';
             }
-            if ($key == 'UNQ') $value = Emoji::middleFinger();
+            if ($key == 'UNQ') $value = Emoji::CHARACTER_MIDDLE_FINGER;
             array_push($resultList, "{$key}: {$value} días");
         }
 
