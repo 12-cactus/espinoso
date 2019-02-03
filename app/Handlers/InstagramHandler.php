@@ -2,8 +2,8 @@
 
 namespace App\Handlers;
 
-use App\Facades\InstagramSearch;
-use Vinkla\Instagram\InstagramException;
+//require __DIR__.'/../vendor/autoload.php';
+use Exception;
 
 class InstagramHandler extends BaseCommand
 {
@@ -13,24 +13,24 @@ class InstagramHandler extends BaseCommand
     protected $signature   = "[espi] ig username [last|pos:n]";
     protected $description = "y... fijate";
 
-
     public function handle(): void
     {
+        $intg = new \InstagramAPI\Instagram(false, false);
+        $maxId = null;
         try {
-            $username = $this->getUsername();
-
-            $this->espinoso->replyImage(
-                $this->getImage($username, $this->getParam()),
-                "Ver https://www.instagram.com/{$username}"
-            );
-        } catch (InstagramException $e) {
+            $intg->login('espinoso.cactus', '12cactus21');
+        } catch (Exception $e) {
             $this->replyNotFound();
         }
-    }
-
-    protected function getUsername()
-    {
-        return trim($this->matches['username']);
+        $userName = trim($this->matches['username']);
+        $userId = $intg->people->getUserIdForName($userName);
+        $response = $intg->timeline->getUserFeed($userId, $maxId);
+        $items = $response->getItems();
+        $photos = collect($items)->map(function ($item) {
+            return $item->getImageVersions2()->getCandidates()[0]->getUrl();
+        });
+        //dump($photos);
+        $this->espinoso->replyImage($this->getImage($photos, $this->getParam()));
     }
 
     protected function getParam()
@@ -52,12 +52,10 @@ class InstagramHandler extends BaseCommand
         return $param;
     }
 
-    protected function getImage($username, $param)
+    protected function getImage($listPhoto, $param)
     {
-        $response = InstagramSearch::get($username);
+        $i = $param === 'random' ? rand(0, count($listPhoto) - 1) : intval($param);
 
-        $i = $param === 'random' ? rand(0, count($response) - 1) : intval($param);
-
-        return $response[$i]['images']['standard_resolution']['url'];
+        return $listPhoto[$i];
     }
 }

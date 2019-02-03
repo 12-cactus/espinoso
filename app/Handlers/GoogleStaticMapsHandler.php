@@ -16,7 +16,8 @@ class GoogleStaticMapsHandler extends BaseCommand
     protected $pattern = "(?'gsm'\b(gsm)\b)\s+(?'params'(\S+:\S+\s+)*)(?'address'.+)$";
 
     protected $signature   = "[espi] gsm <lugar>";
-    protected $description = "te tiro un mapa... tiene algunos params pero me da paja decírtelos";
+    protected $description = "te tiro un mapa... 
+    [-z:ZOOM -s:SIZE -c:COLOR -t:MAPTYPE ] dirección.\nZOOM es un entero del 1-20\nSIZE es una resolución (600x300)\nMAPTYPE es un tipo de mapa de google, por defecto roadmap";
 
     /**
      * Default options
@@ -112,6 +113,6 @@ class GoogleStaticMapsHandler extends BaseCommand
     {
         $address = urlencode($address);
 
-        return config('espinoso.url.map') . "?center={$address}&{$options}";
+        return config('espinoso.url.map') . "?center={$address}&{$options}&key=" . config('google.api_key');
     }
 }
