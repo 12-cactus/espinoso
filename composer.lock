@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "31f70aacdb1c172ba783627b67134b11",
+    "content-hash": "86e3d32a6c423429bbb0f255e45abd9c",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -2506,16 +2506,16 @@
         },
         {
             "name": "spatie/emoji",
-            "version": "1.0.6",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/emoji.git",
-                "reference": "6d63a951db1f23a5af521f449bf0e3f7a688bfca"
+                "reference": "aee26e3b858d12feb6f9f70691cdae8f9c43a4b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/emoji/zipball/6d63a951db1f23a5af521f449bf0e3f7a688bfca",
-                "reference": "6d63a951db1f23a5af521f449bf0e3f7a688bfca",
+                "url": "https://api.github.com/repos/spatie/emoji/zipball/aee26e3b858d12feb6f9f70691cdae8f9c43a4b0",
+                "reference": "aee26e3b858d12feb6f9f70691cdae8f9c43a4b0",
                 "shasum": ""
             },
             "require": {
@@ -2548,7 +2548,7 @@
                 "emoji",
                 "spatie"
             ],
-            "time": "2017-05-23T07:39:03+00:00"
+            "time": "2018-10-17T16:59:12+00:00"
         },
         {
             "name": "spatie/laravel-collection-macros",
