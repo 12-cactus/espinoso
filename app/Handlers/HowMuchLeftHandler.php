@@ -3,6 +3,7 @@
 namespace App\Handlers;
 
 use Carbon\Carbon;
+use Spatie\Emoji\Emoji;
 
 class HowMuchLeftHandler extends MultipleCommand
 {
@@ -61,6 +62,7 @@ class HowMuchLeftHandler extends MultipleCommand
             if ($value<=0) {
                 $value = 'Llegoooooo';
             }
+            if ($key == 'UNQ') $value = Emoji::CHARACTER_MIDDLE_FINGER;
             array_push($resultList, "{$key}: {$value} días");
         }
 
