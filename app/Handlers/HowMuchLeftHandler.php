@@ -49,7 +49,7 @@ class HowMuchLeftHandler extends MultipleCommand
 
         $list = [
             'Captain Marvel' => $diffCapMarvel,
-            'UNQ' => Emoji::middleFinger(),
+            'UNQ' => $diffUnq,
             'GOT' => $diffGot,
             'Endgame' => $diffEndGame,
             'Chau Mau' => $diffMacri,
@@ -60,6 +60,7 @@ class HowMuchLeftHandler extends MultipleCommand
             if ($value<=0) {
                 $value = 'Llegoooooo';
             }
+            if ($key == 'UNQ') $value = Emoji::middleFinger();
             array_push($resultList, "{$key}: {$value} días");
         }
 
