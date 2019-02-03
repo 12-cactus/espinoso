@@ -3,6 +3,7 @@
 namespace App\Handlers;
 
 use Carbon\Carbon;
+use Spatie\Emoji\Emoji;
 
 class HowMuchLeftHandler extends MultipleCommand
 {
@@ -48,7 +49,7 @@ class HowMuchLeftHandler extends MultipleCommand
 
         $list = [
             'Captain Marvel' => $diffCapMarvel,
-            'UNQ' => $diffUnq,
+            'UNQ' => Emoji::middleFinger(),
             'GOT' => $diffGot,
             'Endgame' => $diffEndGame,
             'Chau Mau' => $diffMacri,
