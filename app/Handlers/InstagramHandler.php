@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Handlers;
+
 //require __DIR__.'/../vendor/autoload.php';
 use Exception;
-
 
 class InstagramHandler extends BaseCommand
 {
@@ -15,18 +15,18 @@ class InstagramHandler extends BaseCommand
 
     public function handle(): void
     {
-        $ig = new \InstagramAPI\Instagram(false, false);
+        $intg = new \InstagramAPI\Instagram(false, false);
         $maxId = null;
         try {
-            $ig->login('espinoso.cactus', '12cactus21');
+            $intg->login('espinoso.cactus', '12cactus21');
         } catch (Exception $e) {
             $this->replyNotFound();
         }
         $userName = trim($this->matches['username']);
-        $userId = $ig->people->getUserIdForName($userName);
-        $response = $ig->timeline->getUserFeed($userId, $maxId);
+        $userId = $intg->people->getUserIdForName($userName);
+        $response = $intg->timeline->getUserFeed($userId, $maxId);
         $items = $response->getItems();
-        $photos = collect($items)->map(function ($item){
+        $photos = collect($items)->map(function ($item) {
             return $item->getImageVersions2()->getCandidates()[0]->getUrl();
         });
         //dump($photos);

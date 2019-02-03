@@ -2,7 +2,6 @@
 
 namespace App\Handlers;
 
-
 use App\Facades\GuzzleClient;
 use Spatie\Emoji\Emoji;
 use Exception;
@@ -46,23 +45,22 @@ class TrainHandler extends BaseCommand
         $arrivals = collect($jsonStatic)->get('arrivals');
         $arrival = collect($arrivals)->where('nombre', $station);
         $arrival = collect($arrival)->first();
-        $laPlata = $this->getDescription($arrival->minutos_1);
-        $const = $this->getDescription($arrival->minutos_3);
+        $laPlata = $this->getText($arrival->minutos_1);
+        $const = $this->getText($arrival->minutos_3);
         $this->espinoso->reply($emojiTrain." *TRENES CONST-LA PLATA*
         \nEstación: {$station}
         \nA La Plata => {$laPlata}\nA Const.    => {$const}");
     }
 
-    private function getDescription($number)
+    private function getText($number)
     {
         if ($number < 0) {
             return "Ni puta idea cuando llega";
-        } else if ($number === 0) {
+        } elseif ($number === 0) {
             return "En andén";
-        } else if ($number === 1) {
+        } elseif ($number === 1) {
             return "llega en 1 minuto";
-        } else {
-            return "llega en {$number} minutos";
         }
+        return "llega en {$number} minutos";
     }
 }
