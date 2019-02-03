@@ -84,7 +84,7 @@ class IMDbHandler extends BaseCommand
      */
     protected function parseAsMarkdown(Title $result)
     {
-        $star = Emoji::whiteMediumStar();
+        $star = Emoji::star();
         $sinopsis  = str_limit(trim($result->storyline()), 250);
         $cast      = collect($result->cast())->take(3)->pluck('name')->implode(', ');
         $genres    = collect($result->genres())->implode(', ');
