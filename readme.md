@@ -53,11 +53,13 @@ and edit `folders`, `sites` & `databases` with something like this:
 
 ```yaml
 folders:
-    - map: '~/your-dev-path/espinoso'
-      to: '/home/vagrant/espinoso'
+    - map: ~/your-dev-path/espinoso
+      to: /home/vagrant/espinoso
 sites:
-    - map: espinoso.dev
-      to: '/home/vagrant/espinoso/public'
+    - map: espinoso.local
+      to: /home/vagrant/espinoso/public
+      php: "7.3"
+
 databases:
     - espinoso
 ```
@@ -66,7 +68,7 @@ Save & Exit. Then you need to add site to your hosts file.
 Open `/etc/hosts` and add this line to the end of file
 
 ```
-192.168.10.10 espinoso.dev
+192.168.10.10 espinoso.local
 ```
 
 ### 4. Start Homestead & Init your Bot
@@ -88,7 +90,7 @@ $ vagrant ssh
 Inside Homestead
 
 ```bash
-homestead:$ ngrok http espinoso.dev:80
+homestead:$ ngrok http espinoso.local:80
 ```
 
 It will open a black _ngrok_ window. It tell you the url to use and you can view every http request.
@@ -135,7 +137,7 @@ Terminal 1:
 
 ```
 $ cd ~/Homestead && vagrant up && vagrant ssh
-homestead:$ ngrok http espinoso.dev:80
+homestead:$ ngrok http espinoso.local:80
 ```
 
 Terminal 2:
