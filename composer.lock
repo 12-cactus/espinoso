@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f1c2cffa5da7b0c300e84bf898c98b08",
+    "content-hash": "88de3136a52319ef9405cf7ad43f84d2",
     "packages": [
         {
             "name": "binsoul/net-mqtt",
@@ -7158,6 +7158,7 @@
     "prefer-lowest": false,
     "platform": {
         "php": "~7.3.0",
+        "ext-curl": "*",
         "ext-gd": "*"
     },
     "platform-dev": []

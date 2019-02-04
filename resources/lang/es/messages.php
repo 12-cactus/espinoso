@@ -62,5 +62,9 @@ return [
         'Aprendé a hablar:name',
         'No se te entiende una mierda:name',
         'Sacate la papa de la boca:name'
+    ],
+
+    'curl' => [
+        'cURL Must be installed for getUrl function to work. Ask your host to enable it or uncomment extension=php_curl.dll in php.ini'
     ]
 ];
