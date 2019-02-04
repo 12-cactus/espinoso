@@ -27,7 +27,6 @@
         "vinkla/instagram": "^8.0"
     },
     "require-dev": {
-        "codeclimate/php-test-reporter": "dev-master",
         "codedungeon/phpunit-result-printer": "^0.25",
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
