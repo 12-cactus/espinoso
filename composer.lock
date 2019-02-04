@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2ea4067eb84a4a4c0cbe1a996bbb2dd5",
+    "content-hash": "54a027b2183da376542ad7607ad52cbf",
     "packages": [
         {
             "name": "binsoul/net-mqtt",
@@ -275,19 +275,20 @@
         },
         {
             "name": "cmfcmf/openweathermap-php-api",
-            "version": "v2.2.0",
+            "version": "v2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cmfcmf/OpenWeatherMap-PHP-Api.git",
-                "reference": "04a0b0ee1168fe50beda534e4795b0eae69fe86b"
+                "reference": "37f2e1178948a07c8d50d5063a15ca84b5b51f6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cmfcmf/OpenWeatherMap-PHP-Api/zipball/04a0b0ee1168fe50beda534e4795b0eae69fe86b",
-                "reference": "04a0b0ee1168fe50beda534e4795b0eae69fe86b",
+                "url": "https://api.github.com/repos/cmfcmf/OpenWeatherMap-PHP-Api/zipball/37f2e1178948a07c8d50d5063a15ca84b5b51f6a",
+                "reference": "37f2e1178948a07c8d50d5063a15ca84b5b51f6a",
                 "shasum": ""
             },
             "require": {
+                "ext-xml": "*",
                 "php": ">=5.3.0"
             },
             "require-dev": {
@@ -320,7 +321,7 @@
                 "owm",
                 "weather"
             ],
-            "time": "2017-02-08T21:01:58+00:00"
+            "time": "2018-08-30T07:35:48+00:00"
         },
         {
             "name": "corneltek/getoptionkit",
@@ -7712,7 +7713,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "~7.1.0",
+        "php": "~7.3.0",
         "ext-gd": "*"
     },
     "platform-dev": []
