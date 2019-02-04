@@ -11,7 +11,7 @@ class CronicaGenerator
         $url = "http://placasrojas.me/result.php";
         $params = ['f' => $title];
         try {
-            self::getUrl($url, $params, $status);
+            self::getUrl($url, $params, $status, false);
         } catch (Exception $e) {
             return "";
         }
@@ -25,7 +25,7 @@ class CronicaGenerator
     /**
      * @throws Exception
      */
-    private static function getUrl($url, $params, &$status, $followRedirect = false)
+    private static function getUrl($url, $params, &$status, $followRedirect)
     {
         if (!function_exists('curl_init'))
             throw new Exception(trans('messages.curl'));
