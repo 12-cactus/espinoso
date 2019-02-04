@@ -5,9 +5,9 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": "~7.1.0",
+        "php": "~7.3.0",
         "ext-gd": "*",
-        "cmfcmf/openweathermap-php-api": "2.2.0",
+        "cmfcmf/openweathermap-php-api": "~2.4.0",
         "doctrine/dbal": "^2.6",
         "fabpot/goutte": "^3.2",
         "gmopx/laravel-owm": "0.1.1",
@@ -15,25 +15,24 @@
         "imdbphp/imdbphp": "^5.2",
         "intervention/image": "^2.4",
         "irazasyed/telegram-bot-sdk": "^2.2",
-        "laravel/framework": "5.5.*",
+        "laravel/framework": "5.7.*",
         "laravel/tinker": "~1.0",
         "mgp25/instagram-php": "^5.0",
         "php-http/guzzle6-adapter": "^1.1",
         "php-http/message": "^1.6",
         "spatie/emoji": "^2.0",
-        "spatie/laravel-collection-macros": "^3.6",
+        "spatie/laravel-collection-macros": "^4.2",
         "stichoza/google-translate-php": "~3.2",
         "unisharp/laravel-settings": "^2.0",
         "vinkla/instagram": "^8.0"
     },
     "require-dev": {
-        "codeclimate/php-test-reporter": "dev-master",
-        "codedungeon/phpunit-result-printer": "^0.11.2",
+        "codedungeon/phpunit-result-printer": "^0.25",
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
-        "johnkary/phpunit-speedtrap": "^2.0",
+        "johnkary/phpunit-speedtrap": "^3.0",
         "mockery/mockery": "~1.0",
-        "phpunit/phpunit": "~6.0"
+        "phpunit/phpunit": "^7.0"
     },
     "autoload": {
         "classmap": [
