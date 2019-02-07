@@ -30,6 +30,8 @@ return [
         'dev' => env('TELEGRAM_DEVS_CHANNEL', 123)
     ],
 
+    'ssl-cert' => env('APP_SSL_CERT', false),
+
     'url' => [
         'info'   => 'https://www.google.com.ar/search?q=',
         'cinema' => 'https://www.themoviedb.org/movie/now-playing',

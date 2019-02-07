@@ -34,10 +34,14 @@ class TelegramController extends Controller
      *
      * @param ApiTelegram $telegram
      * @return TelegramResponse
+     * @throws \Telegram\Bot\Exceptions\TelegramSDKException
      */
     public function setWebhook(ApiTelegram $telegram)
     {
-        return $telegram->setWebhook(['url' => secure_url('handle-update')]);
+        return $telegram->setWebhook([
+            'url' => secure_url('handle-update'),
+            'certificate' => config('espinoso.ssl-cert')
+        ]);
     }
 
     /*
