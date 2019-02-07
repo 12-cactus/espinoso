@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('espinoso:hi')->twiceDaily(13, 22);
+        $schedule->command('espi:hi')->twiceDaily(13, 22);
         //$schedule->command('espinoso:cumples')->dailyAt('10:00');
     }
 

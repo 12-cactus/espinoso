@@ -39,6 +39,6 @@ class Hi extends EspiCommand
             'Pipi seguís tan puto como siempre?',
             'El viejo wyry! cómo va old man?'
         ]);
-        $this->espinoso->sendMessage(config('espinoso.12c'), $messages->random());
+        $this->espinoso->sendMessage(config('espinoso.chat.12c'), $messages->random());
     }
 }
