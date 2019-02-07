@@ -27,7 +27,8 @@ return [
     ],
 
     'chat' => [
-        'dev' => env('TELEGRAM_DEVS_CHANNEL', 123)
+        'dev' => env('TELEGRAM_DEVS_CHANNEL', 123),
+        '12c' => env('TELEGRAM_12CACTUS_CHANNEL', env('TELEGRAM_DEVS_CHANNEL', 123)),
     ],
 
     'ssl-cert' => env('APP_SSL_CERT', false),
