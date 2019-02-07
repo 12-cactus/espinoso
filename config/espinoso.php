@@ -31,6 +31,8 @@ return [
         '12c' => env('TELEGRAM_12CACTUS_CHANNEL', env('TELEGRAM_DEVS_CHANNEL', 123)),
     ],
 
+    'ssl-cert' => env('APP_SSL_CERT', false),
+
     'url' => [
         'info'   => 'https://www.google.com.ar/search?q=',
         'cinema' => 'https://www.themoviedb.org/movie/now-playing',

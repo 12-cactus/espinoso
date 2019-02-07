@@ -82,7 +82,10 @@ class TelegramControllerTest extends TestCase
         $expectedResponse = Mockery::mock(TelegramResponse::class);
         $telegram = Mockery::mock(Api::class);
         $telegram->shouldReceive('setWebhook')
-            ->with(['url' => secure_url('handle-update')])
+            ->with([
+                'url' => secure_url('handle-update'),
+                'certificate' => false
+            ])
             ->andReturn($expectedResponse);
 
         // Act
