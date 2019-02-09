@@ -19,6 +19,7 @@ class GitHubController extends Controller
      *
      * @param TelegramDelivery|ApiTelegram $telegram
      * @param Espinoso $espinoso
+     * @return bool
      */
     public function commitsWebhook(TelegramDelivery $telegram, Espinoso $espinoso)
     {
@@ -34,6 +35,8 @@ class GitHubController extends Controller
             ->filter($this->newest())
             ->sortBy($this->creation())
             ->each($this->sendMessage($espinoso));
+
+        return true;
     }
 
     /*

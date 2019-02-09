@@ -5,7 +5,14 @@ env:
 language: php
 
 php:
-  - 7.3
+  - 7.1
+
+before_install:
+  - set -x
+  - openssl aes-256-cbc -K $encrypted_160c63935393_key -iv $encrypted_160c63935393_iv -in deploy_key.enc -out deploy_key -d
+  - rm deploy-key.enc
+  - chmod 600 deploy-key
+  - mv deploy-key ~/.ssh/id_rsa
 
 before_script:
   - mv .env.travis .env
@@ -19,6 +26,9 @@ before_script:
 script:
   - vendor/bin/phpunit --coverage-text --coverage-clover build/logs/clover.xml
   - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
+
+after_success:
+  - bash deploy.sh
 
 notifications:
   email:

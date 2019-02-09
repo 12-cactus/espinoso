@@ -6,8 +6,9 @@
     "type": "project",
     "require": {
         "php": "~7.1",
-        "ext-curl": "*",
         "ext-gd": "*",
+        "ext-curl": "*",
+        "ext-json": "*",
         "cmfcmf/openweathermap-php-api": "~2.4.0",
         "doctrine/dbal": "^2.6",
         "fabpot/goutte": "^3.2",
