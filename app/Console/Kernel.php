@@ -2,7 +2,7 @@
 
 namespace App\Console;
 
-use App\Console\Commands\Hi;
+use App\Console\Commands\HiCommand;
 use App\Console\Commands\SetWebhook;
 use App\Console\Commands\ScheduleCommand;
 use Illuminate\Console\Scheduling\Schedule;
@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Hi::class,
+        HiCommand::class,
         SetWebhook::class,
         ScheduleCommand::class
     ];

@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use Carbon\Carbon;
-use App\Model\Schedule;
 
 class ScheduleCommand extends EspiCommand
 {
@@ -28,14 +27,15 @@ class ScheduleCommand extends EspiCommand
     {
         $today = Carbon::today();
 
-        collect(__('schedule'))->filter(function ($event) use ($today) {
+        collect(__('schedule.birthdays'))->filter(function ($event) use ($today) {
             return $event['day'] == $today->format('d/m');
         })->each(function ($event) {
             $this->espinoso->sendToCactus($event['message']);
         });
 
-        if ($today->dayOfYear === 256) {
-            $this->espinoso->sendToCactus("Feliz día monos tecleadores!!");
+        // On PHP's date, the day of year starts at 0 (?)
+        if ($today->dayOfYear + 1 === 256) {
+            $this->espinoso->sendToCactus(__('schedule.programmerDayMessage'));
         }
     }
 }
