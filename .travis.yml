@@ -9,8 +9,8 @@ php:
 
 before_install:
   - set -x
-  - chmod 600 deploy-key
-  - mv deploy-key ~/.ssh/id_rsa
+  - chmod 600 deploy_key
+  - mv deploy_key ~/.ssh/id_rsa
 
 before_script:
   - mv .env.travis .env
