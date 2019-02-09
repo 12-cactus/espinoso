@@ -11,7 +11,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
  * Class FeatureTestCase
  * @package Tests
  */
-class FeatureTestCase extends TestCase
+abstract class FeatureTestCase extends TestCase
 {
     use RefreshDatabase;
 

@@ -66,5 +66,22 @@ return [
 
     'curl' => [
         'cURL Must be installed for getUrl function to work. Ask your host to enable it or uncomment extension=php_curl.dll in php.ini'
-    ]
+    ],
+
+    'hi' => [
+        'Sabakuskas Botón!',
+        'Facu puto',
+        'Hola lunarcito',
+        'Maru mamasitaaaa',
+        'Anita amarillita jajaja',
+        'Pauuuulaaaaa doooonde eeeeeestaaaaaas??',
+        'Alan extraño tus manos en mi código',
+        'OPM Botón!!',
+        'Agus careta, traé algo de europa',
+        'Markis esa panza sigue creciendo?',
+        'Sir, como anda la cope "dibase"?',
+        'Ine garca, no me querés programar',
+        'Pipi seguís tan puto como siempre?',
+        'El viejo wyry! cómo va old man?'
+    ],
 ];

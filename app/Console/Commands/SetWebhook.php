@@ -9,7 +9,7 @@ class SetWebhook extends Command
      *
      * @var string
      */
-    protected $signature = 'espinoso:webhook-ngrok';
+    protected $signature = 'espi:nghook';
 
     /**
      * The console command description.

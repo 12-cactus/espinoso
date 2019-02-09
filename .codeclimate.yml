@@ -26,6 +26,10 @@ plugins:
     enabled: true
   fixme:
     enabled: true
+  duplication:
+    enabled: true
+    exclude_paths:
+      - "resources/lang/**/*"
   phpcodesniffer:
     enabled: true
     exclude_paths:
