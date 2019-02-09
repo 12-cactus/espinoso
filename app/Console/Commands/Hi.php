@@ -32,7 +32,7 @@ class Hi extends EspiCommand
             'Pauuuulaaaaa doooonde eeeeeestaaaaaas??',
             'Alan extraño tus manos en mi código',
             'OPM Botón!!',
-            'Agus careta',
+            'Agus careta, traé algo de europa',
             'Markis esa panza sigue creciendo?',
             'Sir, como anda la cope "dibase"?',
             'Ine garca, no me querés programar',
