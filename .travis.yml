@@ -9,8 +9,12 @@ php:
 
 before_install:
   - set -x
+  - cd .travis
+  - openssl aes-256-cbc -K $encrypted_160c63935393_key -iv $encrypted_160c63935393_iv -in deploy_key.enc -out deploy_key -d
+  - rm deploy-key.enc
   - chmod 600 deploy_key
   - mv deploy_key ~/.ssh/id_rsa
+  - cd ..
 
 before_script:
   - mv .env.travis .env
@@ -26,7 +30,7 @@ script:
   - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
 
 after_success:
-  - bash deploy.sh
+  - bash .travis/deploy.sh
 
 notifications:
   email:
