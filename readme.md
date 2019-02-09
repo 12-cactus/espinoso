@@ -116,7 +116,7 @@ Finally, you need to associate _ngrok_ service as webhook. So, just run
 
 ```bash
 # This command set ngrok publish services as webhook
-homestead:$ artisan espinoso:webhook-ngrok
+homestead:$ artisan espi:nghook
 ```
 
 Now your bot is ready.
@@ -145,7 +145,7 @@ Terminal 2:
 ```bash
 $ cd ~/Homestead && vagrant ssh
 homestead:$ cd espinoso
-homestead:$ artisan espinoso:webhook-ngrok
+homestead:$ artisan espi:nghook
 ```
 
 ### Testing

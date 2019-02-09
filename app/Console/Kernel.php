@@ -2,7 +2,9 @@
 
 namespace App\Console;
 
+use App\Console\Commands\Hi;
 use App\Console\Commands\SetWebhook;
+use App\Console\Commands\ScheduleCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -14,7 +16,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        SetWebhook::class
+        Hi::class,
+        SetWebhook::class,
+        ScheduleCommand::class
     ];
 
     /**
@@ -26,7 +30,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('espi:hi')->twiceDaily(13, 22);
-        //$schedule->command('espinoso:cumples')->dailyAt('10:00');
+        $schedule->command('espi:agenda')->dailyAt('10:00');
     }
 
     /**
