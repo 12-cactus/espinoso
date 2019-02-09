@@ -36,7 +36,8 @@ class DeployedCommand extends EspiCommand
         $this->espinoso->sendToDev($message);
     }
 
-    protected function textOption($option) {
+    protected function textOption($option)
+    {
         return $this->option($option) == 0 ? 'OK' : 'FAIL';
     }
 }
