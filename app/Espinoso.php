@@ -89,6 +89,16 @@ class Espinoso
      * @param string $format
      * @param array $options
      */
+    public function sendToDev(string $text, string $format = 'Markdown', array $options = []): void
+    {
+        $this->sendMessage(config('espinoso.chat.dev'), $text, $format, $options);
+    }
+
+    /**
+     * @param string $text
+     * @param string $format
+     * @param array $options
+     */
     public function reply(string $text, string $format = 'Markdown', array $options = []): void
     {
         $this->sendMessage($this->message->getChat()->getId(), $text, $format, $options);
