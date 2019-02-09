@@ -8,7 +8,6 @@ php:
   - 7.1
 
 before_install:
-  - set -x
   - cd .travis
   - openssl aes-256-cbc -K $encrypted_160c63935393_key -iv $encrypted_160c63935393_iv -in deploy_key.enc -out deploy_key -d
   - rm deploy_key.enc
