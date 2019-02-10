@@ -19,7 +19,7 @@ class GitHubController extends Controller
      *
      * @param TelegramDelivery|ApiTelegram $telegram
      * @param Espinoso $espinoso
-     * @return bool
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function commitsWebhook(TelegramDelivery $telegram, Espinoso $espinoso)
     {
@@ -36,7 +36,7 @@ class GitHubController extends Controller
             ->sortBy($this->creation())
             ->each($this->sendMessage($espinoso));
 
-        return true;
+        return response("OK", 200);
     }
 
     /*
