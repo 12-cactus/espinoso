@@ -19,7 +19,10 @@ class NextHolidaysHandler extends BaseCommand
 
     public function handle(): void
     {
-        $crawler = GuzzleClient::request('GET', config('espinoso.url.holidays').now()->year.'?incluir=opcional')->getBody()->getContents();
+        $crawler = GuzzleClient::request(
+            'GET',
+            config('espinoso.url.holidays').now()->year.'?incluir=opcional'
+        )->getBody()->getContents();
         $holidays = collect(json_decode($crawler));
 
         //filtro los feriados ya pasados
@@ -37,8 +40,9 @@ class NextHolidaysHandler extends BaseCommand
 
         $count = $rejectList->count();
 
-        if (!empty($this->matches['size']))
+        if (!empty($this->matches['size'])) {
             $rejectList = $rejectList->take($this->matches['size']);
+        }
 
         $list = $rejectList->map(function (stdClass $holiday) {
             return $this->parseHoliday($holiday);

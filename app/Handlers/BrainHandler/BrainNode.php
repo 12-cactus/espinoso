@@ -16,22 +16,18 @@ class BrainNode
     protected $reply;
     protected $match;
     protected $matches;
-    protected $ignored;
 
     public function __construct(string $regex, array $data = [])
     {
         $this->regex = $regex;
         $this->reply = $data['reply'] ?? '';
-        $this->ignored = collect($data['ignored'] ?? []);
     }
 
     public function matchMessage(Message $message)
     {
         $this->match = preg_match($this->regex, $message->getText(), $this->matches) === 1;
 
-        return !empty($this->reply)
-            && $this->shouldResponseTo($message->getFrom())
-            && $this->match;
+        return !empty($this->reply) && $this->match;
     }
 
     public function pickReply(Message $message)
@@ -39,16 +35,6 @@ class BrainNode
         return is_array($this->reply)
             ? $this->pickFromBag($message)
             : $this->reply;
-    }
-
-    public function addIgnored(Collection $ignored)
-    {
-        $this->ignored->merge($ignored);
-    }
-
-    protected function shouldResponseTo(TelegramUser $from)
-    {
-        return true;
     }
 
     protected function pickFromBag(Message $message)
@@ -62,5 +48,16 @@ class BrainNode
         }
 
         return $reply;
+    }
+
+    /**
+     * @param TelegramUser $from
+     * @return bool
+     */
+    public function shouldIgnoreTo(TelegramUser $from): bool
+    {
+        return collect(__('brain.ignore_to'))->contains(function ($item) use ($from) {
+            return $item == $from->getFirstName() || $item == $from->getUsername();
+        });
     }
 }

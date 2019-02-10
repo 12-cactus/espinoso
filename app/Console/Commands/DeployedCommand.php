@@ -27,11 +27,11 @@ class DeployedCommand extends EspiCommand
     {
         $datetime = Carbon::now();
 
-        $message = "Me deployaron en el server a las {$datetime}.\n\nPasaron estas cosas:\n";
-        $message .= "- git pull: **{$this->textOption('git')}**\n";
-        $message .= "- composer install: **{$this->textOption('composer')}**\n";
-        $message .= "- service reload: **{$this->textOption('reload')}**\n";
-        $message .= "- artisan migrate: **{$this->textOption('migrate')}**";
+        $message = "I was deployed at {$datetime}.\n\nVeníamos bien y pasaron cosas:\n";
+        $message .= "- git pull: *{$this->textOption('git')}*\n";
+        $message .= "- composer install: *{$this->textOption('composer')}*\n";
+        $message .= "- service reload: *{$this->textOption('reload')}*\n";
+        $message .= "- artisan migrate: *{$this->textOption('migrate')}*";
 
         $this->espinoso->sendToDev($message);
     }
