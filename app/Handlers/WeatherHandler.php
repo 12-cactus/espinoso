@@ -28,8 +28,9 @@ class WeatherHandler extends BaseCommand
         }
 
         $cronicaTitleUrl = $this->getCronicaTitleUrlForForecast($forecasts->first());
-        if (!empty($cronicaTitleUrl))
+        if (!empty($cronicaTitleUrl)) {
             $this->espinoso->reply($cronicaTitleUrl);
+        }
 
         $weather = $this->getForecastsDescriptions($forecasts);
         $this->espinoso->reply("está pronosticado " . $weather, 'HTML');
@@ -103,11 +104,13 @@ class WeatherHandler extends BaseCommand
         $titles = $this->cronicalTitlesMapping();
 
         $code = (int)$forecast->weather->id;
-        if (!array_key_exists($code, $titles))
+        if (!array_key_exists($code, $titles)) {
             $code = intdiv($code, 100);
+        }
 
-        if (!array_key_exists($code, $titles))
+        if (!array_key_exists($code, $titles)) {
             return "Dan arreglá este asco de código";
+        }
 
         return $titles[$code];
     }
@@ -118,7 +121,7 @@ class WeatherHandler extends BaseCommand
     protected function cronicalTitlesMapping(): array
     {
         $default = "Dan arreglá este asco de código";
-        $titles = [
+        return [
             2 => "Cuidado con el rayo que te parte al medio!",
             3 => "Atento el que quiere ver gotas!",
             5 => "Lindo dia para ponerla!",
@@ -142,6 +145,5 @@ class WeatherHandler extends BaseCommand
             961 => $default, // violent storm
             962 => $default, // hurricane
         ];
-        return $titles;
     }
 }

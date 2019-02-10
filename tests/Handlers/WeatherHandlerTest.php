@@ -104,7 +104,7 @@ class WeatherHandlerTest extends HandlersTestCase
             ->andReturn([$forecast]);
 
         $text = 'está pronosticado de 00:00 a 23:59 cielo claro con temperaturas entre 10.76 y 16.69 grados';
-        $this->espinoso->shouldReceive('reply')->twice(); //->with($text, 'HTML');
+        $this->espinoso->shouldReceive('reply')->with($text, 'HTML');
 
         $handler = $this->makeHandler();
         $update = $this->makeMessage(['text' => 'espi clima lunes']);

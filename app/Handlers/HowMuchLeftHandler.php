@@ -7,9 +7,7 @@ use Spatie\Emoji\Emoji;
 
 class HowMuchLeftHandler extends MultipleCommand
 {
-
     protected $ignorePrefix = true;
-
     protected $signature   = "cuanto falta?";
     protected $description = "El sueño del Saba";
 
@@ -28,48 +26,47 @@ class HowMuchLeftHandler extends MultipleCommand
 
     protected function handleSabaDay(): void
     {
-        $diff = trans(now()->diffInDays(Carbon::create(now()->year, 03, 18)));
-        //$this->espinoso->reply("{$diff} días");
-        $this->espinoso->reply("Chupala Saba");
+        $this->espinoso->reply("Chupala Sabakuskas");
     }
 
     public function handleMacriDay(): void
     {
-        $diff = trans(now()->diffInDays(Carbon::create(now()->year, 12, 10)));
-        $this->espinoso->reply("{$diff} días");
+        $this->espinoso->reply("{$this->daysTo(2019, 12, 10)} días");
     }
 
     public function handleListDays(): void
     {
-        $diffMacri = trans(now()->diffInDays(Carbon::create(now()->year, 12, 10)));
-        $diffUnq = trans(now()->diffInDays(Carbon::create(now()->year, 03, 18)));
-        $diffGot = trans(now()->diffInDays(Carbon::create(now()->year, 04, 14)));
-        $diffEndGame = trans(now()->diffInDays(Carbon::create(now()->year, 04, 26)));
-        $diffCapMarvel = trans(now()->diffInDays(Carbon::create(now()->year, 03, 8)));
-        $diffDaysGone = trans(now()->diffInDays(Carbon::create(now()->year, 04, 26)));
+        $list = collect([
+            'Captain Marvel' => $this->daysTo(2019, 3, 8),
+            'UNQ' => $this->daysTo(2019, 3, 18),
+            'GOT' => $this->daysTo(2019, 4, 14),
+            'Endgame' => $this->daysTo(2019, 4, 26),
+            'Chau Mau' => $this->daysTo(2019, 12, 10),
+            'Days Gone' => $this->daysTo(2019, 4, 26)
+        ]);
 
-        $list = [
-            'Captain Marvel' => $diffCapMarvel,
-            'UNQ' => $diffUnq,
-            'GOT' => $diffGot,
-            'Endgame' => $diffEndGame,
-            'Chau Mau' => $diffMacri,
-            'Days Done' => $diffDaysGone
-        ];
-
-        $resultList =[];
-        foreach ($list as $key => $value) {
-            if ($value<=0) {
-                $value = 'Llegoooooo';
+        $parsedList = $list->map(function ($days, $key) {
+            $value = "{$days} días";
+            if ($days <= 0) {
+                $value = 'Ya llegó!!';
             }
-            if ($key == 'UNQ') $value = Emoji::CHARACTER_MIDDLE_FINGER;
-            array_push($resultList, "{$key}: {$value} días");
-        }
-
-        $resultList = collect($resultList)->map(function ($item) {
-            return " {$item}";
+            if ($key === 'UNQ') {
+                $value = Emoji::CHARACTER_MIDDLE_FINGER;
+            }
+            return "- {$key}: {$value}";
         })->implode("\n");
 
-        $this->espinoso->reply("{$resultList}");
+        $this->espinoso->reply($parsedList);
+    }
+
+    /**
+     * @param $day
+     * @param $month
+     * @param $year
+     * @return string
+     */
+    protected function daysTo($year, $month, $day)
+    {
+        return now()->diffInDays(Carbon::create($year, $month, $day));
     }
 }

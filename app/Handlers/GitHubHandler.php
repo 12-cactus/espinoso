@@ -33,10 +33,9 @@ class GitHubHandler extends MultipleCommand
             ]
         ]);
 
-        if ($response->getStatusCode() == 201) {
-            $data = json_decode($response->getBody());
-            $text = "[Issue creado!]({$data->html_url})";
-        } else {
+        $data = json_decode($response->getBody());
+        $text = "[Issue creado!]({$data->html_url})";
+        if ($response->getStatusCode() !== 201) {
             $text = "No pude crear el issue, status ".$response->getStatusCode()."\n";
             $text .= $response->getBody();
         }
@@ -56,10 +55,11 @@ class GitHubHandler extends MultipleCommand
         $repo   = config('github.issues');
         $items  = collect(json_decode($response->getBody()));
 
-        if (!empty($this->matches['query']))
+        if (!empty($this->matches['query'])) {
             $items = $items->filter(function ($issue) {
                 return strrpos($issue->title, $this->matches['query']);
             });
+        }
 
         $issues = $items->map(function (stdClass $issue) {
             return "[#{$issue->number}]({$issue->html_url}) {$issue->title}";

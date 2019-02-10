@@ -6,11 +6,12 @@ use Exception;
 use App\Facades\GuzzleClient;
 use App\Handlers\BaseHandler;
 use App\DeliveryServices\EspinosoDeliveryInterface;
-use Illuminate\Support\Facades\Log;
+use Psr\Http\Message\StreamInterface;
 use Telegram\Bot\Objects\Chat;
 use Telegram\Bot\Objects\Message;
 use Telegram\Bot\Objects\User as UserObject;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -173,21 +174,11 @@ class Espinoso
     public function transcribe(Message $message)
     {
         $this->message = $message;
-
         $voice   = $message->getVoice();
-        $fileId = $voice->getFileId();
+        $fileId  = $voice->getFileId();
         $stream  = $this->delivery->getVoiceStream($voice);
-        $chat = $message->getChat();
-
-        // Save as ogg (Telegram audio format)
-        // and convert it to wav (Voice format required)
-        Storage::put("{$fileId}.ogg", $stream->getContents());
-        $fileIn  = storage_path("app/{$fileId}.ogg");
-        $fileOut = storage_path("app/{$fileId}.wav");
-        @exec("ffmpeg -y -i {$fileIn} {$fileOut} 2> /dev/null");
-        $audio = Storage::get("{$fileId}.wav");
-        @exec("rm -f {$fileIn} 2> /dev/null");
-        @exec("rm -f {$fileOut} 2> /dev/null");
+        $chat    = $message->getChat();
+        $audio   = $this->saveAndConvertAudio($fileId, $stream);
 
         try {
             // Get transcription
@@ -237,5 +228,24 @@ class Espinoso
     protected function hasRegisteredChat(Chat $chat): bool
     {
         return $this->delivery->hasRegisteredChat($chat);
+    }
+
+    /**
+     * @param string $fileId
+     * @param StreamInterface $stream
+     * @return mixed
+     */
+    protected function saveAndConvertAudio(string $fileId, StreamInterface $stream)
+    {
+        // Save as ogg (Telegram audio format)
+        // and convert it to wav (Voice format required)
+        Storage::put("{$fileId}.ogg", $stream->getContents());
+        $fileIn = storage_path("app/{$fileId}.ogg");
+        $fileOut = storage_path("app/{$fileId}.wav");
+        @exec("ffmpeg -y -i {$fileIn} {$fileOut} 2> /dev/null");
+        $audio = Storage::get("{$fileId}.wav");
+        @exec("rm -f {$fileIn} 2> /dev/null");
+        @exec("rm -f {$fileOut} 2> /dev/null");
+        return $audio;
     }
 }

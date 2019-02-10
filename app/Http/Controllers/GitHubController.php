@@ -23,7 +23,7 @@ class GitHubController extends Controller
      */
     public function commitsWebhook(TelegramDelivery $telegram, Espinoso $espinoso)
     {
-        sleep(10);
+        sleep(5);
 
         $espinoso->setDelivery($telegram);
 

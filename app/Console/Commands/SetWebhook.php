@@ -39,11 +39,12 @@ class SetWebhook extends Command
 
         if ($url == $route) {
             $this->error('ngrok is not running...');
-        } else {
-            $data = shell_exec("wget --method=POST -q -O - {$url}");
-            $data == '[true]'
-                ? $this->info('Done!')
-                : $this->error('something is wrong, check ./storage/logs/ to find the error');
+            return;
         }
+
+        $data = shell_exec("wget --method=POST -q -O - {$url}");
+        $data == '[true]'
+            ? $this->info('Done!')
+            : $this->error('something is wrong, check ./storage/logs/ to find the error');
     }
 }

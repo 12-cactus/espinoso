@@ -44,7 +44,6 @@ class BrainHandler extends BaseHandler
         $this->message = $message;
 
         $this->matchedNodes = $this->allNodes->filter(function ($node) {
-            $node->addIgnored($this->globalIgnored());
             return $node->matchMessage($this->message);
         });
 
@@ -57,19 +56,11 @@ class BrainHandler extends BaseHandler
     public function handle(): void
     {
         $this->matchedNodes->each(function (BrainNode $node) {
+            if ($node->shouldIgnoreTo($this->message->getFrom())) {
+                $this->espinoso->reply("Con vos no hablo, putite");
+                return;
+            }
             $this->espinoso->reply($node->pickReply($this->message));
         });
-    }
-
-    /*
-     * Internals
-     */
-
-    /**
-     * @return \Illuminate\Support\Collection
-     */
-    protected function globalIgnored()
-    {
-        return collect(trans('brain.ignore_to'));
     }
 }
