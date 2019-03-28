@@ -82,13 +82,13 @@ return [
         'OPM Botón!!',
         'Leandro me tenés la bolas llenas!',
         'Agus careta, no trajiste nada de europa',
-        'Y la birra casera agustín, cara de cajeta?'
+        'Y la birra casera agustín, cara de cajeta?',
         'Markis esa panza sigue creciendo?',
-        'Es cierto que marcos tiene olor a humedad?'
+        'Es cierto que marcos tiene olor a humedad?',
         'Sir, como anda la cope "dibase"?',
         'Quiero probar el matambrito de dami!',
         'Ine garca, no me querés programar',
-        'Inesita ya mandaste a alguien a googlear hoy?'
+        'Inesita ya mandaste a alguien a googlear hoy?',
         'Pipi seguís tan puto como siempre?',
         'El forrito de pipi sigue sin invitarnos a su pileta?',
         'El viejo wyry! cómo va old man?',
