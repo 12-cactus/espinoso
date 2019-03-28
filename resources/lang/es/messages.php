@@ -71,17 +71,27 @@ return [
     'hi' => [
         'Sabakuskas Botón!',
         'Facu puto',
+        'facu, seguimos sin probar esas empanadas de carne...',
         'Hola lunarcito',
         'Maru mamasitaaaa',
+        'Che Maru, largá la paja y anotate en la Licenciatura',
         'Anita amarillita jajaja',
         'Pauuuulaaaaa doooonde eeeeeestaaaaaas??',
+        'Paula no está, paula se fue, paula se escapa de mi vidaaaaa',
         'Alan extraño tus manos en mi código',
         'OPM Botón!!',
-        'Agus careta, traé algo de europa',
+        'Leandro me tenés la bolas llenas!',
+        'Agus careta, no trajiste nada de europa',
+        'Y la birra casera agustín, cara de cajeta?'
         'Markis esa panza sigue creciendo?',
+        'Es cierto que marcos tiene olor a humedad?'
         'Sir, como anda la cope "dibase"?',
+        'Quiero probar el matambrito de dami!',
         'Ine garca, no me querés programar',
+        'Inesita ya mandaste a alguien a googlear hoy?'
         'Pipi seguís tan puto como siempre?',
-        'El viejo wyry! cómo va old man?'
+        'El forrito de pipi sigue sin invitarnos a su pileta?',
+        'El viejo wyry! cómo va old man?',
+        'Cómo andan esas matrimillas Dan? Ya te dejan salir a jugar?'
     ],
 ];
