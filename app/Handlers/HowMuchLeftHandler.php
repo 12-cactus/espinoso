@@ -48,10 +48,7 @@ class HowMuchLeftHandler extends MultipleCommand
         $parsedList = $list->map(function ($days, $key) {
             $value = "{$days} días";
             if ($days <= 0) {
-                $value = 'Ya llegó!!';
-            }
-            if ($key === 'UNQ') {
-                $value = Emoji::CHARACTER_MIDDLE_FINGER;
+                $value = 'Ya pasó amigue!';
             }
             return "- {$key}: {$value}";
         })->implode("\n");
@@ -67,6 +64,7 @@ class HowMuchLeftHandler extends MultipleCommand
      */
     protected function daysTo($year, $month, $day)
     {
-        return now()->diffInDays(Carbon::create($year, $month, $day));
+        $date = Carbon::create($year, $month, $day);
+        return $date < now() ? -1 : now()->diffInDays($date);
     }
 }
