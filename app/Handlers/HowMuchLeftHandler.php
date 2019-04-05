@@ -19,12 +19,15 @@ class HowMuchLeftHandler extends MultipleCommand
             'name' => 'macri-day',
             'pattern' => "chau macri?"
         ],[
+            'name' => 'got-day',
+            'pattern' => "cuanto falta got?"
+        ],[
             'name' => 'list-days',
             'pattern' => "cuanto falta?"
         ],
         ];
 
-    protected function handleSabaDay(): void
+    public function handleSabaDay(): void
     {
         $this->espinoso->reply("Chupala Sabakuskas");
     }
@@ -32,6 +35,13 @@ class HowMuchLeftHandler extends MultipleCommand
     public function handleMacriDay(): void
     {
         $this->espinoso->reply("{$this->daysTo(2019, 12, 10)} días");
+    }
+    
+    public function handleGotDay(): void
+    {
+        $days = $this->daysTo(2019, 4, 14);
+        $message = $days > 0 ? "Winter Is Coming!! - {$days} días!!" : "Winter is Here!!!!";
+        $this->espinoso->reply($message);
     }
 
     public function handleListDays(): void
