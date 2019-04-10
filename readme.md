@@ -103,7 +103,7 @@ $ vagrant ssh
 homestead:$ cd espinoso
 homestead:$ cp .env.example .env
 homestead:$ composer install
-homestead:$ artsisan key:generate
+homestead:$ artisan key:generate
 ```
 
 Open `.env` and search `TELEGRAM_BOT_TOKEN` key.
