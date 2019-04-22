@@ -86,6 +86,21 @@ class Espinoso
     }
 
     /**
+     * @param string $gif
+     * @param string $format
+     * @param array $options
+     */
+    public function sendGifToCactus(string $gif, string $format = 'Markdown', array $options = []): void
+    {
+        $params = array_merge($options, [
+            'chat_id'  => config('espinoso.chat.12c'),
+            'document' => $gif,
+        ]);
+
+        $this->delivery->sendGif($params);
+    }
+
+    /**
      * @param string $text
      * @param string $format
      * @param array $options

@@ -36,6 +36,10 @@ class Kernel extends ConsoleKernel
         $schedule->command('espi:got')
             ->dailyAt('10:14')
             ->between(Carbon::create(2019, 4, 5), Carbon::create(2019, 4, 17));
+        $schedule->command('espi:dracarys')
+            ->sundays()
+            ->at('22:00')
+            ->between(Carbon::create(2019, 4, 5), Carbon::create(2019, 5, 20));
         $schedule->command('espi:agenda')->dailyAt('10:00');
     }
 
