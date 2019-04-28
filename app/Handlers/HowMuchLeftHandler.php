@@ -47,12 +47,9 @@ class HowMuchLeftHandler extends MultipleCommand
     public function handleListDays(): void
     {
         $list = collect([
-            'Captain Marvel' => $this->daysTo(2019, 3, 8),
-            'UNQ' => $this->daysTo(2019, 3, 18),
-            'GOT' => $this->daysTo(2019, 4, 14),
-            'Endgame' => $this->daysTo(2019, 4, 26),
             'Chau Mau' => $this->daysTo(2019, 12, 10),
-            'Days Gone' => $this->daysTo(2019, 4, 26)
+            'John Wick 3' => $this->daysTo(2019, 5, 16),
+            'Dark 2da Temp' => $this->daysTo(2019, 6, 21)
         ]);
 
         $parsedList = $list->map(function ($days, $key) {
