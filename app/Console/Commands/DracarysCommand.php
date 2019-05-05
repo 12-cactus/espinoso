@@ -27,6 +27,7 @@ class DracarysCommand extends EspiCommand
             return $gif['video'] == 'dracarys.mp4';
         });
 
+        $this->espinoso->sendToCactus($this->description);
         $this->espinoso->sendGifToCactus(public_path('gifs/'.$gif['video']));
      }
 }

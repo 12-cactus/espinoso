@@ -2,11 +2,10 @@
 
 namespace App\Console;
 
+use Carbon\Carbon;
 use App\Console\Commands\HiCommand;
 use App\Console\Commands\SetWebhook;
 use App\Console\Commands\ScheduleCommand;
-use App\Console\Commands\GOTCountdownCommand;
-use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -21,26 +20,30 @@ class Kernel extends ConsoleKernel
         HiCommand::class,
         SetWebhook::class,
         ScheduleCommand::class,
-        GOTCountdownCommand::class,
     ];
 
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @param Schedule $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('espi:hi')->twiceDaily(13, 22);
-        $schedule->command('espi:got')
-            ->dailyAt('10:14')
-            ->between(Carbon::create(2019, 4, 5), Carbon::create(2019, 4, 17));
+        // Temporal para no pisar el dracarys de GOT
+        $schedule->command('espi:hi')
+            ->weekdays()
+            ->saturdays()
+            ->twiceDaily(13, 22);
+        $schedule->command('espi:hi')->sundays()->at('13:00');
+
         $schedule->command('espi:dracarys')
             ->sundays()
             ->at('22:00')
             ->between(Carbon::create(2019, 4, 5), Carbon::create(2019, 5, 20));
-        $schedule->command('espi:agenda')->dailyAt('10:00');
+
+        $schedule->command('espi:agenda')->weekdays()->at('8:00');
+        $schedule->command('espi:agenda')->weekends()->at('10:00');
     }
 
     /**
