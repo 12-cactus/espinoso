@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\DeployedCommand;
 use Carbon\Carbon;
 use App\Console\Commands\HiCommand;
 use App\Console\Commands\SetWebhook;
@@ -19,6 +20,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         HiCommand::class,
         SetWebhook::class,
+        DeployedCommand::class,
         ScheduleCommand::class,
     ];
 
@@ -30,18 +32,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // Temporal para no pisar el dracarys de GOT
-        $schedule->command('espi:hi')
-            ->weekdays()
-            ->saturdays()
-            ->twiceDaily(13, 22);
-        $schedule->command('espi:hi')->sundays()->at('13:00');
-
-        $schedule->command('espi:dracarys')
-            ->sundays()
-            ->at('22:00')
-            ->between(Carbon::create(2019, 4, 5), Carbon::create(2019, 5, 20));
-
+        $schedule->command('espi:hi')->twiceDaily(13, 22);
         $schedule->command('espi:agenda')->weekdays()->at('8:00');
         $schedule->command('espi:agenda')->weekends()->at('10:00');
     }

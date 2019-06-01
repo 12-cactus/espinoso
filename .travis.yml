@@ -29,7 +29,6 @@ script:
   - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
 
 after_success:
-  - echo "$SERVER_KEY"
   - bash .travis/deploy.sh
 
 notifications:
