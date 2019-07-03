@@ -32,7 +32,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('espi:hi')->twiceDaily(13, 22);
+        //$schedule->command('espi:hi')->twiceDaily(13, 22);
         $schedule->command('espi:agenda')->weekdays()->at('8:00');
         $schedule->command('espi:agenda')->weekends()->at('10:00');
     }
